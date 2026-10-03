@@ -2,6 +2,30 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Added a `Content-Security-Policy` to every published page (same-origin scripts only; the 404 page's inline script is allowed by hash), enforced by the site audit.
+- Added `tests/audit-regressions.mjs` and a nested-URL 404 check in the offline suite; both run in CI.
+
+### Changed
+
+- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v76`.
+- Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
+
+### Fixed
+
+- The 404 page loaded no styles or scripts and linked to missing pages when GitHub Pages served it below a subdirectory.
+- Tool search on the home page and in the command palette now matches the Turkish dotted capital İ; case-insensitive line de-duplication folds İ and i together.
+- The command palette showed English descriptions for 38 tools in Turkish.
+- Markdown preview: multi-column tables and numbered lists render, and code, link URLs and image alt text are no longer rewritten by emphasis rules.
+- Base64 to Image enables Download after a successful preview.
+- File Checksum always shows the most recently selected file, and its description no longer mentions MD5.
+- Image Compressor releases the previous result's memory on each run.
+- Password Strength no longer claims to check breach databases.
+- Text Reverser's status message names the mode in the interface language.
+
 ## [1.2.0] — 2026-09-19
 
 ### Added
