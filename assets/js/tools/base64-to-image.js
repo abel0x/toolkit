@@ -16,14 +16,16 @@
     if (!raw.startsWith('data:')) {
       raw = 'data:image/png;base64,' + raw.replace(/\s+/g, '');
     }
+    downloadBtn.disabled = true;
     previewEl.onload = () => {
       infoEl.textContent = `Dimensions: ${previewEl.naturalWidth}×${previewEl.naturalHeight}px · Detected type: ${raw.split(';')[0].replace('data:','')}`;
       previewEl.style.display = 'block';
-      downloadBtn.style.display = 'inline-flex';
+      downloadBtn.disabled = false;
     };
     previewEl.onerror = () => {
       showToast('Invalid Base64 image data', 'error');
       previewEl.style.display = 'none';
+      infoEl.textContent = '';
     };
     previewEl.src = raw;
   }
