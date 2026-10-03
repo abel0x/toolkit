@@ -1,4 +1,5 @@
 (function initJsMinifier() {
+  'use strict';
   const inputEl = document.getElementById('jsmin-input');
   const outputEl = document.getElementById('jsmin-output');
   const minifyBtn = document.getElementById('jsmin-btn');
@@ -7,32 +8,41 @@
   if (!inputEl) return;
 
   function minifyJs(code) {
-    // Preserve strings and regex literals, then strip comments
-    const strings = [];
-    let s = code;
-
-    // Replace string literals with placeholders
-    s = s.replace(/(["'`])((?:\\[\s\S]|(?!\1)[^\\])*)\1/g, (m) => {
-      strings.push(m);
-      return `\x00STR${strings.length - 1}\x00`;
-    });
-
-    // Remove single-line comments
-    s = s.replace(/\/\/[^\n]*/g, '');
-    // Remove block comments (but not /* preserved */ style — just remove all)
-    s = s.replace(/\/\*[\s\S]*?\*\//g, '');
-    // Collapse whitespace and newlines
-    s = s.replace(/[ \t]+/g, ' ');
-    s = s.replace(/\n[ \t]*/g, '\n');
-    s = s.replace(/\n+/g, '\n');
-    // Remove spaces around operators
-    s = s.replace(/ *([\=\+\-\*\/\%\!\&\|\?\:\,\;\{\}\(\)\[\]\<\>]) */g, '$1');
-    s = s.trim();
-
-    // Restore string literals
-    s = s.replace(/\x00STR(\d+)\x00/g, (_, i) => strings[parseInt(i)]);
-
-    return s;
+    let result = '';
+    let index = 0;
+    // Keep token separators and every line terminator (automatic semicolon insertion).
+    // Regex/division and template interpolation need a parser. Preserve that suffix
+    // verbatim instead of guessing its grammar or executing any user-supplied code.
+    while (index < code.length) {
+      const character = code[index];
+      if (character === '`' || (character === '/' && !['/', '*'].includes(code[index + 1]))) {
+        return result + code.slice(index);
+      }
+      if (character === '"' || character === "'") {
+        const start = index++;
+        while (index < code.length) {
+          const next = code[index++];
+          if (next === '\\') index += 1;
+          else if (next === character) break;
+        }
+        result += code.slice(start, index);
+      } else if (code.startsWith('//', index)) {
+        while (index < code.length && !/[\r\n\u2028\u2029]/u.test(code[index])) index += 1;
+      } else if (code.startsWith('/*', index)) {
+        const end = code.indexOf('*/', index + 2);
+        if (end === -1) return result + code.slice(index);
+        const comment = code.slice(index, end + 2);
+        result += comment.startsWith('/*!') ? comment : (comment.match(/[\r\n\u2028\u2029]/gu) || [' ']).join('');
+        index = end + 2;
+      } else if (character === ' ' || character === '\t') {
+        if (result && !/[ \t\r\n]$/.test(result)) result += ' ';
+        while (code[index] === ' ' || code[index] === '\t') index += 1;
+      } else {
+        result += character;
+        index += 1;
+      }
+    }
+    return result.trim();
   }
 
   function minify() {

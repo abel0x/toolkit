@@ -12,12 +12,24 @@
 
   if (!inputEl) return;
 
+  var encoder = new TextEncoder();
+  var decoder = new TextDecoder('utf-8', { fatal: true });
+
+  function decodeUtf8(bytes) {
+    try {
+      return decoder.decode(new Uint8Array(bytes));
+    } catch {
+      throw new Error('Decoded bytes are not valid UTF-8.');
+    }
+  }
+
   // ─── Encode ────────────────────────────────────────────────────────────────
   function textToBinary(str) {
     var sep  = spacesChk.checked ? ' ' : '';
     var bins = [];
-    for (var i = 0; i < str.length; i++) {
-      bins.push(str.charCodeAt(i).toString(2).padStart(8, '0'));
+    var bytes = encoder.encode(str);
+    for (var i = 0; i < bytes.length; i++) {
+      bins.push(bytes[i].toString(2).padStart(8, '0'));
     }
     return bins.join(sep);
   }
@@ -35,13 +47,13 @@
       parts = clean.match(/.{1,8}/g) || [];
     }
 
-    var chars = [];
+    var bytes = [];
     for (var i = 0; i < parts.length; i++) {
       var byte = parts[i];
-      if (!/^[01]{8}$/.test(byte)) throw new Error('Invalid binary byte: "' + byte + '"');
-      chars.push(String.fromCharCode(parseInt(byte, 2)));
+      if (!/^[01]{8}$/.test(byte)) throw new Error('Invalid binary byte.');
+      bytes.push(parseInt(byte, 2));
     }
-    return chars.join('');
+    return decodeUtf8(bytes);
   }
 
   // ─── Events ────────────────────────────────────────────────────────────────

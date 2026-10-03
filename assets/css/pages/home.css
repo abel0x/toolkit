@@ -253,24 +253,45 @@
 
 /* Category filter tabs */
 .hub-filter {
-  display: flex;
-  justify-content: center;
-  gap: .45rem;
-  flex-wrap: wrap;
+  max-width: 100%;
   margin-top: 1.4rem;
+  overflow-x: auto;
+  padding: 0.1rem 0 0.4rem;
+  scrollbar-width: thin;
+}
+
+.hub-filter-track {
+  display: flex;
+  gap: .4rem;
+  margin-inline: auto;
+  width: max-content;
 }
 
 .hub-filter-btn {
-  padding: .35rem .95rem;
+  flex: 0 0 auto;
+  padding: .35rem .78rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
-  font-size: .79rem;
+  font-size: .76rem;
   font-family: var(--font-ui);
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition);
+}
+
+.hub-filter::-webkit-scrollbar {
+  height: 0.4rem;
+}
+
+.hub-filter::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hub-filter::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: var(--radius-full);
 }
 
 .hub-filter-btn:hover,
@@ -278,6 +299,12 @@
   background: rgba(0,212,255,.1);
   border-color: rgba(0,212,255,.5);
   color: var(--cyan);
+}
+
+.hub-filter-btn:focus-visible {
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
 }
 
 /* Tool card grid */
@@ -403,6 +430,7 @@
   .br-hide { display: none; }
   .hero-actions { flex-direction: column; align-items: center; }
   .hero-actions .btn { width: 220px; }
+  .hub-filter-track { margin-inline: 0; }
 }
 
 @media (max-width: 600px) {

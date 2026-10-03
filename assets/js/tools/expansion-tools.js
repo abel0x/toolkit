@@ -556,16 +556,28 @@
   }
 
   function initImageCompressor() {
-    render(`<label class="form-label" for="imageCompressInput">Image file</label><input id="imageCompressInput" type="file" class="form-control" accept="image/*" /><div class="tool-split" style="margin-top:1rem"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div></div><button class="btn btn-primary" id="imageCompressRun" style="margin-top:1rem">Compress image</button><div id="imageCompressResult" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="imageCompressInput">Image file</label><div class="file-picker-row"><div class="file-picker"><input id="imageCompressInput" type="file" class="sr-only file-picker__input" accept="image/*" aria-describedby="imageCompressFileName" /><label class="btn btn-secondary file-picker__trigger" for="imageCompressInput"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Choose image file</span></label><span class="file-picker__name" id="imageCompressFileName" data-i18n-skip aria-live="polite">No file selected</span></div></div><div class="tool-split"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div></div><button class="btn btn-primary" id="imageCompressRun" style="margin-top:1rem">Compress image</button><div id="imageCompressResult" class="expansion-results" style="margin-top:1rem" hidden></div>`, () => {
+      const input = $('#imageCompressInput');
+      const fileName = $('#imageCompressFileName');
+      function updateFileName() {
+        const file = input.files[0];
+        fileName.textContent = file ? file.name : t('No file selected');
+        fileName.title = file ? file.name : '';
+      }
+      updateFileName();
+      input.addEventListener('change', updateFileName);
+      window.addEventListener('toolkit:languagechange', () => {
+        if (!input.files[0]) updateFileName();
+      });
       $('#imageCompressRun').addEventListener('click', () => {
-        const file = $('#imageCompressInput').files[0]; if (!file) return toast('Choose an image file.', 'error');
+        const file = input.files[0]; if (!file) return toast('Choose an image file.', 'error');
         const image = new Image(); const url = URL.createObjectURL(file);
         image.onload = () => {
           const maxWidth = Math.max(1, Number($('#imageMaxWidth').value) || image.width); const ratio = Math.min(1, maxWidth / image.width);
           const canvas = document.createElement('canvas'); canvas.width = Math.round(image.width * ratio); canvas.height = Math.round(image.height * ratio); canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
           const type = $('#imageFormat').value; canvas.toBlob((blob) => {
             URL.revokeObjectURL(url); if (!blob) return toast('This format is not supported by your browser.', 'error');
-            const href = URL.createObjectURL(blob); const result = $('#imageCompressResult'); result.textContent = '';
+            const href = URL.createObjectURL(blob); const result = $('#imageCompressResult'); result.textContent = ''; result.hidden = false;
             const info = document.createElement('p'); info.textContent = `${image.width}×${image.height} → ${canvas.width}×${canvas.height}; ${Math.round(file.size / 1024)} KB → ${Math.round(blob.size / 1024)} KB.`;
             const link = document.createElement('a'); link.className = 'btn btn-secondary'; link.href = href; link.download = `compressed.${type.split('/')[1]}`; link.textContent = 'Download compressed image'; result.append(info, link);
           }, type, Math.min(1, Math.max(0.01, Number($('#imageQuality').value) / 100)));
@@ -576,7 +588,7 @@
   }
 
   function initSitemapGenerator() {
-    render(`<label class="form-label" for="sitemapUrls">URLs (one per line)</label><textarea id="sitemapUrls" class="form-control font-mono" rows="11" placeholder="https://example.com/\nhttps://example.com/about"></textarea><div class="tool-split" style="margin-top:1rem"><div><label class="form-label" for="sitemapFreq">Change frequency</label><select id="sitemapFreq" class="form-control form-select"><option>weekly</option><option>monthly</option><option>daily</option></select></div><div><label class="form-label" for="sitemapPriority">Priority</label><select id="sitemapPriority" class="form-control form-select"><option>0.8</option><option>1.0</option><option>0.5</option></select></div></div><div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="sitemapRun">Generate sitemap.xml</button><button class="btn btn-secondary" id="sitemapDownload">Download</button></div>${outputArea('sitemapOutput', 14)}`, () => {
+    render(`<label class="form-label" for="sitemapUrls">URLs (one per line)</label><textarea id="sitemapUrls" class="form-control font-mono" rows="11" placeholder="https://example.com/\nhttps://example.com/about"></textarea><div class="tool-split" style="margin-top:1rem"><div><label class="form-label" for="sitemapFreq">Change frequency</label><select id="sitemapFreq" class="form-control form-select"><option value="weekly">weekly</option><option value="monthly">monthly</option><option value="daily">daily</option></select></div><div><label class="form-label" for="sitemapPriority">Priority</label><select id="sitemapPriority" class="form-control form-select"><option>0.8</option><option>1.0</option><option>0.5</option></select></div></div><div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="sitemapRun">Generate sitemap.xml</button><button class="btn btn-secondary" id="sitemapDownload">Download</button></div>${outputArea('sitemapOutput', 14)}`, () => {
       $('#sitemapRun').addEventListener('click', () => {
         try {
           const urls = [...new Set($('#sitemapUrls').value.split('\n').map((line) => line.trim()).filter(Boolean).map((value) => new URL(value).href))];

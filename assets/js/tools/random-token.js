@@ -4,7 +4,6 @@
   const lengthSlider  = document.getElementById('rtLength');
   const lengthDisplay = document.getElementById('rtLengthVal');
   const formatSelect  = document.getElementById('rtFormat');
-  const countInput    = document.getElementById('rtCount');
   const genBtn        = document.getElementById('rtGenBtn');
   const outputArea    = document.getElementById('rtOutput');
   const copyBtn       = document.getElementById('rtCopyBtn');
@@ -25,6 +24,14 @@
     return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 
+  function base64Token(byteLen) {
+    const arr = new Uint8Array(byteLen);
+    crypto.getRandomValues(arr);
+    let binary = '';
+    arr.forEach((byte) => { binary += String.fromCharCode(byte); });
+    return btoa(binary);
+  }
+
   function alphanumToken(charLen) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -35,12 +42,12 @@
   function generate() {
     const len    = parseInt(lengthSlider ? lengthSlider.value : 32, 10);
     const fmt    = formatSelect ? formatSelect.value : 'hex';
-    const count  = Math.min(Math.max(parseInt(countInput ? countInput.value : 1, 10) || 1, 1), 100);
+    const count  = 1;
     const tokens = [];
 
     for (let i = 0; i < count; i++) {
       if (fmt === 'hex')              tokens.push(hexToken(len));
-      else if (fmt === 'base64')     tokens.push(btoa(String.fromCharCode(...new Uint8Array(len).map(() => (crypto.getRandomValues(new Uint8Array(1))[0])))));
+      else if (fmt === 'base64')     tokens.push(base64Token(len));
       else if (fmt === 'base64url')  tokens.push(base64urlToken(len));
       else                           tokens.push(alphanumToken(len));
     }

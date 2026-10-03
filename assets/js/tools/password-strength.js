@@ -11,6 +11,10 @@
 
   const COMMON = ['password','123456','qwerty','letmein','admin','welcome','monkey','dragon','1234567890','abc123'];
 
+  function t(key) {
+    return window.ToolkitI18n ? window.ToolkitI18n.t(key) : key;
+  }
+
   function entropy(pw) {
     const set = new Set(pw.split(''));
     return pw.length * Math.log2(set.size || 1);
@@ -55,17 +59,31 @@
     if (!pw) {
       if (meter) { meter.style.width = '0%'; meter.style.background = ''; }
       if (label) label.textContent = '';
-      if (feedback) feedback.innerHTML = '';
+      if (feedback) feedback.replaceChildren();
       return;
     }
     const pct = (result.score / result.max) * 100;
     if (meter) { meter.style.width = pct + '%'; meter.style.background = result.color; }
-    if (label) { label.textContent = result.label; label.style.color = result.color; }
+    if (label) { label.textContent = t(result.label); label.style.color = result.color; }
     if (feedback) {
-      feedback.innerHTML = result.hints.length
-        ? result.hints.map(h => `<li>${escapeHTML(h)}</li>`).join('')
-        : '<li style="color:var(--green)">Looks good! ✓</li>';
+      const hints = result.hints.length ? result.hints : ['Looks good!'];
+      feedback.replaceChildren(...hints.map((hint) => {
+        const item = document.createElement('li');
+        item.textContent = t(hint);
+        if (!result.hints.length) {
+          item.textContent += ' ✓';
+          item.style.color = 'var(--green)';
+        }
+        return item;
+      }));
     }
+  }
+
+  function updateVisibilityControl() {
+    if (!toggleBtn) return;
+    const labelText = input.type === 'password' ? 'Show password' : 'Hide password';
+    toggleBtn.setAttribute('aria-label', t(labelText));
+    toggleBtn.title = t(labelText);
   }
 
   input.addEventListener('input', () => render(input.value));
@@ -73,7 +91,14 @@
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       input.type = input.type === 'password' ? 'text' : 'password';
-      toggleBtn.textContent = input.type === 'password' ? 'Show' : 'Hide';
+      updateVisibilityControl();
     });
   }
+
+  window.addEventListener('toolkit:languagechange', () => {
+    render(input.value);
+    updateVisibilityControl();
+  });
+
+  updateVisibilityControl();
 })();

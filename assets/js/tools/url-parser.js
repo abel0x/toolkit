@@ -46,7 +46,7 @@
       const val = url[f.key] || '—';
       html += `<div style="background:rgba(0,0,0,.25);border-radius:.5rem;padding:.75rem 1rem;">
         <div style="font-size:.75rem;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:.25rem;">${f.label}</div>
-        <div class="font-mono" style="font-size:.875rem;word-break:break-all;">${escapeHTML(val)}</div>
+        <div class="font-mono" style="font-size:.875rem;word-break:break-all;" data-i18n-skip>${escapeHTML(val)}</div>
         <div class="url-copy-slot" data-url-copy="${f.key}"></div>
       </div>`;
     });
@@ -69,8 +69,8 @@
     thtml += '<thead><tr><th style="text-align:left;padding:.4rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">Key</th><th style="text-align:left;padding:.4rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">Value</th><th></th></tr></thead><tbody>';
     params.forEach(([k, v], index) => {
       thtml += `<tr>
-        <td class="font-mono" style="padding:.35rem .6rem;color:var(--accent-cyan,#00d4ff);">${escapeHTML(k)}</td>
-        <td class="font-mono" style="padding:.35rem .6rem;word-break:break-all;">${escapeHTML(v)}</td>
+        <td class="font-mono" style="padding:.35rem .6rem;color:var(--accent-cyan,#00d4ff);" data-i18n-skip>${escapeHTML(k)}</td>
+        <td class="font-mono" style="padding:.35rem .6rem;word-break:break-all;" data-i18n-skip>${escapeHTML(v)}</td>
         <td class="url-param-copy" style="padding:.35rem .6rem;" data-param-copy="${index}"></td>
       </tr>`;
     });

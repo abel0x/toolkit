@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-09-26",
+  "languages": [
+    {
+      "code": "tr",
+      "nativeName": "Türkçe",
+      "englishName": "Turkish",
+      "direction": "ltr",
+      "categories": [
+        {
+          "id": "common-200",
+          "file": "tr/common-200.json",
+          "label": "Most Common 200",
+          "group": "Core",
+          "type": "words",
+          "count": 200,
+          "order": 10
+        },
+        {
+          "id": "common-1000",
+          "file": "tr/common-1000.json",
+          "label": "Most Common 1000",
+          "group": "Core",
+          "type": "words",
+          "count": 1000,
+          "order": 20
+        },
+        {
+          "id": "idioms",
+          "file": "tr/idioms.json",
+          "label": "Idioms",
+          "group": "Core",
+          "type": "words",
+          "count": 331,
+          "order": 30
+        },
+        {
+          "id": "quotes",
+          "file": "tr/quotes.json",
+          "label": "Quotes",
+          "group": "Core",
+          "type": "quotes",
+          "count": 146,
+          "order": 40
+        },
+        {
+          "id": "cities",
+          "file": "tr/cities.json",
+          "label": "Provinces",
+          "group": "Places",
+          "type": "words",
+          "count": 81,
+          "order": 10
+        },
+        {
+          "id": "districts",
+          "file": "tr/districts.json",
+          "label": "Districts",
+          "group": "Places",
+          "type": "words",
+          "count": 300,
+          "order": 20
+        },
+        {
+          "id": "medical",
+          "file": "tr/medical.json",
+          "label": "Medical Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 546,
+          "order": 10
+        },
+        {
+          "id": "legal",
+          "file": "tr/legal.json",
+          "label": "Legal Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 650,
+          "order": 20
+        },
+        {
+          "id": "finance",
+          "file": "tr/finance.json",
+          "label": "Finance Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 503,
+          "order": 30
+        },
+        {
+          "id": "programming",
+          "file": "tr/programming.json",
+          "label": "Programming Terms",
+          "group": "Technical",
+          "type": "words",
+          "count": 446,
+          "order": 10
+        }
+      ]
+    },
+    {
+      "code": "en",
+      "nativeName": "English",
+      "englishName": "English",
+      "direction": "ltr",
+      "categories": [
+        {
+          "id": "common-200",
+          "file": "en/common-200.json",
+          "label": "Most Common 200",
+          "group": "Core",
+          "type": "words",
+          "count": 200,
+          "order": 10
+        },
+        {
+          "id": "common-1000",
+          "file": "en/common-1000.json",
+          "label": "Most Common 1000",
+          "group": "Core",
+          "type": "words",
+          "count": 1000,
+          "order": 20
+        },
+        {
+          "id": "idioms",
+          "file": "en/idioms.json",
+          "label": "Idioms",
+          "group": "Core",
+          "type": "words",
+          "count": 339,
+          "order": 30
+        },
+        {
+          "id": "quotes",
+          "file": "en/quotes.json",
+          "label": "Quotes",
+          "group": "Core",
+          "type": "quotes",
+          "count": 146,
+          "order": 40
+        },
+        {
+          "id": "cities",
+          "file": "en/cities.json",
+          "label": "Cities",
+          "group": "Places",
+          "type": "words",
+          "count": 240,
+          "order": 10
+        },
+        {
+          "id": "countries",
+          "file": "en/countries.json",
+          "label": "Countries",
+          "group": "Places",
+          "type": "words",
+          "count": 196,
+          "order": 20
+        },
+        {
+          "id": "medical",
+          "file": "en/medical.json",
+          "label": "Medical Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 1300,
+          "order": 10
+        },
+        {
+          "id": "legal",
+          "file": "en/legal.json",
+          "label": "Legal Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 594,
+          "order": 20
+        },
+        {
+          "id": "finance",
+          "file": "en/finance.json",
+          "label": "Finance Terms",
+          "group": "Professional",
+          "type": "words",
+          "count": 597,
+          "order": 30
+        },
+        {
+          "id": "programming",
+          "file": "en/programming.json",
+          "label": "Programming Terms",
+          "group": "Technical",
+          "type": "words",
+          "count": 431,
+          "order": 10
+        }
+      ]
+    }
+  ]
+}

@@ -8,6 +8,12 @@
     <priority>1.0</priority>
   </url>
 
+  <url>
+    <loc>https://abel0x.github.io/toolkit/license/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- Security & Crypto (9 tools) -->
   <url><loc>https://abel0x.github.io/toolkit/tools/password.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/hash.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -53,8 +59,9 @@
   <url><loc>https://abel0x.github.io/toolkit/tools/http-status.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/mime-lookup.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- Text Tools (9 tools) -->
+  <!-- Text Tools (10 tools) -->
   <url><loc>https://abel0x.github.io/toolkit/tools/word-counter.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abel0x.github.io/toolkit/tools/typing-test.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/text-sorter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/deduplicate-lines.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/line-numbers.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -64,7 +71,7 @@
   <url><loc>https://abel0x.github.io/toolkit/tools/text-cleaner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/find-replace.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- Generators (10 tools) -->
+  <!-- Generators (9 tools) -->
   <url><loc>https://abel0x.github.io/toolkit/tools/uuid.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/qr-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://abel0x.github.io/toolkit/tools/lorem-ipsum.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

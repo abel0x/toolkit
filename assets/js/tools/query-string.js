@@ -33,7 +33,7 @@
     let html = '<table style="width:100%;border-collapse:collapse;font-size:.875rem;">';
     html += '<thead><tr><th style="text-align:left;padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">#</th><th style="padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;">Key</th><th style="padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;">Value</th></tr></thead><tbody>';
     params.forEach(([k,v], i) => {
-      html += `<tr><td style="padding:.3rem .6rem;opacity:.4;">${i+1}</td><td class="font-mono" style="padding:.3rem .6rem;color:var(--accent-cyan,#00d4ff);">${escapeHTML(k)}</td><td class="font-mono" style="padding:.3rem .6rem;word-break:break-all;">${escapeHTML(v)}</td></tr>`;
+      html += `<tr><td style="padding:.3rem .6rem;opacity:.4;">${i+1}</td><td class="font-mono" style="padding:.3rem .6rem;color:var(--accent-cyan,#00d4ff);" data-i18n-skip>${escapeHTML(k)}</td><td class="font-mono" style="padding:.3rem .6rem;word-break:break-all;" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
     });
     html += '</tbody></table>';
     parseTable.innerHTML = html;

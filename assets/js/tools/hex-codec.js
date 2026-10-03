@@ -12,12 +12,24 @@
 
   if (!inputEl) return;
 
+  var encoder = new TextEncoder();
+  var decoder = new TextDecoder('utf-8', { fatal: true });
+
+  function decodeUtf8(bytes) {
+    try {
+      return decoder.decode(new Uint8Array(bytes));
+    } catch {
+      throw new Error('Decoded bytes are not valid UTF-8.');
+    }
+  }
+
   // ─── Encode ────────────────────────────────────────────────────────────────
   function textToHex(str) {
     var sep  = spacesChk.checked ? ' ' : '';
     var hex  = [];
-    for (var i = 0; i < str.length; i++) {
-      hex.push(str.charCodeAt(i).toString(16).padStart(2, '0'));
+    var bytes = encoder.encode(str);
+    for (var i = 0; i < bytes.length; i++) {
+      hex.push(bytes[i].toString(16).padStart(2, '0'));
     }
     return hex.join(sep);
   }
@@ -27,11 +39,11 @@
     hex = hex.replace(/\s+/g, '');
     if (hex.length % 2 !== 0) throw new Error('Hex string length must be even.');
     if (!/^[0-9a-fA-F]+$/.test(hex)) throw new Error('Invalid hex characters found.');
-    var chars = [];
+    var bytes = [];
     for (var i = 0; i < hex.length; i += 2) {
-      chars.push(String.fromCharCode(parseInt(hex.substr(i, 2), 16)));
+      bytes.push(parseInt(hex.slice(i, i + 2), 16));
     }
-    return chars.join('');
+    return decodeUtf8(bytes);
   }
 
   // ─── Events ────────────────────────────────────────────────────────────────

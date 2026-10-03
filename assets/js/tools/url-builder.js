@@ -14,7 +14,7 @@
   function addPathRow(val = '') {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem;';
-    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="segment" value="${escapeHTML(val)}" style="flex:1;" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" title="Remove">✕</button>`;
+    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="segment" value="${escapeHTML(val)}" style="flex:1;" aria-label="Path segment" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" title="Remove" aria-label="Remove">✕</button>`;
     row.querySelector('button').addEventListener('click', () => { row.remove(); assemble(); });
     row.querySelector('input').addEventListener('input', assemble);
     pathRows.appendChild(row);
@@ -24,7 +24,7 @@
   function addParamRow(k = '', v = '') {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem;';
-    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="key" value="${escapeHTML(k)}" style="flex:1;" /><input type="text" class="form-control font-mono" placeholder="value" value="${escapeHTML(v)}" style="flex:2;" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" title="Remove">✕</button>`;
+    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="key" value="${escapeHTML(k)}" style="flex:1;" aria-label="URL parameter name" /><input type="text" class="form-control font-mono" placeholder="value" value="${escapeHTML(v)}" style="flex:2;" aria-label="URL parameter value" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" title="Remove" aria-label="Remove">✕</button>`;
     row.querySelector('button').addEventListener('click', () => { row.remove(); assemble(); });
     row.querySelectorAll('input').forEach(el => el.addEventListener('input', assemble));
     paramRows.appendChild(row);

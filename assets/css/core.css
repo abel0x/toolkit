@@ -51,7 +51,8 @@
   /* Text */
   --text-primary:   #e8efff;
   --text-secondary: #8892a4;
-  --text-muted:     #4a5568;
+  --text-muted:     #718096;
+  --control-muted:  #4a5568;
   --text-code:      #a5f3fc;
 
   /* Borders */
@@ -69,6 +70,7 @@
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-xl: 24px;
+  --radius-full: 999px;
   --radius:    var(--radius-md);
 
   /* Motion */
@@ -80,6 +82,8 @@
 
 /* ── 2. Reset & Base ──────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
 
 html {
   scroll-behavior: smooth;
@@ -102,6 +106,12 @@ img, svg { display: block; max-width: 100%; }
 ul, ol   { list-style: none; }
 a        { color: inherit; text-decoration: none; }
 button   { font-family: inherit; }
+
+/* Keep keyboard focus visible even where a component removes its native outline. */
+:is(a[href], button, input, select, textarea, summary, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid var(--cyan) !important;
+  outline-offset: 2px;
+}
 
 /* ── 3. Screen-reader only ────────────────────────────────── */
 .sr-only {

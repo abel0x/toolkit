@@ -13,13 +13,20 @@
 
   var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
   var PADDING  = '=';
+  var encoder  = new TextEncoder();
+  var decoder  = new TextDecoder('utf-8', { fatal: true });
+
+  function decodeUtf8(bytes) {
+    try {
+      return decoder.decode(new Uint8Array(bytes));
+    } catch {
+      throw new Error('Decoded bytes are not valid UTF-8.');
+    }
+  }
 
   // ─── Encode ────────────────────────────────────────────────────────────────
   function base32Encode(str) {
-    var bytes = [];
-    for (var i = 0; i < str.length; i++) {
-      bytes.push(str.charCodeAt(i) & 0xff);
-    }
+    var bytes = encoder.encode(str);
 
     var bits   = 0;
     var value  = 0;
@@ -46,7 +53,11 @@
 
   // ─── Decode ────────────────────────────────────────────────────────────────
   function base32Decode(str) {
-    str = str.toUpperCase().replace(/\s+/g, '').replace(/=+$/, '');
+    str = str.toLocaleUpperCase('en-US').replace(/\s+/g, '').replace(/=+$/, '');
+
+    if (![0, 2, 4, 5, 7].includes(str.length % 8)) {
+      throw new Error('Invalid Base32 length.');
+    }
 
     var bits   = 0;
     var value  = 0;
@@ -54,7 +65,7 @@
 
     for (var i = 0; i < str.length; i++) {
       var idx = ALPHABET.indexOf(str.charAt(i));
-      if (idx === -1) throw new Error('Invalid Base32 character: "' + str.charAt(i) + '"');
+      if (idx === -1) throw new Error('Invalid Base32 character.');
       value = (value << 5) | idx;
       bits += 5;
       if (bits >= 8) {
@@ -63,7 +74,7 @@
       }
     }
 
-    return bytes.map(function(b) { return String.fromCharCode(b); }).join('');
+    return decodeUtf8(bytes);
   }
 
   // ─── Event handlers ────────────────────────────────────────────────────────

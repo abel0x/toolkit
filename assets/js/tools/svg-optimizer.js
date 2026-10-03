@@ -2,6 +2,7 @@
   'use strict';
 
   const fileInput  = document.getElementById('svgFile');
+  const fileNameEl = document.getElementById('svgFileName');
   const inputEl    = document.getElementById('svgInput');
   const outputEl   = document.getElementById('svgOutput');
   const optimizeBtn = document.getElementById('svgOptimizeBtn');
@@ -13,12 +14,29 @@
 
   if (!inputEl) return;
 
+  function t(key) {
+    return window.ToolkitI18n ? window.ToolkitI18n.t(key) : key;
+  }
+
+  function updateFileName(name) {
+    if (!fileNameEl) return;
+    fileNameEl.textContent = name || t('No file selected');
+    fileNameEl.title = name || '';
+  }
+
+  updateFileName('');
+
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
     if (!file) return;
+    updateFileName(file.name);
     const reader = new FileReader();
     reader.onload = e => { inputEl.value = e.target.result; };
     reader.readAsText(file);
+  });
+
+  window.addEventListener('toolkit:languagechange', () => {
+    if (!fileInput.files[0]) updateFileName('');
   });
 
   optimizeBtn.addEventListener('click', () => {

@@ -1,5 +1,7 @@
 /* TOOLKIT — assets/js/tools/qr-reader.js */
 (function initQRReader() {
+  'use strict';
+
   const dropzone  = document.getElementById('qrDropZone');
   const fileInput = document.getElementById('qrFileInput');
   const canvas    = document.getElementById('qrReaderCanvas');
@@ -42,7 +44,7 @@
 
         let resultHTML = `<div class="qr-read-result">
           <div class="qr-read-value">
-            <code class="qr-read-text">${raw.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</code>
+            <code class="qr-read-text" data-i18n-skip>${escapeHTML(raw)}</code>
             <button class="icon-btn" id="qrReadCopyBtn" aria-label="Copy decoded content" title="Copy">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             </button>
@@ -50,7 +52,7 @@
 
         if (isURL) {
           resultHTML += `<div class="qr-read-actions">
-            <a href="${raw}" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--sm">Open Link Safely ↗</a>
+            <a href="${escapeHTML(raw)}" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--sm">Open Link Safely ↗</a>
           </div>`;
         }
 
@@ -62,9 +64,9 @@
           });
           resultHTML += `<div class="qr-wifi-details" style="margin-top:.75rem;">
             <div style="font-size:.76rem;color:var(--text-muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem;">Wi-Fi Details</div>
-            <div class="wifi-row"><span class="wifi-label">SSID</span><span class="wifi-val">${parts['S'] || '—'}</span></div>
-            <div class="wifi-row"><span class="wifi-label">Password</span><span class="wifi-val">${parts['P'] || '(none)'}</span></div>
-            <div class="wifi-row"><span class="wifi-label">Security</span><span class="wifi-val">${parts['T'] || '—'}</span></div>
+            <div class="wifi-row"><span class="wifi-label">SSID</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['S'] || '—')}</span></div>
+            <div class="wifi-row"><span class="wifi-label">Password</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['P'] || '(none)')}</span></div>
+            <div class="wifi-row"><span class="wifi-label">Security</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['T'] || '—')}</span></div>
             <div class="wifi-row"><span class="wifi-label">Hidden</span><span class="wifi-val">${parts['H'] === 'true' ? 'Yes' : 'No'}</span></div>
           </div>`;
         }
@@ -92,4 +94,4 @@
     dropzone.classList.remove('drag-over');
     processFile(e.dataTransfer.files[0]);
   });
-})();
+}());

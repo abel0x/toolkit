@@ -8,6 +8,7 @@ Usage:
   python build.py --enhance   Add global tool-finder scripts to published pages
   python build.py --styles    Replace the retired monolithic stylesheet with page modules
   python build.py --offline   Generate the complete offline precache manifest
+  python build.py --words     Generate the word-list precache manifest
   python build.py --tool-count Synchronize published static tool-count copy
   python build.py --all       Run every task
 """
@@ -23,6 +24,7 @@ import sys
 # ---------------------------------------------------------------------------
 ROOT        = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR   = os.path.join(ROOT, 'tools')
+WORDS_DIR   = os.path.join(ROOT, 'words')
 NAV_FILE    = os.path.join(ROOT, '_includes', '_nav.html')
 SITE_BASE   = 'https://abel0x.github.io/toolkit/'
 
@@ -70,6 +72,12 @@ EXPANSION_PAGES = [
     ('color-contrast', 'Color Contrast Checker', 'Check WCAG contrast ratios for foreground and background colors.', 'Dev Tools'),
 ]
 
+EXAMPLE_STARTER_EXPANSION_TOOLS = {
+    'csp-generator', 'curl-builder', 'http-header-analyzer',
+    'cron-assistant', 'unix-permissions', 'css-specificity',
+    'json-to-typescript', 'json-to-markdown', 'xml-to-json', 'csv-viewer',
+}
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -82,9 +90,22 @@ def _tool_files():
             yield os.path.join(TOOLS_DIR, name)
 
 
+def _page_prefix(path):
+    """Return the relative asset prefix for one published HTML page."""
+    relative = os.path.relpath(path, ROOT)
+    return '../' * (len(relative.split(os.sep)) - 1)
+
+
 def _read(path):
     with open(path, 'r', encoding='utf-8') as fh:
         return fh.read()
+
+
+def _registered_tool_count():
+    """Return the number of tool entries across both browser registries."""
+    registry = _read(os.path.join(ROOT, 'assets', 'js', 'core', 'tools-data.js'))
+    expansion = _read(os.path.join(ROOT, 'assets', 'js', 'core', 'extra-tools-data.js'))
+    return len(re.findall(r"slug:\s*'", registry + expansion))
 
 
 def _write(path, content):
@@ -100,6 +121,17 @@ def _expansion_page(slug, title, description, category):
     safe_title = html_lib.escape(title)
     safe_desc = html_lib.escape(description)
     url = f'{SITE_BASE}tools/{slug}.html'
+    tool_count = _registered_tool_count()
+    example_starter = ''
+    example_script = ''
+    if slug in EXAMPLE_STARTER_EXPANSION_TOOLS:
+        example_starter = f'''        <div class="example-starter reveal">
+          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
+          <p class="example-starter__copy"><strong>Need a spark?</strong><span>Load a ready-made example, then make it yours.</span></p>
+          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="{slug}">Try a sample</button>
+        </div>
+'''
+        example_script = '  <script src="../assets/js/core/example-starters.js" defer></script>\n'
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,7 +153,8 @@ def _expansion_page(slug, title, description, category):
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
   <link rel="stylesheet" href="../assets/css/features/expansion-tools.css" />
-  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <meta name="theme-color" content="#0d1117" />
 </head>
 <body>
@@ -143,7 +176,7 @@ def _expansion_page(slug, title, description, category):
           <h1 class="section-title gradient-text">{safe_title}</h1>
           <p class="section-desc">{safe_desc}</p>
         </div>
-        <div class="card glass reveal expansion-card">
+{example_starter}        <div class="card glass reveal expansion-card">
           <div id="toolApp" class="expansion-tool" data-tool="{slug}" aria-live="polite"></div>
         </div>
       </div>
@@ -169,7 +202,7 @@ def _expansion_page(slug, title, description, category):
       </div>
       <div class="footer-bottom">
         <p>© 2026 Toolkit. No data leaves your device.</p>
-        <p class="footer-tech">100 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p class="footer-tech">{tool_count} tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>
@@ -181,7 +214,7 @@ def _expansion_page(slug, title, description, category):
   <script src="../assets/js/core/extra-tools-data.js" defer></script>
   <script src="../assets/js/core/command-palette.js" defer></script>
   <script src="../assets/js/tools/expansion-tools.js" defer></script>
-</body>
+{example_script}</body>
 </html>
 '''
 
@@ -225,6 +258,16 @@ def run_new_tools(sync_existing=False):
     print(f'\n[--new-tools] Done. {created} created, {updated} synchronized, {skipped} skipped.')
 
 
+def replace_marker(content, marker, entries):
+    """Replace one generated marker block with sorted source entries."""
+    pattern = rf'({re.escape(marker + ":START")}\n).*?(\s*{re.escape(marker + ":END")})'
+    replacement = r'\1' + '\n'.join(entries) + r'\2'
+    updated, count = re.subn(pattern, replacement, content, count=1, flags=re.DOTALL)
+    if count != 1:
+        raise RuntimeError(f'Could not update generated marker: {marker}')
+    return updated
+
+
 def run_offline_manifest():
     """Precache every published tool shell and its local implementation."""
     print('\n[--offline] Building complete offline precache manifest...')
@@ -233,32 +276,55 @@ def run_offline_manifest():
     pages = [f"  'tools/{os.path.basename(path)}'," for path in _tool_files()]
     scripts = [f"  'assets/js/tools/{name}'," for name in sorted(os.listdir(os.path.join(ROOT, 'assets', 'js', 'tools'))) if name.endswith('.js')]
 
-    def replace_marker(content, marker, entries):
-        pattern = rf'({re.escape(marker + ":START")}\n).*?(\s*{re.escape(marker + ":END")})'
-        replacement = r'\1' + '\n'.join(entries) + r'\2'
-        updated, count = re.subn(pattern, replacement, content, count=1, flags=re.DOTALL)
-        if count != 1:
-            raise RuntimeError(f'Could not update offline marker: {marker}')
-        return updated
-
     service_worker = replace_marker(service_worker, '// TOOL-PRECACHE:PAGES', pages)
     service_worker = replace_marker(service_worker, '// TOOL-PRECACHE:SCRIPTS', scripts)
     _write(sw_path, service_worker)
     print(f'  OK    {len(pages)} tool pages and {len(scripts)} tool modules precached.')
 
 
+def run_words_manifest():
+    """Precache reusable local word data and enforce its size budget."""
+    print('\n[--words] Building word-list precache manifest...')
+    sw_path = os.path.join(ROOT, 'sw.js')
+    service_worker = _read(sw_path)
+    word_paths = []
+    total_bytes = 0
+    for directory, _, names in os.walk(WORDS_DIR):
+        for name in names:
+            if not name.endswith('.json'):
+                continue
+            path = os.path.join(directory, name)
+            total_bytes += os.path.getsize(path)
+            word_paths.append(os.path.relpath(path, ROOT).replace(os.sep, '/'))
+    word_paths.sort()
+    entries = [f"  '{path}'," for path in word_paths]
+    service_worker = replace_marker(service_worker, '// WORDS-PRECACHE', entries)
+    _write(sw_path, service_worker)
+    if total_bytes > 500 * 1024:
+        print(f'  WARN  word payload is {total_bytes} bytes; budget is 512000 bytes.')
+    else:
+        print(f'  OK    {len(entries)} word data files precached ({total_bytes} bytes).')
+
+
 def run_tool_count():
     """Keep the static first-paint count aligned with the tool registry."""
     print('\n[--tool-count] Synchronizing published tool counts...')
+    count = _registered_tool_count()
     updated = 0
     for path in _published_pages():
         content = _read(path)
-        revised = content.replace('78 tools · HTML · CSS · Vanilla JS · Web Crypto API',
-                                  '100 tools · HTML · CSS · Vanilla JS · Web Crypto API')
+        revised = re.sub(r'\b\d+ tools · HTML · CSS · Vanilla JS · Web Crypto API',
+                         f'{count} tools · HTML · CSS · Vanilla JS · Web Crypto API', content)
+        revised = re.sub(r'Search \d+ tools…', f'Search {count} tools…', revised)
+        revised = re.sub(r'Browse \d+ Tools', f'Browse {count} Tools', revised)
+        revised = re.sub(r'(Toolkit — )\d+( Free Developer Utilities)', rf'\g<1>{count}\2', revised)
+        revised = re.sub(r'\b\d+ free developer utilities', f'{count} free developer utilities', revised)
+        revised = re.sub(r'(All <span class="gradient-text">)\d+( Tools</span>)', rf'\g<1>{count}\2', revised)
+        revised = re.sub(r'(<span class="stat-num" id="toolCountStat">)\d+(</span>)', rf'\g<1>{count}\2', revised)
         if revised != content:
             _write(path, revised)
             updated += 1
-    print(f'  OK    {updated} static footer counts updated.')
+    print(f'  OK    {updated} published pages synchronized to {count} tools.')
 
 
 # ---------------------------------------------------------------------------
@@ -374,7 +440,7 @@ def run_nav():
     for path in _published_pages():
         filename = os.path.relpath(path, ROOT)
         html = _read(path)
-        prefix = '../' if path.startswith(TOOLS_DIR + os.sep) else ''
+        prefix = _page_prefix(path)
         nav_html = nav_template.replace('{{ROOT}}', prefix)
 
         if _NAV_START in html and _NAV_END in html:
@@ -408,9 +474,9 @@ def run_nav():
 
 def _style_tags(path):
     """Return the smallest stylesheet set needed by a published page."""
-    prefix = '../' if path.startswith(TOOLS_DIR + os.sep) else ''
+    prefix = _page_prefix(path)
     modules = list(COMMON_STYLE_MODULES)
-    if os.path.basename(path) == 'index.html':
+    if os.path.abspath(path) == os.path.join(ROOT, 'index.html'):
         modules.append('assets/css/pages/home.css')
     elif path.startswith(TOOLS_DIR + os.sep):
         modules.append('assets/css/pages/tool.css')
@@ -525,6 +591,7 @@ def _published_pages():
     """Yield root pages and every tool page that users can open directly."""
     for name in ('index.html', '404.html'):
         yield os.path.join(ROOT, name)
+    yield os.path.join(ROOT, 'license', 'index.html')
     yield from _tool_files()
 
 
@@ -536,7 +603,7 @@ def run_enhancements():
     for path in _published_pages():
         filename = os.path.relpath(path, ROOT)
         html = _read(path)
-        prefix = '../' if path.startswith(TOOLS_DIR + os.sep) else ''
+        prefix = _page_prefix(path)
         i18n_extra_tag = f'  <script src="{prefix}assets/js/core/i18n-expansion.js" defer></script>'
         i18n_tag = f'  <script src="{prefix}assets/js/core/i18n.js" defer></script>'
         data_tag = f'  <script src="{prefix}assets/js/core/tools-data.js" defer></script>'
@@ -625,6 +692,8 @@ def main():
                         help='Refresh generated expansion-tool shells from the current template')
     parser.add_argument('--offline', action='store_true',
                         help='Generate the complete offline precache manifest')
+    parser.add_argument('--words', action='store_true',
+                        help='Generate the word-list precache manifest')
     parser.add_argument('--tool-count', action='store_true',
                         help='Synchronize published static tool-count copy')
     parser.add_argument('--all',     action='store_true',
@@ -641,6 +710,9 @@ def main():
 
     if args.all or args.offline:
         run_offline_manifest()
+
+    if args.all or args.words:
+        run_words_manifest()
 
     if args.all or args.tool_count:
         run_tool_count()

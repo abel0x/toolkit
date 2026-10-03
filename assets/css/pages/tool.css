@@ -4,7 +4,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Tool Page Layout ─────────────────────────────────────── */
-.tool-page-main { padding-top: 1rem; }
+.tool-page-main { padding-top: calc(var(--nav-h) + 1rem); }
 .tool-page-main .section:first-of-type { padding-top: 2.5rem; }
 
 .section {
@@ -70,6 +70,59 @@
 
 .tool-breadcrumb a:hover { color: var(--cyan); }
 .tool-breadcrumb-sep { opacity: .35; }
+
+/* ── License Page ────────────────────────────────────────── */
+.license-card { max-width: 880px; margin: 0 auto; }
+
+.license-summary {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.license-summary h2,
+.license-card h3 { color: var(--text-primary); }
+
+.license-summary h2 { font-size: 1.08rem; }
+
+.license-summary p,
+.license-note,
+.license-data-note {
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.license-summary p { margin-top: 0.2rem; }
+.license-note { margin-top: 1.25rem; }
+.license-data-note {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-top: 0.85rem;
+  padding: 0.7rem 0.8rem;
+}
+.license-data-note strong { color: var(--text-primary); }
+.license-card h3 { font-size: 0.9rem; margin: 1.5rem 0 0.7rem; }
+
+.license-text {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-code);
+  font: 0.76rem/1.6 var(--font-mono);
+  margin: 0;
+  max-height: 38rem;
+  overflow: auto;
+  padding: 1rem;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 480px) {
+  .license-summary { align-items: flex-start; flex-direction: column; }
+  .license-text { font-size: 0.7rem; padding: 0.8rem; }
+}
 
 /* ── Gradient Text ────────────────────────────────────────── */
 .gradient-text {
@@ -239,12 +292,23 @@
 
 .b64-output-header {
   display: flex;
+  min-height: 36px;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.65rem;
 }
 
 .b64-output-header .control-label { margin-bottom: 0; }
+
+.verify-result--success {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.verify-result--error {
+  color: var(--red);
+  font-weight: 600;
+}
 
 /* ── UUID Section ─────────────────────────────────────────── */
 .uuid-btn-row {
@@ -706,7 +770,6 @@
 .qr-opt .control-label { margin-bottom: 0.5rem; }
 .qr-color-opt { display: flex; flex-direction: column; gap: 0.45rem; }
 .qr-color-opt .control-label { margin-bottom: 0; }
-.color-input { width: 42px; height: 32px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: none; cursor: pointer; padding: 2px; }
 .qr-hint { margin-top: 0.85rem; font-size: 0.77rem; color: var(--text-muted); line-height: 1.55; }
 .qr-preview-col { display: flex; flex-direction: column; align-items: center; gap: 1rem; flex-shrink: 0; }
 .qr-canvas-wrap { width: 264px; height: 264px; background: rgba(0,0,0,0.4); border: 2px dashed rgba(255,255,255,0.1); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: border-color var(--transition); }
@@ -731,10 +794,10 @@
 .wifi-val { font-family: var(--font-mono); color: var(--cyan); }
 
 /* ── Color Converter ──────────────────────────────────────── */
+.palette-output { display: flex; flex-wrap: wrap; gap: 1rem; min-height: 140px; margin-top: 1rem; }
 .color-layout { display: flex; gap: 2rem; align-items: flex-start; }
 .color-swatch-col { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
 .color-swatch { width: 120px; height: 120px; border-radius: var(--radius-lg); border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: background 0.15s ease; }
-.color-picker-input { width: 42px; height: 42px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: none; cursor: pointer; padding: 2px; }
 .color-inputs-col { flex: 1; display: flex; flex-direction: column; gap: 0.85rem; }
 .color-input-group { display: flex; flex-direction: column; gap: 0.4rem; }
 .color-fmt-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }

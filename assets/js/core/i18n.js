@@ -26,8 +26,10 @@
       // Navigation, footer and shared interface
       'Language': 'Dil',
       'Toolkit home': 'Toolkit ana sayfası',
+      'View project license': 'Proje lisansını görüntüle',
       'Toolkit — 78 Free Developer Utilities': 'Toolkit — 78 Ücretsiz Geliştirici Aracı',
-      'Toolkit — 100 Free Developer Utilities': 'Toolkit — 100 Ücretsiz Geliştirici Aracı',
+      'Toolkit — 101 Free Developer Utilities': 'Toolkit — 101 Ücretsiz Geliştirici Aracı',
+      'License — Toolkit': 'Lisans — Toolkit',
       '404 — Page Not Found · Toolkit': '404 — Sayfa Bulunamadı · Toolkit',
       'Main navigation': 'Ana gezinme',
       'Open navigation menu': 'Gezinme menüsünü aç',
@@ -35,8 +37,6 @@
       'Tools': 'Araçlar',
       'Browse All Tools': 'Tüm Araçlara Göz At',
       'Browse All 78 Tools': '78 Aracın Tümüne Göz At',
-      'Browse All 100 Tools': '100 Aracın Tümüne Göz At',
-      'Browse 100 Tools': '100 Araca Göz At',
       'Home': 'Ana sayfa',
       'Back to home': 'Ana sayfaya dön',
       'Go Home': 'Ana Sayfa',
@@ -45,8 +45,18 @@
       'Buy me a coffee': 'Bana kahve ısmarla',
       'GitHub profile of abel0x': 'abel0x GitHub profili',
       'Breadcrumb': 'Gezinti yolu',
+      'License': 'Lisans',
+      'Open Source': 'Açık kaynak',
+      'Project license': 'Proje lisansı',
+      'Toolkit is made available under the Apache License 2.0.': 'Toolkit, Apache License 2.0 kapsamında sunulmaktadır.',
+      'Apache License 2.0': 'Apache Lisansı 2.0',
+      'Copyright 2024–2026 abel0x.': 'Telif hakkı 2024–2026 abel0x.',
+      'Download LICENSE': 'LICENSE dosyasını indir',
+      "This page is a readable copy of the project's canonical LICENSE file.": 'Bu sayfa, projenin asıl LICENSE dosyasının okunabilir kopyasıdır.',
+      'Third-party notices': 'Üçüncü taraf bildirimleri',
+      'Some word-list data carries its own source and licence terms. Those terms remain in effect.': 'Bazı kelime listesi verilerinin kendi kaynak ve lisans koşulları vardır. Bu koşullar geçerliliğini korur.',
+      'Full license text': 'Lisansın tam metni',
       'All 78 Tools': '78 Aracın Tümü',
-      'All 100 Tools': '100 Aracın Tümü',
       'Explore Tools': 'Araçları Keşfet',
       'Featured Tools': 'Öne Çıkan Araçlar',
       'All Tools': 'Tüm Araçlar',
@@ -58,7 +68,6 @@
       'Filter tools by category': 'Araçları kategoriye göre filtrele',
       'Search tools': 'Araç ara',
       'Search 78 tools…': '78 araç ara…',
-      'Search 100 tools…': '100 araç ara…',
       'Developer Utilities Suite': 'Geliştirici Araçları Paketi',
       'The Ultimate': 'En Kapsamlı',
       'A curated set of cryptographic & encoding utilities, built for precision. No tracking. No backend. Pure client-side.': 'Hassas kullanım için özenle seçilmiş kriptografi ve kodlama araçları. Takip yok. Sunucu yok. Tamamen tarayıcıda çalışır.',
@@ -292,7 +301,6 @@
       'QR code generated!': 'QR kodu oluşturuldu!',
       'QR library not loaded yet — please try again': 'QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin',
       'QR reader library not loaded yet': 'QR okuyucu kitaplığı henüz yüklenmedi',
-      'QRious library failed to load': 'QRious kitaplığı yüklenemedi',
       'ROT13 applied!': 'ROT13 uygulandı!',
       'Range too small for unique integers': 'Aralık benzersiz tam sayılar için çok dar',
       'SQL formatted!': 'SQL biçimlendirildi!',
@@ -308,7 +316,7 @@
       'Password Generator': 'Parola Oluşturucu',
       'Hash Generator': 'Hash Oluşturucu',
       'JWT Decoder': 'JWT Kod Çözücü',
-      'Bcrypt Hash Generator': 'bcrypt Hash Oluşturucu',
+      'Bcrypt Hash Generator': 'Bcrypt Hash Oluşturucu',
       'HMAC Generator': 'HMAC Oluşturucu',
       'Password Strength Checker': 'Parola Gücü Denetleyicisi',
       'Random Token Generator': 'Rastgele Belirteç Oluşturucu',
@@ -373,13 +381,15 @@
       'Open Graph Tag Generator': 'Open Graph Etiket Oluşturucu',
       'Query String Parser': 'Sorgu Dizgesi Ayrıştırıcı',
       'URL Builder': 'URL Oluşturucu',
-      'User Agent Parser': 'User Agent Ayrıştırıcı',
+      'User Agent Parser': 'User-Agent Ayrıştırıcı',
       'Robots.txt Generator': 'Robots.txt Oluşturucu',
       'QR Code Reader': 'QR Kod Okuyucu',
       'Image to Base64': 'Görüntü → Base64',
       'Base64 to Image': 'Base64 → Görüntü',
       'Image Metadata Viewer': 'Görüntü Meta Verisi Görüntüleyici',
       'SVG Optimizer': 'SVG İyileştirici',
+      'Choose SVG file': 'SVG dosyası seç',
+      'No file selected': 'Dosya seçilmedi',
       'Favicon Generator': 'Favicon Oluşturucu',
       'Image Dimension Checker': 'Görüntü Boyut Denetleyicisi',
       'QR Batch Generator': 'Toplu QR Kod Oluşturucu'
@@ -431,6 +441,40 @@
       };
       return `${match[1]} ${nouns[match[2]]} oluşturuldu`;
     }
+    match = key.match(/^(\d+) UUIDs?$/);
+    if (match) return `${match[1]} UUID`;
+    match = key.match(/^(\d+) min$/);
+    if (match) return `${match[1]} dakika`;
+    match = key.match(/^(\d+) images?$/);
+    if (match) return `${match[1]} görsel`;
+    match = key.match(/^(\d+) valid \/ (\d+) invalid$/);
+    if (match) return `${match[1]} geçerli / ${match[2]} geçersiz`;
+    match = key.match(/^(\d+) match(?:es)? replaced\.$/);
+    if (match) return `${match[1]} eşleşme değiştirildi.`;
+    match = key.match(/^(\d+) replacement\(s\) made$/);
+    if (match) return `${match[1]} değiştirme yapıldı`;
+    match = key.match(/^\+ (\d+) additions?$/);
+    if (match) return `+ ${match[1]} ekleme`;
+    match = key.match(/^− (\d+) deletions?$/);
+    if (match) return `− ${match[1]} silme`;
+    match = key.match(/^≡ (\d+) unchanged$/);
+    if (match) return `≡ ${match[1]} değişmeyen`;
+    match = key.match(/^(\d+) matches?$/);
+    if (match) return `${match[1]} eşleşme`;
+    match = key.match(/^Group (\d+)$/);
+    if (match) return `Grup ${match[1]}`;
+    match = key.match(/^(\d+) blank line\(s\) removed$/);
+    if (match) return `${match[1]} boş satır kaldırıldı`;
+    match = key.match(/^(\d+) duplicate\(s\) removed\. (\d+) unique line\(s\) kept\.$/);
+    if (match) return `${match[1]} yinelenen satır kaldırıldı. ${match[2]} benzersiz satır korundu.`;
+    match = key.match(/^Before: (.+) → After: (.+) · Saved: ([\d.]+)%$/);
+    if (match) return `Önce: ${match[1]} → Sonra: ${match[2]} · Kazanç: ${match[3]}%`;
+    match = key.match(/^(.+) → (.+) · saved (.+) \(([\d.]+)%\)$/);
+    if (match) return `${match[1]} → ${match[2]} · ${match[3]} tasarruf (${match[4]}%)`;
+    match = key.match(/^(\d+) (years?|months?|days?|hours?|minutes?|seconds?) ago$/);
+    if (match) return `${match[1]} ${t(match[2])} önce`;
+    match = key.match(/^in (\d+) (years?|months?|days?|hours?|minutes?|seconds?)$/);
+    if (match) return `${match[1]} ${t(match[2])} sonra`;
     match = key.match(/^Sorted (\d+) lines$/);
     if (match) return `${match[1]} satır sıralandı`;
     match = key.match(/^(\d+) duplicate\(s\) removed$/);
@@ -469,6 +513,16 @@
     ];
     const prefix = prefixes.find(([source]) => key.startsWith(source));
     if (prefix) return `${prefix[1]}${key.slice(prefix[0].length)}`;
+    if (key.includes(', ')) {
+      const parts = key.split(', ');
+      const translated = parts.map((part) => t(part));
+      if (translated.some((part, index) => part !== parts[index])) return translated.join(', ');
+    }
+    if (key.includes(' · ')) {
+      const parts = key.split(' · ');
+      const translated = parts.map((part) => t(part));
+      if (translated.some((part, index) => part !== parts[index])) return translated.join(' · ');
+    }
     return key;
   }
 
@@ -500,6 +554,12 @@
     element.setAttribute(attribute, t(attributes.get(attribute)));
   }
 
+  function canTranslateAttribute(element, attribute) {
+    if (attribute !== 'value') return true;
+    if (element.tagName !== 'INPUT') return false;
+    return ['button', 'reset', 'submit'].includes((element.getAttribute('type') || '').toLowerCase());
+  }
+
   function apply(root) {
     const target = root || document.body;
     if (!target) return;
@@ -507,6 +567,12 @@
     document.documentElement.lang = language;
     document.documentElement.dataset.language = language;
     translateDocumentTitle();
+
+    // An option without a value inherits its translated text as its functional value.
+    // Pin the source value before walking text nodes, including dynamically added options.
+    const options = target.querySelectorAll ? [...target.querySelectorAll('option:not([value])')] : [];
+    if (target.nodeType === Node.ELEMENT_NODE && target.matches('option:not([value])')) options.unshift(target);
+    options.forEach((option) => { option.value = option.textContent.trim().replace(/\s+/g, ' '); });
 
     const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
     const nodes = [];
@@ -520,7 +586,9 @@
       if (element.matches('[data-i18n]')) {
         element.textContent = t(element.dataset.i18n);
       }
-      ['aria-label', 'title', 'placeholder', 'value'].forEach((attribute) => translateAttribute(element, attribute));
+      ['aria-label', 'title', 'placeholder', 'value'].forEach((attribute) => {
+        if (canTranslateAttribute(element, attribute)) translateAttribute(element, attribute);
+      });
     });
   }
 

@@ -21,15 +21,50 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v6
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Firefox
+        uses: browser-actions/setup-firefox@v1
+
       - name: Configure GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Refresh generated publication files
-        run: python3 build.py --nav --tool-count --offline
+        run: python3 build.py --nav --tool-count --offline --words
 
       - name: Audit published site
         run: node tests/site-audit.mjs
+
+      - name: Audit tool DOM contracts
+        run: node tests/tool-dom-audit.mjs
+
+      - name: Audit word lists
+        run: node tests/words-audit.mjs
+
+      - name: Audit localisation
+        run: node tests/i18n-audit.mjs
+
+      - name: Test conversion edge cases
+        run: node tests/conversion-regressions.mjs
+
+      - name: Audit accessibility contracts
+        run: node tests/accessibility-audit.mjs
+
+      - name: Smoke-test every tool page in Firefox
+        run: node tests/tool-pages-e2e.mjs
+
+      - name: Exercise browser tool flows in Firefox
+        run: node tests/expansion-e2e.mjs
+
+      - name: Exercise typing and localisation regressions
+        run: node tests/typing-regressions.mjs
+
+      - name: Exercise the installed offline site in Firefox
+        run: node tests/offline-e2e.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

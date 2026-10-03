@@ -1,0 +1,1193 @@
+{
+  "schemaVersion": 1,
+  "id": "quotes",
+  "language": "tr",
+  "label": "Quotes",
+  "type": "quotes",
+  "license": "CC0-1.0",
+  "source": "Original Toolkit Turkish translations of the paired, source-matched public-domain English passages. No published modern translation is copied. Curated excerpts preserve the same passage references and name their works. Translation is editorial, not an official or certified edition.",
+  "provenance": {
+    "method": "original-translation",
+    "reviewed": "2026-09-26",
+    "sources": [
+      "https://www.gutenberg.org/ebooks/100",
+      "https://www.gutenberg.org/ebooks/102",
+      "https://www.gutenberg.org/ebooks/105",
+      "https://www.gutenberg.org/ebooks/11",
+      "https://www.gutenberg.org/ebooks/12",
+      "https://www.gutenberg.org/ebooks/1260",
+      "https://www.gutenberg.org/ebooks/1322",
+      "https://www.gutenberg.org/ebooks/1342",
+      "https://www.gutenberg.org/ebooks/141",
+      "https://www.gutenberg.org/ebooks/158",
+      "https://www.gutenberg.org/ebooks/174",
+      "https://www.gutenberg.org/ebooks/205",
+      "https://www.gutenberg.org/ebooks/2147",
+      "https://www.gutenberg.org/ebooks/2150",
+      "https://www.gutenberg.org/ebooks/2151",
+      "https://www.gutenberg.org/ebooks/2554",
+      "https://www.gutenberg.org/ebooks/2701",
+      "https://www.gutenberg.org/ebooks/345",
+      "https://www.gutenberg.org/ebooks/580",
+      "https://www.gutenberg.org/ebooks/768",
+      "https://www.gutenberg.org/ebooks/790",
+      "https://www.gutenberg.org/ebooks/84",
+      "https://www.gutenberg.org/ebooks/844",
+      "https://www.gutenberg.org/ebooks/854",
+      "https://www.gutenberg.org/ebooks/887"
+    ]
+  },
+  "meta": {
+    "avgLength": 127.5,
+    "maxLength": 254,
+    "hasDiacritics": true,
+    "hasMultiWordEntries": true
+  },
+  "quotes": [
+    {
+      "text": "Bütün dünya bir sahnedir; kadınlar ve erkekler de yalnızca oyuncudur.",
+      "source": "William Shakespeare — As You Like It",
+      "length": 69,
+      "bookId": 100
+    },
+    {
+      "text": "İyi ya da kötü diye bir şey yoktur; onu öyle yapan düşüncedir.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 62,
+      "bookId": 100
+    },
+    {
+      "text": "Kendine karşı dürüst ol; gece gündüzü nasıl izliyorsa, sen de kimseye karşı dürüstlükten ayrılamazsın.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 102,
+      "bookId": 100
+    },
+    {
+      "text": "Korkaklar ölmeden önce birçok kez ölür; yiğitler ölümü yalnızca bir kez tadar.",
+      "source": "William Shakespeare — Julius Caesar",
+      "length": 78,
+      "bookId": 100
+    },
+    {
+      "text": "Bu delilik olsa bile, içinde bir yöntem vardır.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 47,
+      "bookId": 100
+    },
+    {
+      "text": "Ne borç alan ne de borç veren ol; çünkü borç çoğu zaman hem kendini hem dostluğu kaybettirir.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 93,
+      "bookId": 100
+    },
+    {
+      "text": "Düşlerin yapıldığı maddedeniz; küçücük hayatımız da bir uyku ile tamamlanır.",
+      "source": "William Shakespeare — The Tempest",
+      "length": 76,
+      "bookId": 100
+    },
+    {
+      "text": "İtibar boş ve bütünüyle yanıltıcı bir yakıştırmadır; çoğu kez hak edilmeden kazanılır ve hak edilmeden kaybedilir.",
+      "source": "William Shakespeare — Othello",
+      "length": 114,
+      "bookId": 100
+    },
+    {
+      "text": "Hayat, sahnede kısa saatini böbürlenip kaygıyla geçiren zavallı bir oyuncu gibi yürüyen gölgedir.",
+      "source": "William Shakespeare — Macbeth",
+      "length": 97,
+      "bookId": 100
+    },
+    {
+      "text": "Gösterdiğinden fazlasına sahip ol, bildiğinden az konuş, sahip olduğundan az borç ver.",
+      "source": "William Shakespeare — King Lear",
+      "length": 86,
+      "bookId": 100
+    },
+    {
+      "text": "Doğa, hayvanlara dostlarını tanımayı öğretir.",
+      "source": "William Shakespeare — Coriolanus",
+      "length": 45,
+      "bookId": 100
+    },
+    {
+      "text": "Şüphelerimiz hainimizdir; denemekten korktuğumuz için çoğu kez kazanabileceğimiz iyiyi kaybettirir.",
+      "source": "William Shakespeare — Measure for Measure",
+      "length": 99,
+      "bookId": 100
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir.",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 112,
+      "bookId": 1342
+    },
+    {
+      "text": "Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur.",
+      "source": "Jane Austen — Emma",
+      "length": 49,
+      "bookId": 158
+    },
+    {
+      "text": "Zayıf bir zihin üzerinde işleyen kibir her türlü kötülüğü doğurur.",
+      "source": "Jane Austen — Emma",
+      "length": 66,
+      "bookId": 158
+    },
+    {
+      "text": "Doğrusu okumak gibi bir zevk olmadığını ilan ediyorum!",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 54,
+      "bookId": 1342
+    },
+    {
+      "text": "Bencillik her zaman bağışlanmalıdır; çünkü bunun için bir tedavi umudu yoktur.",
+      "source": "Jane Austen — Mansfield Park",
+      "length": 78,
+      "bookId": 141
+    },
+    {
+      "text": "Bir adamla sürekli alay edip arada bir zekice bir şeye rastlamamak mümkün değildir.",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 83,
+      "bookId": 1342
+    },
+    {
+      "text": "Sevmediğim şeyi yapmak dışında hiçbir şey beni yormaz.",
+      "source": "Jane Austen — Mansfield Park",
+      "length": 54,
+      "bookId": 141
+    },
+    {
+      "text": "Ruhumu delip geçiyorsun. Yarı ıstırap, yarı umut içindeyim.",
+      "source": "Jane Austen — Persuasion",
+      "length": 59,
+      "bookId": 105
+    },
+    {
+      "text": "Yeryüzünde karanlık gölgeler vardır, ama ışıkları karşıtlık içinde daha güçlüdür.",
+      "source": "Charles Dickens — The Pickwick Papers",
+      "length": 81,
+      "bookId": 580
+    },
+    {
+      "text": "Her erdemlinin bir geçmişi, her günahkârın bir geleceği vardır.",
+      "source": "Oscar Wilde — A Woman of No Importance",
+      "length": 63,
+      "bookId": 854
+    },
+    {
+      "text": "Gerçek nadiren saftır ve asla basit değildir.",
+      "source": "Oscar Wilde — The Importance of Being Earnest",
+      "length": 45,
+      "bookId": 844
+    },
+    {
+      "text": "Herhangi biri tarih yapabilir; onu ancak büyük bir insan yazabilir.",
+      "source": "Oscar Wilde — Intentions",
+      "length": 67,
+      "bookId": 887
+    },
+    {
+      "text": "Var olan her zarif şeyin ardında trajik bir şey vardı.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 54,
+      "bookId": 174
+    },
+    {
+      "text": "Günümüzde insanlar her şeyin fiyatını biliyor ama hiçbir şeyin değerini bilmiyor.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 81,
+      "bookId": 174
+    },
+    {
+      "text": "Dünyanın ahlaksız dediği kitaplar, dünyaya kendi utancını gösteren kitaplardır.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 79,
+      "bookId": 174
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 73,
+      "bookId": 2151
+    },
+    {
+      "text": "Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 4",
+      "length": 59,
+      "bookId": 2150
+    },
+    {
+      "text": "O karanlığa derin derin bakarak uzun süre orada durdum; şaşırdım, korktum, şüphe ettim, hiçbir ölümlünün daha önce düşlemeye cesaret edemediği düşleri kurdum.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 158,
+      "bookId": 2151
+    },
+    {
+      "text": "Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 63,
+      "bookId": 2151
+    },
+    {
+      "text": "Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 1",
+      "length": 43,
+      "bookId": 2147
+    },
+    {
+      "text": "Cesaret korkunun yokluğu değil, korkuya direnmek ve ona egemen olmaktır.",
+      "source": "Mark Twain — Pudd'nhead Wilson",
+      "length": 72,
+      "bookId": 102
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 45,
+      "bookId": 11
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır.",
+      "source": "Lewis Carroll — Through the Looking-Glass",
+      "length": 55,
+      "bookId": 12
+    },
+    {
+      "text": "Elbette bulabilirsen, her şeyin bir dersi vardır.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 49,
+      "bookId": 11
+    },
+    {
+      "text": "Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Through the Looking-Glass",
+      "length": 50,
+      "bookId": 12
+    },
+    {
+      "text": "Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 48,
+      "bookId": 11
+    },
+    {
+      "text": "Her zaman saygın olmaktansa mutlu olmayı tercih ederim.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 55,
+      "bookId": 1260
+    },
+    {
+      "text": "Hayat bana düşmanlık beslemek ya da haksızlıkları kaydetmek için harcanamayacak kadar kısa görünüyor.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 101,
+      "bookId": 1260
+    },
+    {
+      "text": "Ben bir kuş değilim ve hiçbir ağ beni tuzağa düşüremez; bağımsız iradesi olan özgür bir insanım.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 96,
+      "bookId": 1260
+    },
+    {
+      "text": "Ruhlarımız neyden yapılmış olursa olsun, onunkiyle benimki aynıdır.",
+      "source": "Emily Brontë — Wuthering Heights",
+      "length": 67,
+      "bookId": 768
+    },
+    {
+      "text": "Heathcliff'e sevgim alttaki ebedi kayalara benzer: görünür bir zevki azdır ama gereklidir.",
+      "source": "Emily Brontë — Wuthering Heights",
+      "length": 90,
+      "bookId": 768
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 73,
+      "bookId": 84
+    },
+    {
+      "text": "Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 50,
+      "bookId": 84
+    },
+    {
+      "text": "Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 81,
+      "bookId": 84
+    },
+    {
+      "text": "Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 93,
+      "bookId": 84
+    },
+    {
+      "text": "Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 103,
+      "bookId": 84
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 46,
+      "bookId": 205
+    },
+    {
+      "text": "Olduğum gibi varım, bu yeter; dünyada başka hiç kimse farkında olmasa da memnun otururum.",
+      "source": "Walt Whitman — Leaves of Grass",
+      "length": 89,
+      "bookId": 1322
+    },
+    {
+      "text": "Bu denizde, yumuşak ama ürpertici kıpırtıları altında saklı bir ruhtan söz eder gibi görünen, bilinmeyen tatlı bir gizem vardır.",
+      "source": "Herman Melville — Moby-Dick",
+      "length": 128,
+      "bookId": 2701
+    },
+    {
+      "text": "Güçlü bir kitap yaratmak için güçlü bir tema seçmelisin.",
+      "source": "Herman Melville — Moby-Dick",
+      "length": 56,
+      "bookId": 2701
+    },
+    {
+      "text": "Hayatlarında korku ve dehşet olmayan, uyku her gece gelen bir nimet olan bazı insanlar ne mutludur.",
+      "source": "Bram Stoker — Dracula",
+      "length": 99,
+      "bookId": 345
+    },
+    {
+      "text": "Başarıdan değil, başarısızlıktan öğreniriz!",
+      "source": "Bram Stoker — Dracula",
+      "length": 43,
+      "bookId": 345
+    },
+    {
+      "text": "Büyük bir zekâ ve derin bir kalp için acı ve ıstırap her zaman kaçınılmazdır.",
+      "source": "Fyodor Dostoevsky — Crime and Punishment",
+      "length": 77,
+      "bookId": 2554
+    },
+    {
+      "text": "İsimde ne var ki? Gül dediğimiz şey başka bir adla da aynı güzel kokuyu yayardı.",
+      "source": "William Shakespeare — Romeo and Juliet",
+      "length": 80,
+      "bookId": 100
+    },
+    {
+      "text": "Şu küçük mum ışığını ne kadar uzağa yayıyor! Kötü bir dünyada iyi bir davranış da böyle parlar.",
+      "source": "William Shakespeare — The Merchant of Venice",
+      "length": 95,
+      "bookId": 100
+    },
+    {
+      "text": "Akıllıca ve yavaşça ilerle; hızlı koşanlar tökezler.",
+      "source": "William Shakespeare — Romeo and Juliet",
+      "length": 52,
+      "bookId": 100
+    },
+    {
+      "text": "Hepimiz çukurdayız, ama bazılarımız yıldızlara bakıyor.",
+      "source": "Oscar Wilde — Lady Windermere's Fan",
+      "length": 55,
+      "bookId": 790
+    },
+    {
+      "text": "Baştan çıkarılmak dışında her şeye direnebilirim.",
+      "source": "Oscar Wilde — Lady Windermere's Fan",
+      "length": 49,
+      "bookId": 790
+    },
+    {
+      "text": "Baştan çıkarıcı bir arzudan kurtulmanın tek yolu ona boyun eğmektir.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 68,
+      "bookId": 174
+    },
+    {
+      "text": "Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 77,
+      "bookId": 205
+    },
+    {
+      "text": "Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 77,
+      "bookId": 205
+    },
+    {
+      "text": "Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 123,
+      "bookId": 205
+    },
+    {
+      "text": "Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 129,
+      "bookId": 205
+    },
+    {
+      "text": "Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 90,
+      "bookId": 205
+    },
+    {
+      "text": "Ruhlarımız neyden yapılmış olursa olsun, onunkiyle benimki aynıdır. Heathcliff'e sevgim alttaki ebedi kayalara benzer: görünür bir zevki azdır ama gereklidir.",
+      "source": "Emily Brontë — Selected excerpts: Wuthering Heights",
+      "length": 158,
+      "parts": [
+        41,
+        42
+      ]
+    },
+    {
+      "text": "Bu denizde, yumuşak ama ürpertici kıpırtıları altında saklı bir ruhtan söz eder gibi görünen, bilinmeyen tatlı bir gizem vardır. Güçlü bir kitap yaratmak için güçlü bir tema seçmelisin.",
+      "source": "Herman Melville — Selected excerpts: Moby-Dick",
+      "length": 185,
+      "parts": [
+        50,
+        51
+      ]
+    },
+    {
+      "text": "Hayatlarında korku ve dehşet olmayan, uyku her gece gelen bir nimet olan bazı insanlar ne mutludur. Başarıdan değil, başarısızlıktan öğreniriz!",
+      "source": "Bram Stoker — Selected excerpts: Dracula",
+      "length": 143,
+      "parts": [
+        52,
+        53
+      ]
+    },
+    {
+      "text": "Her zaman saygın olmaktansa mutlu olmayı tercih ederim. Hayat bana düşmanlık beslemek ya da haksızlıkları kaydetmek için harcanamayacak kadar kısa görünüyor.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 157,
+      "parts": [
+        38,
+        39
+      ]
+    },
+    {
+      "text": "Her zaman saygın olmaktansa mutlu olmayı tercih ederim. Ben bir kuş değilim ve hiçbir ağ beni tuzağa düşüremez; bağımsız iradesi olan özgür bir insanım.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 152,
+      "parts": [
+        38,
+        40
+      ]
+    },
+    {
+      "text": "Hayat bana düşmanlık beslemek ya da haksızlıkları kaydetmek için harcanamayacak kadar kısa görünüyor. Ben bir kuş değilim ve hiçbir ağ beni tuzağa düşüremez; bağımsız iradesi olan özgür bir insanım.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 198,
+      "parts": [
+        39,
+        40
+      ]
+    },
+    {
+      "text": "Her zaman saygın olmaktansa mutlu olmayı tercih ederim. Hayat bana düşmanlık beslemek ya da haksızlıkları kaydetmek için harcanamayacak kadar kısa görünüyor. Ben bir kuş değilim ve hiçbir ağ beni tuzağa düşüremez; bağımsız iradesi olan özgür bir insanım.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 254,
+      "parts": [
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4",
+      "length": 133,
+      "parts": [
+        27,
+        28
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. O karanlığa derin derin bakarak uzun süre orada durdum; şaşırdım, korktum, şüphe ettim, hiçbir ölümlünün daha önce düşlemeye cesaret edemediği düşleri kurdum.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 232,
+      "parts": [
+        27,
+        29
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 137,
+      "parts": [
+        27,
+        30
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 117,
+      "parts": [
+        27,
+        31
+      ]
+    },
+    {
+      "text": "Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. O karanlığa derin derin bakarak uzun süre orada durdum; şaşırdım, korktum, şüphe ettim, hiçbir ölümlünün daha önce düşlemeye cesaret edemediği düşleri kurdum.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5",
+      "length": 218,
+      "parts": [
+        28,
+        29
+      ]
+    },
+    {
+      "text": "Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5",
+      "length": 123,
+      "parts": [
+        28,
+        30
+      ]
+    },
+    {
+      "text": "Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 1",
+      "length": 103,
+      "parts": [
+        28,
+        31
+      ]
+    },
+    {
+      "text": "O karanlığa derin derin bakarak uzun süre orada durdum; şaşırdım, korktum, şüphe ettim, hiçbir ölümlünün daha önce düşlemeye cesaret edemediği düşleri kurdum. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 222,
+      "parts": [
+        29,
+        30
+      ]
+    },
+    {
+      "text": "O karanlığa derin derin bakarak uzun süre orada durdum; şaşırdım, korktum, şüphe ettim, hiçbir ölümlünün daha önce düşlemeye cesaret edemediği düşleri kurdum. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 202,
+      "parts": [
+        29,
+        31
+      ]
+    },
+    {
+      "text": "Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 107,
+      "parts": [
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 101,
+      "parts": [
+        33,
+        34
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Elbette bulabilirsen, her şeyin bir dersi vardır.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 95,
+      "parts": [
+        33,
+        35
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 96,
+      "parts": [
+        33,
+        36
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 94,
+      "parts": [
+        33,
+        37
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Elbette bulabilirsen, her şeyin bir dersi vardır.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 105,
+      "parts": [
+        34,
+        35
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass",
+      "length": 106,
+      "parts": [
+        34,
+        36
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 104,
+      "parts": [
+        34,
+        37
+      ]
+    },
+    {
+      "text": "Elbette bulabilirsen, her şeyin bir dersi vardır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 100,
+      "parts": [
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Elbette bulabilirsen, her şeyin bir dersi vardır. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 98,
+      "parts": [
+        35,
+        37
+      ]
+    },
+    {
+      "text": "Birçok şeyden söz etmenin zamanı geldi, dedi Mors. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 99,
+      "parts": [
+        36,
+        37
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 124,
+      "parts": [
+        43,
+        44
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 155,
+      "parts": [
+        43,
+        45
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 167,
+      "parts": [
+        43,
+        46
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 177,
+      "parts": [
+        43,
+        47
+      ]
+    },
+    {
+      "text": "Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 132,
+      "parts": [
+        44,
+        45
+      ]
+    },
+    {
+      "text": "Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 144,
+      "parts": [
+        44,
+        46
+      ]
+    },
+    {
+      "text": "Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 154,
+      "parts": [
+        44,
+        47
+      ]
+    },
+    {
+      "text": "Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım. Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 175,
+      "parts": [
+        45,
+        46
+      ]
+    },
+    {
+      "text": "Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım. Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 185,
+      "parts": [
+        45,
+        47
+      ]
+    },
+    {
+      "text": "Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren. Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 197,
+      "parts": [
+        46,
+        47
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4",
+      "length": 197,
+      "parts": [
+        27,
+        28,
+        30
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 1",
+      "length": 177,
+      "parts": [
+        27,
+        28,
+        31
+      ]
+    },
+    {
+      "text": "Gördüğümüz ya da göründüğümüz her şey, bir düş içindeki düşten ibarettir. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 181,
+      "parts": [
+        27,
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Duyduğun hiçbir şeye, gördüğünün de yalnızca yarısına inan. Yıllarca süren sevgi, bir dakikalık nefret içinde unutulmuştur. Dikkatle gözlemlemek, açıkça hatırlamaktır.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 167,
+      "parts": [
+        28,
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Elbette bulabilirsen, her şeyin bir dersi vardır.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 151,
+      "parts": [
+        33,
+        34,
+        35
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 152,
+      "parts": [
+        33,
+        34,
+        36
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 150,
+      "parts": [
+        33,
+        34,
+        37
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Elbette bulabilirsen, her şeyin bir dersi vardır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 146,
+      "parts": [
+        33,
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Elbette bulabilirsen, her şeyin bir dersi vardır. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 144,
+      "parts": [
+        33,
+        35,
+        37
+      ]
+    },
+    {
+      "text": "Dünyada ben kimim? Ah, büyük bilmece işte bu. Birçok şeyden söz etmenin zamanı geldi, dedi Mors. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 145,
+      "parts": [
+        33,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Elbette bulabilirsen, her şeyin bir dersi vardır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 156,
+      "parts": [
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Elbette bulabilirsen, her şeyin bir dersi vardır. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 154,
+      "parts": [
+        34,
+        35,
+        37
+      ]
+    },
+    {
+      "text": "Bazen kahvaltıdan önce altı imkânsız şeye inanmışımdır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 155,
+      "parts": [
+        34,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Elbette bulabilirsen, her şeyin bir dersi vardır. Birçok şeyden söz etmenin zamanı geldi, dedi Mors. Sen anlama dikkat et; sesler kendi yolunu bulur.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 149,
+      "parts": [
+        35,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 206,
+      "parts": [
+        43,
+        44,
+        45
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 218,
+      "parts": [
+        43,
+        44,
+        46
+      ]
+    },
+    {
+      "text": "İnsan zihnine büyük ve ani bir değişim kadar acı veren hiçbir şey yoktur. Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Mutluluğu sükûnet içinde ara ve kendini öne çıkarma gibi görünüşte masum olanı bile olsa hırstan kaçın.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 228,
+      "parts": [
+        43,
+        44,
+        47
+      ]
+    },
+    {
+      "text": "Dikkat et; çünkü korkusuzum ve bu yüzden güçlüyüm. Hayat yalnızca ıstırap birikimi olsa da benim için değerlidir ve onu savunacağım. Öğütlerimden değilse bile örneğimden, bilgi edinmenin ne kadar tehlikeli olabileceğini öğren.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 226,
+      "parts": [
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 124,
+      "parts": [
+        48,
+        61
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 170,
+      "parts": [
+        48,
+        63
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 176,
+      "parts": [
+        48,
+        64
+      ]
+    },
+    {
+      "text": "Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 155,
+      "parts": [
+        61,
+        62
+      ]
+    },
+    {
+      "text": "Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 201,
+      "parts": [
+        61,
+        63
+      ]
+    },
+    {
+      "text": "Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 207,
+      "parts": [
+        61,
+        64
+      ]
+    },
+    {
+      "text": "Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır. Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 201,
+      "parts": [
+        62,
+        63
+      ]
+    },
+    {
+      "text": "Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır. Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 207,
+      "parts": [
+        62,
+        64
+      ]
+    },
+    {
+      "text": "Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti. Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 253,
+      "parts": [
+        63,
+        64
+      ]
+    },
+    {
+      "text": "Her sabah, yaşamımı doğanın kendisiyle aynı sadeliğe ve diyebilirim ki aynı masumiyete kavuşturmak için neşeli bir davetti. Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 214,
+      "parts": [
+        63,
+        65
+      ]
+    },
+    {
+      "text": "Havada kaleler kurduysanız emeğiniz boşa gitmiş sayılmaz; olmaları gereken yer orasıdır. Şimdi altlarına temellerini yerleştirin. Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 220,
+      "parts": [
+        64,
+        65
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 202,
+      "parts": [
+        48,
+        61,
+        62
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 215,
+      "parts": [
+        48,
+        61,
+        65
+      ]
+    },
+    {
+      "text": "Sevgi, para ve şöhret yerine bana gerçeği ver. Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır. Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 215,
+      "parts": [
+        48,
+        62,
+        65
+      ]
+    },
+    {
+      "text": "Evimde üç sandalye vardı; biri yalnızlık, ikisi dostluk, üçü topluluk içindi. Kitaplar dünyanın değerli zenginliği ve kuşaklarla uluslara yaraşan mirastır. Duyduğu müziğe göre adım atsın; ritmi nasıl olursa olsun, ne kadar uzaktan gelirse gelsin.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 246,
+      "parts": [
+        61,
+        62,
+        65
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Zayıf bir zihin üzerinde işleyen kibir her türlü kötülüğü doğurur.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 179,
+      "parts": [
+        12,
+        14
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Bencillik her zaman bağışlanmalıdır; çünkü bunun için bir tedavi umudu yoktur.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Mansfield Park",
+      "length": 191,
+      "parts": [
+        12,
+        16
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Bir adamla sürekli alay edip arada bir zekice bir şeye rastlamamak mümkün değildir.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice",
+      "length": 196,
+      "parts": [
+        12,
+        17
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Ruhumu delip geçiyorsun. Yarı ıstırap, yarı umut içindeyim.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Persuasion",
+      "length": 172,
+      "parts": [
+        12,
+        19
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Zayıf bir zihin üzerinde işleyen kibir her türlü kötülüğü doğurur.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 229,
+      "parts": [
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Doğrusu okumak gibi bir zevk olmadığını ilan ediyorum!",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 217,
+      "parts": [
+        12,
+        13,
+        15
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Bencillik her zaman bağışlanmalıdır; çünkü bunun için bir tedavi umudu yoktur.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Mansfield Park",
+      "length": 241,
+      "parts": [
+        12,
+        13,
+        16
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Bir adamla sürekli alay edip arada bir zekice bir şeye rastlamamak mümkün değildir.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 246,
+      "parts": [
+        12,
+        13,
+        17
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Sevmediğim şeyi yapmak dışında hiçbir şey beni yormaz.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Mansfield Park",
+      "length": 217,
+      "parts": [
+        12,
+        13,
+        18
+      ]
+    },
+    {
+      "text": "Evrensel olarak kabul edilen bir gerçektir ki iyi bir servete sahip bekâr bir erkek mutlaka bir eş istemektedir. Kalbin şefkatine eşdeğer hiçbir çekicilik yoktur. Ruhumu delip geçiyorsun. Yarı ıstırap, yarı umut içindeyim.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Persuasion",
+      "length": 222,
+      "parts": [
+        12,
+        13,
+        19
+      ]
+    }
+  ]
+}

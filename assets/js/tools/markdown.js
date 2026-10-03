@@ -1,10 +1,31 @@
 /* TOOLKIT — assets/js/tools/markdown.js */
 (function initMarkdown() {
+  'use strict';
+
   const editor   = document.getElementById('mdInput');
   const preview  = document.getElementById('mdPreview');
   const copyBtn  = document.getElementById('mdCopyBtn');
   const clearBtn = document.getElementById('mdClearBtn');
   if (!editor) return;
+
+  function escapeAttribute(value) {
+    return value.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function safeLinkUrl(value) {
+    const source = value.replace(/&amp;/g, '&').trim();
+    if (/^(?:https?:|mailto:)/i.test(source)) return escapeHTML(source);
+    if (/^(?:#|\/|\.\/|\.\.\/)/.test(source) && !/^\/\//.test(source)) return escapeHTML(source);
+    return '';
+  }
+
+  function safeImageUrl(value) {
+    const source = value.replace(/&amp;/g, '&').trim();
+    if (/^data:image\/(?:png|jpeg|gif|webp);base64,[a-z0-9+/=]+$/i.test(source)) {
+      return escapeHTML(source);
+    }
+    return '';
+  }
 
   // Lightweight safe Markdown → HTML parser
   function parseMarkdown(md) {
@@ -52,14 +73,19 @@
     // Strikethrough
     html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
-      const safe = url.replace(/javascript:/gi, '');
-      return `<a href="${safe}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    // Images
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+      const safe = safeImageUrl(url);
+      if (!safe) return `<span class="text-muted">🖼 ${alt}</span>`;
+      return `<img src="${safe}" alt="${escapeAttribute(alt)}" style="max-width:100%;border-radius:8px;">`;
     });
 
-    // Images
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;">');
+    // Links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
+      const safe = safeLinkUrl(url);
+      if (!safe) return text;
+      return `<a href="${safe}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+    });
 
     // Unordered lists (simple single-level)
     html = html.replace(/^[\*\-\+] (.+)$/gm, '<li>$1</li>');

@@ -15,7 +15,7 @@
     function generateSlug(text) {
       var sep             = getRadio('slug-sep') || '-';
       var preserveNumbers = document.getElementById('slug-numbers').checked;
-      var slug = text.toLowerCase();
+      var slug = text.normalize('NFC').toLocaleLowerCase('en-US').replace(/ı/g, 'i');
       slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       if (preserveNumbers) {
         slug = slug.replace(/[^a-z0-9]+/g, sep);

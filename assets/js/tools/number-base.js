@@ -1,73 +1,123 @@
 (function initNumberBase() {
   'use strict';
 
-  const binEl  = document.getElementById('numBin');
-  const octEl  = document.getElementById('numOct');
-  const decEl  = document.getElementById('numDec');
-  const hexEl  = document.getElementById('numHex');
-  const custInputEl = document.getElementById('custInput');
-  const custFromEl  = document.getElementById('custFrom');
-  const custToEl    = document.getElementById('custTo');
-  const custResultEl = document.getElementById('custResult');
+  const binaryInput = document.getElementById('numBin');
+  const octalInput = document.getElementById('numOct');
+  const decimalInput = document.getElementById('numDec');
+  const hexadecimalInput = document.getElementById('numHex');
+  const customInput = document.getElementById('custInput');
+  const customFrom = document.getElementById('custFrom');
+  const customTo = document.getElementById('custTo');
+  const customResult = document.getElementById('custResult');
 
-  if (!binEl) return;
+  if (!binaryInput) return;
 
+  const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const standardInputs = [binaryInput, octalInput, decimalInput, hexadecimalInput];
   let updating = false;
 
-  function updateAll(decimal) {
+  function parseInteger(value, base) {
+    if (!Number.isInteger(base) || base < 2 || base > 36) {
+      throw new Error('Invalid base.');
+    }
+
+    let source = value.trim().toLocaleUpperCase('en-US');
+    let negative = false;
+    if (source.startsWith('-') || source.startsWith('+')) {
+      negative = source[0] === '-';
+      source = source.slice(1);
+    }
+    if (!source) throw new Error('Invalid number.');
+
+    let result = 0n;
+    const bigBase = BigInt(base);
+    for (const character of source) {
+      const digit = digits.indexOf(character);
+      if (digit < 0 || digit >= base) throw new Error('Invalid number.');
+      result = result * bigBase + BigInt(digit);
+    }
+    return negative ? -result : result;
+  }
+
+  function formatInteger(value, base) {
+    return value.toString(base).toLocaleUpperCase('en-US');
+  }
+
+  function markInvalid(element, invalid) {
+    element.style.borderColor = invalid ? 'var(--red)' : '';
+    element.setAttribute('aria-invalid', String(invalid));
+  }
+
+  function clearStandardValues() {
+    standardInputs.forEach((element) => {
+      element.value = '';
+      markInvalid(element, false);
+    });
+  }
+
+  function updateAll(value) {
     if (updating) return;
     updating = true;
-    if (decimal === null || isNaN(decimal)) {
-      [binEl, octEl, decEl, hexEl].forEach(el => { el.value = ''; el.style.borderColor = ''; });
-      updating = false;
-      return;
-    }
-    const n = Math.floor(decimal);
-    binEl.value = n.toString(2);
-    octEl.value = n.toString(8);
-    decEl.value = n.toString(10);
-    hexEl.value = n.toString(16).toUpperCase();
+    binaryInput.value = formatInteger(value, 2);
+    octalInput.value = formatInteger(value, 8);
+    decimalInput.value = formatInteger(value, 10);
+    hexadecimalInput.value = formatInteger(value, 16);
+    standardInputs.forEach((element) => markInvalid(element, false));
     updating = false;
   }
 
-  function handleInput(el, base) {
-    const val = el.value.trim();
-    if (!val) { updateAll(null); return; }
-    const n = parseInt(val, base);
-    if (isNaN(n)) { el.style.borderColor = '#f87171'; return; }
-    el.style.borderColor = '';
-    updateAll(n);
+  function handleInput(element, base) {
+    if (updating) return;
+    const source = element.value.trim();
+    if (!source) {
+      updating = true;
+      clearStandardValues();
+      updating = false;
+      return;
+    }
+    try {
+      updateAll(parseInteger(source, base));
+    } catch {
+      markInvalid(element, true);
+    }
   }
 
-  binEl.addEventListener('input', () => handleInput(binEl, 2));
-  octEl.addEventListener('input', () => handleInput(octEl, 8));
-  decEl.addEventListener('input', () => handleInput(decEl, 10));
-  hexEl.addEventListener('input', () => handleInput(hexEl, 16));
+  binaryInput.addEventListener('input', () => handleInput(binaryInput, 2));
+  octalInput.addEventListener('input', () => handleInput(octalInput, 8));
+  decimalInput.addEventListener('input', () => handleInput(decimalInput, 10));
+  hexadecimalInput.addEventListener('input', () => handleInput(hexadecimalInput, 16));
 
-  // Custom base
   function updateCustom() {
-    const val   = custInputEl.value.trim();
-    const from  = parseInt(custFromEl.value);
-    const to    = parseInt(custToEl.value);
-    if (!val || isNaN(from) || isNaN(to)) { custResultEl.textContent = '—'; return; }
-    const n = parseInt(val, from);
-    if (isNaN(n)) { custResultEl.textContent = 'Invalid'; return; }
-    custResultEl.textContent = n.toString(to).toUpperCase();
+    const from = Number(customFrom.value);
+    const to = Number(customTo.value);
+    if (!customInput.value.trim()) {
+      customResult.textContent = '—';
+      markInvalid(customInput, false);
+      return;
+    }
+    try {
+      const result = parseInteger(customInput.value, from);
+      if (!Number.isInteger(to) || to < 2 || to > 36) throw new Error('Invalid base.');
+      customResult.textContent = formatInteger(result, to);
+      markInvalid(customInput, false);
+    } catch {
+      customResult.textContent = 'Invalid';
+      markInvalid(customInput, true);
+    }
   }
 
-  [custInputEl, custFromEl, custToEl].forEach(el => el.addEventListener('input', updateCustom));
+  [customInput, customFrom, customTo].forEach((element) => {
+    element.addEventListener('input', updateCustom);
+  });
 
-  // Copy buttons
-  document.querySelectorAll('[data-copy-base]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const base = btn.dataset.copyBase;
-      const map = { '2': binEl, '8': octEl, '10': decEl, '16': hexEl };
-      const el = map[base];
-      if (el && el.value) copyToClipboard(el.value, 'Base ' + base);
+  document.querySelectorAll('[data-copy-base]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const inputs = { '2': binaryInput, '8': octalInput, '10': decimalInput, '16': hexadecimalInput };
+      const field = inputs[button.dataset.copyBase];
+      if (field && field.value) copyToClipboard(field.value, `Base ${button.dataset.copyBase}`);
     });
   });
 
-  // Default
-  decEl.value = '255';
-  handleInput(decEl, 10);
-})();
+  decimalInput.value = '255';
+  handleInput(decimalInput, 10);
+}());

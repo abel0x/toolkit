@@ -36,7 +36,7 @@
         ];
         let html = '<table style="width:100%;border-collapse:collapse;font-size:.875rem;">';
         rows.forEach(([k,v]) => {
-          html += `<tr><td style="padding:.4rem .7rem;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;">${k}</td><td class="font-mono" style="padding:.4rem .7rem;word-break:break-all;">${escapeHTML(v)}</td></tr>`;
+          html += `<tr><td style="padding:.4rem .7rem;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;">${k}</td><td class="font-mono" style="padding:.4rem .7rem;word-break:break-all;" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
         });
         html += '</table>';
         tableEl.innerHTML = html;

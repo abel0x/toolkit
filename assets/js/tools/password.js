@@ -1,5 +1,7 @@
 /* TOOLKIT — assets/js/tools/password.js */
 (function initPasswordGenerator() {
+  'use strict';
+
   const CHARS = {
     upper:   'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     lower:   'abcdefghijklmnopqrstuvwxyz',
@@ -53,8 +55,6 @@
     }
 
     const length = parseInt(lengthSlider.value, 10);
-    let password = '';
-
     // Guarantee one character from each selected type
     const required = [];
     if (optUpper.checked)   required.push(getChar(CHARS.upper));
@@ -68,21 +68,20 @@
       return p[secureRandInt(p.length)];
     }
 
-    for (let i = 0; i < length; i++) {
-      password += charset[secureRandInt(charset.length)];
+    const password = required.slice();
+    while (password.length < length) {
+      password.push(charset[secureRandInt(charset.length)]);
     }
 
-    // Replace first N chars with required chars so all types are present
-    const pwdArr = password.split('');
-    required.forEach((ch, i) => {
-      // Splice into a random position
-      const pos = secureRandInt(length);
-      pwdArr[pos] = ch;
-    });
+    // Shuffle after seeding the required characters so no type can be overwritten.
+    for (let i = password.length - 1; i > 0; i--) {
+      const position = secureRandInt(i + 1);
+      [password[i], password[position]] = [password[position], password[i]];
+    }
 
-    password = pwdArr.join('');
-    output.textContent = password;
-    updateStrength(password, charset.length);
+    const result = password.join('');
+    output.textContent = result;
+    updateStrength(result, charset.length);
   }
 
   function updateStrength(pwd, charsetSize) {

@@ -18,8 +18,8 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
-  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
-  <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -31,21 +31,18 @@
   <div class="nav-container">
     <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
       <span class="brand-icon" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-          <defs>
-            <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00d4ff" />
-              <stop offset="100%" stop-color="#7c3aed" />
-            </linearGradient>
-          </defs>
-          <rect width="32" height="32" rx="7" fill="#0d1117" />
-          <polygon points="16,2.5 28,9.5 28,22.5 16,29.5 4,22.5 4,9.5" stroke="url(#hexGrad)" stroke-width="1.8" fill="none" />
-          <path d="M10.5 16 L16 9.5 L21.5 16 L16 22.5 Z" fill="url(#hexGrad)" />
-        </svg>
+        <img src="../assets/images/favicon-64.png" width="44" height="44" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
-    <div class="nav-actions"></div>
+    <div class="nav-actions">
+      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
+          <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
+        </svg>
+      </a>
+    </div>
   </div>
 </nav>
 <!-- NAV:END -->
@@ -68,23 +65,23 @@
         </div>
 
         <div class="card glass reveal" style="max-width:680px;margin:0 auto;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
-            <div class="form-group" style="margin:0;">
+          <div class="form-grid form-grid--compact">
+            <div class="form-group form-group--flush">
               <label class="form-label" for="rn-min">Minimum</label>
               <input type="number" id="rn-min" class="form-control" value="1" />
             </div>
-            <div class="form-group" style="margin:0;">
+            <div class="form-group form-group--flush">
               <label class="form-label" for="rn-max">Maximum</label>
               <input type="number" id="rn-max" class="form-control" value="100" />
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
-            <div class="form-group" style="margin:0;">
+          <div class="form-grid form-grid--spacious">
+            <div class="form-group form-group--flush">
               <label class="form-label" for="rn-count">Count</label>
               <input type="number" id="rn-count" class="form-control" value="10" min="1" max="1000" />
             </div>
-            <div class="form-group" style="margin:0;">
+            <div class="form-group form-group--flush">
               <label class="form-label" for="rn-decimals">Decimal Places</label>
               <select id="rn-decimals" class="form-control form-select">
                 <option value="0" selected>0 (Integer)</option>
@@ -97,14 +94,14 @@
             </div>
           </div>
 
-          <div class="form-group" style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:1.5rem;">
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+          <div class="form-group form-group--spacious choice-options choice-options--spacious">
+            <label class="choice-option">
               <input type="radio" name="rn-type" value="integer" checked /> Integers
             </label>
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+            <label class="choice-option">
               <input type="radio" name="rn-type" value="decimal" /> Decimals
             </label>
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+            <label class="choice-option">
               <input type="checkbox" id="rn-unique" /> Unique values only
             </label>
           </div>
@@ -114,7 +111,7 @@
             <textarea id="rn-output" class="form-control font-mono" rows="10" readonly placeholder="Click Generate..."></textarea>
           </div>
 
-          <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
+          <div class="action-row action-row--top">
             <button class="btn btn-primary" id="rn-generate-btn">Generate</button>
             <button class="btn btn-secondary" id="rn-copy-btn">Copy Results</button>
           </div>
@@ -143,7 +140,7 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Toolkit. No data leaves your device.</p>
-        <p class="footer-tech">100 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p class="footer-tech">101 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>

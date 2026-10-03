@@ -1,4 +1,6 @@
 (function initJsonDiff() {
+  'use strict';
+
   const aEl = document.getElementById('jdiff-a');
   const bEl = document.getElementById('jdiff-b');
   const compareBtn = document.getElementById('jdiff-btn');
@@ -51,8 +53,8 @@
         else detail = `<span class="jdiff-old">${fmt(d.old)}</span>`;
         return `<div class="jdiff-item ${cls}">
           <span class="jdiff-label">${label}</span>
-          <code class="jdiff-path">${escapeHTML(d.path || '(root)')}</code>
-          <span class="jdiff-detail">${detail}</span>
+          <code class="jdiff-path" data-i18n-skip>${escapeHTML(d.path || '(root)')}</code>
+          <span class="jdiff-detail" data-i18n-skip>${detail}</span>
         </div>`;
       }).join('');
       resultsEl.innerHTML = `<p class="jdiff-summary">${diffs.length} difference${diffs.length !== 1 ? 's' : ''} found</p>${items}`;
@@ -61,4 +63,4 @@
   }
 
   compareBtn.addEventListener('click', compare);
-})();
+}());

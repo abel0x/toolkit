@@ -1,0 +1,1193 @@
+{
+  "schemaVersion": 1,
+  "id": "quotes",
+  "language": "en",
+  "label": "Quotes",
+  "type": "quotes",
+  "license": "CC0-1.0",
+  "source": "Public-domain literary passages matched to named Project Gutenberg editions on 2026-09-26. Punctuation and line-break normalisation is applied during verification. Curated excerpts explicitly name their works and reference the individually verified base passages; unsupported attributions were removed.",
+  "provenance": {
+    "method": "public-domain-selection",
+    "reviewed": "2026-09-26",
+    "sources": [
+      "https://www.gutenberg.org/ebooks/100",
+      "https://www.gutenberg.org/ebooks/102",
+      "https://www.gutenberg.org/ebooks/105",
+      "https://www.gutenberg.org/ebooks/11",
+      "https://www.gutenberg.org/ebooks/12",
+      "https://www.gutenberg.org/ebooks/1260",
+      "https://www.gutenberg.org/ebooks/1322",
+      "https://www.gutenberg.org/ebooks/1342",
+      "https://www.gutenberg.org/ebooks/141",
+      "https://www.gutenberg.org/ebooks/158",
+      "https://www.gutenberg.org/ebooks/174",
+      "https://www.gutenberg.org/ebooks/205",
+      "https://www.gutenberg.org/ebooks/2147",
+      "https://www.gutenberg.org/ebooks/2150",
+      "https://www.gutenberg.org/ebooks/2151",
+      "https://www.gutenberg.org/ebooks/2554",
+      "https://www.gutenberg.org/ebooks/2701",
+      "https://www.gutenberg.org/ebooks/345",
+      "https://www.gutenberg.org/ebooks/580",
+      "https://www.gutenberg.org/ebooks/768",
+      "https://www.gutenberg.org/ebooks/790",
+      "https://www.gutenberg.org/ebooks/84",
+      "https://www.gutenberg.org/ebooks/844",
+      "https://www.gutenberg.org/ebooks/854",
+      "https://www.gutenberg.org/ebooks/887"
+    ]
+  },
+  "meta": {
+    "avgLength": 132,
+    "maxLength": 256,
+    "hasDiacritics": false,
+    "hasMultiWordEntries": true
+  },
+  "quotes": [
+    {
+      "text": "All the world's a stage, and all the men and women merely players.",
+      "source": "William Shakespeare — As You Like It",
+      "length": 66,
+      "bookId": 100
+    },
+    {
+      "text": "There is nothing either good or bad, but thinking makes it so.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 62,
+      "bookId": 100
+    },
+    {
+      "text": "To thine own self be true, and it must follow, as the night the day, thou canst not then be false to any man.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 109,
+      "bookId": 100
+    },
+    {
+      "text": "Cowards die many times before their deaths; the valiant never taste of death but once.",
+      "source": "William Shakespeare — Julius Caesar",
+      "length": 86,
+      "bookId": 100
+    },
+    {
+      "text": "Though this be madness, yet there is method in't.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 49,
+      "bookId": 100
+    },
+    {
+      "text": "Neither a borrower nor a lender be; for loan oft loses both itself and friend.",
+      "source": "William Shakespeare — Hamlet",
+      "length": 78,
+      "bookId": 100
+    },
+    {
+      "text": "We are such stuff as dreams are made on, and our little life is rounded with a sleep.",
+      "source": "William Shakespeare — The Tempest",
+      "length": 85,
+      "bookId": 100
+    },
+    {
+      "text": "Reputation is an idle and most false imposition; oft got without merit, and lost without deserving.",
+      "source": "William Shakespeare — Othello",
+      "length": 99,
+      "bookId": 100
+    },
+    {
+      "text": "Life's but a walking shadow, a poor player that struts and frets his hour upon the stage.",
+      "source": "William Shakespeare — Macbeth",
+      "length": 89,
+      "bookId": 100
+    },
+    {
+      "text": "Have more than thou showest, speak less than thou knowest, lend less than thou owest.",
+      "source": "William Shakespeare — King Lear",
+      "length": 85,
+      "bookId": 100
+    },
+    {
+      "text": "Nature teaches beasts to know their friends.",
+      "source": "William Shakespeare — Coriolanus",
+      "length": 44,
+      "bookId": 100
+    },
+    {
+      "text": "Our doubts are traitors, and make us lose the good we oft might win by fearing to attempt.",
+      "source": "William Shakespeare — Measure for Measure",
+      "length": 90,
+      "bookId": 100
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife.",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 116,
+      "bookId": 1342
+    },
+    {
+      "text": "There is no charm equal to tenderness of heart.",
+      "source": "Jane Austen — Emma",
+      "length": 47,
+      "bookId": 158
+    },
+    {
+      "text": "Vanity working on a weak head produces every sort of mischief.",
+      "source": "Jane Austen — Emma",
+      "length": 62,
+      "bookId": 158
+    },
+    {
+      "text": "I declare after all there is no enjoyment like reading!",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 55,
+      "bookId": 1342
+    },
+    {
+      "text": "Selfishness must always be forgiven, you know, because there is no hope of a cure.",
+      "source": "Jane Austen — Mansfield Park",
+      "length": 82,
+      "bookId": 141
+    },
+    {
+      "text": "One cannot be always laughing at a man without now and then stumbling on something witty.",
+      "source": "Jane Austen — Pride and Prejudice",
+      "length": 89,
+      "bookId": 1342
+    },
+    {
+      "text": "Nothing ever fatigues me, but doing what I do not like.",
+      "source": "Jane Austen — Mansfield Park",
+      "length": 55,
+      "bookId": 141
+    },
+    {
+      "text": "You pierce my soul. I am half agony, half hope.",
+      "source": "Jane Austen — Persuasion",
+      "length": 47,
+      "bookId": 105
+    },
+    {
+      "text": "There are dark shadows on the earth, but its lights are stronger in the contrast.",
+      "source": "Charles Dickens — The Pickwick Papers",
+      "length": 81,
+      "bookId": 580
+    },
+    {
+      "text": "Every saint has a past, and every sinner has a future.",
+      "source": "Oscar Wilde — A Woman of No Importance",
+      "length": 54,
+      "bookId": 854
+    },
+    {
+      "text": "The truth is rarely pure and never simple.",
+      "source": "Oscar Wilde — The Importance of Being Earnest",
+      "length": 42,
+      "bookId": 844
+    },
+    {
+      "text": "Anybody can make history. Only a great man can write it.",
+      "source": "Oscar Wilde — Intentions",
+      "length": 56,
+      "bookId": 887
+    },
+    {
+      "text": "Behind every exquisite thing that existed, there was something tragic.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 70,
+      "bookId": 174
+    },
+    {
+      "text": "Nowadays people know the price of everything and the value of nothing.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 70,
+      "bookId": 174
+    },
+    {
+      "text": "The books that the world calls immoral are books that show the world its own shame.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 83,
+      "bookId": 174
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 54,
+      "bookId": 2151
+    },
+    {
+      "text": "Believe nothing you hear, and only one half that you see.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 4",
+      "length": 57,
+      "bookId": 2150
+    },
+    {
+      "text": "Deep into that darkness peering, long I stood there wondering, fearing, doubting, dreaming dreams no mortal ever dared to dream before.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 135,
+      "bookId": 2151
+    },
+    {
+      "text": "Years of love have been forgot in the hatred of a minute.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 5",
+      "length": 57,
+      "bookId": 2151
+    },
+    {
+      "text": "To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — The Works of Edgar Allan Poe, Volume 1",
+      "length": 49,
+      "bookId": 2147
+    },
+    {
+      "text": "Courage is resistance to fear, mastery of fear, not absence of fear.",
+      "source": "Mark Twain — Pudd'nhead Wilson",
+      "length": 68,
+      "bookId": 102
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 51,
+      "bookId": 11
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast.",
+      "source": "Lewis Carroll — Through the Looking-Glass",
+      "length": 74,
+      "bookId": 12
+    },
+    {
+      "text": "Everything's got a moral, if only you can find it.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 50,
+      "bookId": 11
+    },
+    {
+      "text": "The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Through the Looking-Glass",
+      "length": 59,
+      "bookId": 12
+    },
+    {
+      "text": "Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Alice's Adventures in Wonderland",
+      "length": 68,
+      "bookId": 11
+    },
+    {
+      "text": "I would always rather be happy than dignified.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 46,
+      "bookId": 1260
+    },
+    {
+      "text": "Life appears to me too short to be spent in nursing animosity or registering wrongs.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 84,
+      "bookId": 1260
+    },
+    {
+      "text": "I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+      "source": "Charlotte Brontë — Jane Eyre",
+      "length": 87,
+      "bookId": 1260
+    },
+    {
+      "text": "Whatever our souls are made of, his and mine are the same.",
+      "source": "Emily Brontë — Wuthering Heights",
+      "length": 58,
+      "bookId": 768
+    },
+    {
+      "text": "My love for Heathcliff resembles the eternal rocks beneath: a source of little visible delight, but necessary.",
+      "source": "Emily Brontë — Wuthering Heights",
+      "length": 110,
+      "bookId": 768
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 69,
+      "bookId": 84
+    },
+    {
+      "text": "Beware; for I am fearless, and therefore powerful.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 50,
+      "bookId": 84
+    },
+    {
+      "text": "Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 94,
+      "bookId": 84
+    },
+    {
+      "text": "Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 108,
+      "bookId": 84
+    },
+    {
+      "text": "Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Frankenstein",
+      "length": 125,
+      "bookId": 84
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 55,
+      "bookId": 205
+    },
+    {
+      "text": "I exist as I am, that is enough; if no other in the world be aware, I sit content.",
+      "source": "Walt Whitman — Leaves of Grass",
+      "length": 82,
+      "bookId": 1322
+    },
+    {
+      "text": "There is one knows not what sweet mystery about this sea, whose gently awful stirrings seem to speak of some hidden soul beneath.",
+      "source": "Herman Melville — Moby-Dick",
+      "length": 129,
+      "bookId": 2701
+    },
+    {
+      "text": "To produce a mighty book, you must choose a mighty theme.",
+      "source": "Herman Melville — Moby-Dick",
+      "length": 57,
+      "bookId": 2701
+    },
+    {
+      "text": "How blessed are some people, whose lives have no fears, no dreads; to whom sleep is a blessing that comes nightly.",
+      "source": "Bram Stoker — Dracula",
+      "length": 114,
+      "bookId": 345
+    },
+    {
+      "text": "We learn from failure, not from success!",
+      "source": "Bram Stoker — Dracula",
+      "length": 40,
+      "bookId": 345
+    },
+    {
+      "text": "Pain and suffering are always inevitable for a large intelligence and a deep heart.",
+      "source": "Fyodor Dostoevsky — Crime and Punishment",
+      "length": 83,
+      "bookId": 2554
+    },
+    {
+      "text": "What's in a name? That which we call a rose by any other name would smell as sweet.",
+      "source": "William Shakespeare — Romeo and Juliet",
+      "length": 83,
+      "bookId": 100
+    },
+    {
+      "text": "How far that little candle throws his beams! So shines a good deed in a naughty world.",
+      "source": "William Shakespeare — The Merchant of Venice",
+      "length": 86,
+      "bookId": 100
+    },
+    {
+      "text": "Wisely and slow; they stumble that run fast.",
+      "source": "William Shakespeare — Romeo and Juliet",
+      "length": 44,
+      "bookId": 100
+    },
+    {
+      "text": "We are all in the gutter, but some of us are looking at the stars.",
+      "source": "Oscar Wilde — Lady Windermere's Fan",
+      "length": 66,
+      "bookId": 790
+    },
+    {
+      "text": "I can resist everything except temptation.",
+      "source": "Oscar Wilde — Lady Windermere's Fan",
+      "length": 42,
+      "bookId": 790
+    },
+    {
+      "text": "The only way to get rid of a temptation is to yield to it.",
+      "source": "Oscar Wilde — The Picture of Dorian Gray",
+      "length": 58,
+      "bookId": 174
+    },
+    {
+      "text": "I had three chairs in my house; one for solitude, two for friendship, three for society.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 88,
+      "bookId": 205
+    },
+    {
+      "text": "Books are the treasured wealth of the world and the fit inheritance of generations and nations.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 95,
+      "bookId": 205
+    },
+    {
+      "text": "Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 122,
+      "bookId": 205
+    },
+    {
+      "text": "If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 131,
+      "bookId": 205
+    },
+    {
+      "text": "Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Walden",
+      "length": 71,
+      "bookId": 205
+    },
+    {
+      "text": "Whatever our souls are made of, his and mine are the same. My love for Heathcliff resembles the eternal rocks beneath: a source of little visible delight, but necessary.",
+      "source": "Emily Brontë — Selected excerpts: Wuthering Heights",
+      "length": 169,
+      "parts": [
+        41,
+        42
+      ]
+    },
+    {
+      "text": "There is one knows not what sweet mystery about this sea, whose gently awful stirrings seem to speak of some hidden soul beneath. To produce a mighty book, you must choose a mighty theme.",
+      "source": "Herman Melville — Selected excerpts: Moby-Dick",
+      "length": 187,
+      "parts": [
+        50,
+        51
+      ]
+    },
+    {
+      "text": "How blessed are some people, whose lives have no fears, no dreads; to whom sleep is a blessing that comes nightly. We learn from failure, not from success!",
+      "source": "Bram Stoker — Selected excerpts: Dracula",
+      "length": 155,
+      "parts": [
+        52,
+        53
+      ]
+    },
+    {
+      "text": "I would always rather be happy than dignified. Life appears to me too short to be spent in nursing animosity or registering wrongs.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 131,
+      "parts": [
+        38,
+        39
+      ]
+    },
+    {
+      "text": "I would always rather be happy than dignified. I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 134,
+      "parts": [
+        38,
+        40
+      ]
+    },
+    {
+      "text": "Life appears to me too short to be spent in nursing animosity or registering wrongs. I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 172,
+      "parts": [
+        39,
+        40
+      ]
+    },
+    {
+      "text": "I would always rather be happy than dignified. Life appears to me too short to be spent in nursing animosity or registering wrongs. I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+      "source": "Charlotte Brontë — Selected excerpts: Jane Eyre",
+      "length": 219,
+      "parts": [
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Believe nothing you hear, and only one half that you see.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4",
+      "length": 112,
+      "parts": [
+        27,
+        28
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Deep into that darkness peering, long I stood there wondering, fearing, doubting, dreaming dreams no mortal ever dared to dream before.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 190,
+      "parts": [
+        27,
+        29
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Years of love have been forgot in the hatred of a minute.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 112,
+      "parts": [
+        27,
+        30
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 104,
+      "parts": [
+        27,
+        31
+      ]
+    },
+    {
+      "text": "Believe nothing you hear, and only one half that you see. Deep into that darkness peering, long I stood there wondering, fearing, doubting, dreaming dreams no mortal ever dared to dream before.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5",
+      "length": 193,
+      "parts": [
+        28,
+        29
+      ]
+    },
+    {
+      "text": "Believe nothing you hear, and only one half that you see. Years of love have been forgot in the hatred of a minute.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5",
+      "length": 115,
+      "parts": [
+        28,
+        30
+      ]
+    },
+    {
+      "text": "Believe nothing you hear, and only one half that you see. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 1",
+      "length": 107,
+      "parts": [
+        28,
+        31
+      ]
+    },
+    {
+      "text": "Deep into that darkness peering, long I stood there wondering, fearing, doubting, dreaming dreams no mortal ever dared to dream before. Years of love have been forgot in the hatred of a minute.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5",
+      "length": 193,
+      "parts": [
+        29,
+        30
+      ]
+    },
+    {
+      "text": "Deep into that darkness peering, long I stood there wondering, fearing, doubting, dreaming dreams no mortal ever dared to dream before. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 185,
+      "parts": [
+        29,
+        31
+      ]
+    },
+    {
+      "text": "Years of love have been forgot in the hatred of a minute. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 107,
+      "parts": [
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Sometimes I've believed as many as six impossible things before breakfast.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 126,
+      "parts": [
+        33,
+        34
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Everything's got a moral, if only you can find it.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 102,
+      "parts": [
+        33,
+        35
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 111,
+      "parts": [
+        33,
+        36
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 120,
+      "parts": [
+        33,
+        37
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. Everything's got a moral, if only you can find it.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 125,
+      "parts": [
+        34,
+        35
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass",
+      "length": 134,
+      "parts": [
+        34,
+        36
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 143,
+      "parts": [
+        34,
+        37
+      ]
+    },
+    {
+      "text": "Everything's got a moral, if only you can find it. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 110,
+      "parts": [
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Everything's got a moral, if only you can find it. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 119,
+      "parts": [
+        35,
+        37
+      ]
+    },
+    {
+      "text": "The time has come, the Walrus said, to talk of many things. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 128,
+      "parts": [
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Beware; for I am fearless, and therefore powerful.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 120,
+      "parts": [
+        43,
+        44
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 164,
+      "parts": [
+        43,
+        45
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 178,
+      "parts": [
+        43,
+        46
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 195,
+      "parts": [
+        43,
+        47
+      ]
+    },
+    {
+      "text": "Beware; for I am fearless, and therefore powerful. Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 145,
+      "parts": [
+        44,
+        45
+      ]
+    },
+    {
+      "text": "Beware; for I am fearless, and therefore powerful. Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 159,
+      "parts": [
+        44,
+        46
+      ]
+    },
+    {
+      "text": "Beware; for I am fearless, and therefore powerful. Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 176,
+      "parts": [
+        44,
+        47
+      ]
+    },
+    {
+      "text": "Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it. Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 203,
+      "parts": [
+        45,
+        46
+      ]
+    },
+    {
+      "text": "Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it. Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 220,
+      "parts": [
+        45,
+        47
+      ]
+    },
+    {
+      "text": "Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge. Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 234,
+      "parts": [
+        46,
+        47
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Believe nothing you hear, and only one half that you see. Years of love have been forgot in the hatred of a minute.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4",
+      "length": 170,
+      "parts": [
+        27,
+        28,
+        30
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Believe nothing you hear, and only one half that you see. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 1",
+      "length": 162,
+      "parts": [
+        27,
+        28,
+        31
+      ]
+    },
+    {
+      "text": "All that we see or seem is but a dream within a dream. Years of love have been forgot in the hatred of a minute. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 162,
+      "parts": [
+        27,
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Believe nothing you hear, and only one half that you see. Years of love have been forgot in the hatred of a minute. To observe attentively is to remember distinctly.",
+      "source": "Edgar Allan Poe — Selected excerpts: The Works of Edgar Allan Poe, Volume 4; The Works of Edgar Allan Poe, Volume 5; The Works of Edgar Allan Poe, Volume 1",
+      "length": 165,
+      "parts": [
+        28,
+        30,
+        31
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Sometimes I've believed as many as six impossible things before breakfast. Everything's got a moral, if only you can find it.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 177,
+      "parts": [
+        33,
+        34,
+        35
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Sometimes I've believed as many as six impossible things before breakfast. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 186,
+      "parts": [
+        33,
+        34,
+        36
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Sometimes I've believed as many as six impossible things before breakfast. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 195,
+      "parts": [
+        33,
+        34,
+        37
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Everything's got a moral, if only you can find it. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 162,
+      "parts": [
+        33,
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. Everything's got a moral, if only you can find it. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland",
+      "length": 171,
+      "parts": [
+        33,
+        35,
+        37
+      ]
+    },
+    {
+      "text": "Who in the world am I? Ah, that's the great puzzle. The time has come, the Walrus said, to talk of many things. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 180,
+      "parts": [
+        33,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. Everything's got a moral, if only you can find it. The time has come, the Walrus said, to talk of many things.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 185,
+      "parts": [
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. Everything's got a moral, if only you can find it. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 194,
+      "parts": [
+        34,
+        35,
+        37
+      ]
+    },
+    {
+      "text": "Sometimes I've believed as many as six impossible things before breakfast. The time has come, the Walrus said, to talk of many things. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Through the Looking-Glass; Alice's Adventures in Wonderland",
+      "length": 203,
+      "parts": [
+        34,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Everything's got a moral, if only you can find it. The time has come, the Walrus said, to talk of many things. Take care of the sense, and the sounds will take care of themselves.",
+      "source": "Lewis Carroll — Selected excerpts: Alice's Adventures in Wonderland; Through the Looking-Glass",
+      "length": 179,
+      "parts": [
+        35,
+        36,
+        37
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Beware; for I am fearless, and therefore powerful. Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 215,
+      "parts": [
+        43,
+        44,
+        45
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Beware; for I am fearless, and therefore powerful. Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 229,
+      "parts": [
+        43,
+        44,
+        46
+      ]
+    },
+    {
+      "text": "Nothing is so painful to the human mind as a great and sudden change. Beware; for I am fearless, and therefore powerful. Seek happiness in tranquillity and avoid ambition, even if it be only the apparently innocent one of distinguishing yourself.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 246,
+      "parts": [
+        43,
+        44,
+        47
+      ]
+    },
+    {
+      "text": "Beware; for I am fearless, and therefore powerful. Life, although it may only be an accumulation of anguish, is dear to me, and I will defend it. Learn from me, if not by my precepts, at least by my example, how dangerous is the acquirement of knowledge.",
+      "source": "Mary Shelley — Selected excerpts: Frankenstein",
+      "length": 254,
+      "parts": [
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. I had three chairs in my house; one for solitude, two for friendship, three for society.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 144,
+      "parts": [
+        48,
+        61
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 178,
+      "parts": [
+        48,
+        63
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 187,
+      "parts": [
+        48,
+        64
+      ]
+    },
+    {
+      "text": "I had three chairs in my house; one for solitude, two for friendship, three for society. Books are the treasured wealth of the world and the fit inheritance of generations and nations.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 184,
+      "parts": [
+        61,
+        62
+      ]
+    },
+    {
+      "text": "I had three chairs in my house; one for solitude, two for friendship, three for society. Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 211,
+      "parts": [
+        61,
+        63
+      ]
+    },
+    {
+      "text": "I had three chairs in my house; one for solitude, two for friendship, three for society. If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 220,
+      "parts": [
+        61,
+        64
+      ]
+    },
+    {
+      "text": "Books are the treasured wealth of the world and the fit inheritance of generations and nations. Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 218,
+      "parts": [
+        62,
+        63
+      ]
+    },
+    {
+      "text": "Books are the treasured wealth of the world and the fit inheritance of generations and nations. If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 227,
+      "parts": [
+        62,
+        64
+      ]
+    },
+    {
+      "text": "Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself. If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 254,
+      "parts": [
+        63,
+        64
+      ]
+    },
+    {
+      "text": "Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself. Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 194,
+      "parts": [
+        63,
+        65
+      ]
+    },
+    {
+      "text": "If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them. Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 203,
+      "parts": [
+        64,
+        65
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. I had three chairs in my house; one for solitude, two for friendship, three for society. Books are the treasured wealth of the world and the fit inheritance of generations and nations.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 240,
+      "parts": [
+        48,
+        61,
+        62
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. I had three chairs in my house; one for solitude, two for friendship, three for society. Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 216,
+      "parts": [
+        48,
+        61,
+        65
+      ]
+    },
+    {
+      "text": "Rather than love, than money, than fame, give me truth. Books are the treasured wealth of the world and the fit inheritance of generations and nations. Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 223,
+      "parts": [
+        48,
+        62,
+        65
+      ]
+    },
+    {
+      "text": "I had three chairs in my house; one for solitude, two for friendship, three for society. Books are the treasured wealth of the world and the fit inheritance of generations and nations. Let him step to the music which he hears, however measured or far away.",
+      "source": "Henry David Thoreau — Selected excerpts: Walden",
+      "length": 256,
+      "parts": [
+        61,
+        62,
+        65
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. Vanity working on a weak head produces every sort of mischief.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 179,
+      "parts": [
+        12,
+        14
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. Selfishness must always be forgiven, you know, because there is no hope of a cure.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Mansfield Park",
+      "length": 199,
+      "parts": [
+        12,
+        16
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. One cannot be always laughing at a man without now and then stumbling on something witty.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice",
+      "length": 206,
+      "parts": [
+        12,
+        17
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. You pierce my soul. I am half agony, half hope.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Persuasion",
+      "length": 164,
+      "parts": [
+        12,
+        19
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. Vanity working on a weak head produces every sort of mischief.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 227,
+      "parts": [
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. I declare after all there is no enjoyment like reading!",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 220,
+      "parts": [
+        12,
+        13,
+        15
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. Selfishness must always be forgiven, you know, because there is no hope of a cure.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Mansfield Park",
+      "length": 247,
+      "parts": [
+        12,
+        13,
+        16
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. One cannot be always laughing at a man without now and then stumbling on something witty.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma",
+      "length": 254,
+      "parts": [
+        12,
+        13,
+        17
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. Nothing ever fatigues me, but doing what I do not like.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Mansfield Park",
+      "length": 220,
+      "parts": [
+        12,
+        13,
+        18
+      ]
+    },
+    {
+      "text": "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. There is no charm equal to tenderness of heart. You pierce my soul. I am half agony, half hope.",
+      "source": "Jane Austen — Selected excerpts: Pride and Prejudice; Emma; Persuasion",
+      "length": 212,
+      "parts": [
+        12,
+        13,
+        19
+      ]
+    }
+  ]
+}

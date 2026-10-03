@@ -96,8 +96,8 @@
     progressBar.style.width = '0%';
 
     var html = '<div style="margin-bottom:1rem;">'
-      + '<p style="font-size:1rem;font-weight:600;margin-bottom:.25rem;">' + escapeHTML(file.name) + '</p>'
-      + '<p style="font-size:.85rem;opacity:.65;">' + formatBytes(file.size) + ' · ' + escapeHTML(file.type || 'unknown type') + '</p>'
+      + '<p style="font-size:1rem;font-weight:600;margin-bottom:.25rem;" data-i18n-skip>' + escapeHTML(file.name) + '</p>'
+      + '<p style="font-size:.85rem;opacity:.65;" data-i18n-skip>' + formatBytes(file.size) + ' · ' + escapeHTML(file.type || 'unknown type') + '</p>'
       + '</div>'
       + '<div style="display:flex;flex-direction:column;gap:.75rem;">';
 
@@ -106,7 +106,7 @@
       html += '<div>'
         + '<p style="font-size:.8rem;font-weight:600;opacity:.7;margin-bottom:.3rem;">' + algo + '</p>'
         + '<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">'
-        + '<code class="font-mono" style="flex:1;font-size:.78rem;word-break:break-all;padding:.5rem .75rem;background:var(--surface-2,rgba(255,255,255,.03));border-radius:.4rem;">' + escapeHTML(hash) + '</code>'
+        + '<code class="font-mono" style="flex:1;font-size:.78rem;word-break:break-all;padding:.5rem .75rem;background:var(--surface-2,rgba(255,255,255,.03));border-radius:.4rem;" data-i18n-skip>' + escapeHTML(hash) + '</code>'
         + '<button class="btn btn-ghost" style="white-space:nowrap;font-size:.8rem;" onclick="copyToClipboard(\'' + hash + '\', \'' + algo + ' hash\')">Copy</button>'
         + '</div>'
         + '</div>';

@@ -1,5 +1,7 @@
 /* TOOLKIT — assets/js/tools/base64.js */
 (function initBase64() {
+  'use strict';
+
   const b64Input    = document.getElementById('b64Input');
   const b64Output   = document.getElementById('b64Output');
   const encodeBtn   = document.getElementById('b64EncodeBtn');
@@ -8,6 +10,23 @@
   const errorEl     = document.getElementById('b64Error');
 
   if (!b64Input) return;
+
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder('utf-8', { fatal: true });
+
+  function bytesToBinary(bytes) {
+    let binary = '';
+    bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+    return binary;
+  }
+
+  function decodeUtf8(bytes) {
+    try {
+      return decoder.decode(bytes);
+    } catch {
+      throw new Error('Decoded bytes are not valid UTF-8.');
+    }
+  }
 
   function clearError() {
     errorEl.textContent = '';
@@ -26,13 +45,7 @@
     if (!text) { showError('Input is empty.'); return; }
 
     try {
-      // Handle Unicode characters correctly
-      const encoded = btoa(
-        encodeURIComponent(text).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-          String.fromCharCode(parseInt(p1, 16))
-        )
-      );
-      b64Output.value = encoded;
+      b64Output.value = btoa(bytesToBinary(encoder.encode(text)));
     } catch (err) {
       showError('Encoding failed: ' + err.message);
     }
@@ -48,13 +61,9 @@
       if (!/^[A-Za-z0-9+/]*={0,2}$/.test(text)) {
         throw new Error('Invalid Base64 string — found unexpected characters.');
       }
-      const decoded = decodeURIComponent(
-        atob(text)
-          .split('')
-          .map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
-          .join('')
-      );
-      b64Output.value = decoded;
+      const binary = atob(text);
+      const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+      b64Output.value = decodeUtf8(bytes);
     } catch (err) {
       b64Output.value = '';
       showError(err.message || 'Invalid Base64 input.');

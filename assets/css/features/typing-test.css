@@ -1,0 +1,866 @@
+/* Typing Speed Test */
+
+.tt-config,
+.tt-test,
+.tt-results {
+  margin: 0 auto 1.5rem;
+}
+
+.tt-config-grid,
+.tt-live,
+.tt-results-grid,
+.tt-practice-grid,
+.tt-goal-options {
+  display: grid;
+  gap: 1rem;
+}
+
+.tt-quick-start {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1.15rem;
+}
+
+.tt-quick-start .form-label,
+.tt-quick-start .tt-help {
+  margin: 0;
+}
+
+.tt-quick-actions,
+.tt-quick-status,
+.tt-customize-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tt-quick-actions { justify-content: flex-end; }
+
+.tt-quick-status {
+  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+
+.tt-customize-actions {
+  border-top: 1px solid var(--border);
+  justify-content: flex-end;
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+}
+
+.tt-config-grid {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  margin-bottom: 1.35rem;
+}
+
+.tt-practice-grid {
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 1.3rem;
+}
+
+.tt-practice-picker {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.tt-practice-picker .form-label {
+  margin-bottom: 0.55rem;
+}
+
+.tt-practice-options {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.tt-practice-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: 600 0.76rem/1.35 var(--font-mono);
+  min-height: 3rem;
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+  transition: color var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.tt-practice-btn:hover:not(:disabled),
+.tt-practice-btn--selected {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.tt-practice-btn--selected {
+  background: var(--cyan-dim);
+  box-shadow: 0 0 0 1px var(--cyan-glow);
+}
+
+.tt-practice-btn:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.tt-practice-btn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+}
+
+.tt-variety-note {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin: 0.55rem 0 0;
+}
+
+.tt-custom-text textarea {
+  min-height: 5.25rem;
+  resize: vertical;
+}
+
+.tt-custom-text[hidden],
+.tt-goal-options[hidden],
+.tt-goal-result[hidden],
+.tt-result-actions [hidden] {
+  display: none;
+}
+
+.tt-config .btn[hidden],
+.tt-test .btn[hidden],
+.tt-results .btn[hidden] {
+  display: none;
+}
+
+.tt-help,
+.tt-file-notice,
+.tt-comparability,
+.tt-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.tt-mode-row,
+.tt-option-row,
+.tt-config-actions,
+.tt-test-footer,
+.tt-result-actions,
+.tt-records {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.tt-mode-btn,
+.tt-option-btn,
+.tt-chip {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: 600 0.78rem var(--font-mono);
+  transition: color var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.tt-mode-btn,
+.tt-option-btn {
+  min-height: 2.25rem;
+  padding: 0.45rem 0.7rem;
+}
+
+.tt-mode-btn--selected,
+.tt-option-btn--selected,
+.tt-chip--selected {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  box-shadow: 0 0 0 1px var(--cyan-glow);
+}
+
+.tt-mode-btn:focus-visible,
+.tt-option-btn:focus-visible,
+.tt-chip:focus-visible,
+.tt-input:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+}
+
+.tt-mode-options {
+  min-height: 4.1rem;
+  margin-bottom: 1.3rem;
+}
+
+.tt-length-group .form-label {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.tt-category-heading,
+.tt-category-nav {
+  align-items: center;
+  display: flex;
+}
+
+.tt-category-heading {
+  gap: 0.6rem;
+  justify-content: space-between;
+}
+
+.tt-category-heading .form-label {
+  margin-bottom: 0.45rem;
+}
+
+.tt-category-nav {
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.tt-category-scroll {
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font: 700 0.9rem var(--font-mono);
+  height: 1.9rem;
+  justify-content: center;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+  width: 1.9rem;
+}
+
+.tt-category-scroll:hover:not(:disabled) {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.tt-category-scroll:focus-visible {
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.tt-category-scroll:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.tt-category-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3.2rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 0.15rem 1.2rem;
+  scrollbar-color: var(--border-hover) transparent;
+  scrollbar-width: thin;
+  background: linear-gradient(90deg, var(--bg-card), transparent 4%, transparent 96%, var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.tt-category-bar::-webkit-scrollbar {
+  height: 0.4rem;
+}
+
+.tt-category-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tt-category-bar::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: var(--radius-full);
+}
+
+.tt-category-hint {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.tt-category-group {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.4rem;
+}
+
+.tt-category-group + .tt-category-group {
+  border-left: 1px solid var(--border);
+  padding-left: 0.65rem;
+}
+
+.tt-group-label {
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tt-chip {
+  flex: 0 0 auto;
+  min-height: 2rem;
+  padding: 0.32rem 0.58rem;
+  white-space: nowrap;
+}
+
+.tt-chip-count {
+  color: var(--text-muted);
+  font: 0.7rem var(--font-mono);
+  margin-left: 0.35rem;
+}
+
+.tt-chip--selected .tt-chip-count {
+  color: var(--cyan);
+}
+
+.tt-skeleton {
+  color: var(--text-muted);
+  font: 0.8rem var(--font-mono);
+}
+
+.tt-modifiers {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.tt-modifiers .options-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tt-modifiers .checkbox-card {
+  align-items: flex-start;
+  min-height: 4.6rem;
+  padding-left: 3.1rem;
+  position: relative;
+}
+
+.tt-modifiers .checkbox-card::before,
+.tt-modifiers .checkbox-card::after {
+  left: 1rem;
+  position: absolute;
+  top: 0.95rem;
+}
+
+.tt-modifiers .checkbox-card::before {
+  border: 2px solid var(--control-muted);
+  border-radius: var(--radius-sm);
+  content: '';
+  height: 1rem;
+  width: 1rem;
+}
+
+.tt-modifiers .checkbox-card::after {
+  color: var(--bg-card);
+  content: '✓';
+  font: 700 0.95rem var(--font-mono);
+  line-height: 1.05rem;
+  opacity: 0;
+  text-align: center;
+  transition: opacity var(--transition);
+  width: 1.25rem;
+}
+
+.tt-modifiers .tt-checkbox-card--selected {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px var(--cyan-glow);
+}
+
+.tt-modifiers .tt-checkbox-card--selected::before {
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.tt-modifiers .tt-checkbox-card--selected::after {
+  opacity: 1;
+}
+
+.tt-modifiers .checkbox-card:focus-within {
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.tt-modifiers #tt-strict-wrap[hidden] {
+  display: none;
+}
+
+.tt-modifiers .checkbox-card strong,
+.tt-modifiers .checkbox-card small {
+  display: block;
+}
+
+.tt-goal {
+  border-top: 1px solid var(--border);
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+}
+
+.tt-goal-toggle {
+  align-items: flex-start;
+  min-height: 4.2rem;
+  padding-left: 3.1rem;
+  position: relative;
+}
+
+.tt-goal-toggle::before,
+.tt-goal-toggle::after {
+  left: 1rem;
+  position: absolute;
+  top: 0.95rem;
+}
+
+.tt-goal-toggle::before {
+  border: 2px solid var(--control-muted);
+  border-radius: var(--radius-sm);
+  content: '';
+  height: 1rem;
+  width: 1rem;
+}
+
+.tt-goal-toggle::after {
+  color: var(--bg-card);
+  content: '✓';
+  font: 700 0.95rem var(--font-mono);
+  line-height: 1.05rem;
+  opacity: 0;
+  text-align: center;
+  transition: opacity var(--transition);
+  width: 1.25rem;
+}
+
+.tt-goal-toggle--selected {
+  background: var(--cyan-dim);
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px var(--cyan-glow);
+}
+
+.tt-goal-toggle--selected::before {
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.tt-goal-toggle--selected::after { opacity: 1; }
+
+.tt-goal-toggle:focus-within {
+  box-shadow: 0 0 0 4px var(--cyan-glow);
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.tt-goal-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.85rem;
+}
+
+.tt-goal-options .form-group { margin: 0; }
+
+.tt-modifiers .checkbox-card strong {
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+
+.tt-modifiers .checkbox-card small {
+  color: var(--text-muted);
+  font-size: 0.73rem;
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+
+.tt-config-actions {
+  border-top: 1px solid var(--border);
+  justify-content: space-between;
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
+}
+
+.tt-status {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.tt-file-notice {
+  background: var(--bg-card);
+  border: 1px solid var(--yellow);
+  border-left: 3px solid var(--yellow);
+  border-radius: var(--radius-sm);
+  margin-top: 0.9rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.tt-live {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 1.1rem;
+}
+
+.tt-live > div {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+}
+
+.tt-live-label {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tt-live strong {
+  color: var(--text-code);
+  font-size: 1.15rem;
+}
+
+.tt-stream-shell {
+  height: clamp(9.2rem, calc(14.82vw + 2.925rem), 11.48rem);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.2rem;
+}
+
+.tt-stream {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+  letter-spacing: 0.01em;
+  line-height: 1.9;
+  overflow: hidden;
+  position: relative;
+  transition: transform 80ms linear;
+  word-spacing: 0.2em;
+}
+
+.tt-stream-skeleton {
+  color: var(--text-muted);
+  display: inline-block;
+  font-size: 0.78rem;
+  padding-top: 0.8rem;
+}
+
+.tt-word {
+  display: inline-block;
+  margin-right: 0.42em;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tt-word--active {
+  border-radius: 3px;
+  background: var(--cyan-dim);
+}
+
+.tt-char {
+  color: var(--text-muted);
+}
+
+.tt-char--correct { color: var(--text-primary); }
+
+.tt-char--incorrect {
+  color: var(--red);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+}
+
+.tt-char--extra {
+  color: var(--red);
+  opacity: 0.65;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.tt-char--extra::before {
+  content: attr(data-character);
+}
+
+.tt-char--reserved { display: none; }
+
+.tt--blind .tt-char--correct,
+.tt--blind .tt-char--incorrect,
+.tt--blind .tt-char--extra {
+  color: var(--text-muted);
+  opacity: 1;
+  text-decoration: none;
+}
+
+.tt-caret {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+  display: block;
+  height: 1.45em;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translate3d(-9999px, -9999px, 0);
+  transition: transform 80ms linear;
+  width: 2px;
+}
+
+.tt-test[data-status="running"] .tt-caret,
+.tt-test[data-status="running"] .tt-stream {
+  transition: none;
+}
+
+.tt-test[data-status="ready"] .tt-caret { animation: tt-caret-blink 1.1s step-end infinite; }
+
+@keyframes tt-caret-blink {
+  50% { opacity: 0; }
+}
+
+.tt-input {
+  cursor: text;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.tt-test-footer {
+  justify-content: space-between;
+  margin-top: 0.85rem;
+}
+
+.tt-quote-attribution {
+  color: var(--purple);
+  flex: 1 1 100%;
+  font: 0.78rem/1.45 var(--font-mono);
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.tt-quote-attribution--result {
+  margin-top: 0.45rem;
+  text-align: left;
+}
+
+.tt-results-title {
+  color: var(--text-primary);
+  font-size: 1.35rem;
+}
+
+.tt-result-descriptor {
+  color: var(--cyan);
+  font-size: 0.74rem;
+  margin-top: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.tt-best {
+  color: var(--green);
+  font: 0.78rem var(--font-mono);
+  margin-top: 0.4rem;
+}
+
+.tt-goal-result {
+  border-left: 2px solid var(--green);
+  color: var(--green);
+  font: 0.8rem var(--font-mono);
+  margin-top: 0.65rem;
+  padding-left: 0.7rem;
+}
+
+.tt-goal-result--missed {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.tt-results-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.3rem 0 0.75rem;
+}
+
+.tt-result-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  min-height: 5.35rem;
+  padding: 0.8rem;
+}
+
+.tt-result-stat span {
+  color: var(--text-muted);
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.tt-result-stat strong {
+  color: var(--text-code);
+  display: block;
+  font: 700 1.55rem var(--font-mono);
+  margin-top: 0.18rem;
+}
+
+.tt-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.tt-breakdown span {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 0.28rem 0.6rem;
+}
+
+.tt-breakdown b { color: var(--text-primary); }
+
+.tt-chart-section,
+.tt-heat-section,
+.tt-errors-section {
+  border-top: 1px solid var(--border);
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+}
+
+.tt-chart-section h3,
+.tt-heat-section h3,
+.tt-errors-section h3 {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+  text-transform: uppercase;
+}
+
+#tt-chart {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: block;
+  height: 190px;
+  width: 100%;
+}
+
+.tt-keyboard {
+  max-width: 720px;
+}
+
+.tt-keyboard svg {
+  height: auto;
+  width: 100%;
+}
+
+.tt-key {
+  stroke: var(--border-hover);
+  stroke-width: 1;
+}
+
+.tt-key-label {
+  fill: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.tt-error-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.tt-error-item,
+.tt-error-empty {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font: 0.78rem var(--font-mono);
+  overflow-wrap: anywhere;
+  padding: 0.55rem 0.7rem;
+}
+
+.tt-error-item b { color: var(--text-primary); }
+.tt-error-item em { color: var(--red); font-style: normal; }
+
+.tt-records {
+  align-items: flex-start;
+  border-top: 1px solid var(--border);
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+}
+
+.tt-records .checkbox-card {
+  flex: 1 1 360px;
+}
+
+.tt-records .checkbox-card strong,
+.tt-records .checkbox-card small {
+  display: block;
+}
+
+.tt-records .checkbox-card small {
+  color: var(--text-muted);
+  font-size: 0.73rem;
+}
+
+.tt-result-actions { margin-top: 1.25rem; }
+
+@media (max-width: 640px) {
+  .tt-config-grid,
+  .tt-practice-grid,
+  .tt-goal-options,
+  .tt-modifiers .options-grid { grid-template-columns: 1fr; }
+  .tt-practice-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tt-quick-start { grid-template-columns: 1fr; }
+  .tt-quick-actions,
+  .tt-quick-status,
+  .tt-customize-actions { justify-content: flex-start; }
+  .tt-quick-actions .btn { flex: 1 1 100%; }
+  .tt-quote-attribution { text-align: left; }
+  .tt-live { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tt-results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tt-config,
+  .tt-test,
+  .tt-results { padding: 1.25rem; }
+  .tt-stream-shell {
+    height: 8.6rem;
+    padding: 1.1rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tt-live { gap: 0.5rem; }
+  .tt-live > div { padding: 0.5rem; }
+  .tt-live strong { font-size: 0.95rem; }
+  .tt-keyboard { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-test[data-status="ready"] .tt-caret,
+  .tt-caret,
+  .tt-stream { animation: none !important; transition: none !important; }
+}

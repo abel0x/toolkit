@@ -16,9 +16,13 @@
   const prevTitle  = document.getElementById('prevTitle');
   const prevDesc   = document.getElementById('prevDesc');
   const prevUrl    = document.getElementById('prevUrl');
-  const prevImg    = document.getElementById('prevImg');
+  const imageNotice = document.getElementById('prevImgNotice');
 
   if (!outputEl) return;
+
+  function translate(key) {
+    return window.ToolkitI18n ? window.ToolkitI18n.t(key) : key;
+  }
 
   function generate() {
     const t = fields.ogTitle.value.trim();
@@ -47,16 +51,14 @@
     outputEl.value = code.trim();
 
     // Preview
-    if (prevTitle) prevTitle.textContent = t || 'Title';
-    if (prevDesc)  prevDesc.textContent  = d || 'Description goes here...';
+    if (prevTitle) prevTitle.textContent = t || translate('Title');
+    if (prevDesc)  prevDesc.textContent  = d || translate('Description goes here...');
     if (prevUrl)   prevUrl.textContent   = u || 'https://example.com';
-    if (prevImg) {
-      if (i) { prevImg.src = i; prevImg.style.display = 'block'; }
-      else     prevImg.style.display = 'none';
-    }
+    if (imageNotice) imageNotice.hidden = !i;
   }
 
   Object.values(fields).forEach(el => el && el.addEventListener('input', generate));
+  window.addEventListener('toolkit:languagechange', generate);
 
   document.getElementById('copyOgBtn').addEventListener('click', () => {
     copyToClipboard(outputEl.value, 'OG tags');

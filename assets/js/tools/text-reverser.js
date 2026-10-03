@@ -9,6 +9,17 @@
     var outputEl   = document.getElementById('tr-output');
     if (!reverseBtn) return;
 
+    var segmenter = typeof Intl !== 'undefined' && Intl.Segmenter
+      ? new Intl.Segmenter(undefined, { granularity: 'grapheme' })
+      : null;
+
+    function graphemes(value) {
+      if (segmenter) {
+        return Array.from(segmenter.segment(value), function(entry) { return entry.segment; });
+      }
+      return Array.from(value);
+    }
+
     function getRadio(name) {
       var el = document.querySelector('input[name="' + name + '"]:checked');
       return el ? el.value : null;
@@ -20,7 +31,7 @@
       var result;
 
       if (mode === 'char') {
-        result = text.split('').reverse().join('');
+        result = graphemes(text).reverse().join('');
       } else if (mode === 'word') {
         result = text.split('\n').map(function (line) {
           return line.split(' ').reverse().join(' ');

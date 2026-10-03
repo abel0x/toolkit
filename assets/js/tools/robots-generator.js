@@ -17,8 +17,9 @@
 
   function addRow(container, val = '') {
     const row = document.createElement('div');
+    const ruleName = container === allowRows ? 'Allow rule' : 'Disallow rule';
     row.style.cssText = 'display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem;';
-    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="/path/" value="${escapeHTML(val)}" style="flex:1;" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;">✕</button>`;
+    row.innerHTML = `<input type="text" class="form-control font-mono" placeholder="/path/" value="${escapeHTML(val)}" style="flex:1;" aria-label="${ruleName}" /><button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" aria-label="Remove rule">✕</button>`;
     row.querySelector('button').addEventListener('click', () => { row.remove(); build(); });
     row.querySelector('input').addEventListener('input', build);
     container.appendChild(row);

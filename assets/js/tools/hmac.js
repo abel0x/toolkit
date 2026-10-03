@@ -4,7 +4,7 @@
   const keyInput    = document.getElementById('hmacKey');
   const msgInput    = document.getElementById('hmacMessage');
   const algoSelect  = document.getElementById('hmacAlgo');
-  const genBtn      = document.getElementById('hmacGenBtn');
+  const genBtn      = document.getElementById('hmacBtn');
   const outputField = document.getElementById('hmacOutput');
   const copyBtn     = document.getElementById('hmacCopyBtn');
 

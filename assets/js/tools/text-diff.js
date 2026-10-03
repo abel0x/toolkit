@@ -1,5 +1,7 @@
 /* TOOLKIT — assets/js/tools/text-diff.js */
 (function initDiffChecker() {
+  'use strict';
+
   const textA      = document.getElementById('diffA');
   const textB      = document.getElementById('diffB');
   const compareBtn = document.getElementById('diffCompareBtn');
@@ -54,7 +56,7 @@
     diffOut.innerHTML = diff.map(({type, text}) =>
       `<div class="diff-line diff-line--${type}">
         <span class="diff-sign">${type==='add'?'+':type==='del'?'−':' '}</span>
-        <span class="diff-text">${escapeHTML(text)}</span>
+        <span class="diff-text" data-i18n-skip>${escapeHTML(text)}</span>
       </div>`
     ).join('');
   });
@@ -63,4 +65,4 @@
     textA.value = ''; textB.value = '';
     summary.hidden = true; diffOut.innerHTML = '';
   });
-})();
+}());

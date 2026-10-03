@@ -1,5 +1,7 @@
 /* TOOLKIT — assets/js/tools/regex-tester.js */
 (function initRegexTester() {
+  'use strict';
+
   const patternInput = document.getElementById('regexPattern');
   const flagsInput   = document.getElementById('regexFlags');
   const testArea     = document.getElementById('regexTest');
@@ -60,7 +62,7 @@
     if (count > 0 && matches[0].length > 1) {
       let gHTML = '<div style="margin-top:.5rem;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem">Capture groups (first match):</div>';
       matches[0].slice(1).forEach((g, i) => {
-        gHTML += `<span class="group-card"><span class="group-label">Group ${i+1}</span><span class="group-value">${g === undefined ? '<em>undefined</em>' : escapeHTML(String(g))}</span></span>`;
+        gHTML += `<span class="group-card"><span class="group-label">Group ${i+1}</span><span class="group-value" data-i18n-skip>${g === undefined ? '<em>undefined</em>' : escapeHTML(String(g))}</span></span>`;
       });
       groups.innerHTML = gHTML;
     }
@@ -82,4 +84,4 @@
     testArea.value = '';
     runRegex();
   });
-})();
+}());

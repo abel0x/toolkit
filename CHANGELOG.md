@@ -2,7 +2,61 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## [1.2.0] — 2026-09-19
+
+### Added
+
+- Added the 101st tool, **Typing Speed Test**, with local English and Turkish themed word lists, accessibility-aware controls, Turkish diacritic handling, canvas speed chart, and keyboard error heat map.
+- Added reusable `words/` data with 20 bilingual categories and 9,246 local entries after source-quality review, a word-list audit, offline word-list precaching, and opt-in aggregate-only typing personal bests.
+- Added a published, readable [license page](https://abel0x.github.io/toolkit/license/) with the canonical Apache License 2.0 text, a download link, Turkish interface copy, a navigation shortcut, sitemap entry, and offline availability.
+- Added full Firefox smoke coverage for all 101 tool pages, plus a static accessibility audit for landmarks, label references, focus order, live regions, and colour contrast; both now run before deployment.
+- Added random, local, editable example starters to 40 frequently used tools, with Turkish interface copy, browser coverage, and offline precaching.
+- Added a real service-worker browser test that installs the production worker at the GitHub Pages `/toolkit/` path, disconnects the server, and verifies cached tools, word lists, vendor assets, the published licence, and the 404 fallback.
+- Added pinned upstream licence files and integrity checks for the self-hosted bcrypt, QR generation, and QR reading libraries.
+
+### Changed
+
+- Made published tool-count maintenance data-driven so static first-paint copy follows the registry automatically.
+- Replaced repository-derived vocabulary and expanded English finance and legal plus Turkish finance, legal, and programming practice terms with traceable primary-source or independently curated lists reviewed against official references. Every category now records a structured production method, review date, and HTTPS source URLs, and the audit rejects ambiguous provenance and code-hosting repositories.
+- Replaced anonymous typing-practice sentences with 146 source-checked literary excerpts per language: 66 base passages from 25 public-domain editions plus 80 explicitly labelled combinations, paired original Turkish translations, balanced length choices, and visible author/work attribution. The separate idiom lists contain 339 English and 331 Turkish expressions after removing synthetic combinations.
+- Replaced the former hexagon mark with the new Toolkit artwork across the navigation, browser favicon, PWA icons, and README. The retained PNG icon set is sized for 32, 64, 128, 256, and 512 pixel uses.
+- Updated the shared navigation generator so nested static pages, including `/license/`, resolve their assets and service worker correctly.
+- Standardised radio controls and colour-input triggers with shared focus-visible states, and moved repeated legacy form layouts into reusable component classes.
+- Replaced the GPL QR batch dependency and legacy QR encoder with one pinned MIT-licensed generator plus its UTF-8 adapter, shared by single and batch QR generation.
+
+### Fixed
+
+- Fixed translation of implicit select-option values, including sitemap change-frequency values; Turkish labels no longer leak into generated XML.
+- Made JavaScript, CSS and HTML shrinking conservative around operators, literals, selectors, raw-text elements and inline whitespace. JavaScript template/ambiguous-slash suffixes and CSS custom-property/URL suffixes remain unchanged rather than being damaged by regex rewrites.
+- Rebuilt the simple YAML converter to preserve nested mappings and sequences, reject duplicate keys and unsupported syntax, and round-trip quoted keys and nested JSON data. Invalid JSON-to-CSV rows now produce a translated error and clear stale output.
+- Fixed typing ledger replacement edits, IME de-duplication, timer start on rejected attempts, final unfinished-error review, first-render charts, per-key heat-map rates, locale-formatted results, stored/session best selection and empty-custom-practice quick start. Added live CPM and an in-run keyboard-reachable restart.
+- Preserved the internal order of multi-word terms, idioms and code snippets; finite word targets may round up to finish an entry. Extra typed glyphs now render through attributes without inserting text nodes during typing.
+- Kept the selected word-count preference separate from the actual length of idiom, custom-text and error-repeat runs, so completing a phrase no longer changes or clears the selected control on the next visit.
+- Fixed the typing caret staying at the expected word ending when extra characters are entered; it now follows the last visible extra glyph and moves back correctly on deletion.
+- Replaced unverified medical imports and generated vocabulary: all 1,300 English medical entries now match NLM MeSH 2026 descriptor names and IDs; the Turkish list is a 546-entry editorial clinical pool. Restored spaces in English place names, completed country labels, corrected district examples, and removed synthetic programming terms.
+- Removed unsupported literary attributions, corrected cited works and several Turkish translations, and added edition-linked provenance plus a read-only primary-source audit. Structural checks are explicitly distinguished from linguistic certification.
+- Added conversion and typing regression suites to CI, including three repetitions of key edge cases, all-category loading and a check for zero word-stream child mutations per keystroke; refreshed the offline cache to `v74`.
+- Rebuilt the Turkish common-word pool from reviewed vocabulary, removing generated compound forms and unrelated specialist padding; cross-checked replacements against official Ministry of National Education material and current TDK spelling.
+- Fixed hidden feedback panels being exposed by component display rules, aligned the Base64 input/output columns, and corrected the legacy split layout so its decorative divider no longer pushes result panels onto a new row.
+- Restored the HMAC Generator action by synchronising its button identifier with the module, and added browser and DOM-contract checks for primary actions, paired text areas, hidden states, and static module-to-page element references.
+- Audited the full English/Turkish interface; corrected typing-test duration labels, metadata/Open Graph copy, encoding and conversion terminology, HTTP status text, and other inaccurate Turkish labels; and added a localisation audit for dictionary conflicts, title coverage, dynamic patterns, and form-control safety.
+- Prevented the translation runtime from changing functional `<option>` and non-button `<input>` values, so Turkish UI text can no longer alter a tool's selected mode or stored input.
+- Improved the typing-test quick-start flow, compact word stream, selected-option feedback, Turkish copy, mobile header spacing, and hidden-action behaviour.
+- Limited the typing stream to exactly three visible lines on mobile, batched caret geometry in an animation frame, and cleared pending caret/refill frame state on restart so rapid typing and repeated runs stay responsive.
+- Randomised custom-text, code-snippet, Turkish keyboard-lesson, weak-key, and error-repeat practice pools; daily challenges and exact restarts remain reproducible, while **New test** now prepares a fresh sequence.
+- Kept the homepage category filters on one horizontally scrollable row, so longer Turkish labels no longer leave a single category stranded on a second line.
+- Restored centered homepage category filters when they fit, while preserving left-aligned horizontal scrolling on narrow screens.
+- Normalised word-list practice to locale-aware lowercase unless capitalisation is enabled, while retaining natural casing for quotes, code practice, and custom text.
+- Added accessible names to remaining image, colour, URL, robots, timestamp, and generated-output controls; provided a shared keyboard-focus indicator; and made every tool page expose a semantic primary heading.
+- Replaced the remaining exposed browser file picker with an accessible, translated SVG file-selection control.
+- Corrected the typing-test reduced-motion override, completed the shared radius token set, aligned the security policy with opt-in aggregate typing records, and hid empty image-compression output until a result exists.
+- Completed Turkish coverage for the Password Strength Checker’s live feedback, legacy form placeholders and accessible controls, and dynamic count/result readouts.
+- Replaced the former PBKDF2-formatted placeholder in the Bcrypt Generator with standards-compatible bcrypt hashing and verification, checked against an independent known vector and generated-hash round trips.
+- Made Base64, Base32, binary, and hexadecimal conversion UTF-8-safe; preserved grapheme clusters in character reversal and counting; corrected Turkish slug and case conversion; and made base conversion exact beyond JavaScript’s safe-integer limit.
+- Guaranteed every selected password character class without replacement collisions and simplified cryptographically secure Base64 token generation.
+- Prevented executable markup and unsafe URL schemes in Markdown previews, escaped decoded QR text and Wi-Fi fields, and verified Turkish plus supplementary Unicode QR round trips.
+- Isolated generated user content from DOM translation and stopped Open Graph previews from automatically requesting user-supplied remote image URLs.
+- Limited service-worker cleanup to stale `toolkit-*` caches so activation cannot delete unrelated GitHub Pages project caches on the same origin.
 
 ## [1.1.0] — 2026-08-13
 
@@ -34,6 +88,6 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
-[Unreleased]: https://github.com/abel0x/toolkit/compare/v1.1.0...HEAD
+[1.2.0]: https://github.com/abel0x/toolkit/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/abel0x/toolkit/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/abel0x/toolkit/releases/tag/v1.0.0

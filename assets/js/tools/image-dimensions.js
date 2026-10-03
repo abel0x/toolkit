@@ -42,7 +42,7 @@
     let html = '';
     results.forEach((r, i) => {
       html += `<tr>
-        <td style="padding:.4rem .6rem;">${escapeHTML(r.name)}</td>
+        <td style="padding:.4rem .6rem;" data-i18n-skip>${escapeHTML(r.name)}</td>
         <td class="font-mono" style="padding:.4rem .6rem;white-space:nowrap;">${r.w} × ${r.h}</td>
         <td class="font-mono" style="padding:.4rem .6rem;">${r.ratio}</td>
         <td class="font-mono" style="padding:.4rem .6rem;">${formatBytes(r.size)}</td>

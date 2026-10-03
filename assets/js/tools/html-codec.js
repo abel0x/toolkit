@@ -16,9 +16,8 @@
   function htmlEncode(str) {
     var extended = extChk && extChk.checked;
     var out = '';
-    for (var i = 0; i < str.length; i++) {
-      var ch   = str.charAt(i);
-      var code = str.charCodeAt(i);
+    Array.from(str).forEach(function(ch) {
+      var code = ch.codePointAt(0);
       if (ch === '&') { out += '&amp;'; }
       else if (ch === '<') { out += '&lt;'; }
       else if (ch === '>') { out += '&gt;'; }
@@ -26,7 +25,7 @@
       else if (ch === "'") { out += '&apos;'; }
       else if (extended && code > 127) { out += '&#' + code + ';'; }
       else { out += ch; }
-    }
+    });
     return out;
   }
 

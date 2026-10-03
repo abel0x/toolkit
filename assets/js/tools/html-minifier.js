@@ -1,4 +1,5 @@
 (function initHtmlMinifier() {
+  'use strict';
   const inputEl = document.getElementById('hmin-input');
   const outputEl = document.getElementById('hmin-output');
   const minifyBtn = document.getElementById('hmin-btn');
@@ -8,20 +9,45 @@
   const savingsEl = document.getElementById('hmin-savings');
   if (!inputEl) return;
 
+  function compactHtml(source, removeComments, collapse) {
+    let result = '';
+    let index = 0;
+    while (index < source.length) {
+      if (source.startsWith('<!--', index)) {
+        const end = source.indexOf('-->', index + 4);
+        if (end === -1) return result + source.slice(index);
+        const comment = source.slice(index, end + 3);
+        if (!removeComments || /^<!--\s*\[if/i.test(comment)) result += comment;
+        index = end + 3;
+        continue;
+      }
+      // Preserve declarations, CDATA and processing instructions conservatively.
+      if (/^<[!?]/.test(source.slice(index, index + 2))) return result + source.slice(index);
+      const tag = source.slice(index).match(/^<\/?[a-z][^<>"']*(?:(?:"[^"]*"|'[^']*')[^<>"']*)*>/i);
+      if (tag) {
+        result += collapse ? tag[0].replace(/"[^"]*"|'[^']*'|[\t\r\n ]+/g, (token) => /^[\t\r\n ]/.test(token) ? ' ' : token) : tag[0];
+        index += tag[0].length;
+        const raw = tag[0].match(/^<(pre|textarea|script|style|xmp|iframe|noembed|noframes|plaintext)\b/i);
+        if (raw) {
+          const closing = new RegExp(`</${raw[1]}\\s*>`, 'i').exec(source.slice(index));
+          if (!closing) return result + source.slice(index);
+          result += source.slice(index, index + closing.index + closing[0].length);
+          index += closing.index + closing[0].length;
+        }
+      } else {
+        // Text whitespace can be significant through inline layout or CSS white-space.
+        result += source[index++];
+      }
+    }
+    return result;
+  }
+
   function minify() {
     let html = inputEl.value;
     if (!html.trim()) { showToast('Please enter HTML.', 'error'); return; }
     const origBytes = new TextEncoder().encode(html).length;
 
-    if (rmCommentsEl && rmCommentsEl.checked) {
-      html = html.replace(/<!--[\s\S]*?-->/g, '');
-    }
-    if (collapseEl && collapseEl.checked) {
-      html = html.replace(/[ \t]+/g, ' ');
-      html = html.replace(/\n\s*\n/g, '\n');
-      html = html.replace(/>\s+</g, '><');
-      html = html.trim();
-    }
+    html = compactHtml(html, rmCommentsEl?.checked, collapseEl?.checked);
 
     outputEl.value = html;
     const minBytes = new TextEncoder().encode(html).length;

@@ -352,6 +352,15 @@ const TOOLS_DATA = [
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>',
   },
   {
+    name: 'Typing Speed Test',
+    slug: 'typing-test',
+    cat: 'text',
+    catLabel: 'Text Tools',
+    desc: 'Measure typing speed and accuracy in English or Turkish with themed word lists.',
+    tags: ['typing', 'wpm', 'speed', 'keyboard', 'test', 'accuracy', 'practice'],
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M6 9h.01M9 9h.01M12 9h.01M15 9h.01M18 9h.01M7.5 13h.01M10.5 13h.01M13.5 13h.01M16.5 13h.01M9 16h6"/></svg>',
+  },
+  {
     name: 'Text Sorter',
     slug: 'text-sorter',
     cat: 'text',

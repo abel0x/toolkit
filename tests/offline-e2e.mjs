@@ -1,0 +1,286 @@
+#!/usr/bin/env node
+/* Real service-worker installation, isolation, and offline navigation checks. */
+
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { dirname, extname, join, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import net from 'node:net';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const mountPath = '/toolkit';
+const sleep = (milliseconds) => new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
+const mimeTypes = {
+  '.css': 'text/css; charset=utf-8',
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+  '.ttf': 'font/ttf',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8'
+};
+
+async function unusedPort() {
+  const server = net.createServer();
+  await new Promise((resolvePromise, reject) => {
+    server.listen(0, '127.0.0.1', resolvePromise).on('error', reject);
+  });
+  const { port } = server.address();
+  await new Promise((resolvePromise) => server.close(resolvePromise));
+  return port;
+}
+
+async function startServer() {
+  const server = createServer(async (request, response) => {
+    try {
+      const url = new URL(request.url || '/', 'http://127.0.0.1');
+      if (url.pathname === `${mountPath}/__offline_test_bootstrap.html`) {
+        response.writeHead(200, {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store',
+          Connection: 'close'
+        });
+        response.end('<!doctype html><html lang="en"><title>Offline test bootstrap</title></html>');
+        return;
+      }
+      if (url.pathname !== mountPath && !url.pathname.startsWith(`${mountPath}/`)) {
+        throw new Error('Outside mount path');
+      }
+
+      let pathname = decodeURIComponent(url.pathname.slice(mountPath.length));
+      if (!pathname || pathname === '/') pathname = '/index.html';
+      else if (pathname.endsWith('/')) pathname += 'index.html';
+      const target = resolve(root, `.${pathname}`);
+      if (target !== root && !target.startsWith(`${root}${sep}`)) throw new Error('Forbidden');
+      await stat(target);
+      const contents = await readFile(target);
+      response.writeHead(200, {
+        'Content-Type': mimeTypes[extname(target)] || 'application/octet-stream',
+        'Cache-Control': 'no-store',
+        Connection: 'close'
+      });
+      response.end(contents);
+    } catch {
+      response.writeHead(404, {
+        'Content-Type': 'text/plain; charset=utf-8',
+        Connection: 'close'
+      });
+      response.end('Not found');
+    }
+  });
+  await new Promise((resolvePromise, reject) => {
+    server.listen(0, '127.0.0.1', resolvePromise).on('error', reject);
+  });
+  return server;
+}
+
+class BidiClient {
+  constructor(socket) {
+    this.socket = socket;
+    this.sequence = 0;
+    this.pending = new Map();
+    socket.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data);
+      if (!message.id) return;
+      const request = this.pending.get(message.id);
+      if (!request) return;
+      this.pending.delete(message.id);
+      clearTimeout(request.timeout);
+      if (message.error) request.reject(new Error(`${message.error}: ${message.message || ''}`));
+      else request.resolve(message.result);
+    });
+  }
+
+  call(method, params = {}) {
+    return new Promise((resolvePromise, reject) => {
+      const id = ++this.sequence;
+      const timeout = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`Timed out waiting for WebDriver BiDi: ${method}`));
+      }, 45_000);
+      this.pending.set(id, { resolve: resolvePromise, reject, timeout });
+      this.socket.send(JSON.stringify({ id, method, params }));
+    });
+  }
+
+  close() {
+    this.socket.close();
+  }
+}
+
+async function connectBidi(port) {
+  let lastError;
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    try {
+      const socket = new WebSocket(`ws://127.0.0.1:${port}/session`);
+      await new Promise((resolvePromise, reject) => {
+        socket.addEventListener('open', resolvePromise, { once: true });
+        socket.addEventListener('error', reject, { once: true });
+      });
+      return new BidiClient(socket);
+    } catch (error) {
+      lastError = error;
+      await sleep(100);
+    }
+  }
+  throw lastError || new Error('Firefox did not expose WebDriver BiDi.');
+}
+
+async function evaluate(bidi, context, source) {
+  const response = await bidi.call('script.evaluate', {
+    expression: `Promise.resolve(${source}).then((value) => JSON.stringify(value))`,
+    target: { context },
+    awaitPromise: true,
+    resultOwnership: 'none'
+  });
+  if (response.type !== 'success') throw new Error(`Browser evaluation failed: ${JSON.stringify(response)}`);
+  if (response.result.type !== 'string') throw new Error(`Expected JSON result, received ${JSON.stringify(response.result)}`);
+  return JSON.parse(response.result.value);
+}
+
+async function navigate(bidi, context, url) {
+  await bidi.call('browsingContext.navigate', { context, url, wait: 'complete' });
+}
+
+async function closeServer(server) {
+  if (!server.listening) return;
+  const closed = new Promise((resolvePromise) => server.close(resolvePromise));
+  server.closeAllConnections?.();
+  await closed;
+}
+
+async function main() {
+  const serviceWorker = readFileSync(join(root, 'sw.js'), 'utf8');
+  const versionMatch = serviceWorker.match(/const CACHE_VERSION = '([^']+)'/);
+  assert(versionMatch, 'Could not read the service-worker cache version.');
+  const expectedCache = `toolkit-${versionMatch[1]}`;
+  const server = await startServer();
+  const serverPort = server.address().port;
+  const browserPort = await unusedPort();
+  const profile = await mkdtemp(join(tmpdir(), 'toolkit-offline-e2e-'));
+  const browser = spawn(process.env.FIREFOX_BINARY || 'firefox', [
+    '--headless', '--remote-debugging-port', String(browserPort), '--profile', profile
+  ], { stdio: ['ignore', 'ignore', 'pipe'] });
+  let browserError = '';
+  browser.stderr.on('data', (chunk) => { browserError += chunk; });
+  let bidi;
+
+  try {
+    bidi = await connectBidi(browserPort);
+    await bidi.call('session.new', { capabilities: {} });
+    const tab = await bidi.call('browsingContext.create', { type: 'tab' });
+    const origin = `http://127.0.0.1:${serverPort}`;
+    const baseUrl = `${origin}${mountPath}`;
+
+    await navigate(bidi, tab.context, `${baseUrl}/__offline_test_bootstrap.html`);
+    await evaluate(bidi, tab.context, `(async () => {
+      const stale = await caches.open('toolkit-v00-release-test');
+      await stale.put('/toolkit/stale', new Response('stale'));
+      const unrelated = await caches.open('another-project-release-test');
+      await unrelated.put('/other-project/value', new Response('keep'));
+      return true;
+    })()`);
+
+    await navigate(bidi, tab.context, `${baseUrl}/`);
+    const installation = await evaluate(bidi, tab.context, `(async () => {
+      const registration = await Promise.race([
+        navigator.serviceWorker.ready,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Service worker installation timed out.')), 30000))
+      ]);
+      for (let attempt = 0; attempt < 200 && !navigator.serviceWorker.controller; attempt += 1) {
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+      }
+      const cacheNames = await caches.keys();
+      const cache = await caches.open(${JSON.stringify(expectedCache)});
+      const requests = (await cache.keys()).map((request) => new URL(request.url).pathname + new URL(request.url).search);
+      return {
+        active: registration.active?.state,
+        controlled: navigator.serviceWorker.controller?.scriptURL.endsWith('/toolkit/sw.js') || false,
+        cacheNames,
+        requests
+      };
+    })()`);
+
+    assert.equal(installation.active, 'activated', 'The real service worker did not activate.');
+    assert.equal(installation.controlled, true, 'The first loaded page was not claimed by the service worker.');
+    assert(installation.cacheNames.includes(expectedCache), 'The current Toolkit cache was not created.');
+    assert(!installation.cacheNames.includes('toolkit-v00-release-test'), 'A stale Toolkit cache survived activation.');
+    assert(installation.cacheNames.includes('another-project-release-test'), 'Toolkit deleted an unrelated origin cache.');
+    for (const pathname of [
+      '/toolkit/index.html',
+      '/toolkit/tools/typing-test.html',
+      '/toolkit/words/manifest.json',
+      '/toolkit/words/en/common-1000.json',
+      '/toolkit/words/tr/common-1000.json',
+      '/toolkit/assets/js/vendor/qrcode-generator.js',
+      '/toolkit/assets/js/vendor/bcrypt.min.js',
+      '/toolkit/license/'
+    ]) {
+      assert(installation.requests.some((request) => request === pathname || request.startsWith(`${pathname}?`)),
+        `The installed offline cache is missing ${pathname}.`);
+    }
+
+    await closeServer(server);
+
+    await navigate(bidi, tab.context, `${baseUrl}/tools/typing-test.html`);
+    const typingOffline = await evaluate(bidi, tab.context, `(async () => {
+      for (let attempt = 0; attempt < 200; attempt += 1) {
+        if (document.querySelectorAll('#tt-stream .tt-word').length && !document.querySelector('#tt-start-selected')?.disabled) break;
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+      }
+      const wordList = await fetch('../words/tr/common-1000.json');
+      const qrLibrary = await fetch('../assets/js/vendor/qrcode-generator.js');
+      const unavailable = await fetch('../__offline-test-missing.json');
+      return {
+        controlled: Boolean(navigator.serviceWorker.controller),
+        title: document.title,
+        readyWords: document.querySelectorAll('#tt-stream .tt-word').length,
+        categoryCount: document.querySelectorAll('[data-category]').length,
+        wordListStatus: wordList.status,
+        qrLibraryStatus: qrLibrary.status,
+        unavailableStatus: unavailable.status
+      };
+    })()`);
+    assert.equal(typingOffline.controlled, true, 'Offline typing page lost service-worker control.');
+    assert(typingOffline.title.includes('Typing Speed Test'), 'Cached typing page did not render offline.');
+    assert(typingOffline.readyWords > 0, 'Typing practice did not prepare words offline.');
+    assert(typingOffline.categoryCount >= 9, 'The complete English category catalogue did not render offline.');
+    assert.equal(typingOffline.wordListStatus, 200, 'A precached Turkish word list was unavailable offline.');
+    assert.equal(typingOffline.qrLibraryStatus, 200, 'A precached vendor library was unavailable offline.');
+    assert.equal(typingOffline.unavailableStatus, 503, 'An uncached non-HTML request did not return the offline 503 response.');
+
+    await navigate(bidi, tab.context, `${baseUrl}/license/`);
+    const licenseOffline = await evaluate(bidi, tab.context, `(() => ({
+      title: document.title,
+      canonicalText: document.querySelector('#license-text')?.textContent || ''
+    }))()`);
+    assert(licenseOffline.title.includes('License'), 'The published license page did not open offline.');
+    assert(licenseOffline.canonicalText.includes('Apache License'), 'The canonical license text was missing offline.');
+
+    await navigate(bidi, tab.context, `${baseUrl}/not-a-published-page`);
+    const fallback = await evaluate(bidi, tab.context, `(() => ({
+      title: document.title,
+      heading: document.querySelector('h1')?.textContent.trim() || ''
+    }))()`);
+    assert(fallback.title.includes('Page Not Found'), 'An uncached offline route did not fall back to 404.html.');
+    assert(fallback.heading, 'The offline 404 fallback did not render its heading.');
+
+    console.log(`Offline E2E passed: ${expectedCache} installed at /toolkit/, preserved unrelated caches, and served tools, word lists, vendor assets, license, and 404 fallback without a network.`);
+  } finally {
+    try { await bidi?.call('session.end'); } catch {}
+    bidi?.close();
+    browser.kill('SIGTERM');
+    await new Promise((resolvePromise) => browser.once('exit', resolvePromise));
+    await closeServer(server);
+    await rm(profile, { recursive: true, force: true });
+    if (browser.exitCode && !bidi) throw new Error(browserError || 'Firefox could not start.');
+  }
+}
+
+await main();
