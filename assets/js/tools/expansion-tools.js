@@ -577,7 +577,7 @@
           const canvas = document.createElement('canvas'); canvas.width = Math.round(image.width * ratio); canvas.height = Math.round(image.height * ratio); canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
           const type = $('#imageFormat').value; canvas.toBlob((blob) => {
             URL.revokeObjectURL(url); if (!blob) return toast('This format is not supported by your browser.', 'error');
-            const href = URL.createObjectURL(blob); const result = $('#imageCompressResult'); result.textContent = ''; result.hidden = false;
+            const href = URL.createObjectURL(blob); const result = $('#imageCompressResult'); const previous = result.querySelector('a[href^="blob:"]'); if (previous) URL.revokeObjectURL(previous.href); result.textContent = ''; result.hidden = false;
             const info = document.createElement('p'); info.textContent = `${image.width}×${image.height} → ${canvas.width}×${canvas.height}; ${Math.round(file.size / 1024)} KB → ${Math.round(blob.size / 1024)} KB.`;
             const link = document.createElement('a'); link.className = 'btn btn-secondary'; link.href = href; link.download = `compressed.${type.split('/')[1]}`; link.textContent = 'Download compressed image'; result.append(info, link);
           }, type, Math.min(1, Math.max(0.01, Number($('#imageQuality').value) / 100)));
