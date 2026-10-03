@@ -12,6 +12,10 @@
 
   if (!drop) return;
 
+  // Each selection gets a sequence number so a slower, older file cannot
+  // overwrite the results of the file the user picked last.
+  var latestRun = 0;
+
   // ─── Drag & drop ──────────────────────────────────────────────────────────
   drop.addEventListener('click', function() { fileInput.click(); });
   drop.addEventListener('keydown', function(e) {
@@ -55,6 +59,7 @@
       return;
     }
 
+    var run = ++latestRun;
     progress.style.display = 'block';
     results.style.display  = 'none';
     progressBar.style.width = '0%';
@@ -62,11 +67,13 @@
 
     var reader = new FileReader();
     reader.onprogress = function(e) {
+      if (run !== latestRun) return;
       if (e.lengthComputable) {
         progressBar.style.width = Math.round((e.loaded / e.total) * 40) + '%';
       }
     };
     reader.onload = function(e) {
+      if (run !== latestRun) return;
       progressLbl.textContent = 'Computing hashes…';
       var buffer = e.target.result;
       var total  = algos.length;
@@ -75,6 +82,7 @@
 
       algos.forEach(function(algo) {
         crypto.subtle.digest(algo, buffer).then(function(hashBuf) {
+          if (run !== latestRun) return;
           hashes[algo] = bufferToHex(hashBuf);
           done++;
           progressBar.style.width = (40 + Math.round((done / total) * 60)) + '%';
@@ -85,6 +93,7 @@
       });
     };
     reader.onerror = function() {
+      if (run !== latestRun) return;
       showToast('Failed to read file.', 'error');
       progress.style.display = 'none';
     };
