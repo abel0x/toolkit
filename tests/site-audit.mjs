@@ -60,9 +60,22 @@ for (const file of pages) {
   assert(extensionIndex !== -1 && runtimeIndex !== -1 && extensionIndex < runtimeIndex,
     `${relativeName} has an invalid i18n script order.`);
 
+  const policy = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/);
+  assert(policy, `${relativeName} misses the Content-Security-Policy meta tag.`);
+  for (const directive of ["default-src 'self'", "object-src 'none'", "base-uri 'self'", "connect-src 'self'"]) {
+    assert(policy[1].includes(directive), `${relativeName} CSP misses ${directive}.`);
+  }
+  assert(/script-src 'self'(?: 'sha256-[A-Za-z0-9+/=]+')?;/.test(policy[1]),
+    `${relativeName} CSP must not allow inline or remote scripts.`);
+  assert(!/\son[a-z]+\s*=\s*["']/i.test(html.replace(/<pre[\s\S]*?<\/pre>|<textarea[\s\S]*?<\/textarea>/gi, '')),
+    `${relativeName} uses an inline event handler, which the CSP blocks.`);
+
   // 404.html is served at nested missing URLs; its <base> points at the published site root.
   if (relativeName === '404.html') {
     assert(/<base href="\/toolkit\/" \/>/.test(html), '404.html must resolve assets from the site root.');
+    const inline = html.match(/<script>([\s\S]*?)<\/script>/);
+    const digest = inline && createHash('sha256').update(inline[1]).digest('base64');
+    assert(inline && policy[1].includes(`'sha256-${digest}'`), '404.html CSP hash does not match its inline script.');
   }
 
   for (const match of html.replace(/<base\b[^>]*>/gi, '').matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {
