@@ -92,12 +92,11 @@
     // Strikethrough
     html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-    // Unordered lists (simple single-level)
-    html = html.replace(/^[\*\-\+] (.+)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
-
-    // Ordered lists
-    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+    // Unordered and ordered lists (simple single-level)
+    html = html.replace(/^[\*\-\+] (.+)$/gm, '<li data-ul>$1</li>');
+    html = html.replace(/^\d+\. (.+)$/gm, '<li data-ol>$1</li>');
+    html = html.replace(/(<li data-ul>.*<\/li>\n?)+/g, match => `<ul>${match.replace(/<li data-ul>/g, '<li>')}</ul>`);
+    html = html.replace(/(<li data-ol>.*<\/li>\n?)+/g, match => `<ol>${match.replace(/<li data-ol>/g, '<li>')}</ol>`);
 
     // Paragraphs
     html = html.replace(/\n\n(?!<[a-z])/g, '</p><p>');
