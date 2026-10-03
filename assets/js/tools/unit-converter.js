@@ -72,13 +72,19 @@
         <td style="padding:.35rem .6rem;font-weight:600;color:var(--accent-cyan,#00d4ff)">${u}</td>
         <td class="font-mono" style="text-align:right;padding:.35rem .6rem;">${fmt(v)}</td>
         <td style="padding:.35rem .6rem;">
-          <button class="btn btn-secondary" style="padding:.15rem .5rem;font-size:.75rem;" onclick="copyToClipboard('${fmt(v)}','${u}')">Copy</button>
+          <button class="btn btn-secondary" style="padding:.15rem .5rem;font-size:.75rem;" data-copy-value="${fmt(v)}" data-copy-label="${u}">Copy</button>
         </td>
       </tr>`;
     });
     html += '</tbody></table>';
     convTableEl.innerHTML = html;
   }
+
+  // Copy buttons are rendered with the table; one delegated listener keeps them free of inline handlers.
+  convTableEl.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-copy-value]');
+    if (button) copyToClipboard(button.dataset.copyValue, button.dataset.copyLabel);
+  });
 
   [baseFontSizeEl, viewportWidthEl, viewportHeightEl, inputValueEl, fromUnitEl, toUnitEl]
     .forEach(el => el.addEventListener('input', update));

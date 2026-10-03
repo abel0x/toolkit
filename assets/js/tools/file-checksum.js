@@ -41,6 +41,12 @@
     if (fileInput.files[0]) processFile(fileInput.files[0]);
   });
 
+  // Copy buttons are rendered with the results; one delegated listener keeps them free of inline handlers.
+  resultInner.addEventListener('click', function(e) {
+    var button = e.target.closest('[data-copy-value]');
+    if (button) copyToClipboard(button.dataset.copyValue, button.dataset.copyLabel);
+  });
+
   // ─── Core ──────────────────────────────────────────────────────────────────
   function getSelectedAlgos() {
     var algos = [];
@@ -116,7 +122,7 @@
         + '<p style="font-size:.8rem;font-weight:600;opacity:.7;margin-bottom:.3rem;">' + algo + '</p>'
         + '<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">'
         + '<code class="font-mono" style="flex:1;font-size:.78rem;word-break:break-all;padding:.5rem .75rem;background:var(--surface-2,rgba(255,255,255,.03));border-radius:.4rem;" data-i18n-skip>' + escapeHTML(hash) + '</code>'
-        + '<button class="btn btn-ghost" style="white-space:nowrap;font-size:.8rem;" onclick="copyToClipboard(\'' + hash + '\', \'' + algo + ' hash\')">Copy</button>'
+        + '<button class="btn btn-ghost" style="white-space:nowrap;font-size:.8rem;" data-copy-value="' + escapeHTML(hash) + '" data-copy-label="' + algo + ' hash">Copy</button>'
         + '</div>'
         + '</div>';
     });
