@@ -12,7 +12,7 @@
       // Command-palette tool descriptions (reuse the reviewed home-card Turkish copy)
       'Hash passwords with bcrypt — the industry-standard adaptive password hashing algorithm.': 'Parolaları endüstri standardı uyarlanabilir bcrypt algoritmasıyla hashleyin.',
       'Generate HMAC-SHA256/512 message authentication codes for secure data signing.': 'Güvenli imzalama için HMAC-SHA256/512 ileti kimlik doğrulama kodları oluşturun.',
-      'Analyse password entropy, check breach databases and get actionable improvement tips.': 'Entropiyi inceleyin, ihlal veritabanlarını kontrol edin ve uygulanabilir iyileştirme önerileri alın.',
+      'Analyse password entropy, flag common passwords and get actionable improvement tips.': 'Entropiyi inceleyin, yaygın parolaları tespit edin ve uygulanabilir iyileştirme önerileri alın.',
       'Generate cryptographically secure random tokens for API keys, session tokens and nonces.': 'API anahtarları ve oturumlar için kriptografik olarak güvenli rastgele belirteçler oluşturun.',
       'Compute SHA-1, SHA-256 and SHA-512 checksums for files — fully client-side, never leaves your browser.': 'Dosyalar için SHA-1, SHA-256 ve SHA-512 sağlama toplamlarını tamamen tarayıcıda hesaplayın.',
       'Encode and decode text using the Base32 alphabet — useful for TOTP secrets and file names.': 'Metni Base32 alfabesiyle kodlayın veya çözün; TOTP gizli anahtarları için kullanışlıdır.',
@@ -1078,7 +1078,7 @@
       'Upload an image with a QR code and instantly decode its contents.': 'QR kod içeren bir görsel yükleyin ve içeriğini anında çözün.',
       'Hash passwords with the industry-standard adaptive bcrypt algorithm.': 'Parolaları endüstri standardı uyarlanabilir bcrypt algoritmasıyla hashleyin.',
       'Generate HMAC-SHA256/512 message authentication codes for secure signing.': 'Güvenli imzalama için HMAC-SHA256/512 ileti kimlik doğrulama kodları oluşturun.',
-      'Analyse entropy, check breach databases and get actionable improvement tips.': 'Entropiyi inceleyin, ihlal veritabanlarını kontrol edin ve uygulanabilir iyileştirme önerileri alın.',
+      'Analyse entropy, flag common passwords and get actionable improvement tips.': 'Entropiyi inceleyin, yaygın parolaları tespit edin ve uygulanabilir iyileştirme önerileri alın.',
       'Generate cryptographically secure random tokens for API keys and sessions.': 'API anahtarları ve oturumlar için kriptografik olarak güvenli rastgele belirteçler oluşturun.',
       'Validate UUIDs and determine their version (v1–v5) and variant.': 'UUID’leri doğrulayın, sürümlerini (v1–v5) ve varyantlarını belirleyin.',
       'Compute SHA-256, SHA-512 checksums for files — 100% client-side.': 'Dosyalar için SHA-256 ve SHA-512 sağlama toplamlarını tamamen tarayıcıda hesaplayın.',

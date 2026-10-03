@@ -55,7 +55,7 @@ const TOOLS_DATA = [
     slug: 'password-strength',
     cat: 'security',
     catLabel: 'Security',
-    desc: 'Analyse password entropy, check breach databases and get actionable improvement tips.',
+    desc: 'Analyse password entropy, flag common passwords and get actionable improvement tips.',
     tags: ['password', 'strength', 'entropy', 'security', 'check'],
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg>',
   },
