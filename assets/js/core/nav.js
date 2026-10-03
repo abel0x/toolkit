@@ -73,7 +73,7 @@
   'use strict';
 
   if (!('serviceWorker' in navigator)) return;
-  const isNestedPage = /\/(?:tools|license)(?:\/|$)/.test(location.pathname);
+  const isNestedPage = /\/(?:tools|license)(?:\/|$)/.test(new URL(document.baseURI).pathname);
   const path = isNestedPage ? '../sw.js' : 'sw.js';
   navigator.serviceWorker.register(path).catch(() => {});
 }());

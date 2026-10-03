@@ -60,7 +60,12 @@ for (const file of pages) {
   assert(extensionIndex !== -1 && runtimeIndex !== -1 && extensionIndex < runtimeIndex,
     `${relativeName} has an invalid i18n script order.`);
 
-  for (const match of html.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {
+  // 404.html is served at nested missing URLs; its <base> points at the published site root.
+  if (relativeName === '404.html') {
+    assert(/<base href="\/toolkit\/" \/>/.test(html), '404.html must resolve assets from the site root.');
+  }
+
+  for (const match of html.replace(/<base\b[^>]*>/gi, '').matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {
     const reference = match[1];
     assert(!/^javascript:/i.test(reference), `${relativeName} contains a javascript: resource URL.`);
     if (!reference || /^(?:https?:|mailto:|tel:|data:|\/\/|#)/i.test(reference)) continue;

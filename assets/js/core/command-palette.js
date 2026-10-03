@@ -8,7 +8,8 @@
 
   if (typeof TOOLS_DATA === 'undefined') return;
 
-  const pagePrefix = location.pathname.includes('/tools/') ? '../' : '';
+  // The document base differs from the location on the 404 page served at nested URLs.
+  const pagePrefix = new URL(document.baseURI).pathname.includes('/tools/') ? '../' : '';
   const maxResults = 8;
   const maxRecentTools = 5;
   const recentStorageKey = 'toolkit-recent-tools-v1';

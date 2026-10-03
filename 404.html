@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- GitHub Pages serves this page at any missing URL, including nested ones such as
+       /toolkit/tools/missing.html, so assets and links resolve from the site root. -->
+  <base href="/toolkit/" />
+  <script>
+    if (location.pathname.indexOf('/toolkit/') !== 0) document.querySelector('base').href = '/';
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Page not found — Toolkit" />
   <meta name="robots" content="noindex, nofollow" />
