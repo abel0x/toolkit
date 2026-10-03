@@ -41,7 +41,12 @@
       }
 
       outputEl.value = result;
-      showToast('Text reversed (' + mode + ' mode)');
+      var messages = {
+        char: 'Text reversed by characters',
+        word: 'Text reversed by words',
+        lines: 'Text reversed by lines'
+      };
+      showToast(messages[mode] || messages.char);
     });
 
     if (swapBtn) {

@@ -9,6 +9,10 @@
 
   window.TOOLKIT_I18N_EXTRA = Object.freeze({
     tr: Object.freeze({
+      // Text reverser status messages
+      'Text reversed by characters': 'Metin karakter karakter ters çevrildi',
+      'Text reversed by words': 'Metin kelime kelime ters çevrildi',
+      'Text reversed by lines': 'Metin satır satır ters çevrildi',
       // Command-palette tool descriptions (reuse the reviewed home-card Turkish copy)
       'Hash passwords with bcrypt — the industry-standard adaptive password hashing algorithm.': 'Parolaları endüstri standardı uyarlanabilir bcrypt algoritmasıyla hashleyin.',
       'Generate HMAC-SHA256/512 message authentication codes for secure data signing.': 'Güvenli imzalama için HMAC-SHA256/512 ileti kimlik doğrulama kodları oluşturun.',
