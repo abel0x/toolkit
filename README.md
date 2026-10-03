@@ -157,6 +157,9 @@ TYPING_TIMING=1 node tests/typing-regressions.mjs
 # Optional: use a locally installed Chromium/headless-shell binary instead.
 CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 
+# Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, and CSP-safe copy buttons.
+node tests/audit-regressions.mjs
+
 # Check Turkish dictionary integrity, dynamic patterns, title coverage, and form-control safety.
 node tests/i18n-audit.mjs
 

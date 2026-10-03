@@ -68,11 +68,13 @@ async function startServer() {
       });
       response.end(contents);
     } catch {
+      // Like GitHub Pages, answer any miss inside the site with the published 404 page.
+      const inside = (request.url || '').startsWith(`${mountPath}/`);
       response.writeHead(404, {
-        'Content-Type': 'text/plain; charset=utf-8',
+        'Content-Type': inside ? 'text/html; charset=utf-8' : 'text/plain; charset=utf-8',
         Connection: 'close'
       });
-      response.end('Not found');
+      response.end(inside ? await readFile(join(root, '404.html')) : 'Not found');
     }
   });
   await new Promise((resolvePromise, reject) => {
@@ -226,6 +228,25 @@ async function main() {
       assert(installation.requests.some((request) => request === pathname || request.startsWith(`${pathname}?`)),
         `The installed offline cache is missing ${pathname}.`);
     }
+
+    // A miss below a subdirectory still renders the styled 404 page with site-root links.
+    await navigate(bidi, tab.context, `${baseUrl}/tools/not-a-published-tool.html`);
+    const nestedMissing = await evaluate(bidi, tab.context, `(async () => {
+      await document.fonts.ready;
+      const failed = performance.getEntriesByType('resource')
+        .filter((entry) => entry.responseStatus >= 400)
+        .map((entry) => entry.name);
+      return {
+        title: document.title,
+        background: getComputedStyle(document.body).backgroundColor,
+        home: document.querySelector('.nav-brand')?.href || '',
+        failed
+      };
+    })()`);
+    assert(nestedMissing.title.includes('Page Not Found'), 'A nested miss did not serve the 404 page.');
+    assert.notEqual(nestedMissing.background, 'rgba(0, 0, 0, 0)', 'The nested 404 page rendered without its stylesheets.');
+    assert.equal(nestedMissing.home, `${baseUrl}/index.html`, 'The nested 404 page links outside the site root.');
+    assert.deepEqual(nestedMissing.failed, [], `The nested 404 page requested missing assets: ${nestedMissing.failed.join(', ')}`);
 
     await closeServer(server);
 

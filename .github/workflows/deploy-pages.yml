@@ -63,6 +63,9 @@ jobs:
       - name: Exercise typing and localisation regressions
         run: node tests/typing-regressions.mjs
 
+      - name: Exercise audit regressions in Firefox
+        run: node tests/audit-regressions.mjs
+
       - name: Exercise the installed offline site in Firefox
         run: node tests/offline-e2e.mjs
 
