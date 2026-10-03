@@ -29,12 +29,24 @@
 
   // Lightweight safe Markdown → HTML parser
   function parseMarkdown(md) {
+    // Finished fragments (code, link and image tags) are parked behind private-use
+    // placeholders so later inline rules cannot rewrite their contents or URLs.
+    const stash = [];
+    const park = (fragment) => `\uE000${stash.push(fragment) - 1}\uE001`;
+
     let html = md
-      // Escape HTML in raw text (will undo for code blocks below)
+      // Escape HTML in raw text
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+    // Fenced code blocks (kept as a block-level tag for the paragraph rules)
+    html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) =>
+      `<pre data-md="${stash.push(`<pre><code class="lang-${lang}">${code.trim()}</code></pre>`) - 1}"></pre>`);
+
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, (_, code) => park(`<code>${code}</code>`));
+
     // Tables (basic)
-    html = html.replace(/^(\|.+\|)\n(\|[\s:-]+\|)\n((?:\|.+\|\n?)+)/gm, (_, head, sep, body) => {
+    html = html.replace(/^(\|.+\|)\n(\|(?:[\s:-]+\|)+)\n((?:\|.+\|\n?)+)/gm, (_, head, sep, body) => {
       const th = head.split('|').filter(c => c.trim()).map(c => `<th>${c.trim()}</th>`).join('');
       const rows = body.trim().split('\n').map(r =>
         '<tr>' + r.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('') + '</tr>'
@@ -42,12 +54,19 @@
       return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>`;
     });
 
-    // Fenced code blocks
-    html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) =>
-      `<pre><code class="lang-${lang}">${code.trim()}</code></pre>`);
+    // Images
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+      const safe = safeImageUrl(url);
+      if (!safe) return `<span class="text-muted">🖼 ${alt}</span>`;
+      return park(`<img src="${safe}" alt="${escapeAttribute(alt)}" style="max-width:100%;border-radius:8px;">`);
+    });
 
-    // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+    // Links (the visible text still receives inline formatting)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
+      const safe = safeLinkUrl(url);
+      if (!safe) return text;
+      return `${park(`<a href="${safe}" target="_blank" rel="noopener noreferrer">`)}${text}</a>`;
+    });
 
     // Headings
     html = html.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
@@ -73,20 +92,6 @@
     // Strikethrough
     html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-    // Images
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
-      const safe = safeImageUrl(url);
-      if (!safe) return `<span class="text-muted">🖼 ${alt}</span>`;
-      return `<img src="${safe}" alt="${escapeAttribute(alt)}" style="max-width:100%;border-radius:8px;">`;
-    });
-
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
-      const safe = safeLinkUrl(url);
-      if (!safe) return text;
-      return `<a href="${safe}" target="_blank" rel="noopener noreferrer">${text}</a>`;
-    });
-
     // Unordered lists (simple single-level)
     html = html.replace(/^[\*\-\+] (.+)$/gm, '<li>$1</li>');
     html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
@@ -100,10 +105,12 @@
 
     // Clean up empty paragraphs and wrapping artifacts
     html = html.replace(/<p>\s*<\/p>/g, '');
-    html = html.replace(/<p>(<[ht][1-6r]|<ul|<ol|<block|<hr|<table)/g, '$1');
-    html = html.replace(/(<\/[ht][1-6r]>|<\/ul>|<\/ol>|<\/blockquote>|<hr>|<\/table>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<[ht][1-6r]|<ul|<ol|<block|<hr|<table|<pre)/g, '$1');
+    html = html.replace(/(<\/[ht][1-6r]>|<\/ul>|<\/ol>|<\/blockquote>|<hr>|<\/table>|<\/pre>)<\/p>/g, '$1');
 
-    return html;
+    // Restore parked fragments
+    html = html.replace(/<pre data-md="(\d+)"><\/pre>/g, (_, index) => stash[index]);
+    return html.replace(/\uE000(\d+)\uE001/g, (_, index) => stash[index]);
   }
 
   function render() {
