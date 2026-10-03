@@ -80,10 +80,10 @@
 
   function matchesSearch(card) {
     if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    const title = (card.querySelector('.hub-card-title')?.textContent || '').toLowerCase();
-    const desc  = (card.querySelector('.hub-card-desc')?.textContent  || '').toLowerCase();
-    const tags  = (card.dataset.tags || '').toLowerCase();
+    const q = foldCase(searchQuery);
+    const title = foldCase(card.querySelector('.hub-card-title')?.textContent || '');
+    const desc  = foldCase(card.querySelector('.hub-card-desc')?.textContent  || '');
+    const tags  = foldCase(card.dataset.tags || '');
     return title.includes(q) || desc.includes(q) || tags.includes(q);
   }
 

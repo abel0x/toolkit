@@ -126,6 +126,16 @@ function escapeHTML(str) {
 }
 
 /**
+ * Lower-case text for case-insensitive matching. toLowerCase() maps the Turkish
+ * capital İ to "i" plus a combining dot, which never matches a typed "i".
+ * @param {string} str
+ * @returns {string}
+ */
+function foldCase(str) {
+  return str.toLowerCase().replace(/i\u0307/g, 'i');
+}
+
+/**
  * Generate a random hex color
  * @returns {string} - e.g. "#a3f2c1"
  */

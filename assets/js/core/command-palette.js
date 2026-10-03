@@ -97,16 +97,15 @@
   }
 
   function getMatches(query) {
-    const normalized = query.trim().toLowerCase();
+    const normalized = foldCase(query.trim());
     if (!normalized) {
       const recent = getRecentTools();
       return recent.length ? recent : TOOLS_DATA.slice(0, maxResults);
     }
 
     return TOOLS_DATA.filter((tool) => {
-      const searchable = [tool.name, t(tool.name), tool.desc, t(tool.desc), tool.catLabel, t(tool.catLabel), ...(tool.tags || [])]
-        .join(' ')
-        .toLowerCase();
+      const searchable = foldCase([tool.name, t(tool.name), tool.desc, t(tool.desc), tool.catLabel, t(tool.catLabel), ...(tool.tags || [])]
+        .join(' '));
       return searchable.includes(normalized);
     }).slice(0, maxResults);
   }
