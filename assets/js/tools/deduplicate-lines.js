@@ -21,7 +21,7 @@
 
       lines.forEach(function (line) {
         var key = trimLines ? line.trim() : line;
-        if (caseInsensitive) key = key.toLowerCase();
+        if (caseInsensitive) key = foldCase(key);
         if (seen.has(key)) {
           removedCount++;
         } else {
