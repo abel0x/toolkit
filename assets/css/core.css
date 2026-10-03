@@ -6,7 +6,7 @@
 /* ── 0. Self-hosted Fonts ──────────────────────────────────── */
 @font-face {
   font-family: 'Space Grotesk';
-  src: url('../fonts/SpaceGrotesk.ttf') format('truetype');
+  src: url('../fonts/SpaceGrotesk.woff2') format('woff2');
   font-weight: 300 700;
   font-style: normal;
   font-display: swap;
@@ -14,7 +14,7 @@
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('../fonts/JetBrainsMono.ttf') format('truetype');
+  src: url('../fonts/JetBrainsMono.woff2') format('woff2');
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
@@ -22,7 +22,7 @@
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('../fonts/JetBrainsMono-Italic.ttf') format('truetype');
+  src: url('../fonts/JetBrainsMono-Italic.woff2') format('woff2');
   font-weight: 100 800;
   font-style: italic;
   font-display: swap;
