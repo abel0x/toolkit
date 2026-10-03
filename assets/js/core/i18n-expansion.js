@@ -14,7 +14,7 @@
       'Generate HMAC-SHA256/512 message authentication codes for secure data signing.': 'Güvenli imzalama için HMAC-SHA256/512 ileti kimlik doğrulama kodları oluşturun.',
       'Analyse password entropy, check breach databases and get actionable improvement tips.': 'Entropiyi inceleyin, ihlal veritabanlarını kontrol edin ve uygulanabilir iyileştirme önerileri alın.',
       'Generate cryptographically secure random tokens for API keys, session tokens and nonces.': 'API anahtarları ve oturumlar için kriptografik olarak güvenli rastgele belirteçler oluşturun.',
-      'Compute SHA-256, SHA-512 and MD5 checksums for files — fully client-side, never leaves your browser.': 'Dosyalar için SHA-256 ve SHA-512 sağlama toplamlarını tamamen tarayıcıda hesaplayın.',
+      'Compute SHA-1, SHA-256 and SHA-512 checksums for files — fully client-side, never leaves your browser.': 'Dosyalar için SHA-1, SHA-256 ve SHA-512 sağlama toplamlarını tamamen tarayıcıda hesaplayın.',
       'Encode and decode text using the Base32 alphabet — useful for TOTP secrets and file names.': 'Metni Base32 alfabesiyle kodlayın veya çözün; TOTP gizli anahtarları için kullanışlıdır.',
       'Escape HTML entities like &amp;, &lt;, &gt; or decode them back to characters.': '&amp; ve &lt; gibi HTML varlıklarını kodlayın veya yeniden karakterlere dönüştürün.',
       'Convert text to binary (0s and 1s) and binary back to text.': 'Metni ikili biçime (0 ve 1) dönüştürün veya ikili metni yeniden okunabilir metne çevirin.',
