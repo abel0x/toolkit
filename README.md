@@ -66,24 +66,24 @@ The expansion from the original 78 tools added fully browser-based utilities for
 
 <div align="center">
 
-<img src="assets/images/Main.png" alt="Toolkit main landing page" width="100%" />
+<img src="assets/images/Main.webp" alt="Toolkit main landing page" width="100%" />
 
 <p><strong>Main</strong> — a privacy-first landing page with direct access to the full toolkit.</p>
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="assets/images/Category.png" alt="Toolkit category browser" />
+      <img src="assets/images/Category.webp" alt="Toolkit category browser" />
       <p align="center"><strong>Category</strong><br />Browse the catalogue by area.</p>
     </td>
     <td width="50%" valign="top">
-      <img src="assets/images/Finder.png" alt="Toolkit keyboard tool finder" />
+      <img src="assets/images/Finder.webp" alt="Toolkit keyboard tool finder" />
       <p align="center"><strong>Finder</strong><br />Find any utility with <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd>.</p>
     </td>
   </tr>
   <tr>
     <td colspan="2" valign="top">
-      <img src="assets/images/Password.png" alt="Toolkit password generator" width="100%" />
+      <img src="assets/images/Password.webp" alt="Toolkit password generator" width="100%" />
       <p align="center"><strong>Password</strong><br />A focused tool page with local-only password generation.</p>
     </td>
   </tr>
