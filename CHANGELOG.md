@@ -2,43 +2,7 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
-
-### Added
-
-- Added a `Content-Security-Policy` to every published page (same-origin scripts only; the 404 page's inline script is allowed by hash), enforced by the site audit.
-- Added `tests/audit-regressions.mjs` and a nested-URL 404 check in the offline suite; both run in CI.
-- Added `tests/tool-vectors.mjs`, which checks 33 tools against independently computed known answers in CI.
-- Added a WebKit (Safari engine) smoke test of every page in a separate CI workflow.
-
-### Changed
-
-- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v78`.
-- The style policy no longer allows inline styles (`style-src 'self'`): former inline styles live in `assets/css/inline-styles.css` and page stylesheets under `assets/css/tools/`.
-- Typing Speed Test: net WPM counts only words typed without an error (raw WPM and CPM are unchanged). Opt-in personal bests saved under the earlier scoring are labelled as such and replaced by the next result.
-- README screenshots are WebP (712 KB → 119 KB).
-- The home page title is now simply “Toolkit” in English and Turkish, including its Open Graph and Twitter titles.
-- Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
-
-### Fixed
-
-- The 404 page loaded no styles or scripts and linked to missing pages when GitHub Pages served it below a subdirectory.
-- Tool search on the home page and in the command palette now matches the Turkish dotted capital İ; case-insensitive line de-duplication folds İ and i together.
-- The command palette showed English descriptions for 38 tools in Turkish.
-- Markdown preview: multi-column tables and numbered lists render, and code, link URLs and image alt text are no longer rewritten by emphasis rules.
-- Base64 to Image enables Download after a successful preview.
-- File Checksum always shows the most recently selected file, and its description no longer mentions MD5.
-- Image Compressor releases the previous result's memory on each run.
-- Password Strength no longer claims to check breach databases.
-- Text Reverser's status message names the mode in the interface language.
-- Typing Speed Test: with strict Turkish diacritics turned off, only the accent is forgiven (ç↔c, İ↔I, ı↔i, …); a wrong letter case now counts as a mistake, as it does in strict mode and English.
-- Typing Speed Test: characters skipped by pressing Space early now lower accuracy instead of leaving it at 100%.
-- UUID Validator accepts RFC 9562 versions 6–8 and the nil and max UUIDs, and no longer labels one RFC variant as two.
-- URL Builder percent-encodes path segments without double-encoding existing escapes.
-- XML Formatter keeps text-only elements on one line (their text is no longer changed) and no longer splits comments or CDATA that contain `>`.
-- Removed an invalid `outline-radius` declaration that browsers reported as a CSS error on every page.
-
-## [1.2.0] — 2026-09-19
+## [1.2.0] — 2026-10-04
 
 ### Added
 
@@ -49,6 +13,10 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Added random, local, editable example starters to 40 frequently used tools, with Turkish interface copy, browser coverage, and offline precaching.
 - Added a real service-worker browser test that installs the production worker at the GitHub Pages `/toolkit/` path, disconnects the server, and verifies cached tools, word lists, vendor assets, the published licence, and the 404 fallback.
 - Added pinned upstream licence files and integrity checks for the self-hosted bcrypt, QR generation, and QR reading libraries.
+- Added a `Content-Security-Policy` to every published page (same-origin scripts only; the 404 page's inline script is allowed by hash), enforced by the site audit.
+- Added `tests/audit-regressions.mjs` and a nested-URL 404 check in the offline suite; both run in CI.
+- Added `tests/tool-vectors.mjs`, which checks 33 tools against independently computed known answers in CI.
+- Added a WebKit (Safari engine) smoke test of every page in a separate CI workflow.
 
 ### Changed
 
@@ -59,6 +27,12 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Updated the shared navigation generator so nested static pages, including `/license/`, resolve their assets and service worker correctly.
 - Standardised radio controls and colour-input triggers with shared focus-visible states, and moved repeated legacy form layouts into reusable component classes.
 - Replaced the GPL QR batch dependency and legacy QR encoder with one pinned MIT-licensed generator plus its UTF-8 adapter, shared by single and batch QR generation.
+- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v78`.
+- The style policy no longer allows inline styles (`style-src 'self'`): former inline styles live in `assets/css/inline-styles.css` and page stylesheets under `assets/css/tools/`.
+- Typing Speed Test: net WPM counts only words typed without an error (raw WPM and CPM are unchanged). Opt-in personal bests saved under the earlier scoring are labelled as such and replaced by the next result.
+- README screenshots are WebP (712 KB → 119 KB).
+- The home page title is now simply “Toolkit” in English and Turkish, including its Open Graph and Twitter titles.
+- Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
 
 ### Fixed
 
@@ -71,7 +45,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Fixed the typing caret staying at the expected word ending when extra characters are entered; it now follows the last visible extra glyph and moves back correctly on deletion.
 - Replaced unverified medical imports and generated vocabulary: all 1,300 English medical entries now match NLM MeSH 2026 descriptor names and IDs; the Turkish list is a 546-entry editorial clinical pool. Restored spaces in English place names, completed country labels, corrected district examples, and removed synthetic programming terms.
 - Removed unsupported literary attributions, corrected cited works and several Turkish translations, and added edition-linked provenance plus a read-only primary-source audit. Structural checks are explicitly distinguished from linguistic certification.
-- Added conversion and typing regression suites to CI, including three repetitions of key edge cases, all-category loading and a check for zero word-stream child mutations per keystroke; refreshed the offline cache to `v74`.
+- Added conversion and typing regression suites to CI, including three repetitions of key edge cases, all-category loading and a check for zero word-stream child mutations per keystroke.
 - Rebuilt the Turkish common-word pool from reviewed vocabulary, removing generated compound forms and unrelated specialist padding; cross-checked replacements against official Ministry of National Education material and current TDK spelling.
 - Fixed hidden feedback panels being exposed by component display rules, aligned the Base64 input/output columns, and corrected the legacy split layout so its decorative divider no longer pushes result panels onto a new row.
 - Restored the HMAC Generator action by synchronising its button identifier with the module, and added browser and DOM-contract checks for primary actions, paired text areas, hidden states, and static module-to-page element references.
@@ -93,6 +67,21 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Prevented executable markup and unsafe URL schemes in Markdown previews, escaped decoded QR text and Wi-Fi fields, and verified Turkish plus supplementary Unicode QR round trips.
 - Isolated generated user content from DOM translation and stopped Open Graph previews from automatically requesting user-supplied remote image URLs.
 - Limited service-worker cleanup to stale `toolkit-*` caches so activation cannot delete unrelated GitHub Pages project caches on the same origin.
+- The 404 page loaded no styles or scripts and linked to missing pages when GitHub Pages served it below a subdirectory.
+- Tool search on the home page and in the command palette now matches the Turkish dotted capital İ; case-insensitive line de-duplication folds İ and i together.
+- The command palette showed English descriptions for 38 tools in Turkish.
+- Markdown preview: multi-column tables and numbered lists render, and code, link URLs and image alt text are no longer rewritten by emphasis rules.
+- Base64 to Image enables Download after a successful preview.
+- File Checksum always shows the most recently selected file, and its description no longer mentions MD5.
+- Image Compressor releases the previous result's memory on each run.
+- Password Strength no longer claims to check breach databases.
+- Text Reverser's status message names the mode in the interface language.
+- Typing Speed Test: with strict Turkish diacritics turned off, only the accent is forgiven (ç↔c, İ↔I, ı↔i, …); a wrong letter case now counts as a mistake, as it does in strict mode and English.
+- Typing Speed Test: characters skipped by pressing Space early now lower accuracy instead of leaving it at 100%.
+- UUID Validator accepts RFC 9562 versions 6–8 and the nil and max UUIDs, and no longer labels one RFC variant as two.
+- URL Builder percent-encodes path segments without double-encoding existing escapes.
+- XML Formatter keeps text-only elements on one line (their text is no longer changed) and no longer splits comments or CDATA that contain `>`.
+- Removed an invalid `outline-radius` declaration that browsers reported as a CSS error on every page.
 
 ## [1.1.0] — 2026-08-13
 
