@@ -126,6 +126,7 @@ node tests/accessibility-audit.mjs
 node tests/conversion-regressions.mjs
 node tests/typing-regressions.mjs
 node tests/audit-regressions.mjs
+node tests/tool-vectors.mjs
 node tests/tool-pages-e2e.mjs
 node tests/expansion-e2e.mjs
 node tests/offline-e2e.mjs

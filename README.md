@@ -160,6 +160,9 @@ CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 # Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, and CSP-safe copy buttons.
 node tests/audit-regressions.mjs
 
+# Check the output of 33 tools against independently computed known answers (hashes, encodings, conversions, UUIDs, XML, SQL …).
+node tests/tool-vectors.mjs
+
 # Check Turkish dictionary integrity, dynamic patterns, title coverage, and form-control safety.
 node tests/i18n-audit.mjs
 

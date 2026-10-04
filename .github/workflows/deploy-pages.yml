@@ -66,6 +66,9 @@ jobs:
       - name: Exercise audit regressions in Firefox
         run: node tests/audit-regressions.mjs
 
+      - name: Check tool outputs against known answers in Firefox
+        run: node tests/tool-vectors.mjs
+
       - name: Exercise the installed offline site in Firefox
         run: node tests/offline-e2e.mjs
 
