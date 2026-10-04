@@ -12,7 +12,15 @@
 
   if (!input) return;
 
-  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  // RFC 9562: versions 1–8 with the RFC variant (10xx), plus the special nil and max UUIDs.
+  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  var NIL_UUID = '00000000-0000-0000-0000-000000000000';
+  var MAX_UUID = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
+
+  function isSpecial(uuid) {
+    var lower = uuid.toLowerCase();
+    return lower === NIL_UUID || lower === MAX_UUID;
+  }
 
   var SAMPLES = [
     '550e8400-e29b-41d4-a716-446655440000',
@@ -29,10 +37,8 @@
   }
 
   function getVariant(uuid) {
-    var c = uuid.charAt(19).toLowerCase();
-    if (c === '8' || c === '9') return 'RFC 4122 (variant 1)';
-    if (c === 'a' || c === 'b') return 'RFC 4122 (variant 2)';
-    return 'Unknown variant';
+    // 8, 9, a and b all encode the same RFC 9562 (formerly RFC 4122) variant bits.
+    return /[89ab]/i.test(uuid.charAt(19)) ? 'RFC 9562 variant' : 'Unknown variant';
   }
 
   function getVersionDesc(v) {
@@ -41,7 +47,10 @@
       2: 'v2 — DCE Security',
       3: 'v3 — Name-based (MD5)',
       4: 'v4 — Random',
-      5: 'v5 — Name-based (SHA-1)'
+      5: 'v5 — Name-based (SHA-1)',
+      6: 'v6 — Reordered time',
+      7: 'v7 — Unix time-ordered',
+      8: 'v8 — Custom'
     };
     return map[v] || 'Unknown version';
   }
@@ -57,12 +66,15 @@
     var validCount = 0;
 
     lines.forEach(function(line) {
-      var isValid = UUID_RE.test(line);
+      var special = isSpecial(line);
+      var isValid = special || UUID_RE.test(line);
       if (isValid) validCount++;
 
-      var ver = isValid ? getVersion(line) : null;
-      var variant = isValid ? getVariant(line) : null;
-      var verDesc = isValid ? getVersionDesc(ver) : null;
+      var ver = isValid && !special ? getVersion(line) : null;
+      var variant = isValid && !special ? getVariant(line) : null;
+      var verDesc = special
+        ? (line.toLowerCase() === NIL_UUID ? 'Nil UUID' : 'Max UUID')
+        : isValid ? getVersionDesc(ver) : null;
 
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;padding:.6rem .75rem;border-radius:.5rem;background:var(--surface-2, rgba(255,255,255,.03));';
@@ -82,7 +94,7 @@
       if (isValid) {
         var meta = document.createElement('span');
         meta.style.cssText = 'font-size:.8rem;opacity:.7;white-space:nowrap;';
-        meta.textContent = verDesc + ' · ' + variant;
+        meta.textContent = variant ? verDesc + ' · ' + variant : verDesc;
         row.appendChild(meta);
       }
 

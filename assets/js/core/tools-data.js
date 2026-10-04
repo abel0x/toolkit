@@ -73,7 +73,7 @@ const TOOLS_DATA = [
     slug: 'uuid-validator',
     cat: 'security',
     catLabel: 'Security',
-    desc: 'Validate UUIDs and determine their version (v1–v5) and variant.',
+    desc: 'Validate UUIDs and determine their version (v1–v8) and variant.',
     tags: ['uuid', 'guid', 'validate', 'version', 'check'],
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>',
   },
