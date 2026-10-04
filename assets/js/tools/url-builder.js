@@ -31,11 +31,21 @@
     assemble();
   }
 
+  // Percent-encode each path part (spaces, ?, # …) without double-encoding existing %XX escapes.
+  function encodeSegment(segment) {
+    return segment.split('/').map((part) => {
+      let decoded = part;
+      try { decoded = decodeURIComponent(part); } catch {}
+      return encodeURIComponent(decoded);
+    }).join('/');
+  }
+
   function assemble() {
     let base = baseUrlEl.value.trim().replace(/\/+$/, '');
     const segments = [...pathRows.querySelectorAll('input')]
       .map(i => i.value.trim().replace(/^\/+|\/+$/g, ''))
-      .filter(Boolean);
+      .filter(Boolean)
+      .map(encodeSegment);
     const params = new URLSearchParams();
     paramRows.querySelectorAll('div').forEach(row => {
       const inputs = row.querySelectorAll('input');
