@@ -112,10 +112,23 @@ await withFirefox(async (page) => {
     }), 'Deleting an extra glyph must return the caret to the expected word ending.');
     assert.equal((await finish()).extra, '1');
 
-    await configure({}, { 'en/common-200/zen/short': { netWpm: 90000, accuracy: 100 } });
+    await configure({}, { 'en/common-200/zen/short': { netWpm: 90000, accuracy: 100, scoring: 2 } });
     await start();
     await type((await firstWord()).slice(0, 1));
-    assert((await finish()).best.includes('90,000'), 'A lower session score must not hide a stored best.');
+    const storedBest = (await finish()).best;
+    assert(storedBest.includes('90,000') && !storedBest.includes('earlier scoring'), 'A lower session score must not hide a stored best.');
+
+    // A best saved before the scoring change is shown as such until a new result replaces it.
+    await configure({ rememberRecords: false }, { 'en/common-200/zen/short': { netWpm: 90000, accuracy: 100 } });
+    await start();
+    await type((await firstWord()).slice(0, 1));
+    assert((await finish()).best.includes('earlier scoring'), 'A best from the earlier scoring must be labelled.');
+    await configure({ rememberRecords: true }, { 'en/common-200/zen/short': { netWpm: 90000, accuracy: 100 } });
+    await start();
+    await type(await firstWord());
+    await finish();
+    const replaced = await page.evaluate(() => JSON.parse(localStorage.getItem('toolkit-typing-test-records'))['en/common-200/zen/short']);
+    assert(replaced.scoring === 2 && replaced.netWpm < 90000, `A new result must replace an earlier-scoring best: ${JSON.stringify(replaced)}`);
 
     await configure({ contentLanguage: 'tr', categoryId: 'cities', capitalisation: true });
     await start();

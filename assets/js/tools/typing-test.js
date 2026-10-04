@@ -12,6 +12,8 @@
   const WORD_COUNTS = [10, 25, 50, 100];
   const SETTINGS_KEY = 'toolkit-typing-test-settings';
   const RECORDS_KEY = 'toolkit-typing-test-records';
+  // Version 2: net WPM counts only fully correct words and accuracy includes skipped characters.
+  const SCORING_VERSION = 2;
   const MAX_EXTRA_CHARACTERS = 10;
   const INITIAL_STREAM_WORDS = 36;
   const REFILL_THRESHOLD = 14;
@@ -1287,13 +1289,27 @@
     return { correct, incorrect, extra, total: state.ledger.length };
   }
 
+  // Net speed counts only words typed without an error, plus the word in progress while it is still correct.
+  function netCharacters() {
+    let characters = 0;
+    state.wordRecords.forEach((record, index) => {
+      if (index < state.wordIndex && !record.hasError) characters += graphemes(record.expected).length + 1;
+    });
+    const expected = graphemes(state.sequence[state.wordIndex] || '');
+    const typed = graphemes(state.typed);
+    if (typed.length <= expected.length && typed.every((character, index) => charactersMatch(expected[index], character))) {
+      characters += typed.length;
+    }
+    return characters;
+  }
+
   function metricValues(elapsed) {
     const safeElapsed = Math.max(elapsed, 1);
     const minutes = safeElapsed / 60000;
     const counts = totals();
     return {
       raw: (counts.total / 5) / minutes,
-      net: (counts.correct / 5) / minutes,
+      net: (netCharacters() / 5) / minutes,
       cpm: counts.correct / minutes,
       // Characters skipped with Space count against accuracy as well as typed mistakes.
       accuracy: counts.total + state.missed ? (counts.correct / (counts.total + state.missed)) * 100 : 100,
@@ -1633,12 +1649,13 @@
 
   function updateRecord(metrics) {
     const key = recordKey();
-    const score = { netWpm: Math.round(metrics.net), accuracy: Number(metrics.accuracy.toFixed(1)) };
+    const score = { netWpm: Math.round(metrics.net), accuracy: Number(metrics.accuracy.toFixed(1)), scoring: SCORING_VERSION };
     const current = state.sessionRecords.get(key);
     if (!current || score.netWpm > current.netWpm) state.sessionRecords.set(key, score);
     if (elements.remember.checked) {
       const stored = state.storedRecords[key];
-      if (!stored || score.netWpm > stored.netWpm) {
+      // A best saved under the earlier scoring is not comparable, so the first new result replaces it.
+      if (!stored || stored.scoring !== SCORING_VERSION || score.netWpm > stored.netWpm) {
         state.storedRecords[key] = score;
         saveRecords();
       }
@@ -1652,9 +1669,13 @@
     const best = [state.sessionRecords.get(key), state.storedRecords[key]]
       .filter((score) => score && Number.isFinite(score.netWpm))
       .sort((first, second) => second.netWpm - first.netWpm || second.accuracy - first.accuracy)[0];
-    elements.best.textContent = best
+    if (!best) {
+      elements.best.textContent = '';
+      return;
+    }
+    elements.best.textContent = best.scoring === SCORING_VERSION
       ? t('Personal best: {{wpm}} WPM', { wpm: formatNumber(best.netWpm, 0) })
-      : '';
+      : t('Personal best: {{wpm}} WPM (earlier scoring)', { wpm: formatNumber(best.netWpm, 0) });
   }
 
   function launchResultPractice(practice) {

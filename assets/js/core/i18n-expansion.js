@@ -1344,6 +1344,7 @@
       'Only aggregate scores stay in this browser. Typed text is never saved.': 'Yalnızca özet puanlar bu tarayıcıda saklanır. Yazılan metin asla kaydedilmez.',
       'Clear stored results': 'Kaydedilmiş sonuçları temizle',
       'Personal best: {{wpm}} WPM': 'En iyi dereceniz: {{wpm}} KPM',
+      'Personal best: {{wpm}} WPM (earlier scoring)': 'En iyi dereceniz: {{wpm}} KPM (önceki puanlama)',
       'Restart': 'Yeniden başlat',
       'Result copied!': 'Sonuç kopyalandı!',
       'Stored results cleared.': 'Kaydedilmiş sonuçlar temizlendi.',

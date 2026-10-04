@@ -810,7 +810,7 @@ async function assertTypingCoreFlow(bidi, context, baseUrl) {
     const stored = JSON.parse(localStorage.getItem('toolkit-typing-test-records') || '{}');
     const storedValues = Object.values(stored);
     const recordShapeSafe = storedValues.length === 1
-      && Object.keys(storedValues[0]).sort().join(',') === 'accuracy,netWpm'
+      && Object.keys(storedValues[0]).sort().join(',') === 'accuracy,netWpm,scoring'
       && !JSON.stringify(stored).includes('Home');
     const settingsSafe = !String(localStorage.getItem('toolkit-typing-test-settings')).includes('Home');
     const clearVisible = !document.querySelector('#tt-clear-records').hidden;
