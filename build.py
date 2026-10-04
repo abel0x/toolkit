@@ -317,7 +317,6 @@ def run_tool_count():
                          f'{count} tools · HTML · CSS · Vanilla JS · Web Crypto API', content)
         revised = re.sub(r'Search \d+ tools…', f'Search {count} tools…', revised)
         revised = re.sub(r'Browse \d+ Tools', f'Browse {count} Tools', revised)
-        revised = re.sub(r'(Toolkit — )\d+( Free Developer Utilities)', rf'\g<1>{count}\2', revised)
         revised = re.sub(r'\b\d+ free developer utilities', f'{count} free developer utilities', revised)
         revised = re.sub(r'(All <span class="gradient-text">)\d+( Tools</span>)', rf'\g<1>{count}\2', revised)
         revised = re.sub(r'(<span class="stat-num" id="toolCountStat">)\d+(</span>)', rf'\g<1>{count}\2', revised)

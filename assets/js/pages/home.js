@@ -57,8 +57,6 @@
     const total = TOOLS_DATA.length;
     const headingCount = document.querySelector('#hubHeading .gradient-text');
     if (headingCount) headingCount.textContent = `${total} Tools`;
-    const title = document.title;
-    if (/\d+ Free Developer Utilities/.test(title)) document.title = title.replace(/\d+ Free Developer Utilities/, `${total} Free Developer Utilities`);
     window.ToolkitI18n?.apply(hubGrid);
   }
 

@@ -17,6 +17,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - The style policy no longer allows inline styles (`style-src 'self'`): former inline styles live in `assets/css/inline-styles.css` and page stylesheets under `assets/css/tools/`.
 - Typing Speed Test: net WPM counts only words typed without an error (raw WPM and CPM are unchanged). Opt-in personal bests saved under the earlier scoring are labelled as such and replaced by the next result.
 - README screenshots are WebP (712 KB → 119 KB).
+- The home page title is now simply “Toolkit” in English and Turkish, including its Open Graph and Twitter titles.
 - Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
 
 ### Fixed

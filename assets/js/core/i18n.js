@@ -27,8 +27,6 @@
       'Language': 'Dil',
       'Toolkit home': 'Toolkit ana sayfası',
       'View project license': 'Proje lisansını görüntüle',
-      'Toolkit — 78 Free Developer Utilities': 'Toolkit — 78 Ücretsiz Geliştirici Aracı',
-      'Toolkit — 101 Free Developer Utilities': 'Toolkit — 101 Ücretsiz Geliştirici Aracı',
       'License — Toolkit': 'Lisans — Toolkit',
       '404 — Page Not Found · Toolkit': '404 — Sayfa Bulunamadı · Toolkit',
       'Main navigation': 'Ana gezinme',
