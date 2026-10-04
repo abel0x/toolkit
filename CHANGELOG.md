@@ -11,7 +11,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 
 ### Changed
 
-- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v76`.
+- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v77`.
 - Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
 
 ### Fixed
@@ -25,6 +25,8 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Image Compressor releases the previous result's memory on each run.
 - Password Strength no longer claims to check breach databases.
 - Text Reverser's status message names the mode in the interface language.
+- Typing Speed Test: with strict Turkish diacritics turned off, only the accent is forgiven (ç↔c, İ↔I, ı↔i, …); a wrong letter case now counts as a mistake, as it does in strict mode and English.
+- Typing Speed Test: characters skipped by pressing Space early now lower accuracy instead of leaving it at 100%.
 
 ## [1.2.0] — 2026-09-19
 

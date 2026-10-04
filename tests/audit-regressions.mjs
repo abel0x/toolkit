@@ -191,8 +191,66 @@ await withFirefox(async (page) => {
   assert.equal(copied.inline, 0, 'Bytes table still renders inline click handlers.');
   assert.equal(copied.value, '2048', 'A delegated Copy button did not copy its row value.');
 
+  // Typing test: lenient Turkish forgives only diacritics, never case; skipped characters lower accuracy.
+  async function typingRun(settings, transform) {
+    // Write settings from another page: an open typing test saves its own settings once words load.
+    await page.navigate('/index.html');
+    await page.evaluate((settings) => {
+      localStorage.setItem('toolkit-language', 'en');
+      localStorage.setItem('toolkit-typing-test-settings', JSON.stringify({ categoryTouched: true, mode: 'zen', ...settings }));
+    }, settings);
+    await page.navigate('/tools/typing-test.html');
+    return page.evaluate(async (transformSource) => {
+      const transform = new Function('word', `return (${transformSource})(word);`);
+      const pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+      for (let attempt = 0; attempt < 250 && document.getElementById('tt-start-selected').disabled; attempt += 1) await pause(20);
+      document.getElementById('tt-start-selected').click();
+      await pause(100);
+      const input = document.getElementById('tt-input');
+      const words = [];
+      for (let index = 0; index < 3; index += 1) {
+        const active = document.querySelector('.tt-word--active');
+        const word = [...active.querySelectorAll('.tt-char:not(.tt-char--reserved):not(.tt-char--extra)')].map((node) => node.textContent).join('');
+        words.push(word);
+        input.value = transform(word) + ' ';
+        input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText' }));
+        // Read the next word only after the stream has moved on.
+        for (let attempt = 0; attempt < 100 && document.querySelector('.tt-word--active') === active; attempt += 1) await pause(10);
+      }
+      await pause(320);
+      document.getElementById('tt-end-zen').click();
+      return {
+        accuracy: document.getElementById('tt-result-accuracy').textContent,
+        incorrect: document.getElementById('tt-incorrect').textContent,
+        missed: document.getElementById('tt-missed').textContent,
+        words
+      };
+    }, transform.toString());
+  }
+  const swapCase = (word) => (word[0] === word[0].toLocaleUpperCase('tr') ? word[0].toLocaleLowerCase('tr') : word[0].toLocaleUpperCase('tr')) + word.slice(1);
+  const lenientCase = await typingRun({ contentLanguage: 'tr', categoryId: 'cities', strict: false }, swapCase);
+  assert.equal(lenientCase.incorrect, '3', `Lenient Turkish mode must count one case mistake per word: ${JSON.stringify(lenientCase)}`);
+  const plainLetters = (word) => word.replace(/[çğıöşüÇĞİÖŞÜ]/g, (character) => ({ ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u', Ç: 'C', Ğ: 'G', İ: 'I', Ö: 'O', Ş: 'S', Ü: 'U' })[character]);
+  async function turkishLettersRun(strict) {
+    let result;
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      result = await typingRun({ contentLanguage: 'tr', categoryId: 'districts', strict }, plainLetters);
+      if (result.words.some((word) => /[çğıöşüÇĞİÖŞÜ]/.test(word))) break;
+    }
+    return result;
+  }
+  const lenientPlain = await turkishLettersRun(false);
+  assert(lenientPlain.words.some((word) => /[çğıöşüÇĞİÖŞÜ]/.test(word)), `No Turkish letters to test: ${lenientPlain.words}`);
+  assert.equal(lenientPlain.accuracy, '100.0%', `Lenient Turkish mode rejected an unaccented letter: ${JSON.stringify(lenientPlain)}`);
+  const strictPlain = await turkishLettersRun(true);
+  assert.notEqual(strictPlain.accuracy, '100.0%', `Strict Turkish mode accepted an unaccented letter: ${JSON.stringify(strictPlain)}`);
+  const skipped = await typingRun({ contentLanguage: 'en', categoryId: 'common-1000', strict: true }, (word) => word.slice(0, 1));
+  assert.notEqual(skipped.missed, '0', 'Skipped characters were not counted.');
+  assert.equal(skipped.incorrect, '0', `Skipped-character run typed a wrong letter: ${JSON.stringify(skipped)}`);
+  assert.notEqual(skipped.accuracy, '100.0%', `Skipping most of each word kept 100% accuracy: ${JSON.stringify(skipped)}`);
+
   const errors = page.errors();
   assert.deepEqual(errors, [], `Browser errors: ${JSON.stringify(errors).slice(0, 500)}`);
 });
 
-console.log('Audit regressions passed: Turkish search and folding, palette copy, Markdown, Base64 image, checksum ordering, blob cleanup, reverser copy and delegated copy buttons.');
+console.log('Audit regressions passed: Turkish search and folding, palette copy, Markdown, Base64 image, checksum ordering, blob cleanup, reverser copy, delegated copy buttons, and typing case/skip accuracy.');

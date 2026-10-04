@@ -866,9 +866,9 @@ async function assertTypingTurkishDiacritics(bidi, context, baseUrl) {
       () => !document.querySelector('#tt-start-selected').disabled && displayedWords().length,
       'Turkish practice did not become ready.'
     );
-    const asciiTurkish = (value) => value.normalize('NFC').toLocaleLowerCase('tr')
-      .replaceAll('ç', 'c').replaceAll('ğ', 'g').replaceAll('ı', 'i')
-      .replaceAll('ö', 'o').replaceAll('ş', 's').replaceAll('ü', 'u');
+    // Drop only the accents; lenient mode still requires the letter case shown.
+    const asciiTurkish = (value) => value.normalize('NFC')
+      .replace(/[çğıöşüÇĞİÖŞÜ]/g, (character) => ({ ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u', Ç: 'C', Ğ: 'G', İ: 'I', Ö: 'O', Ş: 'S', Ü: 'U' })[character]);
 
     await waitForReady();
     document.querySelector('#tt-customize-toggle').click();

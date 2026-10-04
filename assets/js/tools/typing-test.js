@@ -17,8 +17,10 @@
   const REFILL_THRESHOLD = 14;
   const REFILL_WORDS = 28;
   const GROUPS = ['Core', 'Places', 'Professional', 'Technical'];
+  // Lenient mode accepts the unaccented letter in the same case; it never ignores case.
   const TURKISH_FOLD = new Map([
-    ['ç', 'c'], ['ğ', 'g'], ['ı', 'i'], ['ö', 'o'], ['ş', 's'], ['ü', 'u']
+    ['ç', 'c'], ['ğ', 'g'], ['ı', 'i'], ['ö', 'o'], ['ş', 's'], ['ü', 'u'],
+    ['Ç', 'C'], ['Ğ', 'G'], ['İ', 'I'], ['Ö', 'O'], ['Ş', 'S'], ['Ü', 'U']
   ]);
   const segmenter = typeof Intl !== 'undefined' && Intl.Segmenter
     ? new Intl.Segmenter(undefined, { granularity: 'grapheme' })
@@ -202,7 +204,10 @@
 
   function charactersMatch(expected, actual) {
     if (state.contentLanguage !== 'tr' || state.modifiers.strict) return expected === actual;
-    const fold = (value) => TURKISH_FOLD.get(localeLower(value, 'tr')) || localeLower(value, 'tr');
+    const fold = (value) => {
+      const character = String(value || '').normalize('NFC');
+      return TURKISH_FOLD.get(character) || character;
+    };
     return fold(expected) === fold(actual);
   }
 
@@ -1290,7 +1295,8 @@
       raw: (counts.total / 5) / minutes,
       net: (counts.correct / 5) / minutes,
       cpm: counts.correct / minutes,
-      accuracy: counts.total ? (counts.correct / counts.total) * 100 : 100,
+      // Characters skipped with Space count against accuracy as well as typed mistakes.
+      accuracy: counts.total + state.missed ? (counts.correct / (counts.total + state.missed)) * 100 : 100,
       counts
     };
   }
