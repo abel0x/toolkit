@@ -1,0 +1,35 @@
+name: WebKit smoke test
+
+# Runs the Safari engine (WebKit) over every page. It is separate from the deploy
+# workflow so a WebKit-only failure is reported without blocking publication.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  webkit:
+    name: Smoke-test every page in WebKit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Test-only tooling; the published site never loads it.
+      - name: Install Playwright with WebKit
+        run: |
+          npm install --no-save --no-package-lock playwright@1.63.0
+          npx playwright install --with-deps webkit
+
+      - name: Run the WebKit smoke test
+        run: node tests/webkit-smoke.mjs

@@ -163,6 +163,10 @@ node tests/audit-regressions.mjs
 # Check the output of 33 tools against independently computed known answers (hashes, encodings, conversions, UUIDs, XML, SQL …).
 node tests/tool-vectors.mjs
 
+# Optional: smoke-test every page in WebKit (Safari's engine). Needs Playwright, which is test-only and never a site dependency; CI runs it in .github/workflows/webkit.yml.
+npm install --no-save playwright && npx playwright install --with-deps webkit
+node tests/webkit-smoke.mjs
+
 # Check Turkish dictionary integrity, dynamic patterns, title coverage, and form-control safety.
 node tests/i18n-audit.mjs
 
