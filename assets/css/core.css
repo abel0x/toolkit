@@ -185,9 +185,6 @@ button   { font-family: inherit; }
   border-radius: 4px;
 }
 
-a:focus-visible,
-button:focus-visible { outline-radius: var(--radius-sm); }
-
 /* Respect motion preferences and avoid unnecessary visual work on mobile. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

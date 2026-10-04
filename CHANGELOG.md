@@ -36,6 +36,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - UUID Validator accepts RFC 9562 versions 6–8 and the nil and max UUIDs, and no longer labels one RFC variant as two.
 - URL Builder percent-encodes path segments without double-encoding existing escapes.
 - XML Formatter keeps text-only elements on one line (their text is no longer changed) and no longer splits comments or CDATA that contain `>`.
+- Removed an invalid `outline-radius` declaration that browsers reported as a CSS error on every page.
 
 ## [1.2.0] — 2026-09-19
 
