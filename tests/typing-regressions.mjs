@@ -7,6 +7,9 @@ await withFirefox(async (page) => {
   await page.viewport(1280, 900);
   await page.navigate('/tools/typing-test.html');
   async function configure(settings, records = {}) {
+    // Write storage from another page: an open typing test saves its own settings once words load,
+    // which could overwrite the configuration below.
+    await page.navigate('/index.html');
     await page.evaluate(({ settings, records }) => {
       localStorage.setItem('toolkit-language', 'en');
       localStorage.setItem('toolkit-typing-test-settings', JSON.stringify({ contentLanguage: 'en', categoryId: 'common-200', categoryTouched: true, mode: 'zen', ...settings }));
@@ -135,10 +138,13 @@ await withFirefox(async (page) => {
     assert.equal(await page.evaluate(() => document.getElementById('tt-prepare').disabled), false, 'Reloading empty custom practice must not block quick start.');
     assert.equal(await page.evaluate(() => document.getElementById('tt-customize').hidden), false);
     await page.evaluate(() => document.getElementById('tt-prepare').click());
-    assert.equal(await page.evaluate(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 150));
-      return document.getElementById('tt-test').hidden;
-    }), false);
+    // Quick start loads the fallback word list first; wait for it rather than a fixed delay.
+    const quickStart = await page.evaluate(async () => {
+      const started = performance.now();
+      for (let attempt = 0; attempt < 200 && document.getElementById('tt-test').hidden; attempt += 1) await new Promise((resolve) => setTimeout(resolve, 20));
+      return { opened: !document.getElementById('tt-test').hidden, milliseconds: Math.round(performance.now() - started) };
+    });
+    assert.equal(quickStart.opened, true, `Quick start from empty custom practice did not open a test: ${JSON.stringify(quickStart)}`);
 
     await configure({ categoryId: 'idioms', mode: 'words', wordCount: 100 });
     const phrases = await page.evaluate(async () => {
@@ -170,7 +176,11 @@ await withFirefox(async (page) => {
       const custom = document.getElementById('tt-custom-text');
       custom.value = 'alpha beta gamma';
       custom.dispatchEvent(new Event('input', { bubbles: true }));
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      // Custom text is prepared after a debounce; wait until its three words are ready to start.
+      for (let attempt = 0; attempt < 200; attempt += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        if (!document.getElementById('tt-start-selected').disabled && document.querySelectorAll('#tt-stream .tt-word').length === 3) break;
+      }
     });
     await start();
     const customWords = await page.evaluate(() => [...document.querySelectorAll('.tt-word')].map((word) => word.textContent));
