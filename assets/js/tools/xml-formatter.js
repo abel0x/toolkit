@@ -10,12 +10,20 @@
     const pad = ' '.repeat(indent);
     let result = '';
     let level = 0;
-    const tokens = xml.replace(/>\s*</g, '><').match(/<\/?[^>]+>|[^<]+/g) || [];
-    for (const token of tokens) {
-      if (token.startsWith('</')) {
+    // Comments, CDATA and processing instructions are single tokens even when they contain ">".
+    const tokens = xml.replace(/>\s*</g, '><')
+      .match(/<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?\]\]>|<\?[\s\S]*?\?>|<\/?[^>]+>|[^<]+/g) || [];
+    for (let index = 0; index < tokens.length; index += 1) {
+      const token = tokens[index];
+      const isOpening = token.startsWith('<') && !token.startsWith('</') && !token.startsWith('<?') && !token.startsWith('<!') && !token.endsWith('/>');
+      // Keep an element that holds only text on one line so its text content is not changed.
+      if (isOpening && tokens[index + 1] && !tokens[index + 1].startsWith('<') && tokens[index + 2]?.startsWith('</')) {
+        result += pad.repeat(level) + token + tokens[index + 1] + tokens[index + 2] + '\n';
+        index += 2;
+      } else if (token.startsWith('</')) {
         level--;
         result += pad.repeat(level) + token + '\n';
-      } else if (token.startsWith('<') && !token.startsWith('<?') && !token.startsWith('<!') && !token.endsWith('/>')) {
+      } else if (isOpening) {
         result += pad.repeat(level) + token + '\n';
         level++;
       } else if (token.startsWith('<')) {
