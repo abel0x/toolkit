@@ -23,18 +23,18 @@
 
     chars.forEach(function(ch) {
       var code = ch.codePointAt(0);
-      var disp = code < 32 ? '<span style="opacity:.45;font-size:.75rem;">U+' + code.toString(16).toUpperCase().padStart(4,'0') + '</span>' : escapeHTML(ch);
-      rows += '<tr style="border-bottom:1px solid var(--border,rgba(255,255,255,.06));">'
-        + '<td class="font-mono" style="padding:.45rem .75rem;">' + disp + '</td>'
-        + '<td class="font-mono" style="padding:.45rem .75rem;">' + code + '</td>'
-        + '<td class="font-mono" style="padding:.45rem .75rem;">0x' + code.toString(16).toUpperCase() + '</td>'
-        + '<td class="font-mono" style="padding:.45rem .75rem;">0o' + code.toString(8) + '</td>'
-        + '<td class="font-mono" style="padding:.45rem .75rem;">' + code.toString(2).padStart(8,'0') + '</td>'
+      var disp = code < 32 ? '<span class="ix-8de955">U+' + code.toString(16).toUpperCase().padStart(4,'0') + '</span>' : escapeHTML(ch);
+      rows += '<tr class="ix-c5d8c2">'
+        + '<td class="font-mono ix-8561a2">' + disp + '</td>'
+        + '<td class="font-mono ix-8561a2">' + code + '</td>'
+        + '<td class="font-mono ix-8561a2">0x' + code.toString(16).toUpperCase() + '</td>'
+        + '<td class="font-mono ix-8561a2">0o' + code.toString(8) + '</td>'
+        + '<td class="font-mono ix-8561a2">' + code.toString(2).padStart(8,'0') + '</td>'
         + '</tr>';
     });
 
     if (str.length > ROW_LIMIT) {
-      rows += '<tr><td colspan="5" style="padding:.5rem .75rem;opacity:.55;font-size:.8rem;">… ' + (str.length - ROW_LIMIT) + ' more characters truncated</td></tr>';
+      rows += '<tr><td class="ix-49e6db" colspan="5">… ' + (str.length - ROW_LIMIT) + ' more characters truncated</td></tr>';
     }
 
     tableBody.innerHTML = rows;

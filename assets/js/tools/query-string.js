@@ -27,13 +27,13 @@
     if (!raw.startsWith('?')) raw = '?' + raw;
     const params = [...new URLSearchParams(raw).entries()];
     if (!params.length) {
-      parseTable.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.875rem;">No parameters found.</p>';
+      parseTable.innerHTML = '<p class="ix-45f28c">No parameters found.</p>';
       return;
     }
-    let html = '<table style="width:100%;border-collapse:collapse;font-size:.875rem;">';
-    html += '<thead><tr><th style="text-align:left;padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">#</th><th style="padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;">Key</th><th style="padding:.35rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;">Value</th></tr></thead><tbody>';
+    let html = '<table class="ix-c2b3a0">';
+    html += '<thead><tr><th class="ix-adfc2e">#</th><th class="ix-45805d">Key</th><th class="ix-45805d">Value</th></tr></thead><tbody>';
     params.forEach(([k,v], i) => {
-      html += `<tr><td style="padding:.3rem .6rem;opacity:.4;">${i+1}</td><td class="font-mono" style="padding:.3rem .6rem;color:var(--accent-cyan,#00d4ff);" data-i18n-skip>${escapeHTML(k)}</td><td class="font-mono" style="padding:.3rem .6rem;word-break:break-all;" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
+      html += `<tr><td class="ix-7a19e8">${i+1}</td><td class="font-mono ix-983f3e" data-i18n-skip>${escapeHTML(k)}</td><td class="font-mono ix-8102c2" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
     });
     html += '</tbody></table>';
     parseTable.innerHTML = html;
@@ -49,9 +49,9 @@
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem;';
     row.innerHTML = `
-      <input type="text" class="form-control font-mono" placeholder="key" value="${escapeHTML(k)}" style="flex:1;" />
-      <input type="text" class="form-control font-mono" placeholder="value" value="${escapeHTML(v)}" style="flex:2;" />
-      <button class="btn btn-secondary" style="padding:.3rem .6rem;flex-shrink:0;" title="Remove">✕</button>
+      <input type="text" class="form-control font-mono ix-ee3d55" placeholder="key" value="${escapeHTML(k)}" />
+      <input type="text" class="form-control font-mono ix-c2d2e2" placeholder="value" value="${escapeHTML(v)}" />
+      <button class="btn btn-secondary ix-7f36cc" title="Remove">✕</button>
     `;
     row.querySelector('button').addEventListener('click', () => { row.remove(); buildQs(); });
     row.querySelectorAll('input').forEach(el => el.addEventListener('input', buildQs));

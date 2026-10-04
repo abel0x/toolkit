@@ -61,7 +61,7 @@
       if (mime) {
         html = `<div class="mime-result-item"><span class="mime-ext">.${escapeHTML(ext)}</span><span class="mime-arrow">→</span><code class="mime-type">${escapeHTML(mime)}</code></div>`;
       } else {
-        html = `<p style="color:var(--clr-error,#f87171)">No MIME type found for extension ".${escapeHTML(ext)}".</p>`;
+        html = `<p class="ix-e9225e">No MIME type found for extension ".${escapeHTML(ext)}".</p>`;
       }
     } else {
       const mime = val;
@@ -69,7 +69,7 @@
       if (exts && exts.length > 0) {
         html = `<div class="mime-result-item"><code class="mime-type">${escapeHTML(mime)}</code><span class="mime-arrow">→</span><span class="mime-exts">${exts.map(e => `<em>.${escapeHTML(e)}</em>`).join(', ')}</span></div>`;
       } else {
-        html = `<p style="color:var(--clr-error,#f87171)">No extensions found for MIME type "${escapeHTML(mime)}".</p>`;
+        html = `<p class="ix-e9225e">No extensions found for MIME type "${escapeHTML(mime)}".</p>`;
       }
     }
     resultEl.innerHTML = html;

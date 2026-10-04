@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Browse and search all HTTP status codes with descriptions and categories." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/http-status.html" />
   <meta property="og:title" content="HTTP Status Reference — Toolkit" />
@@ -18,23 +18,8 @@
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" /><link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <style>
-    .http-filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;}
-    .http-filter-btn{padding:0.35rem 0.85rem;border-radius:999px;border:1.5px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-muted,#8b949e);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all .2s;}
-    .http-filter-btn:hover{border-color:rgba(255,255,255,0.3);color:#fff;}
-    .http-filter-btn.active{border-color:var(--accent,#00d4ff);color:var(--accent,#00d4ff);background:rgba(0,212,255,0.08);}
-    .http-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1rem;}
-    .http-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
-    .http-card:hover{border-color:rgba(255,255,255,0.18);box-shadow:0 4px 20px rgba(0,0,0,0.3);}
-    .http-card-head{display:flex;align-items:center;gap:0.75rem;padding:0.9rem 1rem;}
-    .http-code{font-family:'JetBrains Mono',monospace;font-size:1.35rem;font-weight:700;line-height:1;}
-    .http-name{font-size:0.9rem;font-weight:500;flex:1;}
-    .http-cat-badge{font-size:0.72rem;padding:0.2rem 0.55rem;border-radius:999px;font-weight:600;white-space:nowrap;}
-    .http-short{font-size:0.82rem;color:var(--text-muted,#8b949e);padding:0 1rem 0.75rem;line-height:1.45;}
-    .http-desc{font-size:0.82rem;color:var(--text-muted,#8b949e);padding:0 1rem 1rem;line-height:1.55;border-top:1px solid rgba(255,255,255,0.06);padding-top:0.75rem;display:none;}
-    .http-card.expanded .http-desc{display:block;}
-    .http-expand-hint{font-size:0.75rem;color:rgba(255,255,255,0.25);text-align:right;padding:0 1rem 0.6rem;font-style:italic;}
-  </style>
+  <link rel="stylesheet" href="../assets/css/tools/http-status.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>

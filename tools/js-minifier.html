@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Basic JavaScript minifier that removes comments and collapses whitespace." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/js-minifier.html" />
   <meta property="og:title" content="JS Minifier — Toolkit" />
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" /><link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
 <body>
@@ -62,7 +63,7 @@
           <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="js-minifier">Try a sample</button>
         </div>
         <div class="card glass reveal">
-          <p class="form-hint" style="margin-bottom:0.75rem;font-size:0.85rem;color:var(--text-muted,#8b949e);">
+          <p class="form-hint ix-e57fdc">
             This conservative minifier keeps token spacing and line breaks. From a template literal or an ambiguous slash onward, code is preserved unchanged. It does not validate JavaScript or replace a full parser-based minifier.
           </p>
           <div class="tool-split">
@@ -77,13 +78,13 @@
               <div class="form-group">
                 <label class="form-label" for="jsmin-output">
                   Minified Output
-                  <span id="jsmin-savings" style="display:none;margin-left:0.75rem;font-size:0.8rem;color:var(--accent-green,#22c55e);font-weight:600;"></span>
+                  <span class="ix-305efe" id="jsmin-savings"></span>
                 </label>
                 <textarea id="jsmin-output" class="form-control font-mono" rows="16" readonly placeholder="Minified JS will appear here…"></textarea>
               </div>
             </div>
           </div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+          <div class="ix-e72519">
             <button id="jsmin-btn" class="btn btn-primary">Minify</button>
             <button id="jsmin-copy" class="btn btn-secondary">Copy</button>
           </div>

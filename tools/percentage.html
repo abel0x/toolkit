@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Calculate percentages, percentage change, and percentage of total." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/percentage.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -63,11 +64,11 @@
           <h1 class="section-title gradient-text">Percentage Calculator</h1>
           <p class="section-desc">Calculate percentages, percentage change, and percentage of total.</p>
         </div>
-        <div class="card glass reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+        <div class="card glass reveal ix-13cb34">
 
           <!-- Mode 1 -->
-          <div style="background:rgba(255,255,255,.03);border-radius:.75rem;padding:1.5rem;">
-            <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;color:var(--accent-cyan,#00d4ff);">X% of Y</h3>
+          <div class="ix-c56d39">
+            <h3 class="ix-fabd32">X% of Y</h3>
             <div class="form-group">
               <label class="form-label" for="m1x">Percentage (X %)</label>
               <input type="number" class="form-control font-mono" id="m1x" placeholder="25" step="any" />
@@ -76,16 +77,16 @@
               <label class="form-label" for="m1y">Of (Y)</label>
               <input type="number" class="form-control font-mono" id="m1y" placeholder="200" step="any" />
             </div>
-            <div style="margin-top:.75rem;">
+            <div class="ix-a54304">
               <span class="form-label">Result</span>
-              <div id="m1res" class="font-mono" style="font-size:1.5rem;font-weight:700;color:var(--accent-cyan,#00d4ff);min-height:2rem;">—</div>
+              <div id="m1res" class="font-mono ix-cdb396">—</div>
               <span class="form-hint">result = (X / 100) × Y</span>
             </div>
           </div>
 
           <!-- Mode 2 -->
-          <div style="background:rgba(255,255,255,.03);border-radius:.75rem;padding:1.5rem;">
-            <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;color:#a78bfa;">X is what % of Y?</h3>
+          <div class="ix-c56d39">
+            <h3 class="ix-ab11b1">X is what % of Y?</h3>
             <div class="form-group">
               <label class="form-label" for="m2x">Value (X)</label>
               <input type="number" class="form-control font-mono" id="m2x" placeholder="50" step="any" />
@@ -94,16 +95,16 @@
               <label class="form-label" for="m2y">Total (Y)</label>
               <input type="number" class="form-control font-mono" id="m2y" placeholder="200" step="any" />
             </div>
-            <div style="margin-top:.75rem;">
+            <div class="ix-a54304">
               <span class="form-label">Result</span>
-              <div id="m2res" class="font-mono" style="font-size:1.5rem;font-weight:700;color:#a78bfa;min-height:2rem;">—</div>
+              <div id="m2res" class="font-mono ix-4e70fc">—</div>
               <span class="form-hint">result = (X / Y) × 100%</span>
             </div>
           </div>
 
           <!-- Mode 3 -->
-          <div style="background:rgba(255,255,255,.03);border-radius:.75rem;padding:1.5rem;">
-            <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;color:#4ade80;">% Change from X to Y</h3>
+          <div class="ix-c56d39">
+            <h3 class="ix-0fd25c">% Change from X to Y</h3>
             <div class="form-group">
               <label class="form-label" for="m3x">From (X)</label>
               <input type="number" class="form-control font-mono" id="m3x" placeholder="80" step="any" />
@@ -112,9 +113,9 @@
               <label class="form-label" for="m3y">To (Y)</label>
               <input type="number" class="form-control font-mono" id="m3y" placeholder="100" step="any" />
             </div>
-            <div style="margin-top:.75rem;">
+            <div class="ix-a54304">
               <span class="form-label">Result</span>
-              <div id="m3res" class="font-mono" style="font-size:1.5rem;font-weight:700;min-height:2rem;">—</div>
+              <div id="m3res" class="font-mono ix-210bf9">—</div>
               <span class="form-hint">result = ((Y − X) / |X|) × 100%</span>
             </div>
           </div>

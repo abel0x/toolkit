@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate HTML meta tags for SEO. Fill in fields and copy the generated code." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/meta-tags.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -72,11 +73,11 @@
           <div class="tool-split">
             <div class="tool-split-left">
               <div class="form-group">
-                <label class="form-label" for="metaTitle">Page Title <span id="titleCount" style="font-size:.75rem;color:rgba(255,255,255,.4);">0/60</span></label>
+                <label class="form-label" for="metaTitle">Page Title <span class="ix-3bea71" id="titleCount">0/60</span></label>
                 <input type="text" class="form-control" id="metaTitle" placeholder="My Awesome Page" maxlength="100" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaDesc">Description <span id="descCount" style="font-size:.75rem;color:rgba(255,255,255,.4);">0/160</span></label>
+                <label class="form-label" for="metaDesc">Description <span class="ix-3bea71" id="descCount">0/160</span></label>
                 <textarea class="form-control" id="metaDesc" rows="3" placeholder="Brief description for search engines..." maxlength="300"></textarea>
               </div>
               <div class="form-group">
@@ -119,11 +120,11 @@
             </div>
             <div class="tool-split-right">
               <div class="form-group">
-                <label class="form-label" for="metaOgTitle">Open Graph Title <span style="font-size:.75rem;color:rgba(255,255,255,.4);">falls back to Page Title</span></label>
+                <label class="form-label" for="metaOgTitle">Open Graph Title <span class="ix-3bea71">falls back to Page Title</span></label>
                 <input type="text" class="form-control" id="metaOgTitle" placeholder="My Awesome Page" maxlength="100" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaOgDesc">Open Graph Description <span style="font-size:.75rem;color:rgba(255,255,255,.4);">falls back to Description</span></label>
+                <label class="form-label" for="metaOgDesc">Open Graph Description <span class="ix-3bea71">falls back to Description</span></label>
                 <textarea class="form-control" id="metaOgDesc" rows="2" placeholder="Brief social sharing description..." maxlength="300"></textarea>
               </div>
               <div class="form-group">
@@ -154,9 +155,9 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="metaOutput">Generated Head Code</label>
-                <textarea class="form-control font-mono" id="metaOutput" rows="18" readonly style="font-size:.8rem;"></textarea>
+                <textarea class="form-control font-mono ix-3a4ab9" id="metaOutput" rows="18" readonly></textarea>
               </div>
-              <button class="btn btn-primary" id="copyMetaBtn" style="width:100%;">Copy Code</button>
+              <button class="btn btn-primary ix-69d66e" id="copyMetaBtn">Copy Code</button>
             </div>
           </div>
         </div>

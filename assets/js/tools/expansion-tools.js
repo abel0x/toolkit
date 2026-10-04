@@ -78,8 +78,8 @@
     render(`
       <div class="tool-split"><div class="tool-col">
         <label class="form-label" for="aesText">Text or encrypted payload</label><textarea id="aesText" class="form-control font-mono" rows="9" placeholder="Type text to encrypt, or paste a Toolkit AES payload to decrypt."></textarea>
-        <label class="form-label" for="aesPass" style="margin-top:1rem">Passphrase</label><input id="aesPass" type="password" class="form-control" autocomplete="new-password" placeholder="A strong passphrase" />
-        <div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="aesEncrypt">Encrypt</button><button class="btn btn-secondary" id="aesDecrypt">Decrypt</button></div>
+        <label class="form-label ix-dab43f" for="aesPass">Passphrase</label><input id="aesPass" type="password" class="form-control" autocomplete="new-password" placeholder="A strong passphrase" />
+        <div class="btn-row ix-dab43f"><button class="btn btn-primary" id="aesEncrypt">Encrypt</button><button class="btn btn-secondary" id="aesDecrypt">Decrypt</button></div>
       </div><div class="tool-col">${outputArea('aesOutput', 14)}<p class="form-hint">Uses PBKDF2-SHA-256 (150,000 iterations) and AES-256-GCM. Nothing leaves this browser.</p></div></div>`, () => {
       async function run(mode) {
         const value = $('#aesText').value;
@@ -112,7 +112,7 @@
     render(`
       <div class="form-group"><label class="form-label" for="rsaSize">Key size</label><select id="rsaSize" class="form-control form-select"><option value="2048">2048 bits (recommended)</option><option value="3072">3072 bits</option></select></div>
       <button class="btn btn-primary" id="rsaGenerate">Generate RSA key pair</button>
-      <div class="tool-split" style="margin-top:1rem"><div class="tool-col">${outputArea('rsaPublic', 12)}</div><div class="tool-col">${outputArea('rsaPrivate', 12)}</div></div>
+      <div class="tool-split ix-dab43f"><div class="tool-col">${outputArea('rsaPublic', 12)}</div><div class="tool-col">${outputArea('rsaPrivate', 12)}</div></div>
       <div class="btn-row"><button class="btn btn-secondary" id="rsaPublicJwk">Copy public JWK</button><button class="btn btn-secondary" id="rsaPrivateJwk">Copy private JWK</button></div>`, () => {
       let pair;
       let publicJwk;
@@ -141,7 +141,7 @@
   function initPemJwk() {
     render(`
       <label class="form-label" for="pemInput">PEM or JWK</label><textarea id="pemInput" class="form-control font-mono" rows="13" placeholder="Paste an RSA SPKI/PKCS#8 PEM key or a JWK object."></textarea>
-      <div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="pemConvert">Convert</button><button class="btn btn-secondary" id="pemCopy">Copy output</button></div>
+      <div class="btn-row ix-dab43f"><button class="btn btn-primary" id="pemConvert">Convert</button><button class="btn btn-secondary" id="pemCopy">Copy output</button></div>
       ${outputArea('pemOutput', 13)}<p class="form-hint">Supports RSA-OAEP public SPKI and private PKCS#8 key material. Legacy PKCS#1 PEM is intentionally not guessed.</p>`, () => {
       $('#pemConvert').addEventListener('click', async () => {
         const input = $('#pemInput').value.trim();
@@ -192,8 +192,8 @@
   function initTotp() {
     render(`
       <div class="tool-split"><div class="tool-col"><label class="form-label" for="totpSecret">Base32 secret</label><input id="totpSecret" class="form-control font-mono" autocomplete="off" placeholder="JBSWY3DPEHPK3PXP" />
-      <div class="tool-split" style="margin-top:1rem"><div><label class="form-label" for="totpDigits">Digits</label><select id="totpDigits" class="form-control form-select"><option>6</option><option>8</option></select></div><div><label class="form-label" for="totpPeriod">Period</label><select id="totpPeriod" class="form-control form-select"><option value="30">30 seconds</option><option value="60">60 seconds</option></select></div></div><button class="btn btn-primary" id="totpGenerate" style="margin-top:1rem">Generate code</button></div>
-      <div class="tool-col"><p class="form-label">Current code</p><output id="totpCode" class="pwd-output" style="display:block;font-size:2rem;text-align:center">------</output><p id="totpCountdown" class="form-hint" style="text-align:center"></p><p class="form-hint">The secret stays only in this page’s memory.</p></div></div>`, () => {
+      <div class="tool-split ix-dab43f"><div><label class="form-label" for="totpDigits">Digits</label><select id="totpDigits" class="form-control form-select"><option>6</option><option>8</option></select></div><div><label class="form-label" for="totpPeriod">Period</label><select id="totpPeriod" class="form-control form-select"><option value="30">30 seconds</option><option value="60">60 seconds</option></select></div></div><button class="btn btn-primary ix-dab43f" id="totpGenerate">Generate code</button></div>
+      <div class="tool-col"><p class="form-label">Current code</p><output id="totpCode" class="pwd-output ix-3ce6f5">------</output><p id="totpCountdown" class="form-hint ix-72a68a"></p><p class="form-hint">The secret stays only in this page’s memory.</p></div></div>`, () => {
       let timer;
       async function update() {
         const secret = $('#totpSecret').value.trim();
@@ -251,7 +251,7 @@
   }
 
   function initCertificateInspector() {
-    render(`<label class="form-label" for="certInput">X.509 PEM certificate</label><textarea id="certInput" class="form-control font-mono" rows="12" placeholder="-----BEGIN CERTIFICATE-----"></textarea><div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="certInspect">Inspect certificate</button><button class="btn btn-secondary" id="certDownload">Download report</button></div>${outputArea('certOutput', 18)}<p class="form-hint">Reads the certificate locally as DER/ASN.1. It does not validate trust or revocation.</p>`, () => {
+    render(`<label class="form-label" for="certInput">X.509 PEM certificate</label><textarea id="certInput" class="form-control font-mono" rows="12" placeholder="-----BEGIN CERTIFICATE-----"></textarea><div class="btn-row ix-dab43f"><button class="btn btn-primary" id="certInspect">Inspect certificate</button><button class="btn btn-secondary" id="certDownload">Download report</button></div>${outputArea('certOutput', 18)}<p class="form-hint">Reads the certificate locally as DER/ASN.1. It does not validate trust or revocation.</p>`, () => {
       $('#certInspect').addEventListener('click', () => {
         try {
           const input = $('#certInput').value;
@@ -266,7 +266,7 @@
   }
 
   function initCspGenerator() {
-    render(`<label class="form-label" for="cspDirectives">One directive per line</label><textarea id="cspDirectives" class="form-control font-mono" rows="10">default-src 'self'\nbase-uri 'self'\nobject-src 'none'\nframe-ancestors 'none'\nimg-src 'self' data:\nstyle-src 'self' 'unsafe-inline'\nscript-src 'self'</textarea><div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="cspBuild">Build CSP header</button><button class="btn btn-secondary" id="cspCopy">Copy header</button></div>${outputArea('cspOutput', 6)}<p class="form-hint">Review each source before deploying. This tool does not make security policy decisions for you.</p>`, () => {
+    render(`<label class="form-label" for="cspDirectives">One directive per line</label><textarea id="cspDirectives" class="form-control font-mono" rows="10">default-src 'self'\nbase-uri 'self'\nobject-src 'none'\nframe-ancestors 'none'\nimg-src 'self' data:\nstyle-src 'self' 'unsafe-inline'\nscript-src 'self'</textarea><div class="btn-row ix-dab43f"><button class="btn btn-primary" id="cspBuild">Build CSP header</button><button class="btn btn-secondary" id="cspCopy">Copy header</button></div>${outputArea('cspOutput', 6)}<p class="form-hint">Review each source before deploying. This tool does not make security policy decisions for you.</p>`, () => {
       $('#cspBuild').addEventListener('click', () => {
         const directives = $('#cspDirectives').value.split('\n').map((line) => line.trim().replace(/\s+/g, ' ')).filter(Boolean);
         const invalid = directives.find((line) => !/^[a-z-]+(?:\s+.+)?$/i.test(line));
@@ -281,7 +281,7 @@
   function shellQuote(value) { return `'${String(value).replace(/'/g, "'\\\"'\\\"'")}'`; }
 
   function initCurlBuilder() {
-    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="curlMethod">Method</label><select id="curlMethod" class="form-control form-select"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select><label class="form-label" for="curlUrl" style="margin-top:1rem">URL</label><input id="curlUrl" type="url" class="form-control font-mono" placeholder="https://api.example.com/v1/items" /><label class="form-label" for="curlHeaders" style="margin-top:1rem">Headers (one per line)</label><textarea id="curlHeaders" class="form-control font-mono" rows="5" placeholder="Authorization: Bearer token\nContent-Type: application/json"></textarea><label class="form-label" for="curlBody" style="margin-top:1rem">Request body</label><textarea id="curlBody" class="form-control font-mono" rows="5" placeholder='{"name":"Toolkit"}'></textarea><button class="btn btn-primary" id="curlBuild" style="margin-top:1rem">Build cURL command</button></div><div class="tool-col">${outputArea('curlOutput', 18)}<button class="btn btn-secondary" id="curlCopy">Copy command</button></div></div>`, () => {
+    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="curlMethod">Method</label><select id="curlMethod" class="form-control form-select"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select><label class="form-label ix-dab43f" for="curlUrl">URL</label><input id="curlUrl" type="url" class="form-control font-mono" placeholder="https://api.example.com/v1/items" /><label class="form-label ix-dab43f" for="curlHeaders">Headers (one per line)</label><textarea id="curlHeaders" class="form-control font-mono" rows="5" placeholder="Authorization: Bearer token\nContent-Type: application/json"></textarea><label class="form-label ix-dab43f" for="curlBody">Request body</label><textarea id="curlBody" class="form-control font-mono" rows="5" placeholder='{"name":"Toolkit"}'></textarea><button class="btn btn-primary ix-dab43f" id="curlBuild">Build cURL command</button></div><div class="tool-col">${outputArea('curlOutput', 18)}<button class="btn btn-secondary" id="curlCopy">Copy command</button></div></div>`, () => {
       $('#curlBuild').addEventListener('click', () => {
         const url = $('#curlUrl').value.trim();
         if (!url) return toast('Enter a URL.', 'error');
@@ -302,7 +302,7 @@
   }
 
   function initHeaderAnalyzer() {
-    render(`<label class="form-label" for="headerInput">HTTP response headers</label><textarea id="headerInput" class="form-control font-mono" rows="12" placeholder="HTTP/2 200 OK\nContent-Security-Policy: default-src 'self'\nStrict-Transport-Security: max-age=31536000\nX-Content-Type-Options: nosniff"></textarea><button class="btn btn-primary" id="headerAnalyze" style="margin-top:1rem">Analyze headers</button><div id="headerResults" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="headerInput">HTTP response headers</label><textarea id="headerInput" class="form-control font-mono" rows="12" placeholder="HTTP/2 200 OK\nContent-Security-Policy: default-src 'self'\nStrict-Transport-Security: max-age=31536000\nX-Content-Type-Options: nosniff"></textarea><button class="btn btn-primary ix-dab43f" id="headerAnalyze">Analyze headers</button><div id="headerResults" class="expansion-results ix-dab43f"></div>`, () => {
       $('#headerAnalyze').addEventListener('click', () => {
         const headers = new Map();
         $('#headerInput').value.split(/\r?\n/).forEach((line) => {
@@ -372,7 +372,7 @@
   }
 
   function initCronAssistant() {
-    render(`<label class="form-label" for="cronInput">Five-field cron expression</label><input id="cronInput" class="form-control font-mono" value="*/15 9-17 * * 1-5" placeholder="minute hour day-of-month month day-of-week" /><p class="form-hint">Supports numbers, *, lists, ranges and steps. Uses your browser’s local time zone.</p><button class="btn btn-primary" id="cronRun">Explain and find next runs</button><div id="cronResult" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="cronInput">Five-field cron expression</label><input id="cronInput" class="form-control font-mono" value="*/15 9-17 * * 1-5" placeholder="minute hour day-of-month month day-of-week" /><p class="form-hint">Supports numbers, *, lists, ranges and steps. Uses your browser’s local time zone.</p><button class="btn btn-primary" id="cronRun">Explain and find next runs</button><div id="cronResult" class="expansion-results ix-dab43f"></div>`, () => {
       $('#cronRun').addEventListener('click', () => {
         const expressions = $('#cronInput').value.trim().split(/\s+/);
         if (expressions.length !== 5 || expressions.some((field) => !/^[\d,*/-]+$/.test(field))) return toast('Use a valid five-field numeric cron expression.', 'error');
@@ -398,7 +398,7 @@
   }
 
   function initUnixPermissions() {
-    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="permOctal">Octal permissions</label><input id="permOctal" class="form-control font-mono" inputmode="numeric" maxlength="3" value="644" /><div id="permChecks" class="expansion-permissions" style="margin-top:1rem"></div></div><div class="tool-col"><p class="form-label">Symbolic mode</p><output id="permSymbolic" class="pwd-output" style="display:block;text-align:center;font-size:1.5rem">rw-r--r--</output><p class="form-hint">Toggle a permission or enter a three-digit octal mode.</p></div></div>`, () => {
+    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="permOctal">Octal permissions</label><input id="permOctal" class="form-control font-mono" inputmode="numeric" maxlength="3" value="644" /><div id="permChecks" class="expansion-permissions ix-dab43f"></div></div><div class="tool-col"><p class="form-label">Symbolic mode</p><output id="permSymbolic" class="pwd-output ix-5fbb09">rw-r--r--</output><p class="form-hint">Toggle a permission or enter a three-digit octal mode.</p></div></div>`, () => {
       const labels = ['Owner read', 'Owner write', 'Owner execute', 'Group read', 'Group write', 'Group execute', 'Other read', 'Other write', 'Other execute'];
       const checks = labels.map((label, index) => `<label class="checkbox-card"><input type="checkbox" data-bit="${8 - index}" /><span>${label}</span></label>`).join('');
       $('#permChecks').innerHTML = checks;
@@ -418,7 +418,7 @@
   }
 
   function initCssSpecificity() {
-    render(`<label class="form-label" for="specificityInput">CSS selector</label><textarea id="specificityInput" class="form-control font-mono" rows="5" placeholder="#app .card:hover > h2::before"></textarea><button class="btn btn-primary" id="specificityRun" style="margin-top:1rem">Calculate specificity</button><div id="specificityResult" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="specificityInput">CSS selector</label><textarea id="specificityInput" class="form-control font-mono" rows="5" placeholder="#app .card:hover > h2::before"></textarea><button class="btn btn-primary ix-dab43f" id="specificityRun">Calculate specificity</button><div id="specificityResult" class="expansion-results ix-dab43f"></div>`, () => {
       $('#specificityRun').addEventListener('click', () => {
         const selector = $('#specificityInput').value.trim(); if (!selector) return toast('Enter a selector.', 'error');
         const stripped = selector.replace(/:where\([^)]*\)/g, '');
@@ -432,7 +432,7 @@
   }
 
   function initCssClamp() {
-    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="clampMin">Minimum size (px)</label><input id="clampMin" type="number" class="form-control" value="16" /><label class="form-label" for="clampMax" style="margin-top:1rem">Maximum size (px)</label><input id="clampMax" type="number" class="form-control" value="24" /></div><div class="tool-col"><label class="form-label" for="clampVmin">Minimum viewport (px)</label><input id="clampVmin" type="number" class="form-control" value="320" /><label class="form-label" for="clampVmax" style="margin-top:1rem">Maximum viewport (px)</label><input id="clampVmax" type="number" class="form-control" value="1280" /></div></div><button class="btn btn-primary" id="clampRun" style="margin-top:1rem">Generate clamp()</button>${outputArea('clampOutput', 4)}`, () => {
+    render(`<div class="tool-split"><div class="tool-col"><label class="form-label" for="clampMin">Minimum size (px)</label><input id="clampMin" type="number" class="form-control" value="16" /><label class="form-label ix-dab43f" for="clampMax">Maximum size (px)</label><input id="clampMax" type="number" class="form-control" value="24" /></div><div class="tool-col"><label class="form-label" for="clampVmin">Minimum viewport (px)</label><input id="clampVmin" type="number" class="form-control" value="320" /><label class="form-label ix-dab43f" for="clampVmax">Maximum viewport (px)</label><input id="clampVmax" type="number" class="form-control" value="1280" /></div></div><button class="btn btn-primary ix-dab43f" id="clampRun">Generate clamp()</button>${outputArea('clampOutput', 4)}`, () => {
       $('#clampRun').addEventListener('click', () => {
         const min = Number($('#clampMin').value), max = Number($('#clampMax').value), vmin = Number($('#clampVmin').value), vmax = Number($('#clampVmax').value);
         if (![min, max, vmin, vmax].every(Number.isFinite) || min > max || vmin >= vmax) return toast('Use valid ascending size and viewport ranges.', 'error');
@@ -454,7 +454,7 @@
   }
 
   function initJsonTypeScript() {
-    render(`<label class="form-label" for="tsInput">JSON input</label><textarea id="tsInput" class="form-control font-mono" rows="12" placeholder='{"user":{"id":1,"name":"Ada"}}'></textarea><button class="btn btn-primary" id="tsRun" style="margin-top:1rem">Generate TypeScript</button>${outputArea('tsOutput', 14)}`, () => {
+    render(`<label class="form-label" for="tsInput">JSON input</label><textarea id="tsInput" class="form-control font-mono" rows="12" placeholder='{"user":{"id":1,"name":"Ada"}}'></textarea><button class="btn btn-primary ix-dab43f" id="tsRun">Generate TypeScript</button>${outputArea('tsOutput', 14)}`, () => {
       $('#tsRun').addEventListener('click', () => {
         try { $('#tsOutput').value = `type Root = ${inferType(JSON.parse($('#tsInput').value))};`; }
         catch (error) { toast(`Invalid JSON: ${error.message}`, 'error'); }
@@ -463,7 +463,7 @@
   }
 
   function initJsonMarkdown() {
-    render(`<label class="form-label" for="markdownJsonInput">JSON array of objects</label><textarea id="markdownJsonInput" class="form-control font-mono" rows="12" placeholder='[{"name":"Ada","role":"Engineer"}]'></textarea><button class="btn btn-primary" id="markdownJsonRun" style="margin-top:1rem">Convert to Markdown table</button>${outputArea('markdownJsonOutput', 14)}`, () => {
+    render(`<label class="form-label" for="markdownJsonInput">JSON array of objects</label><textarea id="markdownJsonInput" class="form-control font-mono" rows="12" placeholder='[{"name":"Ada","role":"Engineer"}]'></textarea><button class="btn btn-primary ix-dab43f" id="markdownJsonRun">Convert to Markdown table</button>${outputArea('markdownJsonOutput', 14)}`, () => {
       $('#markdownJsonRun').addEventListener('click', () => {
         try {
           const rows = JSON.parse($('#markdownJsonInput').value); if (!Array.isArray(rows) || !rows.every((row) => row && typeof row === 'object' && !Array.isArray(row))) throw new Error('Use an array of objects.');
@@ -486,7 +486,7 @@
   }
 
   function initXmlJson() {
-    render(`<label class="form-label" for="xmlJsonInput">XML input</label><textarea id="xmlJsonInput" class="form-control font-mono" rows="12" placeholder="<person id=\"1\"><name>Ada</name></person>"></textarea><button class="btn btn-primary" id="xmlJsonRun" style="margin-top:1rem">Convert XML to JSON</button>${outputArea('xmlJsonOutput', 14)}`, () => {
+    render(`<label class="form-label" for="xmlJsonInput">XML input</label><textarea id="xmlJsonInput" class="form-control font-mono" rows="12" placeholder="<person id=\"1\"><name>Ada</name></person>"></textarea><button class="btn btn-primary ix-dab43f" id="xmlJsonRun">Convert XML to JSON</button>${outputArea('xmlJsonOutput', 14)}`, () => {
       $('#xmlJsonRun').addEventListener('click', () => {
         const parsed = new DOMParser().parseFromString($('#xmlJsonInput').value, 'application/xml');
         const error = parsed.querySelector('parsererror'); if (error) return toast('Invalid XML input.', 'error');
@@ -509,7 +509,7 @@
   }
 
   function initCsvViewer() {
-    render(`<label class="form-label" for="csvViewerInput">CSV input</label><textarea id="csvViewerInput" class="form-control font-mono" rows="9" placeholder="name,role\nAda,Engineer"></textarea><button class="btn btn-primary" id="csvViewerRun" style="margin-top:1rem">Preview CSV</button><div id="csvViewerResult" class="expansion-table-wrap" style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="csvViewerInput">CSV input</label><textarea id="csvViewerInput" class="form-control font-mono" rows="9" placeholder="name,role\nAda,Engineer"></textarea><button class="btn btn-primary ix-dab43f" id="csvViewerRun">Preview CSV</button><div id="csvViewerResult" class="expansion-table-wrap ix-dab43f"></div>`, () => {
       $('#csvViewerRun').addEventListener('click', () => {
         const rows = parseCsv($('#csvViewerInput').value); if (!rows.length) return toast('Enter CSV data.', 'error');
         const table = document.createElement('table'); table.className = 'expansion-table';
@@ -520,7 +520,7 @@
   }
 
   function initUnicodeInspector() {
-    render(`<label class="form-label" for="unicodeInput">Text</label><textarea id="unicodeInput" class="form-control" rows="6" placeholder="Hello 👋"></textarea><label class="form-label" for="unicodeForm" style="margin-top:1rem">Normalization form</label><select id="unicodeForm" class="form-control form-select"><option>NFC</option><option>NFD</option><option>NFKC</option><option>NFKD</option></select><button class="btn btn-primary" id="unicodeRun" style="margin-top:1rem">Inspect and normalize</button>${outputArea('unicodeOutput', 14)}`, () => {
+    render(`<label class="form-label" for="unicodeInput">Text</label><textarea id="unicodeInput" class="form-control" rows="6" placeholder="Hello 👋"></textarea><label class="form-label ix-dab43f" for="unicodeForm">Normalization form</label><select id="unicodeForm" class="form-control form-select"><option>NFC</option><option>NFD</option><option>NFKC</option><option>NFKD</option></select><button class="btn btn-primary ix-dab43f" id="unicodeRun">Inspect and normalize</button>${outputArea('unicodeOutput', 14)}`, () => {
       $('#unicodeRun').addEventListener('click', () => {
         const text = $('#unicodeInput').value; const form = $('#unicodeForm').value; const normalized = text.normalize(form);
         const points = [...text].map((character, index) => `${String(index + 1).padStart(3, ' ')}  U+${character.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}  ${character}`).join('\n');
@@ -530,7 +530,7 @@
   }
 
   function initTimeZone() {
-    render(`<label class="form-label" for="zoneDate">Date and time</label><input id="zoneDate" type="datetime-local" class="form-control" /><label class="form-label" for="zoneList" style="margin-top:1rem">Time zones (one per line)</label><textarea id="zoneList" class="form-control font-mono" rows="7">UTC\nEurope/Istanbul\nEurope/London\nAmerica/New_York\nAmerica/Los_Angeles\nAsia/Tokyo\nAustralia/Sydney</textarea><button class="btn btn-primary" id="zoneRun" style="margin-top:1rem">Convert time zones</button><div id="zoneResult" class="expansion-results" data-i18n-skip style="margin-top:1rem"></div>`, () => {
+    render(`<label class="form-label" for="zoneDate">Date and time</label><input id="zoneDate" type="datetime-local" class="form-control" /><label class="form-label ix-dab43f" for="zoneList">Time zones (one per line)</label><textarea id="zoneList" class="form-control font-mono" rows="7">UTC\nEurope/Istanbul\nEurope/London\nAmerica/New_York\nAmerica/Los_Angeles\nAsia/Tokyo\nAustralia/Sydney</textarea><button class="btn btn-primary ix-dab43f" id="zoneRun">Convert time zones</button><div id="zoneResult" class="expansion-results ix-dab43f" data-i18n-skip></div>`, () => {
       const local = new Date(); local.setMinutes(local.getMinutes() - local.getTimezoneOffset()); $('#zoneDate').value = local.toISOString().slice(0, 16);
       $('#zoneRun').addEventListener('click', () => {
         const date = new Date($('#zoneDate').value); if (Number.isNaN(date.getTime())) return toast('Choose a date and time.', 'error');
@@ -542,7 +542,7 @@
   }
 
   function initDateDuration() {
-    render(`<div class="tool-split"><div><label class="form-label" for="durationStart">Start date</label><input id="durationStart" type="date" class="form-control" /></div><div><label class="form-label" for="durationEnd">End date</label><input id="durationEnd" type="date" class="form-control" /></div></div><button class="btn btn-primary" id="durationRun" style="margin-top:1rem">Calculate duration</button><div id="durationResult" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<div class="tool-split"><div><label class="form-label" for="durationStart">Start date</label><input id="durationStart" type="date" class="form-control" /></div><div><label class="form-label" for="durationEnd">End date</label><input id="durationEnd" type="date" class="form-control" /></div></div><button class="btn btn-primary ix-dab43f" id="durationRun">Calculate duration</button><div id="durationResult" class="expansion-results ix-dab43f"></div>`, () => {
       const today = new Date().toISOString().slice(0, 10); $('#durationStart').value = today; $('#durationEnd').value = today;
       $('#durationRun').addEventListener('click', () => {
         const start = new Date(`${$('#durationStart').value}T00:00:00Z`), end = new Date(`${$('#durationEnd').value}T00:00:00Z`); if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return toast('Choose both dates.', 'error');
@@ -556,7 +556,7 @@
   }
 
   function initImageCompressor() {
-    render(`<label class="form-label" for="imageCompressInput">Image file</label><div class="file-picker-row"><div class="file-picker"><input id="imageCompressInput" type="file" class="sr-only file-picker__input" accept="image/*" aria-describedby="imageCompressFileName" /><label class="btn btn-secondary file-picker__trigger" for="imageCompressInput"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Choose image file</span></label><span class="file-picker__name" id="imageCompressFileName" data-i18n-skip aria-live="polite">No file selected</span></div></div><div class="tool-split"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div></div><button class="btn btn-primary" id="imageCompressRun" style="margin-top:1rem">Compress image</button><div id="imageCompressResult" class="expansion-results" style="margin-top:1rem" hidden></div>`, () => {
+    render(`<label class="form-label" for="imageCompressInput">Image file</label><div class="file-picker-row"><div class="file-picker"><input id="imageCompressInput" type="file" class="sr-only file-picker__input" accept="image/*" aria-describedby="imageCompressFileName" /><label class="btn btn-secondary file-picker__trigger" for="imageCompressInput"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Choose image file</span></label><span class="file-picker__name" id="imageCompressFileName" data-i18n-skip aria-live="polite">No file selected</span></div></div><div class="tool-split"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div></div><button class="btn btn-primary ix-dab43f" id="imageCompressRun">Compress image</button><div id="imageCompressResult" class="expansion-results ix-dab43f" hidden></div>`, () => {
       const input = $('#imageCompressInput');
       const fileName = $('#imageCompressFileName');
       function updateFileName() {
@@ -588,7 +588,7 @@
   }
 
   function initSitemapGenerator() {
-    render(`<label class="form-label" for="sitemapUrls">URLs (one per line)</label><textarea id="sitemapUrls" class="form-control font-mono" rows="11" placeholder="https://example.com/\nhttps://example.com/about"></textarea><div class="tool-split" style="margin-top:1rem"><div><label class="form-label" for="sitemapFreq">Change frequency</label><select id="sitemapFreq" class="form-control form-select"><option value="weekly">weekly</option><option value="monthly">monthly</option><option value="daily">daily</option></select></div><div><label class="form-label" for="sitemapPriority">Priority</label><select id="sitemapPriority" class="form-control form-select"><option>0.8</option><option>1.0</option><option>0.5</option></select></div></div><div class="btn-row" style="margin-top:1rem"><button class="btn btn-primary" id="sitemapRun">Generate sitemap.xml</button><button class="btn btn-secondary" id="sitemapDownload">Download</button></div>${outputArea('sitemapOutput', 14)}`, () => {
+    render(`<label class="form-label" for="sitemapUrls">URLs (one per line)</label><textarea id="sitemapUrls" class="form-control font-mono" rows="11" placeholder="https://example.com/\nhttps://example.com/about"></textarea><div class="tool-split ix-dab43f"><div><label class="form-label" for="sitemapFreq">Change frequency</label><select id="sitemapFreq" class="form-control form-select"><option value="weekly">weekly</option><option value="monthly">monthly</option><option value="daily">daily</option></select></div><div><label class="form-label" for="sitemapPriority">Priority</label><select id="sitemapPriority" class="form-control form-select"><option>0.8</option><option>1.0</option><option>0.5</option></select></div></div><div class="btn-row ix-dab43f"><button class="btn btn-primary" id="sitemapRun">Generate sitemap.xml</button><button class="btn btn-secondary" id="sitemapDownload">Download</button></div>${outputArea('sitemapOutput', 14)}`, () => {
       $('#sitemapRun').addEventListener('click', () => {
         try {
           const urls = [...new Set($('#sitemapUrls').value.split('\n').map((line) => line.trim()).filter(Boolean).map((value) => new URL(value).href))];
@@ -611,7 +611,7 @@
   }
 
   function initColorContrast() {
-    render(`<div class="tool-split"><div><label class="form-label" for="contrastForeground">Foreground</label><input id="contrastForeground" type="color" class="form-control" value="#ffffff" /></div><div><label class="form-label" for="contrastBackground">Background</label><input id="contrastBackground" type="color" class="form-control" value="#111827" /></div></div><button class="btn btn-primary" id="contrastRun" style="margin-top:1rem">Check contrast</button><div id="contrastResult" class="expansion-results" style="margin-top:1rem"></div>`, () => {
+    render(`<div class="tool-split"><div><label class="form-label" for="contrastForeground">Foreground</label><input id="contrastForeground" type="color" class="form-control" value="#ffffff" /></div><div><label class="form-label" for="contrastBackground">Background</label><input id="contrastBackground" type="color" class="form-control" value="#111827" /></div></div><button class="btn btn-primary ix-dab43f" id="contrastRun">Check contrast</button><div id="contrastResult" class="expansion-results ix-dab43f"></div>`, () => {
       $('#contrastRun').addEventListener('click', () => {
         try {
           const ratio = (Math.max(luminance($('#contrastForeground').value), luminance($('#contrastBackground').value)) + 0.05) / (Math.min(luminance($('#contrastForeground').value), luminance($('#contrastBackground').value)) + 0.05);

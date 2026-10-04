@@ -64,15 +64,15 @@
   function renderTable(value, fromUnit) {
     if (isNaN(value)) { convTableEl.innerHTML = ''; return; }
     const px = toPx(value, fromUnit);
-    let html = '<table style="width:100%;border-collapse:collapse;font-size:.9rem;">';
-    html += '<thead><tr><th style="text-align:left;padding:.4rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">Unit</th><th style="text-align:right;padding:.4rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);">Value</th><th style="padding:.4rem .6rem;border-bottom:1px solid rgba(255,255,255,.1);"></th></tr></thead><tbody>';
+    let html = '<table class="ix-53d69d">';
+    html += '<thead><tr><th class="ix-47aec6">Unit</th><th class="ix-e8cf08">Value</th><th class="ix-e9842b"></th></tr></thead><tbody>';
     UNITS.forEach(u => {
       const v = fromPx(px, u);
       html += `<tr>
-        <td style="padding:.35rem .6rem;font-weight:600;color:var(--accent-cyan,#00d4ff)">${u}</td>
-        <td class="font-mono" style="text-align:right;padding:.35rem .6rem;">${fmt(v)}</td>
-        <td style="padding:.35rem .6rem;">
-          <button class="btn btn-secondary" style="padding:.15rem .5rem;font-size:.75rem;" data-copy-value="${fmt(v)}" data-copy-label="${u}">Copy</button>
+        <td class="ix-55fbdc">${u}</td>
+        <td class="font-mono ix-78d4d8">${fmt(v)}</td>
+        <td class="ix-78e2f5">
+          <button class="btn btn-secondary ix-bb3314" data-copy-value="${fmt(v)}" data-copy-label="${u}">Copy</button>
         </td>
       </tr>`;
     });

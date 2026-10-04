@@ -110,19 +110,19 @@
     progress.style.display = 'none';
     progressBar.style.width = '0%';
 
-    var html = '<div style="margin-bottom:1rem;">'
-      + '<p style="font-size:1rem;font-weight:600;margin-bottom:.25rem;" data-i18n-skip>' + escapeHTML(file.name) + '</p>'
-      + '<p style="font-size:.85rem;opacity:.65;" data-i18n-skip>' + formatBytes(file.size) + ' · ' + escapeHTML(file.type || 'unknown type') + '</p>'
+    var html = '<div class="ix-f267e3">'
+      + '<p class="ix-668afc" data-i18n-skip>' + escapeHTML(file.name) + '</p>'
+      + '<p class="ix-75a20e" data-i18n-skip>' + formatBytes(file.size) + ' · ' + escapeHTML(file.type || 'unknown type') + '</p>'
       + '</div>'
-      + '<div style="display:flex;flex-direction:column;gap:.75rem;">';
+      + '<div class="ix-8f3ba3">';
 
     algos.forEach(function(algo) {
       var hash = hashes[algo] || '';
       html += '<div>'
-        + '<p style="font-size:.8rem;font-weight:600;opacity:.7;margin-bottom:.3rem;">' + algo + '</p>'
-        + '<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">'
-        + '<code class="font-mono" style="flex:1;font-size:.78rem;word-break:break-all;padding:.5rem .75rem;background:var(--surface-2,rgba(255,255,255,.03));border-radius:.4rem;" data-i18n-skip>' + escapeHTML(hash) + '</code>'
-        + '<button class="btn btn-ghost" style="white-space:nowrap;font-size:.8rem;" data-copy-value="' + escapeHTML(hash) + '" data-copy-label="' + algo + ' hash">Copy</button>'
+        + '<p class="ix-12bf27">' + algo + '</p>'
+        + '<div class="ix-a31385">'
+        + '<code class="font-mono ix-9ecc74" data-i18n-skip>' + escapeHTML(hash) + '</code>'
+        + '<button class="btn btn-ghost ix-ee468f" data-copy-value="' + escapeHTML(hash) + '" data-copy-label="' + algo + ' hash">Copy</button>'
         + '</div>'
         + '</div>';
     });

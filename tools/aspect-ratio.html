@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Calculate aspect ratios, resize dimensions while preserving proportions." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/aspect-ratio.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -66,36 +67,36 @@
         <div class="card glass reveal">
           <div class="tool-split">
             <div class="tool-split-left">
-              <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;">Calculate Ratio from Dimensions</h3>
-              <div style="display:flex;gap:.75rem;align-items:flex-end;flex-wrap:wrap;">
-                <div class="form-group" style="flex:1;min-width:100px;">
+              <h3 class="ix-1448c1">Calculate Ratio from Dimensions</h3>
+              <div class="ix-52e241">
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arW">Width (W)</label>
                   <input type="number" class="form-control font-mono" id="arW" placeholder="1920" min="1" step="any" />
                 </div>
-                <span style="font-size:1.5rem;font-weight:300;padding-bottom:.5rem;">×</span>
-                <div class="form-group" style="flex:1;min-width:100px;">
+                <span class="ix-e05de8">×</span>
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arH">Height (H)</label>
                   <input type="number" class="form-control font-mono" id="arH" placeholder="1080" min="1" step="any" />
                 </div>
               </div>
-              <div style="margin-top:1rem;">
-                <div style="margin-bottom:.5rem;"><span class="form-label">Simplified Ratio</span><div id="arRatioOut" class="font-mono" style="font-size:1.75rem;font-weight:700;color:var(--accent-cyan,#00d4ff);">—</div></div>
-                <div><span class="form-label">Decimal Ratio</span><div id="arDecimalOut" class="font-mono" style="font-size:1.1rem;color:rgba(255,255,255,.7);">—</div></div>
+              <div class="ix-dab43f">
+                <div class="ix-ce335b"><span class="form-label">Simplified Ratio</span><div id="arRatioOut" class="font-mono ix-fc95d1">—</div></div>
+                <div><span class="form-label">Decimal Ratio</span><div id="arDecimalOut" class="font-mono ix-862bc8">—</div></div>
               </div>
 
-              <hr style="border-color:rgba(255,255,255,.08);margin:1.5rem 0" />
-              <h3 style="margin-bottom:.75rem;font-size:.95rem;font-weight:600;">Resize Preserving Ratio</h3>
-              <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem;">
-                <div class="form-group" style="flex:1;min-width:100px;">
+              <hr class="ix-86019c" />
+              <h3 class="ix-b80fb7">Resize Preserving Ratio</h3>
+              <div class="ix-ed9cfe">
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arOrigW">Original W</label>
                   <input type="number" class="form-control font-mono" id="arOrigW" placeholder="1920" min="1" step="any" />
                 </div>
-                <div class="form-group" style="flex:1;min-width:100px;">
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arOrigH">Original H</label>
                   <input type="number" class="form-control font-mono" id="arOrigH" placeholder="1080" min="1" step="any" />
                 </div>
               </div>
-              <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end;">
+              <div class="ix-7381f8">
                 <div class="form-group">
                   <label class="form-label" for="arKnownSide">Known Side</label>
                   <select class="form-control form-select" id="arKnownSide">
@@ -103,19 +104,19 @@
                     <option value="H">Height</option>
                   </select>
                 </div>
-                <div class="form-group" style="flex:1;min-width:100px;">
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arKnownVal">New Value</label>
                   <input type="number" class="form-control font-mono" id="arKnownVal" placeholder="1280" min="1" step="any" />
                 </div>
-                <div class="form-group" style="flex:1;min-width:100px;">
+                <div class="form-group ix-c894af">
                   <label class="form-label" for="arOtherVal">Other Side</label>
                   <input type="number" class="form-control font-mono" id="arOtherVal" readonly placeholder="720" />
                 </div>
               </div>
             </div>
             <div class="tool-split-right">
-              <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;">Common Ratios</h3>
-              <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+              <h3 class="ix-1448c1">Common Ratios</h3>
+              <div class="ix-2f8d4e">
                 <button class="btn btn-secondary" data-ratio="16:9">16:9</button>
                 <button class="btn btn-secondary" data-ratio="4:3">4:3</button>
                 <button class="btn btn-secondary" data-ratio="1:1">1:1</button>

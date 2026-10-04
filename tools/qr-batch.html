@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate multiple QR codes at once from a list of values — up to 50 codes per batch." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/qr-batch.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -79,13 +80,13 @@
                   <option value="250">250 × 250</option>
                 </select>
               </div>
-              <button class="btn btn-primary" id="qrbGenerate" style="width:100%;">Generate QR Codes</button>
+              <button class="btn btn-primary ix-69d66e" id="qrbGenerate">Generate QR Codes</button>
             </div>
             <div class="tool-split-right">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-                <span id="qrbCount" style="font-size:.85rem;color:rgba(255,255,255,.55);"></span>
+              <div class="ix-96bc2b">
+                <span class="ix-905e3a" id="qrbCount"></span>
               </div>
-              <div id="qrbGrid" style="display:flex;flex-wrap:wrap;gap:1rem;"></div>
+              <div class="ix-01b674" id="qrbGrid"></div>
             </div>
           </div>
         </div>

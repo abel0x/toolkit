@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert between CSS units: px, rem, em, vw, vh, pt, pc, cm, mm, in." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/unit-converter.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -79,7 +80,7 @@
                 <label class="form-label" for="viewportHeight">Viewport Height (px)</label>
                 <input type="number" class="form-control" id="viewportHeight" value="900" min="1" />
               </div>
-              <hr style="border-color:rgba(255,255,255,.08);margin:1.5rem 0" />
+              <hr class="ix-86019c" />
               <div class="form-group">
                 <label class="form-label" for="inputValue">Value</label>
                 <input type="number" class="form-control" id="inputValue" value="16" step="any" />
@@ -114,11 +115,11 @@
                   <option value="vh">vh</option>
                 </select>
               </div>
-              <div id="convResult" style="font-size:1.6rem;font-weight:700;color:var(--accent-cyan,#00d4ff);margin-top:1rem;min-height:2.5rem;"></div>
+              <div class="ix-199f31" id="convResult"></div>
             </div>
             <div class="tool-split-right">
-              <h3 style="margin-bottom:1rem;font-size:1rem;font-weight:600;">All Units Conversion Table</h3>
-              <div id="convTable" style="overflow-x:auto;"></div>
+              <h3 class="ix-b401aa">All Units Conversion Table</h3>
+              <div class="ix-42d445" id="convTable"></div>
             </div>
           </div>
         </div>

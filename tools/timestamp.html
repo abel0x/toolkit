@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert Unix timestamps to human-readable dates and back, in local and UTC time. With live clock. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/timestamp.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -84,7 +85,7 @@
                   <button class="unit-btn" id="tsMsBtn" data-unit="ms" aria-label="Milliseconds">ms</button>
                 </div>
               </div>
-              <button class="btn btn--primary" id="tsToDateBtn" style="margin-top:.85rem;width:100%;">Convert to Date</button>
+              <button class="btn btn--primary ix-d19ca8" id="tsToDateBtn">Convert to Date</button>
               <div class="ts-result" id="tsUnixResult" aria-live="polite"></div>
             </div>
             <div class="ts-divider" aria-hidden="true"></div>
@@ -92,7 +93,7 @@
               <h3 class="ts-panel-title">Date → Unix</h3>
               <label for="tsDateInput" class="control-label">Date &amp; Time</label>
               <input type="datetime-local" id="tsDateInput" class="input-field" aria-label="Date and time" />
-              <button class="btn btn--primary" id="tsToUnixBtn" style="margin-top:.85rem;width:100%;">Convert to Unix</button>
+              <button class="btn btn--primary ix-d19ca8" id="tsToUnixBtn">Convert to Unix</button>
               <div class="ts-result" id="tsDateResult" aria-live="polite"></div>
             </div>
           </div>

@@ -1,0 +1,12 @@
+/* json-diff page styles (moved from an inline <style> block for the CSP). */
+.jdiff-item{display:flex;align-items:flex-start;gap:0.5rem;padding:0.5rem 0.75rem;border-radius:0.375rem;margin-bottom:0.35rem;font-size:0.875rem;}
+.jdiff-added{background:rgba(52,211,153,0.1);border-left:3px solid #34d399;}
+.jdiff-removed{background:rgba(248,113,113,0.1);border-left:3px solid #f87171;}
+.jdiff-changed{background:rgba(251,191,36,0.1);border-left:3px solid #fbbf24;}
+.jdiff-label{font-weight:700;min-width:1.2rem;font-family:var(--font-mono,'JetBrains Mono',monospace);}
+.jdiff-path{color:var(--clr-accent,#00d4ff);font-family:var(--font-mono,'JetBrains Mono',monospace);margin-right:0.5rem;}
+.jdiff-detail{flex:1;font-family:var(--font-mono,'JetBrains Mono',monospace);word-break:break-all;}
+.jdiff-old{color:#f87171;text-decoration:line-through;}
+.jdiff-new{color:#34d399;}
+.jdiff-summary{font-weight:600;margin-bottom:0.75rem;color:var(--clr-muted,#94a3b8);}
+.jdiff-equal{color:#34d399;font-weight:600;padding:0.5rem 0;}

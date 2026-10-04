@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert between Celsius, Fahrenheit, Kelvin, Rankine and Réaumur." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/temperature.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -64,7 +65,7 @@
           <p class="section-desc">Convert between Celsius, Fahrenheit, Kelvin, Rankine and Réaumur.</p>
         </div>
         <div class="card glass reveal">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem;margin-bottom:2rem;">
+          <div class="ix-ed7add">
             <div class="form-group">
               <label class="form-label" for="tempC">Celsius (°C)</label>
               <input type="number" class="form-control font-mono" id="tempC" placeholder="0" step="any" />
@@ -87,17 +88,17 @@
             </div>
           </div>
 
-          <div id="formulaDisplay" style="background:rgba(0,0,0,.25);border-radius:.5rem;padding:1rem;margin-bottom:2rem;font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.8;"></div>
+          <div class="ix-dacec5" id="formulaDisplay"></div>
 
-          <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;">Common Reference Points</h3>
-          <div class="table-scroll" style="overflow-x:auto;" tabindex="0" aria-label="Temperature reference table">
-            <table id="refTable" style="width:100%;border-collapse:collapse;font-size:.875rem;">
+          <h3 class="ix-1448c1">Common Reference Points</h3>
+          <div class="table-scroll ix-42d445" tabindex="0" aria-label="Temperature reference table">
+            <table class="ix-c2b3a0" id="refTable">
               <thead>
                 <tr>
-                  <th style="text-align:left;padding:.5rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);">Reference</th>
-                  <th style="text-align:right;padding:.5rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);">°C</th>
-                  <th style="text-align:right;padding:.5rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);">°F</th>
-                  <th style="text-align:right;padding:.5rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);">K</th>
+                  <th class="ix-4f4e00">Reference</th>
+                  <th class="ix-2216a2">°C</th>
+                  <th class="ix-2216a2">°F</th>
+                  <th class="ix-2216a2">K</th>
                 </tr>
               </thead>
               <tbody id="refTableBody"></tbody>

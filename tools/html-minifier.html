@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Minify HTML by removing comments and collapsing whitespace." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/html-minifier.html" />
   <meta property="og:title" content="HTML Minifier — Toolkit" />
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" /><link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
 <body>
@@ -62,13 +63,13 @@
           <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="html-minifier">Try a sample</button>
         </div>
         <div class="card glass reveal">
-          <div class="form-group" style="margin-bottom:0.75rem;">
+          <div class="form-group ix-b57afc">
             <span class="form-label">Options</span>
-            <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:0.5rem;">
-              <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
+            <div class="ix-50646d">
+              <label class="ix-4b89d6">
                 <input type="checkbox" id="hmin-comments" checked /> Remove HTML comments
               </label>
-              <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.9rem;">
+              <label class="ix-4b89d6">
                 <input type="checkbox" id="hmin-collapse" checked /> Compact tag spacing (preserve text)
               </label>
             </div>
@@ -85,13 +86,13 @@
               <div class="form-group">
                 <label class="form-label" for="hmin-output">
                   Minified Output
-                  <span id="hmin-savings" style="display:none;margin-left:0.75rem;font-size:0.8rem;color:var(--accent-green,#22c55e);font-weight:600;"></span>
+                  <span class="ix-305efe" id="hmin-savings"></span>
                 </label>
                 <textarea id="hmin-output" class="form-control font-mono" rows="16" readonly placeholder="Minified HTML will appear here…"></textarea>
               </div>
             </div>
           </div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+          <div class="ix-e72519">
             <button id="hmin-btn" class="btn btn-primary">Minify</button>
             <button id="hmin-copy" class="btn btn-secondary">Copy</button>
           </div>

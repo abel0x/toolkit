@@ -21,7 +21,7 @@
       return;
     }
 
-    hashResults.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem;padding:.5rem 0;">Generating…</p>';
+    hashResults.innerHTML = '<p class="ix-8acbdb">Generating…</p>';
 
     const encoder = new TextEncoder();
     const data = encoder.encode(text);

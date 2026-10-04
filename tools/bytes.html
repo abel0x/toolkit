@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert between bytes, KB, MB, GB, TB and their binary equivalents (KiB, MiB, GiB)." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/bytes.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -64,8 +65,8 @@
           <p class="section-desc">Convert between bytes, KB, MB, GB, TB and their binary equivalents (KiB, MiB, GiB).</p>
         </div>
         <div class="card glass reveal">
-          <div class="form-group" style="max-width:480px;display:flex;gap:.75rem;align-items:flex-end;">
-            <div style="flex:1;">
+          <div class="form-group ix-a20b88">
+            <div class="ix-ee3d55">
               <label class="form-label" for="bytesInput">Value</label>
               <input type="number" class="form-control font-mono" id="bytesInput" value="1" min="0" step="any" />
             </div>
@@ -84,7 +85,7 @@
               </select>
             </div>
           </div>
-          <div id="bytesTable" class="table-scroll" style="overflow-x:auto;margin-top:1.5rem;" tabindex="0" aria-label="Byte conversion table"></div>
+          <div id="bytesTable" class="table-scroll ix-11e915" tabindex="0" aria-label="Byte conversion table"></div>
         </div>
       </div>
     </section>

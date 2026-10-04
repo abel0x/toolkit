@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Calculate SHA-256, SHA-512 checksums for any file. Fully client-side — your file never leaves your device." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/file-checksum.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -67,43 +68,42 @@
         </div>
 
         <div class="card glass reveal">
-          <div
+          <div class="ix-6a8c04"
             id="checksumDrop"
             role="button"
             tabindex="0"
             aria-label="Drop file here or click to select"
-            style="border:2px dashed var(--border,#333);border-radius:.75rem;padding:3rem 1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;"
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:.75rem;opacity:.5;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <p style="font-size:1.05rem;font-weight:500;margin-bottom:.35rem;">Drop a file here</p>
-            <p style="font-size:.875rem;opacity:.6;">or click to browse</p>
-            <input type="file" id="checksumFileInput" style="display:none;" aria-label="Select file" />
+            <svg class="ix-44624b" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p class="ix-c621e7">Drop a file here</p>
+            <p class="ix-1c9079">or click to browse</p>
+            <input hidden type="file" id="checksumFileInput" aria-label="Select file" />
           </div>
 
-          <div style="margin-top:1.25rem;">
-            <p class="form-label" style="margin-bottom:.5rem;">Algorithms</p>
-            <div style="display:flex;gap:1.25rem;flex-wrap:wrap;">
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+          <div class="ix-41a087">
+            <p class="form-label ix-ce335b">Algorithms</p>
+            <div class="ix-19f8fe">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="algoSHA1" value="SHA-1" /> SHA-1
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="algoSHA256" value="SHA-256" checked /> SHA-256
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="algoSHA512" value="SHA-512" checked /> SHA-512
               </label>
             </div>
           </div>
 
-          <div id="checksumProgress" style="display:none;margin-top:1rem;">
-            <p style="font-size:.875rem;margin-bottom:.4rem;" id="checksumProgressLabel">Computing…</p>
-            <div style="background:var(--border,#2a2a2a);border-radius:9999px;height:6px;overflow:hidden;">
-              <div id="checksumProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#00d4ff,#7c3aed);transition:width .1s;"></div>
+          <div class="ix-5a89b1" id="checksumProgress">
+            <p class="ix-c9e4e8" id="checksumProgressLabel">Computing…</p>
+            <div class="ix-cffaeb">
+              <div class="ix-77262b" id="checksumProgressBar"></div>
             </div>
           </div>
         </div>
 
-        <div id="checksumResults" style="margin-top:1.5rem;display:none;" class="reveal">
+        <div id="checksumResults" class="reveal ix-e8c1a6">
           <div class="card glass">
             <div id="checksumResultInner"></div>
           </div>

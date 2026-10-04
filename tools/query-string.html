@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Parse or build URL query strings quickly with this browser-based tool." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/query-string.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -70,7 +71,7 @@
         </div>
         <div class="card glass reveal">
           <!-- Tabs -->
-          <div class="tool-tabs" style="display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:.75rem;">
+          <div class="tool-tabs ix-c509a7">
             <button class="btn btn-sm btn-primary" data-qs-tab="parse">Parse</button>
             <button class="btn btn-sm" data-qs-tab="build">Build</button>
           </div>
@@ -82,7 +83,7 @@
               <textarea class="form-control font-mono" id="qsParseInput" rows="3" placeholder="?foo=bar&baz=qux  or  https://example.com/path?a=1&b=hi"></textarea>
             </div>
             <div id="qsParseTable"></div>
-            <div style="margin-top:.75rem;">
+            <div class="ix-a54304">
               <button class="btn btn-sm" id="qsParseJson">Copy as JSON</button>
             </div>
           </div>
@@ -90,7 +91,7 @@
           <!-- Build panel -->
           <div data-qs-panel="build" hidden>
             <div id="qsBuildRows"></div>
-            <button class="btn btn-sm" id="qsAddRow" style="margin-bottom:1rem;">+ Add Parameter</button>
+            <button class="btn btn-sm ix-f267e3" id="qsAddRow">+ Add Parameter</button>
             <div class="form-group">
               <label class="form-label">Generated Query String</label>
               <input type="text" class="form-control font-mono" id="qsBuildOutput" readonly />

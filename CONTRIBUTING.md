@@ -39,7 +39,7 @@ Use an existing, independently structured page as a starting point for a convent
 
 Never copy a page without updating its title, description, canonical URL, Open Graph/Twitter values, breadcrumb, module path, and Turkish text.
 
-Every published page carries the same `Content-Security-Policy` meta tag directly after `<meta charset>`. It allows only same-origin scripts, so do not add inline `<script>` blocks, `on*=` attributes, `eval`, or remote resources; attach handlers with `addEventListener` instead. `404.html` is the one exception: its tiny inline script is allowed by a `sha256-` hash, which must be recomputed whenever that script changes. `node tests/site-audit.mjs` enforces both rules.
+Every published page carries the same `Content-Security-Policy` meta tag directly after `<meta charset>`. It allows only same-origin scripts and stylesheets, so do not add inline `<script>` or `<style>` blocks, `on*=` or `style=` attributes (including inside markup built with `innerHTML`), `eval`, or remote resources. Attach handlers with `addEventListener`; put static styles in a stylesheet (`assets/css/inline-styles.css` holds the former inline styles, `assets/css/tools/<slug>.css` holds page-specific rules) and set computed values through the CSSOM, for example `element.style.setProperty()`, which the policy allows. `404.html` is the one exception: its tiny inline script is allowed by a `sha256-` hash, which must be recomputed whenever that script changes. `node tests/site-audit.mjs` enforces both rules.
 
 ### 2. Register the tool
 

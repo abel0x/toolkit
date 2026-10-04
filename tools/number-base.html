@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert numbers between binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16)." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/number-base.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -64,54 +65,54 @@
           <p class="section-desc">Convert numbers between binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16).</p>
         </div>
         <div class="card glass reveal">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-bottom:2rem;">
+          <div class="ix-823e2f">
             <div class="form-group">
               <label class="form-label" for="numBin">Binary (Base 2)</label>
-              <div style="display:flex;gap:.5rem;">
+              <div class="ix-9a2d4c">
                 <input type="text" class="form-control font-mono" id="numBin" placeholder="11111111" />
                 <button class="btn btn-secondary" data-copy-base="2" title="Copy">Copy</button>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label" for="numOct">Octal (Base 8)</label>
-              <div style="display:flex;gap:.5rem;">
+              <div class="ix-9a2d4c">
                 <input type="text" class="form-control font-mono" id="numOct" placeholder="377" />
                 <button class="btn btn-secondary" data-copy-base="8" title="Copy">Copy</button>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label" for="numDec">Decimal (Base 10)</label>
-              <div style="display:flex;gap:.5rem;">
+              <div class="ix-9a2d4c">
                 <input type="text" class="form-control font-mono" id="numDec" placeholder="255" />
                 <button class="btn btn-secondary" data-copy-base="10" title="Copy">Copy</button>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label" for="numHex">Hexadecimal (Base 16)</label>
-              <div style="display:flex;gap:.5rem;">
+              <div class="ix-9a2d4c">
                 <input type="text" class="form-control font-mono" id="numHex" placeholder="FF" />
                 <button class="btn btn-secondary" data-copy-base="16" title="Copy">Copy</button>
               </div>
             </div>
           </div>
-          <hr style="border-color:rgba(255,255,255,.08);margin:1.5rem 0" />
-          <h3 style="margin-bottom:1rem;font-size:.95rem;font-weight:600;">Custom Base Converter (2–36)</h3>
-          <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;">
-            <div class="form-group" style="flex:1;min-width:160px;">
+          <hr class="ix-86019c" />
+          <h3 class="ix-1448c1">Custom Base Converter (2–36)</h3>
+          <div class="ix-d102e3">
+            <div class="form-group ix-164a69">
               <label class="form-label" for="custInput">Input Value</label>
               <input type="text" class="form-control font-mono" id="custInput" placeholder="255" />
             </div>
             <div class="form-group">
               <label class="form-label" for="custFrom">From Base</label>
-              <input type="number" class="form-control" id="custFrom" value="10" min="2" max="36" style="width:90px;" />
+              <input type="number" class="form-control ix-e60a90" id="custFrom" value="10" min="2" max="36" />
             </div>
             <div class="form-group">
               <label class="form-label" for="custTo">To Base</label>
-              <input type="number" class="form-control" id="custTo" value="2" min="2" max="36" style="width:90px;" />
+              <input type="number" class="form-control ix-e60a90" id="custTo" value="2" min="2" max="36" />
             </div>
-            <div class="form-group" style="flex:1;min-width:160px;">
+            <div class="form-group ix-164a69">
               <label class="form-label">Result</label>
-              <div id="custResult" class="font-mono" style="font-size:1.25rem;font-weight:700;color:var(--accent-cyan,#00d4ff);min-height:2rem;line-height:2rem;">—</div>
+              <div id="custResult" class="font-mono ix-5e09f2">—</div>
             </div>
           </div>
         </div>

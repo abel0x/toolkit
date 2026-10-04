@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Break down any URL into its components — protocol, hostname, path, query parameters, and hash." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/url-parser.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -69,15 +70,15 @@
           <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="url-parser">Try a sample</button>
         </div>
         <div class="card glass reveal">
-          <div class="form-group" style="display:flex;gap:.75rem;align-items:flex-end;flex-wrap:wrap;">
-            <div style="flex:1;min-width:240px;">
+          <div class="form-group ix-52e241">
+            <div class="ix-253cd2">
               <label class="form-label" for="urlInput">URL</label>
               <input type="url" class="form-control font-mono" id="urlInput" placeholder="https://example.com/path?key=val&foo=bar#section" />
             </div>
             <button class="btn btn-primary" id="parseBtn">Parse</button>
           </div>
-          <div id="urlResult" style="margin-top:1.25rem;"></div>
-          <div id="urlParams" style="margin-top:.75rem;"></div>
+          <div class="ix-41a087" id="urlResult"></div>
+          <div class="ix-a54304" id="urlParams"></div>
         </div>
       </div>
     </section>

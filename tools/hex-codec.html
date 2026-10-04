@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert text to hexadecimal representation and decode hex back to text." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/hex-codec.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -67,8 +68,8 @@
         </div>
 
         <div class="card glass reveal">
-          <div style="margin-bottom:1rem;">
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.9rem;">
+          <div class="ix-f267e3">
+            <label class="ix-fd23c3">
               <input type="checkbox" id="hexSpaces" checked />
               Space between bytes (e.g. <code class="font-mono">48 65 6c</code> vs <code class="font-mono">48656c</code>)
             </label>
@@ -85,7 +86,7 @@
                   spellcheck="false"
                 ></textarea>
               </div>
-              <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem;">
+              <div class="ix-d6f1a2">
                 <button id="hexEncodeBtn" class="btn btn-primary">Text → Hex</button>
                 <button id="hexDecodeBtn" class="btn btn-secondary">Hex → Text</button>
                 <button id="hexClearBtn" class="btn btn-ghost">Clear</button>
@@ -104,7 +105,7 @@
                   spellcheck="false"
                 ></textarea>
               </div>
-              <button id="hexCopyBtn" class="btn btn-ghost" style="margin-top:.5rem;">Copy Output</button>
+              <button id="hexCopyBtn" class="btn btn-ghost ix-b65551">Copy Output</button>
             </div>
           </div>
         </div>

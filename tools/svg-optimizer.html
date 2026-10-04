@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Clean and minify SVG files by removing comments, metadata, doctype declarations and namespaces." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/svg-optimizer.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -65,17 +66,17 @@
         </div>
         <div class="card glass reveal">
           <!-- Options -->
-          <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.25rem;">
-            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.88rem;">
+          <div class="ix-f9b6bb">
+            <label class="ix-037329">
               <input type="checkbox" id="svgRmComments" checked /> Remove comments
             </label>
-            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.88rem;">
+            <label class="ix-037329">
               <input type="checkbox" id="svgRmMeta" checked /> Remove &lt;metadata&gt;
             </label>
-            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.88rem;">
+            <label class="ix-037329">
               <input type="checkbox" id="svgRmDoctype" checked /> Remove DOCTYPE
             </label>
-            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.88rem;">
+            <label class="ix-037329">
               <input type="checkbox" id="svgRmNs" /> Remove unused namespaces
             </label>
           </div>
@@ -92,23 +93,23 @@
             <button class="btn btn-primary" id="svgOptimizeBtn">Optimize</button>
           </div>
 
-          <div id="svgStats" style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1rem;"></div>
+          <div class="ix-f3dd8f" id="svgStats"></div>
 
           <div class="tool-split">
             <div class="tool-split-left">
               <div class="form-group">
                 <label class="form-label" for="svgInput">Input SVG</label>
-                <textarea class="form-control font-mono" id="svgInput" rows="14" placeholder="Paste SVG code here…" style="font-size:.78rem;"></textarea>
+                <textarea class="form-control font-mono ix-50875f" id="svgInput" rows="14" placeholder="Paste SVG code here…"></textarea>
               </div>
             </div>
             <div class="tool-split-right">
               <div class="form-group">
                 <label class="form-label" for="svgOutput">Optimized SVG</label>
-                <textarea class="form-control font-mono" id="svgOutput" rows="14" readonly style="font-size:.78rem;"></textarea>
+                <textarea class="form-control font-mono ix-50875f" id="svgOutput" rows="14" readonly></textarea>
               </div>
-              <div style="display:flex;gap:.75rem;margin-top:.75rem;">
-                <button class="btn btn-primary" id="copysvgBtn" style="flex:1;">Copy</button>
-                <button class="btn" id="downloadSvgBtn" style="flex:1;">Download .svg</button>
+              <div class="ix-02d8d1">
+                <button class="btn btn-primary ix-ee3d55" id="copysvgBtn">Copy</button>
+                <button class="btn ix-ee3d55" id="downloadSvgBtn">Download .svg</button>
               </div>
             </div>
           </div>

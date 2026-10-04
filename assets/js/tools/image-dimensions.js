@@ -42,11 +42,11 @@
     let html = '';
     results.forEach((r, i) => {
       html += `<tr>
-        <td style="padding:.4rem .6rem;" data-i18n-skip>${escapeHTML(r.name)}</td>
-        <td class="font-mono" style="padding:.4rem .6rem;white-space:nowrap;">${r.w} × ${r.h}</td>
-        <td class="font-mono" style="padding:.4rem .6rem;">${r.ratio}</td>
-        <td class="font-mono" style="padding:.4rem .6rem;">${formatBytes(r.size)}</td>
-        <td class="font-mono" style="padding:.4rem .6rem;">${r.mp} MP</td>
+        <td class="ix-eca7be" data-i18n-skip>${escapeHTML(r.name)}</td>
+        <td class="font-mono ix-f31540">${r.w} × ${r.h}</td>
+        <td class="font-mono ix-eca7be">${r.ratio}</td>
+        <td class="font-mono ix-eca7be">${formatBytes(r.size)}</td>
+        <td class="font-mono ix-eca7be">${r.mp} MP</td>
       </tr>`;
     });
     tableBody.innerHTML = html;

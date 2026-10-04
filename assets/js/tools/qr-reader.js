@@ -62,8 +62,8 @@
             const [k, ...rest] = p.split(':');
             if (k) parts[k] = rest.join(':');
           });
-          resultHTML += `<div class="qr-wifi-details" style="margin-top:.75rem;">
-            <div style="font-size:.76rem;color:var(--text-muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem;">Wi-Fi Details</div>
+          resultHTML += `<div class="qr-wifi-details ix-a54304">
+            <div class="ix-0a5dcd">Wi-Fi Details</div>
             <div class="wifi-row"><span class="wifi-label">SSID</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['S'] || '—')}</span></div>
             <div class="wifi-row"><span class="wifi-label">Password</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['P'] || '(none)')}</span></div>
             <div class="wifi-row"><span class="wifi-label">Security</span><span class="wifi-val" data-i18n-skip>${escapeHTML(parts['T'] || '—')}</span></div>

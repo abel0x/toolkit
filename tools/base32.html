@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Encode text to Base32 RFC 4648 format or decode Base32 strings back to text." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/base32.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -84,7 +85,7 @@
                   spellcheck="false"
                 ></textarea>
               </div>
-              <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem;">
+              <div class="ix-d6f1a2">
                 <button id="base32EncodeBtn" class="btn btn-primary">Encode →</button>
                 <button id="base32DecodeBtn" class="btn btn-secondary">← Decode</button>
                 <button id="base32ClearBtn" class="btn btn-ghost">Clear</button>
@@ -103,7 +104,7 @@
                   spellcheck="false"
                 ></textarea>
               </div>
-              <button id="base32CopyBtn" class="btn btn-ghost" style="margin-top:.5rem;">Copy Output</button>
+              <button id="base32CopyBtn" class="btn btn-ghost ix-b65551">Copy Output</button>
             </div>
           </div>
         </div>

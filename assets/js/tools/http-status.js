@@ -78,16 +78,16 @@
     });
 
     if (items.length === 0) {
-      gridEl.innerHTML = '<p style="color:var(--clr-muted,#94a3b8);padding:1rem;">No matching status codes.</p>';
+      gridEl.innerHTML = '<p class="ix-b13ac6">No matching status codes.</p>';
       return;
     }
 
     gridEl.innerHTML = items.map(c => `
-      <div class="http-card" data-code="${c.code}" style="--cat-color:${catColor(c.cat)}">
+      <div class="http-card" data-code="${c.code}" data-cat="${c.cat}">
         <div class="http-card-head">
           <span class="http-code">${c.code}</span>
           <span class="http-name">${escapeHTML(c.name)}</span>
-          <span class="http-cat-badge" style="color:${catColor(c.cat)}">${c.cat}</span>
+          <span class="http-cat-badge">${c.cat}</span>
         </div>
         <p class="http-short">${escapeHTML(c.short)}</p>
         <div class="http-desc" hidden>${escapeHTML(c.desc)}</div>
@@ -95,6 +95,10 @@
     `).join('');
 
     gridEl.querySelectorAll('.http-card').forEach(card => {
+      // Category colours are set through the CSSOM because the CSP blocks style attributes in markup.
+      const color = catColor(card.dataset.cat);
+      card.style.setProperty('--cat-color', color);
+      card.querySelector('.http-cat-badge').style.color = color;
       card.addEventListener('click', () => {
         const desc = card.querySelector('.http-desc');
         const isOpen = !desc.hidden;

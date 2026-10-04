@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate Open Graph and Twitter Card meta tags for rich social media previews." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/open-graph.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -117,19 +118,19 @@
             </div>
             <div class="tool-split-right">
               <!-- Preview card -->
-              <div id="ogPreview" style="background:#18191a;border-radius:.75rem;overflow:hidden;margin-bottom:1.25rem;border:1px solid rgba(255,255,255,.1);">
-                <div id="prevImgNotice" class="text-muted" hidden style="padding:.7rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);font-size:.78rem;">Remote preview images are not loaded to protect your privacy.</div>
-                <div style="padding:.9rem 1rem;">
-                  <div id="prevUrl" data-i18n-skip style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:.2rem;word-break:break-all;"></div>
-                  <div id="prevTitle" data-i18n-skip style="font-weight:700;font-size:.95rem;margin-bottom:.25rem;"></div>
-                  <div id="prevDesc" data-i18n-skip style="font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.4;"></div>
+              <div class="ix-cf40d6" id="ogPreview">
+                <div id="prevImgNotice" class="text-muted ix-e30292" hidden>Remote preview images are not loaded to protect your privacy.</div>
+                <div class="ix-00e1b2">
+                  <div class="ix-120dda" id="prevUrl" data-i18n-skip></div>
+                  <div class="ix-a1e144" id="prevTitle" data-i18n-skip></div>
+                  <div class="ix-5b18bc" id="prevDesc" data-i18n-skip></div>
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label" for="ogOutput">Generated Tags</label>
-                <textarea class="form-control font-mono" id="ogOutput" rows="18" readonly style="font-size:.78rem;"></textarea>
+                <textarea class="form-control font-mono ix-50875f" id="ogOutput" rows="18" readonly></textarea>
               </div>
-              <button class="btn btn-primary" id="copyOgBtn" style="width:100%;">Copy All Tags</button>
+              <button class="btn btn-primary ix-69d66e" id="copyOgBtn">Copy All Tags</button>
             </div>
           </div>
         </div>

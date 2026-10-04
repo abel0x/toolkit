@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate a robots.txt file for your website with allow/disallow rules, crawl-delay and sitemap." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/robots-generator.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -75,7 +76,7 @@
                   <option value="custom">Custom…</option>
                 </select>
               </div>
-              <div class="form-group" id="rgCustomAgentWrap" style="display:none;">
+              <div class="form-group ix-f2892a" id="rgCustomAgentWrap">
                 <label class="form-label" for="rgCustomAgent">Custom Agent Name</label>
                 <input type="text" class="form-control" id="rgCustomAgent" placeholder="MyBot" />
               </div>
@@ -83,7 +84,7 @@
               <div class="form-group">
                 <label class="form-label">Allow Rules</label>
                 <div id="rgAllowRows"></div>
-                <div style="display:flex;gap:.5rem;margin-top:.5rem;">
+                <div class="ix-d3bac1">
                   <button class="btn btn-sm" id="rgAddAllow">+ Allow</button>
                   <button class="btn btn-sm" id="rgAllowAll">Allow All</button>
                 </div>
@@ -92,7 +93,7 @@
               <div class="form-group">
                 <label class="form-label">Disallow Rules</label>
                 <div id="rgDisallowRows"></div>
-                <div style="display:flex;gap:.5rem;margin-top:.5rem;">
+                <div class="ix-d3bac1">
                   <button class="btn btn-sm" id="rgAddDisallow">+ Disallow</button>
                   <button class="btn btn-sm" id="rgBlockAll">Block All</button>
                 </div>
@@ -110,11 +111,11 @@
             <div class="tool-split-right">
               <div class="form-group">
                 <label class="form-label" for="rgOutput">robots.txt Output</label>
-                <textarea class="form-control font-mono" id="rgOutput" rows="20" readonly style="font-size:.82rem;"></textarea>
+                <textarea class="form-control font-mono ix-911b39" id="rgOutput" rows="20" readonly></textarea>
               </div>
-              <div style="display:flex;gap:.75rem;">
-                <button class="btn btn-primary" id="copyRgBtn" style="flex:1;">Copy</button>
-                <button class="btn" id="downloadRgBtn" style="flex:1;">Download</button>
+              <div class="ix-df90fa">
+                <button class="btn btn-primary ix-ee3d55" id="copyRgBtn">Copy</button>
+                <button class="btn ix-ee3d55" id="downloadRgBtn">Download</button>
               </div>
             </div>
           </div>

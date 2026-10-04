@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate placeholder Lorem Ipsum text by words, sentences or paragraphs. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/lorem-ipsum.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -88,14 +89,14 @@
                 <span>Paragraphs</span>
               </label>
             </fieldset>
-            <div class="control-row" style="margin-top:1.2rem">
+            <div class="control-row ix-33fe78">
               <label for="loremCount" class="control-label">
                 Amount
                 <span class="control-value" id="loremCountVal" aria-live="polite">5</span>
               </label>
               <input type="range" id="loremCount" class="slider" min="1" max="20" value="5" aria-label="Amount to generate" />
             </div>
-            <div class="btn-row" style="margin-top:.9rem">
+            <div class="btn-row ix-d590ad">
               <button class="btn btn--primary" id="loremGenBtn">Generate</button>
               <button class="btn btn--ghost" id="loremClearBtn">Clear</button>
               <button class="icon-btn" id="loremCopyBtn" aria-label="Copy text" title="Copy">

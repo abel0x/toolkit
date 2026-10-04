@@ -56,11 +56,11 @@
 
     // Stats
     stats.innerHTML = `<span class="match-count-badge">${count} match${count !== 1 ? 'es' : ''}</span>`;
-    if (count === 0) stats.innerHTML += `<span style="color:var(--text-muted);font-size:.82rem;"> — no matches found</span>`;
+    if (count === 0) stats.innerHTML += `<span class="ix-fa8d43"> — no matches found</span>`;
 
     // Groups
     if (count > 0 && matches[0].length > 1) {
-      let gHTML = '<div style="margin-top:.5rem;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem">Capture groups (first match):</div>';
+      let gHTML = '<div class="ix-b697f9">Capture groups (first match):</div>';
       matches[0].slice(1).forEach((g, i) => {
         gHTML += `<span class="group-card"><span class="group-label">Group ${i+1}</span><span class="group-value" data-i18n-skip>${g === undefined ? '<em>undefined</em>' : escapeHTML(String(g))}</span></span>`;
       });

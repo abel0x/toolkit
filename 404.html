@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-R6GFmOxxLabm5MnUU6rh4oIT8z3chkj1x+qiQltjifs='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-R6GFmOxxLabm5MnUU6rh4oIT8z3chkj1x+qiQltjifs='; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <!-- GitHub Pages serves this page at any missing URL, including nested ones such as
        /toolkit/tools/missing.html, so assets and links resolve from the site root. -->
   <base href="/toolkit/" />
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/compatibility.css" />
   <link rel="stylesheet" href="assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="assets/css/inline-styles.css" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/images/favicon-256.png" />
@@ -55,61 +56,25 @@
 </header>
 
   <main>
-    <section
-      style="
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        min-height:calc(100vh - var(--nav-h, 64px) - 120px);
-        padding: 4rem 1.5rem;
-        text-align:center;
-      "
+    <section class="ix-6d07e0"
       aria-labelledby="notFoundTitle"
     >
       <!-- Large 404 number -->
-      <p
+      <p class="ix-a174d9"
         aria-hidden="true"
-        style="
-          font-family: var(--font-mono, 'JetBrains Mono', monospace);
-          font-size: clamp(5rem, 20vw, 10rem);
-          font-weight: 700;
-          line-height: 1;
-          margin-bottom: 1.5rem;
-          background: linear-gradient(135deg, var(--cyan, #00d4ff) 0%, var(--purple, #7c3aed) 60%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          letter-spacing: -0.04em;
-          user-select: none;
-        "
       >404</p>
 
-      <h1
+      <h1 class="ix-22f853"
         id="notFoundTitle"
-        style="
-          font-size: clamp(1.4rem, 4vw, 2rem);
-          font-weight: 700;
-          color: var(--text-primary, #f0f6fc);
-          margin-bottom: 1rem;
-          letter-spacing: -0.02em;
-        "
       >Page not found</h1>
 
-      <p
-        style="
-          font-size: clamp(0.9rem, 2vw, 1.05rem);
-          color: var(--text-muted, #7d8590);
-          max-width: 420px;
-          line-height: 1.7;
-          margin-bottom: 2.5rem;
-        "
+      <p class="ix-c27261"
       >
         The page you're looking for doesn't exist or may have been moved.
         Every tool is still here — head back and find what you need.
       </p>
 
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
+      <div class="ix-a40b25">
         <a href="index.html" class="btn btn--primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
             <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11l2 2m-2-2v10a1 1 0 0 1-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1m-6 0h6"/>
@@ -124,16 +89,8 @@
         </a>
       </div>  
       <!-- Subtle decoration: a horizontal rule with a label -->
-      <p
+      <p class="ix-69f4ac"
         aria-hidden="true"
-        style="
-          margin-top: 4rem;
-          font-family: var(--font-mono, 'JetBrains Mono', monospace);
-          font-size: 0.72rem;
-          color: var(--text-muted, #7d8590);
-          opacity: 0.5;
-          letter-spacing: 0.08em;
-        "
       >HTTP 404 · Nothing Lives Here</p>
     </section>
   </main>

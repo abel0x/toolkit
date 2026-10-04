@@ -77,10 +77,10 @@
     REFS.forEach(r => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td style="padding:.4rem .75rem;">${r.label}</td>
-        <td class="font-mono" style="text-align:right;padding:.4rem .75rem;">${fmt(r.c)}</td>
-        <td class="font-mono" style="text-align:right;padding:.4rem .75rem;">${fmt(cToF(r.c))}</td>
-        <td class="font-mono" style="text-align:right;padding:.4rem .75rem;">${fmt(cToK(r.c))}</td>
+        <td class="ix-6bf00e">${r.label}</td>
+        <td class="font-mono ix-bd234f">${fmt(r.c)}</td>
+        <td class="font-mono ix-bd234f">${fmt(cToF(r.c))}</td>
+        <td class="font-mono ix-bd234f">${fmt(cToK(r.c))}</td>
       `;
       refTableBody.appendChild(tr);
     });

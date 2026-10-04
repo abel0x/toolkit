@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Look up MIME types from file extensions and vice versa." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/mime-lookup.html" />
   <meta property="og:title" content="MIME Type Lookup — Toolkit" />
@@ -18,20 +18,8 @@
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" /><link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <style>
-    .mime-result{margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
-    .mime-result-item{display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.65rem 1rem;font-size:0.9rem;}
-    .mime-ext{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent,#00d4ff);min-width:4rem;}
-    .mime-arrow{color:rgba(255,255,255,0.3);font-size:0.85rem;}
-    .mime-type{font-family:'JetBrains Mono',monospace;color:#e2e8f0;flex:1;}
-    .mime-exts{font-family:'JetBrains Mono',monospace;color:#e2e8f0;flex:1;font-size:0.83rem;}
-    .mime-table-wrap{margin-top:1.5rem;overflow-x:auto;}
-    .mime-table{width:100%;border-collapse:collapse;font-size:0.85rem;table-layout:fixed;}
-    .mime-table th{text-align:left;padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--text-muted,#8b949e);font-weight:500;}
-    .mime-table td{padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.05);font-family:'JetBrains Mono',monospace;font-size:0.82rem;overflow-wrap:anywhere;}
-    .mime-table tr:last-child td{border-bottom:none;}
-    .mime-table tr:hover td{background:rgba(255,255,255,0.03);}
-  </style>
+  <link rel="stylesheet" href="../assets/css/tools/mime-lookup.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -85,7 +73,7 @@
           <div class="form-group">
             <label class="form-label" for="mime-input">Enter value</label>
             <div class="control-cluster control-cluster--start">
-              <input id="mime-input" type="text" class="form-control" placeholder="e.g. png" autocomplete="off" style="flex:1;min-width:200px;" />
+              <input id="mime-input" type="text" class="form-control ix-72b66b" placeholder="e.g. png" autocomplete="off" />
               <button id="mime-btn" class="btn btn-primary">Look Up</button>
             </div>
           </div>

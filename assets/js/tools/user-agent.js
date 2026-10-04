@@ -72,15 +72,15 @@
       ['Device Type', data.device],
       ['Rendering Engine', data.engine]
     ];
-    let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin-top:1rem;">';
+    let html = '<div class="ix-5ff90c">';
     rows.forEach(([label, val]) => {
-      html += `<div style="background:rgba(0,0,0,.25);border-radius:.5rem;padding:.75rem 1rem;">
-        <div style="font-size:.75rem;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:.25rem;">${label}</div>
-        <div class="font-mono" style="font-size:.9rem;color:var(--accent-cyan,#00d4ff);">${escapeHTML(val.trim() || '—')}</div>
+      html += `<div class="ix-083b22">
+        <div class="ix-0efce3">${label}</div>
+        <div class="font-mono ix-0efe87">${escapeHTML(val.trim() || '—')}</div>
       </div>`;
     });
     html += '</div>';
-    html += `<div style="margin-top:1rem;background:rgba(0,0,0,.2);border-radius:.5rem;padding:.75rem 1rem;"><div style="font-size:.75rem;font-weight:600;color:rgba(255,255,255,.45);margin-bottom:.25rem;">Full UA String</div><div class="font-mono" style="font-size:.8rem;word-break:break-all;">${escapeHTML(ua)}</div></div>`;
+    html += `<div class="ix-9a2a14"><div class="ix-0efce3">Full UA String</div><div class="font-mono ix-fc85fa">${escapeHTML(ua)}</div></div>`;
     resultEl.innerHTML = html;
   }
 

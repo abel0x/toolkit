@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Remove duplicate lines from text with options for case sensitivity and trimming." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/deduplicate-lines.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -66,12 +67,12 @@
         </div>
 
         <div class="card glass reveal">
-          <div class="form-group" style="display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+          <div class="form-group ix-1f8a30">
+            <label class="ix-fae94d">
               <input type="checkbox" id="dd-case-insensitive" />
               Case-insensitive comparison
             </label>
-            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+            <label class="ix-fae94d">
               <input type="checkbox" id="dd-trim" checked />
               Trim whitespace before comparing
             </label>
@@ -89,10 +90,10 @@
             </div>
           </div>
 
-          <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap;align-items:center;">
+          <div class="ix-af8f31">
             <button class="btn btn-primary" id="dd-dedup-btn">Remove Duplicates</button>
             <button class="btn btn-secondary" id="dd-copy-btn">Copy Output</button>
-            <span id="dd-stats" style="font-size:.85rem;opacity:.6;"></span>
+            <span class="ix-1e564e" id="dd-stats"></span>
           </div>
         </div>
       </div>

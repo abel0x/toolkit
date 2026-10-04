@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert characters to their ASCII / Unicode code points and back — decimal, hex, octal, binary." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/ascii.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -67,8 +68,8 @@
         </div>
 
         <!-- Text → Code Points -->
-        <div class="card glass reveal" style="margin-bottom:1.5rem;">
-          <h2 style="font-size:1rem;font-weight:600;margin-bottom:1rem;">Text → Code Points</h2>
+        <div class="card glass reveal ix-f0b24e">
+          <h2 class="ix-1ec10d">Text → Code Points</h2>
           <div class="form-group">
             <label class="form-label" for="asciiInput">Input text</label>
             <input
@@ -78,17 +79,17 @@
               placeholder="Type characters here…"
             />
           </div>
-          <button id="asciiConvertBtn" class="btn btn-primary" style="margin-top:.5rem;">Convert</button>
+          <button id="asciiConvertBtn" class="btn btn-primary ix-b65551">Convert</button>
 
-          <div id="asciiTableWrap" style="margin-top:1.25rem;overflow-x:auto;display:none;">
-            <table style="width:100%;border-collapse:collapse;font-size:.875rem;" aria-label="Character code points">
+          <div class="ix-7da27a" id="asciiTableWrap">
+            <table class="ix-c2b3a0" aria-label="Character code points">
               <thead>
-                <tr style="border-bottom:1px solid var(--border,#333);">
-                  <th style="text-align:left;padding:.5rem .75rem;font-weight:600;">Char</th>
-                  <th style="text-align:left;padding:.5rem .75rem;font-weight:600;">Decimal</th>
-                  <th style="text-align:left;padding:.5rem .75rem;font-weight:600;">Hex</th>
-                  <th style="text-align:left;padding:.5rem .75rem;font-weight:600;">Octal</th>
-                  <th style="text-align:left;padding:.5rem .75rem;font-weight:600;">Binary</th>
+                <tr class="ix-feaff9">
+                  <th class="ix-e00bba">Char</th>
+                  <th class="ix-e00bba">Decimal</th>
+                  <th class="ix-e00bba">Hex</th>
+                  <th class="ix-e00bba">Octal</th>
+                  <th class="ix-e00bba">Binary</th>
                 </tr>
               </thead>
               <tbody id="asciiTableBody"></tbody>
@@ -98,9 +99,9 @@
 
         <!-- Code Point → Character (Reverse) -->
         <div class="card glass reveal">
-          <h2 style="font-size:1rem;font-weight:600;margin-bottom:1rem;">Code Point → Character</h2>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end;">
-            <div class="form-group" style="flex:1;min-width:160px;">
+          <h2 class="ix-1ec10d">Code Point → Character</h2>
+          <div class="ix-7381f8">
+            <div class="form-group ix-164a69">
               <label class="form-label" for="asciiCodeInput">Code point value</label>
               <input
                 type="text"
@@ -109,7 +110,7 @@
                 placeholder="e.g. 65 or 0x41 or 0b1000001"
               />
             </div>
-            <div class="form-group" style="min-width:140px;">
+            <div class="form-group ix-7f382d">
               <label class="form-label" for="asciiBaseSelect">Base</label>
               <select id="asciiBaseSelect" class="form-control form-select">
                 <option value="10">Decimal (10)</option>
@@ -118,11 +119,11 @@
                 <option value="2">Binary (2)</option>
               </select>
             </div>
-            <button id="asciiReverseBtn" class="btn btn-primary" style="margin-bottom:0;">Lookup</button>
+            <button id="asciiReverseBtn" class="btn btn-primary ix-648149">Lookup</button>
           </div>
-          <div id="asciiReverseResult" style="margin-top:.75rem;display:none;">
-            <span style="font-size:1rem;">Character: </span>
-            <span id="asciiReverseChar" class="font-mono gradient-text" style="font-size:1.5rem;font-weight:700;"></span>
+          <div class="ix-3c9c33" id="asciiReverseResult">
+            <span class="ix-ba04dc">Character: </span>
+            <span id="asciiReverseChar" class="font-mono gradient-text ix-25ecb2"></span>
           </div>
         </div>
       </div>

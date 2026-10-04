@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate random colors in HEX, RGB, and HSL formats — single or bulk." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/random-color.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -66,10 +67,10 @@
         </div>
 
         <div class="card glass reveal">
-          <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;margin-bottom:1.5rem;">
-            <div class="form-group" style="margin:0;">
+          <div class="ix-878810">
+            <div class="form-group ix-ff227d">
               <label class="form-label" for="rc-count">Count</label>
-              <select id="rc-count" class="form-control form-select" style="width:90px;">
+              <select id="rc-count" class="form-control form-select ix-e60a90">
                 <option value="1">1</option>
                 <option value="5" selected>5</option>
                 <option value="10">10</option>
@@ -78,8 +79,8 @@
               </select>
             </div>
             <div>
-              <span class="form-label" style="display:block;margin-bottom:.5rem;">Output Format</span>
-              <div style="display:flex;gap:.5rem;">
+              <span class="form-label ix-a9fd6b">Output Format</span>
+              <div class="ix-9a2d4c">
                 <button class="btn btn-primary" data-fmt="hex" id="rc-fmt-hex">HEX</button>
                 <button class="btn btn-secondary" data-fmt="rgb" id="rc-fmt-rgb">RGB</button>
                 <button class="btn btn-secondary" data-fmt="hsl" id="rc-fmt-hsl">HSL</button>
@@ -87,39 +88,39 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem;">
-            <div class="form-group" style="margin:0;">
+          <div class="ix-19f32e">
+            <div class="form-group ix-ff227d">
               <label class="form-label">Hue Range</label>
-              <div style="display:flex;gap:.5rem;align-items:center;">
-                <input type="number" id="rc-hmin" class="form-control" value="0" min="0" max="360" style="width:70px;" aria-label="Minimum hue" />
-                <span style="opacity:.5;">–</span>
-                <input type="number" id="rc-hmax" class="form-control" value="360" min="0" max="360" style="width:70px;" aria-label="Maximum hue" />
+              <div class="ix-f41b38">
+                <input type="number" id="rc-hmin" class="form-control ix-be8da0" value="0" min="0" max="360" aria-label="Minimum hue" />
+                <span class="ix-9d249d">–</span>
+                <input type="number" id="rc-hmax" class="form-control ix-be8da0" value="360" min="0" max="360" aria-label="Maximum hue" />
               </div>
             </div>
-            <div class="form-group" style="margin:0;">
+            <div class="form-group ix-ff227d">
               <label class="form-label">Saturation %</label>
-              <div style="display:flex;gap:.5rem;align-items:center;">
-                <input type="number" id="rc-smin" class="form-control" value="50" min="0" max="100" style="width:70px;" aria-label="Minimum saturation" />
-                <span style="opacity:.5;">–</span>
-                <input type="number" id="rc-smax" class="form-control" value="100" min="0" max="100" style="width:70px;" aria-label="Maximum saturation" />
+              <div class="ix-f41b38">
+                <input type="number" id="rc-smin" class="form-control ix-be8da0" value="50" min="0" max="100" aria-label="Minimum saturation" />
+                <span class="ix-9d249d">–</span>
+                <input type="number" id="rc-smax" class="form-control ix-be8da0" value="100" min="0" max="100" aria-label="Maximum saturation" />
               </div>
             </div>
-            <div class="form-group" style="margin:0;">
+            <div class="form-group ix-ff227d">
               <label class="form-label">Lightness %</label>
-              <div style="display:flex;gap:.5rem;align-items:center;">
-                <input type="number" id="rc-lmin" class="form-control" value="30" min="0" max="100" style="width:70px;" aria-label="Minimum lightness" />
-                <span style="opacity:.5;">–</span>
-                <input type="number" id="rc-lmax" class="form-control" value="70" min="0" max="100" style="width:70px;" aria-label="Maximum lightness" />
+              <div class="ix-f41b38">
+                <input type="number" id="rc-lmin" class="form-control ix-be8da0" value="30" min="0" max="100" aria-label="Minimum lightness" />
+                <span class="ix-9d249d">–</span>
+                <input type="number" id="rc-lmax" class="form-control ix-be8da0" value="70" min="0" max="100" aria-label="Maximum lightness" />
               </div>
             </div>
           </div>
 
-          <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+          <div class="ix-c6849a">
             <button class="btn btn-primary" id="rc-generate-btn">Generate</button>
             <button class="btn btn-secondary" id="rc-copy-all-btn">Copy All</button>
           </div>
 
-          <div id="rc-grid" style="display:flex;flex-wrap:wrap;gap:1rem;"></div>
+          <div class="ix-01b674" id="rc-grid"></div>
         </div>
       </div>
     </section>

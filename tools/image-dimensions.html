@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Drop multiple images to instantly see their dimensions, aspect ratio, file size and megapixels." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/image-dimensions.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -65,25 +66,25 @@
         </div>
         <div class="card glass reveal">
           <!-- Drop zone -->
-          <div id="idDrop" class="drop-zone" style="border:2px dashed rgba(255,255,255,.2);border-radius:.75rem;padding:2.5rem 1rem;text-align:center;cursor:pointer;margin-bottom:1.25rem;transition:border-color .2s;" role="button" tabindex="0" aria-label="Drop images here or click to select">
-            <p style="margin:0;color:rgba(255,255,255,.55);">Drop images here or <strong>click to select</strong> (multiple files supported)</p>
-            <input type="file" id="idFile" accept="image/*" multiple style="display:none;" aria-label="Select image files" />
+          <div id="idDrop" class="drop-zone ix-cb1410" role="button" tabindex="0" aria-label="Drop images here or click to select">
+            <p class="ix-667a97">Drop images here or <strong>click to select</strong> (multiple files supported)</p>
+            <input hidden type="file" id="idFile" accept="image/*" multiple aria-label="Select image files" />
           </div>
 
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-            <span id="idCount" style="font-size:.85rem;color:rgba(255,255,255,.55);"></span>
-            <button class="btn btn-sm" id="idClearBtn" style="display:none;">Clear All</button>
+          <div class="ix-96bc2b">
+            <span class="ix-905e3a" id="idCount"></span>
+            <button class="btn btn-sm ix-f2892a" id="idClearBtn">Clear All</button>
           </div>
 
-          <div class="table-scroll" style="overflow-x:auto;" tabindex="0" aria-label="Image dimensions table">
-            <table style="width:100%;border-collapse:collapse;font-size:.85rem;min-width:600px;">
+          <div class="table-scroll ix-42d445" tabindex="0" aria-label="Image dimensions table">
+            <table class="ix-38a245">
               <thead>
                 <tr>
-                  <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">Filename</th>
-                  <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">W × H</th>
-                  <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">Aspect Ratio</th>
-                  <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">File Size</th>
-                  <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">Megapixels</th>
+                  <th class="ix-259132">Filename</th>
+                  <th class="ix-259132">W × H</th>
+                  <th class="ix-259132">Aspect Ratio</th>
+                  <th class="ix-259132">File Size</th>
+                  <th class="ix-259132">Megapixels</th>
                 </tr>
               </thead>
               <tbody id="idTableBody"></tbody>

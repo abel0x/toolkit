@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Count words, characters, sentences, paragraphs and estimate reading time." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/word-counter.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -76,30 +77,30 @@
             <textarea id="wc-input" class="form-control font-mono" rows="12" placeholder="Start typing or paste your text here..."></textarea>
           </div>
 
-          <div class="wc-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:1.5rem;">
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-words" style="font-size:2rem;font-weight:700;">0</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Words</div>
+          <div class="wc-stats-grid ix-982537">
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-words">0</div>
+              <div class="wc-stat-label ix-eee0ac">Words</div>
             </div>
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-chars" style="font-size:2rem;font-weight:700;">0</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Characters (w/ spaces)</div>
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-chars">0</div>
+              <div class="wc-stat-label ix-eee0ac">Characters (w/ spaces)</div>
             </div>
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-chars-ns" style="font-size:2rem;font-weight:700;">0</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Characters (no spaces)</div>
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-chars-ns">0</div>
+              <div class="wc-stat-label ix-eee0ac">Characters (no spaces)</div>
             </div>
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-sentences" style="font-size:2rem;font-weight:700;">0</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Sentences</div>
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-sentences">0</div>
+              <div class="wc-stat-label ix-eee0ac">Sentences</div>
             </div>
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-paragraphs" style="font-size:2rem;font-weight:700;">0</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Paragraphs</div>
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-paragraphs">0</div>
+              <div class="wc-stat-label ix-eee0ac">Paragraphs</div>
             </div>
-            <div class="wc-stat card" style="text-align:center;padding:1rem;">
-              <div class="wc-stat-value gradient-text" id="wc-reading" style="font-size:2rem;font-weight:700;">0 min</div>
-              <div class="wc-stat-label" style="font-size:.75rem;opacity:.6;margin-top:.25rem;">Reading Time</div>
+            <div class="wc-stat card ix-fefbd1">
+              <div class="wc-stat-value gradient-text ix-fd479f" id="wc-reading">0 min</div>
+              <div class="wc-stat-label ix-eee0ac">Reading Time</div>
             </div>
           </div>
         </div>

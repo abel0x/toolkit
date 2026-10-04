@@ -58,7 +58,7 @@
     html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
       const safe = safeImageUrl(url);
       if (!safe) return `<span class="text-muted">🖼 ${alt}</span>`;
-      return park(`<img src="${safe}" alt="${escapeAttribute(alt)}" style="max-width:100%;border-radius:8px;">`);
+      return park(`<img class="ix-0f72cc" src="${safe}" alt="${escapeAttribute(alt)}">`);
     });
 
     // Links (the visible text still receives inline formatting)

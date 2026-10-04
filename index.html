@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Toolkit — 101 free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter, text tools, converters, web utilities and more. 100% client-side, zero tracking." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/" />
@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/compatibility.css" />
   <link rel="stylesheet" href="assets/css/pages/home.css" />
+  <link rel="stylesheet" href="assets/css/inline-styles.css" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/images/favicon-256.png" />
@@ -728,7 +729,7 @@
             spellcheck="false"
           ></textarea>
 
-          <button class="btn btn--primary" id="hashGenBtn" style="margin-top:1rem;">Generate Hashes</button>
+          <button class="btn btn--primary ix-dab43f" id="hashGenBtn">Generate Hashes</button>
 
           <div class="hash-results" id="hashResults" aria-live="polite" aria-label="Hash results">
             <!-- Populated by JS -->
@@ -838,7 +839,7 @@
                 </button>
               </div>
               <textarea id="jsonInput" class="textarea" rows="14" placeholder='{&#10;  "name": "Toolkit",&#10;  "version": 2&#10;}' spellcheck="false" aria-label="JSON input"></textarea>
-              <div class="btn-row" style="margin-top:.9rem;">
+              <div class="btn-row ix-d590ad">
                 <button class="btn btn--primary" id="jsonBeautifyBtn">Beautify</button>
                 <button class="btn btn--secondary" id="jsonMinifyBtn">Minify</button>
                 <button class="btn btn--ghost" id="jsonValidateBtn">Validate</button>
@@ -880,7 +881,7 @@
                 </button>
               </div>
               <textarea id="urlInput" class="textarea" rows="8" placeholder="Paste a URL or text to encode / decode…" spellcheck="false" aria-label="URL input"></textarea>
-              <div class="btn-row" style="margin-top:.9rem;">
+              <div class="btn-row ix-d590ad">
                 <button class="btn btn--primary" id="urlEncodeBtn">Encode →</button>
                 <button class="btn btn--secondary" id="urlDecodeBtn">← Decode</button>
               </div>
@@ -913,9 +914,9 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             <span>Signature is <strong>not verified</strong> — this tool only decodes the token structure. Never trust a JWT without server-side verification.</span>
           </div>
-          <label for="jwtInput" class="control-label" style="margin-top:1.2rem;">JWT Token</label>
+          <label for="jwtInput" class="control-label ix-33fe78">JWT Token</label>
           <textarea id="jwtInput" class="textarea" rows="4" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFscGhhIFRvb2xraXQiLCJpYXQiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" spellcheck="false" aria-label="JWT token input"></textarea>
-          <button class="btn btn--primary" id="jwtDecodeBtn" style="margin-top:.9rem;">Decode Token</button>
+          <button class="btn btn--primary ix-d590ad" id="jwtDecodeBtn">Decode Token</button>
           <div id="jwtResults" aria-live="polite"></div>
         </div>
       </div>
@@ -940,7 +941,7 @@
             </button>
           </div>
           <p class="error-msg" id="regexError" role="alert" hidden></p>
-          <label for="regexTest" class="control-label" style="margin-top:1.2rem;">Test String</label>
+          <label for="regexTest" class="control-label ix-33fe78">Test String</label>
           <div class="regex-test-wrap">
             <textarea id="regexTest" class="textarea" rows="7" placeholder="Paste or type your test string here… Matches will be highlighted in real time." spellcheck="false" aria-label="Test string for regex"></textarea>
             <div id="regexHighlight" class="regex-highlight" aria-hidden="true"></div>
@@ -976,7 +977,7 @@
                   <button class="unit-btn" id="tsMsBtn" data-unit="ms">ms</button>
                 </div>
               </div>
-              <button class="btn btn--primary" id="tsToDateBtn" style="margin-top:.85rem;width:100%;">Convert to Date</button>
+              <button class="btn btn--primary ix-d19ca8" id="tsToDateBtn">Convert to Date</button>
               <div class="ts-result" id="tsUnixResult" aria-live="polite"></div>
             </div>
 
@@ -986,7 +987,7 @@
               <h3 class="ts-panel-title">Date → Unix</h3>
               <label for="tsDateInput" class="control-label">Date &amp; Time</label>
               <input type="datetime-local" id="tsDateInput" class="input-field" aria-label="Date and time" />
-              <button class="btn btn--primary" id="tsToUnixBtn" style="margin-top:.85rem;width:100%;">Convert to Unix</button>
+              <button class="btn btn--primary ix-d19ca8" id="tsToUnixBtn">Convert to Unix</button>
               <div class="ts-result" id="tsDateResult" aria-live="polite"></div>
             </div>
           </div>
@@ -1078,7 +1079,7 @@
                     <input type="range" id="qrMargin" class="slider" min="0" max="6" step="1" value="2" aria-label="QR code margin" />
                   </div>
                 </div>
-                <div class="qr-opt-row" style="margin-top:.9rem">
+                <div class="qr-opt-row ix-d590ad">
                   <div class="qr-color-opt">
                     <label for="qrColorDark" class="control-label">Foreground</label>
                     <input type="color" id="qrColorDark" class="color-input" value="#000000" aria-label="QR code foreground color" />
@@ -1099,7 +1100,7 @@
                 </div>
               </div>
 
-              <div class="btn-row" style="margin-top:1.1rem">
+              <div class="btn-row ix-3fb132">
                 <button class="btn btn--primary" id="qrGenBtn">Generate QR</button>
                 <button class="btn btn--ghost" id="qrClearBtn">Clear</button>
               </div>
@@ -1165,7 +1166,7 @@
         <div class="card glass reveal" role="region" aria-label="Color Converter Tool">
           <div class="color-layout">
             <div class="color-swatch-col">
-              <div class="color-swatch" id="colorSwatch" style="background:#6366f1" aria-label="Color preview"></div>
+              <div class="color-swatch ix-a78e64" id="colorSwatch" aria-label="Color preview"></div>
               <input type="color" id="colorPicker" class="color-picker-input" value="#6366f1" aria-label="Color picker" title="Pick a color" />
             </div>
             <div class="color-inputs-col">
@@ -1235,10 +1236,10 @@
                   </button>
                 </div>
               </div>
-              <button class="btn btn--ghost btn--sm" id="gradAddStop" style="margin-top:.8rem">+ Add Color Stop</button>
-              <div class="btn-row" style="margin-top:1rem">
+              <button class="btn btn--ghost btn--sm ix-fd34e2" id="gradAddStop">+ Add Color Stop</button>
+              <div class="btn-row ix-dab43f">
                 <button class="btn btn--ghost" id="gradRandomBtn">Random Gradient</button>
-                <button class="icon-btn" id="gradCopyBtn" aria-label="Copy CSS" title="Copy CSS" style="width:auto;padding:0 .9rem;gap:.4rem;font-size:.82rem;font-weight:600">
+                <button class="icon-btn ix-0a7da1" id="gradCopyBtn" aria-label="Copy CSS" title="Copy CSS">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   Copy CSS
                 </button>
@@ -1281,14 +1282,14 @@
                 <span>Paragraphs</span>
               </label>
             </fieldset>
-            <div class="control-row" style="margin-top:1.2rem">
+            <div class="control-row ix-33fe78">
               <label for="loremCount" class="control-label">
                 Amount
                 <span class="control-value" id="loremCountVal" aria-live="polite">5</span>
               </label>
               <input type="range" id="loremCount" class="slider" min="1" max="20" value="5" aria-label="Amount to generate" />
             </div>
-            <div class="btn-row" style="margin-top:.9rem">
+            <div class="btn-row ix-d590ad">
               <button class="btn btn--primary" id="loremGenBtn">Generate</button>
               <button class="btn btn--ghost" id="loremClearBtn">Clear</button>
               <button class="icon-btn" id="loremCopyBtn" aria-label="Copy text" title="Copy">
@@ -1320,7 +1321,7 @@
               <textarea id="diffB" class="textarea" rows="10" placeholder="Paste the modified text here…" spellcheck="false" aria-label="Modified text"></textarea>
             </div>
           </div>
-          <div class="btn-row" style="margin-top:.9rem">
+          <div class="btn-row ix-d590ad">
             <button class="btn btn--primary" id="diffCompareBtn">Compare</button>
             <button class="btn btn--ghost" id="diffClearBtn">Clear</button>
           </div>

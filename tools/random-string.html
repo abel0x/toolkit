@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate random strings with custom length, charset and count." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/random-string.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -66,11 +67,11 @@
         </div>
 
         <div class="card glass reveal">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-bottom:1.5rem;">
+          <div class="ix-2cf2bf">
             <div class="form-group">
               <label class="form-label" for="rs-length">Length: <span id="rs-length-display">16</span></label>
               <input type="range" id="rs-length" class="form-range" min="4" max="128" value="16" />
-              <div class="form-hint" style="display:flex;justify-content:space-between;"><span>4</span><span>128</span></div>
+              <div class="form-hint ix-6d94a7"><span>4</span><span>128</span></div>
             </div>
             <div class="form-group">
               <label class="form-label" for="rs-count">Count</label>
@@ -78,25 +79,25 @@
             </div>
           </div>
 
-          <div class="form-group" style="margin-bottom:1.5rem;">
-            <span class="form-label" style="display:block;margin-bottom:.5rem;">Character Set</span>
-            <div style="display:flex;flex-wrap:wrap;gap:1rem;">
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+          <div class="form-group ix-f0b24e">
+            <span class="form-label ix-a9fd6b">Character Set</span>
+            <div class="ix-01b674">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="rs-upper" checked /> Uppercase (A-Z)
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="rs-lower" checked /> Lowercase (a-z)
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="rs-numbers" checked /> Numbers (0-9)
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="rs-symbols" /> Symbols (!@#$...)
               </label>
             </div>
           </div>
 
-          <div class="form-group" style="margin-bottom:1.5rem;">
+          <div class="form-group ix-f0b24e">
             <label class="form-label" for="rs-custom">Custom Charset (optional)</label>
             <input type="text" id="rs-custom" class="form-control font-mono" placeholder="e.g. abcdef123" />
             <span class="form-hint">If filled, overrides all checkboxes above.</span>
@@ -107,7 +108,7 @@
             <textarea id="rs-output" class="form-control font-mono" rows="10" readonly placeholder="Click Generate..."></textarea>
           </div>
 
-          <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap;">
+          <div class="ix-1b3299">
             <button class="btn btn-primary" id="rs-generate-btn">Generate</button>
             <button class="btn btn-secondary" id="rs-copy-btn">Copy All</button>
           </div>

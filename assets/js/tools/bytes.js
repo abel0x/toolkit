@@ -35,25 +35,25 @@
     if (isNaN(val) || val < 0) { tableEl.innerHTML = ''; return; }
     const bytes = toBytes(val, unitEl.value);
 
-    let html = '<table style="width:100%;border-collapse:collapse;font-size:.875rem;">';
+    let html = '<table class="ix-c2b3a0">';
     html += '<thead><tr>';
-    html += '<th style="text-align:left;padding:.45rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);">Unit</th>';
-    html += '<th style="text-align:right;padding:.45rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);">Value</th>';
-    html += '<th style="text-align:center;padding:.45rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);">Type</th>';
-    html += '<th style="padding:.45rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);"></th>';
+    html += '<th class="ix-c4ccea">Unit</th>';
+    html += '<th class="ix-be468c">Value</th>';
+    html += '<th class="ix-d3c755">Type</th>';
+    html += '<th class="ix-6c8182"></th>';
     html += '</tr></thead><tbody>';
 
     UNITS.forEach(u => {
       const v = bytes / u.factor;
       const typeLabel = u.binary
-        ? '<span style="color:#a78bfa;">Binary</span>'
-        : '<span style="color:#00d4ff;">Decimal</span>';
+        ? '<span class="ix-2dc335">Binary</span>'
+        : '<span class="ix-58b7a5">Decimal</span>';
       html += `<tr>
-        <td style="padding:.35rem .7rem;font-weight:600;">${u.label}</td>
-        <td class="font-mono" style="text-align:right;padding:.35rem .7rem;">${fmt(v)}</td>
-        <td style="text-align:center;padding:.35rem .7rem;font-size:.75rem;">${typeLabel}</td>
-        <td style="padding:.35rem .7rem;">
-          <button class="btn btn-secondary" style="padding:.15rem .5rem;font-size:.75rem;" data-copy-value="${fmt(v)}" data-copy-label="${u.key}">Copy</button>
+        <td class="ix-178d87">${u.label}</td>
+        <td class="font-mono ix-6c43b0">${fmt(v)}</td>
+        <td class="ix-934b90">${typeLabel}</td>
+        <td class="ix-ed35b3">
+          <button class="btn btn-secondary ix-bb3314" data-copy-value="${fmt(v)}" data-copy-label="${u.key}">Copy</button>
         </td>
       </tr>`;
     });

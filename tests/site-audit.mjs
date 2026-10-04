@@ -67,6 +67,10 @@ for (const file of pages) {
   }
   assert(/script-src 'self'(?: 'sha256-[A-Za-z0-9+/=]+')?;/.test(policy[1]),
     `${relativeName} CSP must not allow inline or remote scripts.`);
+  assert(/style-src 'self';/.test(policy[1]), `${relativeName} CSP must not allow inline styles.`);
+  assert(!/<style\b/i.test(html), `${relativeName} has an inline <style> block, which the CSP blocks.`);
+  assert(!/\sstyle\s*=\s*["']/i.test(html.replace(/<pre[\s\S]*?<\/pre>|<textarea[\s\S]*?<\/textarea>/gi, '')),
+    `${relativeName} has a style attribute, which the CSP blocks; use a class in assets/css/inline-styles.css.`);
   assert(!/\son[a-z]+\s*=\s*["']/i.test(html.replace(/<pre[\s\S]*?<\/pre>|<textarea[\s\S]*?<\/textarea>/gi, '')),
     `${relativeName} uses an inline event handler, which the CSP blocks.`);
 

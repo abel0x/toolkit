@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Convert any image to a Base64 encoded data URI for embedding in HTML, CSS or JSON." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/image-to-base64.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -65,14 +66,14 @@
         </div>
         <div class="card glass reveal">
           <!-- Drop zone -->
-          <div id="i2bDrop" class="drop-zone" style="border:2px dashed rgba(255,255,255,.2);border-radius:.75rem;padding:2.5rem 1rem;text-align:center;cursor:pointer;margin-bottom:1.25rem;transition:border-color .2s;" role="button" tabindex="0" aria-label="Drop image here or click to select">
-            <p style="margin:0;color:rgba(255,255,255,.55);">Drop an image here or <strong>click to select</strong></p>
-            <input type="file" id="i2bFile" accept="image/*" style="display:none;" aria-label="Select image file" />
+          <div id="i2bDrop" class="drop-zone ix-cb1410" role="button" tabindex="0" aria-label="Drop image here or click to select">
+            <p class="ix-667a97">Drop an image here or <strong>click to select</strong></p>
+            <input hidden type="file" id="i2bFile" accept="image/*" aria-label="Select image file" />
           </div>
 
-          <img id="i2bPreview" src="" alt="Preview" style="display:none;max-width:100%;max-height:200px;border-radius:.5rem;margin-bottom:1rem;" />
+          <img class="ix-c298cd" id="i2bPreview" src="" alt="Preview" />
 
-          <div id="i2bInfo" style="font-size:.8rem;color:rgba(255,255,255,.55);margin-bottom:1rem;"></div>
+          <div class="ix-b9deb8" id="i2bInfo"></div>
 
           <div class="form-group">
             <label class="form-label" for="i2bFormat">Output Format</label>
@@ -86,7 +87,7 @@
 
           <div class="form-group">
             <label class="form-label" for="i2bOutput">Result</label>
-            <textarea class="form-control font-mono" id="i2bOutput" rows="6" readonly style="font-size:.78rem;word-break:break-all;" placeholder="Result will appear here…"></textarea>
+            <textarea class="form-control font-mono ix-ded517" id="i2bOutput" rows="6" readonly placeholder="Result will appear here…"></textarea>
           </div>
           <button class="btn btn-primary" id="copyI2bBtn">Copy</button>
         </div>

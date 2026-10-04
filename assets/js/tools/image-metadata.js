@@ -34,9 +34,9 @@
           ['Last Modified', new Date(file.lastModified).toLocaleString()],
           ['Base64 Size (est.)', formatBytes(Math.ceil(file.size * 4 / 3))]
         ];
-        let html = '<table style="width:100%;border-collapse:collapse;font-size:.875rem;">';
+        let html = '<table class="ix-c2b3a0">';
         rows.forEach(([k,v]) => {
-          html += `<tr><td style="padding:.4rem .7rem;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;">${k}</td><td class="font-mono" style="padding:.4rem .7rem;word-break:break-all;" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
+          html += `<tr><td class="ix-f3ad31">${k}</td><td class="font-mono ix-470b04" data-i18n-skip>${escapeHTML(v)}</td></tr>`;
         });
         html += '</table>';
         tableEl.innerHTML = html;

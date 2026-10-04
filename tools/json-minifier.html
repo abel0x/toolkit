@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Remove all whitespace from JSON and produce the most compact valid output." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/json-minifier.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -86,10 +87,10 @@
               </div>
             </div>
           </div>
-          <div class="form-group" style="margin-top:0.5rem;">
-            <span id="jmin-savings" style="display:none;font-size:0.85rem;color:var(--clr-accent,#00d4ff);font-family:var(--font-mono,'JetBrains Mono',monospace);"></span>
+          <div class="form-group ix-0dc8cc">
+            <span class="ix-5f7440" id="jmin-savings"></span>
           </div>
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+          <div class="ix-e72519">
             <button id="jmin-btn" class="btn btn-primary">Minify</button>
             <button id="jmin-copy" class="btn btn-secondary">Copy</button>
           </div>

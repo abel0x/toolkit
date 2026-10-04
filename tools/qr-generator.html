@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate QR codes for text, URLs, Wi-Fi credentials, email and SMS. Download as PNG. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/qr-generator.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <script src="../assets/js/vendor/qrcode-generator.js" defer></script>
@@ -96,7 +97,7 @@
                     <input type="range" id="qrMargin" class="slider" min="0" max="6" step="1" value="2" aria-label="QR code margin" />
                   </div>
                 </div>
-                <div class="qr-opt-row" style="margin-top:.9rem">
+                <div class="qr-opt-row ix-d590ad">
                   <div class="qr-color-opt">
                     <label for="qrColorDark" class="control-label">Foreground</label>
                     <input type="color" id="qrColorDark" class="color-input" value="#000000" aria-label="QR code foreground color" />
@@ -116,7 +117,7 @@
                   </div>
                 </div>
               </div>
-              <div class="btn-row" style="margin-top:1.1rem">
+              <div class="btn-row ix-3fb132">
                 <button class="btn btn--primary" id="qrGenBtn">Generate QR</button>
                 <button class="btn btn--ghost" id="qrClearBtn">Clear</button>
               </div>

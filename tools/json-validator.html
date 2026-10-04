@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Validate JSON syntax and get clear error messages with line numbers." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/json-validator.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -75,12 +76,12 @@
             <label class="form-label" for="jval-input">JSON Input</label>
             <textarea id="jval-input" class="form-control font-mono" rows="14" placeholder='Paste JSON here…'></textarea>
           </div>
-          <div style="margin-top:1rem;">
+          <div class="ix-dab43f">
             <button id="jval-btn" class="btn btn-primary">Validate</button>
           </div>
-          <div id="jval-result" style="display:none;margin-top:1.25rem;padding:1rem;border-radius:0.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);">
+          <div class="ix-3ced34" id="jval-result">
             <span id="jval-badge" class="status-badge"></span>
-            <p id="jval-msg" style="margin-top:0.5rem;font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:0.875rem;word-break:break-word;"></p>
+            <p class="ix-eb2d5a" id="jval-msg"></p>
           </div>
         </div>
       </div>

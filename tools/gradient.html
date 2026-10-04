@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Build beautiful CSS linear gradients with live preview and one-click CSS copy. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/gradient.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -93,10 +94,10 @@
                   </button>
                 </div>
               </div>
-              <button class="btn btn--ghost btn--sm" id="gradAddStop" style="margin-top:.8rem">+ Add Color Stop</button>
-              <div class="btn-row" style="margin-top:1rem">
+              <button class="btn btn--ghost btn--sm ix-fd34e2" id="gradAddStop">+ Add Color Stop</button>
+              <div class="btn-row ix-dab43f">
                 <button class="btn btn--ghost" id="gradRandomBtn">Random Gradient</button>
-                <button class="icon-btn" id="gradCopyBtn" aria-label="Copy CSS" title="Copy CSS" style="width:auto;padding:0 .9rem;gap:.4rem;font-size:.82rem;font-weight:600">
+                <button class="icon-btn ix-0a7da1" id="gradCopyBtn" aria-label="Copy CSS" title="Copy CSS">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   Copy CSS
                 </button>

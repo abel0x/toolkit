@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Generate HMAC signatures using SHA-256, SHA-384 or SHA-512. Enter your message and secret key — runs entirely in your browser." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/hmac.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
 </head>
 <body>
@@ -96,7 +97,7 @@
             </div>
           </div>
 
-          <button class="btn btn-primary" id="hmacBtn" style="margin-bottom:1.2rem">Generate HMAC</button>
+          <button class="btn btn-primary ix-9f50d4" id="hmacBtn">Generate HMAC</button>
 
           <div class="form-group">
             <label class="form-label" for="hmacOutput">HMAC Signature</label>

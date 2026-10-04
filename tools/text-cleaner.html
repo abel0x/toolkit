@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Clean and normalize text — trim whitespace, remove blank lines, fix line endings." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/text-cleaner.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -66,22 +67,22 @@
         </div>
 
         <div class="card glass reveal">
-          <div class="form-group" style="margin-bottom:1.5rem;">
-            <span class="form-label" style="display:block;margin-bottom:.75rem;">Cleaning Options</span>
-            <div style="display:flex;flex-wrap:wrap;gap:1rem;">
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+          <div class="form-group ix-f0b24e">
+            <span class="form-label ix-5e76e1">Cleaning Options</span>
+            <div class="ix-01b674">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="tc-trim" checked /> Trim each line
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="tc-blank" checked /> Remove blank lines
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="tc-crlf" checked /> Normalize line endings (CRLF→LF)
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="tc-spaces" /> Collapse multiple spaces
               </label>
-              <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;">
+              <label class="ix-fae94d">
                 <input type="checkbox" id="tc-special" /> Remove non-printable characters
               </label>
             </div>
@@ -99,7 +100,7 @@
             </div>
           </div>
 
-          <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+          <div class="ix-9342ce">
             <button class="btn btn-primary" id="tc-clean-btn">Clean Text</button>
             <button class="btn btn-secondary" id="tc-copy-btn">Copy Output</button>
           </div>

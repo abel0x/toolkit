@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/image-metadata.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -64,21 +65,21 @@
           <p class="section-desc">Drop or select an image to instantly view its dimensions, file type, size and more.</p>
         </div>
         <div class="card glass reveal">
-          <div id="imDrop" class="drop-zone" style="border:2px dashed rgba(255,255,255,.2);border-radius:.75rem;padding:2.5rem 1rem;text-align:center;cursor:pointer;margin-bottom:1.5rem;transition:border-color .2s;" role="button" tabindex="0" aria-label="Drop image here or click to select">
-            <p style="margin:0;color:rgba(255,255,255,.55);">Drop an image here or <strong>click to select</strong></p>
-            <input type="file" id="imFile" accept="image/*" style="display:none;" aria-label="Select image file" />
+          <div id="imDrop" class="drop-zone ix-0e90cf" role="button" tabindex="0" aria-label="Drop image here or click to select">
+            <p class="ix-667a97">Drop an image here or <strong>click to select</strong></p>
+            <input hidden type="file" id="imFile" accept="image/*" aria-label="Select image file" />
           </div>
 
           <div class="tool-split">
             <div class="tool-split-left">
-              <img id="imPreview" src="" alt="Preview" style="display:none;max-width:100%;border-radius:.5rem;" />
+              <img class="ix-339079" id="imPreview" src="" alt="Preview" />
             </div>
             <div class="tool-split-right">
-              <table id="imTable" style="width:100%;border-collapse:collapse;font-size:.87rem;">
+              <table class="ix-3a0c6e" id="imTable">
                 <thead>
                   <tr>
-                    <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">Property</th>
-                    <th style="text-align:left;padding:.5rem .75rem;color:rgba(255,255,255,.5);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">Value</th>
+                    <th class="ix-259132">Property</th>
+                    <th class="ix-259132">Value</th>
                   </tr>
                 </thead>
                 <tbody></tbody>

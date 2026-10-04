@@ -33,7 +33,7 @@
     wifi: '<div class="qr-form-group"><label for="qrWifiSSID" class="control-label">Network Name (SSID)</label><input id="qrWifiSSID" class="input-field" placeholder="MyNetwork" /></div>'
       + '<div class="qr-form-group"><label for="qrWifiPass" class="control-label">Password</label><input id="qrWifiPass" class="input-field" type="password" placeholder="Password" /></div>'
       + '<div class="qr-form-group"><label for="qrWifiSec" class="control-label">Security</label><select id="qrWifiSec" class="select-field"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">Open (No Password)</option></select></div>'
-      + '<div class="qr-form-group"><label class="checkbox-card" for="qrWifiHidden" style="display:inline-flex;"><input type="checkbox" id="qrWifiHidden"><span class="checkbox-indicator"></span><span class="checkbox-text">Hidden network</span></label></div>'
+      + '<div class="qr-form-group"><label class="checkbox-card ix-d87841" for="qrWifiHidden"><input type="checkbox" id="qrWifiHidden"><span class="checkbox-indicator"></span><span class="checkbox-text">Hidden network</span></label></div>'
   };
 
   function applyTranslations() {

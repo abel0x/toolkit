@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Paste a Base64 string or data URI and instantly preview and download the decoded image." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/base64-to-image.html" />
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
 </head>
@@ -68,12 +69,12 @@
             <label class="form-label" for="b2iInput">Base64 / Data URI</label>
             <textarea class="form-control font-mono" id="b2iInput" rows="7" placeholder="data:image/png;base64,iVBORw0KGgo…  or just the raw base64 string"></textarea>
           </div>
-          <div style="display:flex;gap:.75rem;margin-bottom:1.5rem;">
+          <div class="ix-e2f1ae">
             <button class="btn btn-primary" id="b2iPreviewBtn">Preview</button>
             <button class="btn" id="b2iDownloadBtn" disabled>Download Image</button>
           </div>
-          <img id="b2iPreview" src="" alt="Decoded image preview" style="display:none;max-width:100%;border-radius:.5rem;margin-bottom:1rem;" />
-          <div id="b2iInfo" style="font-size:.82rem;color:rgba(255,255,255,.55);"></div>
+          <img class="ix-b7bbc3" id="b2iPreview" src="" alt="Decoded image preview" />
+          <div class="ix-694864" id="b2iInfo"></div>
         </div>
       </div>
     </section>
