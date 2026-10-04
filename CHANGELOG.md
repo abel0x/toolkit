@@ -8,10 +8,15 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 
 - Added a `Content-Security-Policy` to every published page (same-origin scripts only; the 404 page's inline script is allowed by hash), enforced by the site audit.
 - Added `tests/audit-regressions.mjs` and a nested-URL 404 check in the offline suite; both run in CI.
+- Added `tests/tool-vectors.mjs`, which checks 33 tools against independently computed known answers in CI.
+- Added a WebKit (Safari engine) smoke test of every page in a separate CI workflow.
 
 ### Changed
 
-- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v77`.
+- Self-hosted fonts are now WOFF2 (516 KB → 199 KB); the offline cache is now `v78`.
+- The style policy no longer allows inline styles (`style-src 'self'`): former inline styles live in `assets/css/inline-styles.css` and page stylesheets under `assets/css/tools/`.
+- Typing Speed Test: net WPM counts only words typed without an error (raw WPM and CPM are unchanged). Opt-in personal bests saved under the earlier scoring are labelled as such and replaced by the next result.
+- README screenshots are WebP (712 KB → 119 KB).
 - Copy buttons in the bytes, unit and checksum tools use delegated listeners instead of inline handlers.
 
 ### Fixed
@@ -27,6 +32,9 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - Text Reverser's status message names the mode in the interface language.
 - Typing Speed Test: with strict Turkish diacritics turned off, only the accent is forgiven (ç↔c, İ↔I, ı↔i, …); a wrong letter case now counts as a mistake, as it does in strict mode and English.
 - Typing Speed Test: characters skipped by pressing Space early now lower accuracy instead of leaving it at 100%.
+- UUID Validator accepts RFC 9562 versions 6–8 and the nil and max UUIDs, and no longer labels one RFC variant as two.
+- URL Builder percent-encodes path segments without double-encoding existing escapes.
+- XML Formatter keeps text-only elements on one line (their text is no longer changed) and no longer splits comments or CDATA that contain `>`.
 
 ## [1.2.0] — 2026-09-19
 
