@@ -2,6 +2,25 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.2] — 2026-11-07
+
+Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and deployment produced; 1.2.2 removes the hand-synchronised lists and manual steps that let those faults happen.
+
+### Changed
+
+- `_data/tools.json` is now the single source of the tool catalogue. `build.py` generates the browser registries (`tools-data.js`, `extra-tools-data.js`), the expansion-tool shells, and `sitemap.xml` from it, and rejects duplicate slugs, unknown categories, and malformed entries. Previously the list was kept in sync by hand in three files plus the sitemap. The generated registries are identical to the former hand-written ones.
+- `sitemap.xml` is generated in catalogue order with a `<lastmod>` per page that changes only when that page's bytes change (hashes and dates live in `_data/lastmod.json`). The `changefreq` and `priority` hints, which major search engines ignore, were dropped.
+- The site audit derives the expected tool count from `_data/tools.json` instead of a hard-coded 101, and checks that each page's shell and the registries match it.
+- Tool modules use the shared `escapeHTML` from `utils.js`; three private copies were removed (one was unused). The shared helper now accepts non-string values.
+
+### Added
+
+- An optional pre-commit hook in `.githooks/` runs `python3 build.py --check` and refuses a commit whose generated files are stale. Enable it with `git config core.hooksPath .githooks`.
+
+### Removed
+
+- `robots.txt`. Crawlers read it only at the host root, so the copy under `/toolkit/` was never used; submit the sitemap through the search engines' webmaster tools instead.
+
 ## [1.2.1] — 2026-11-07
 
 ### Fixed
@@ -127,6 +146,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.2.2]: https://github.com/abel0x/toolkit/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/abel0x/toolkit/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/abel0x/toolkit/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/abel0x/toolkit/compare/v1.0.0...v1.1.0

@@ -44,9 +44,9 @@ The live site is the complete, searchable catalogue of all 101 tools. The curren
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.2.1
+### Latest release — 1.2.2
 
-A maintenance release: returning visitors now always receive the current CSS and JavaScript, `build.py` is safe to re-run, pull requests run the full test pipeline, and only the site itself is published.
+The second half of a two-part maintenance pass with 1.2.1. 1.2.1 made the release pipeline correct: returning visitors always receive the current CSS and JavaScript, `build.py` is safe to re-run, pull requests run the full test pipeline, and only the site itself is published. 1.2.2 makes it hard to get wrong: the tool list lives in one file, `_data/tools.json`, from which the registries, expansion pages, and sitemap are generated; an optional pre-commit hook catches stale generated files before CI does; and the sitemap now carries accurate `lastmod` dates.
 
 ### 1.2.0
 
