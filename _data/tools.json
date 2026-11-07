@@ -1,0 +1,832 @@
+{
+  "categories": {
+    "security": "Security",
+    "encoding": "Encoding",
+    "devtools": "Dev Tools",
+    "text": "Text Tools",
+    "generators": "Generators",
+    "converters": "Converters",
+    "web": "Web Utils",
+    "media": "Media"
+  },
+  "tools": [
+    {
+      "slug": "password",
+      "name": "Password Generator",
+      "cat": "security",
+      "desc": "Cryptographically strong passwords with full control over length and character sets.",
+      "tags": ["password", "random", "crypto", "security", "generate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg>"
+    },
+    {
+      "slug": "hash",
+      "name": "Hash Generator",
+      "cat": "security",
+      "desc": "SHA-1, SHA-256, SHA-384 and SHA-512 digests via the Web Crypto API.",
+      "tags": ["hash", "sha", "sha256", "md5", "crypto", "checksum"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"4\" y1=\"9\" x2=\"20\" y2=\"9\"/><line x1=\"4\" y1=\"15\" x2=\"20\" y2=\"15\"/><line x1=\"10\" y1=\"3\" x2=\"8\" y2=\"21\"/><line x1=\"16\" y1=\"3\" x2=\"14\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "jwt-decoder",
+      "name": "JWT Decoder",
+      "cat": "security",
+      "desc": "Decode JSON Web Tokens — inspect header, payload, expiry and claims.",
+      "tags": ["jwt", "token", "decode", "auth", "json web token"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4\"/></svg>"
+    },
+    {
+      "slug": "bcrypt",
+      "name": "Bcrypt Hash Generator",
+      "cat": "security",
+      "desc": "Hash passwords with bcrypt — the industry-standard adaptive password hashing algorithm.",
+      "tags": ["bcrypt", "password hash", "security", "hash", "crypto"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 9.9-1M12 15v2\"/></svg>"
+    },
+    {
+      "slug": "hmac",
+      "name": "HMAC Generator",
+      "cat": "security",
+      "desc": "Generate HMAC-SHA256/512 message authentication codes for secure data signing.",
+      "tags": ["hmac", "mac", "signature", "crypto", "auth"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>"
+    },
+    {
+      "slug": "password-strength",
+      "name": "Password Strength Checker",
+      "cat": "security",
+      "desc": "Analyse password entropy, flag common passwords and get actionable improvement tips.",
+      "tags": ["password", "strength", "entropy", "security", "check"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"20 6 9 17 4 12\"/></svg>"
+    },
+    {
+      "slug": "random-token",
+      "name": "Random Token Generator",
+      "cat": "security",
+      "desc": "Generate cryptographically secure random tokens for API keys, session tokens and nonces.",
+      "tags": ["token", "random", "secret", "api key", "nonce", "session"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"/><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"/></svg>"
+    },
+    {
+      "slug": "uuid-validator",
+      "name": "UUID Validator",
+      "cat": "security",
+      "desc": "Validate UUIDs and determine their version (v1–v8) and variant.",
+      "tags": ["uuid", "guid", "validate", "version", "check"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 8 12 13\"/><circle cx=\"12\" cy=\"17\" r=\"0.5\" fill=\"currentColor\"/></svg>"
+    },
+    {
+      "slug": "file-checksum",
+      "name": "File Checksum Tool",
+      "cat": "security",
+      "desc": "Compute SHA-1, SHA-256 and SHA-512 checksums for files — fully client-side, never leaves your browser.",
+      "tags": ["checksum", "file", "sha256", "verify", "integrity"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><polyline points=\"9 12 11 14 15 10\"/></svg>"
+    },
+    {
+      "slug": "base64",
+      "name": "Base64 Encode / Decode",
+      "cat": "encoding",
+      "desc": "Encode or decode Base64 strings — Unicode and binary-safe.",
+      "tags": ["base64", "encode", "decode", "encoding"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg>"
+    },
+    {
+      "slug": "url-codec",
+      "name": "URL Encoder / Decoder",
+      "cat": "encoding",
+      "desc": "Encode special characters for URL safety or decode percent-encoded strings.",
+      "tags": ["url", "encode", "decode", "percent", "uri"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"/><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"/></svg>"
+    },
+    {
+      "slug": "case-converter",
+      "name": "Case Converter",
+      "cat": "encoding",
+      "desc": "Transform text into camelCase, PascalCase, snake_case, kebab-case and more.",
+      "tags": ["case", "camel", "pascal", "snake", "kebab", "text"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"4 7 4 4 20 4 20 7\"/><line x1=\"9\" y1=\"20\" x2=\"15\" y2=\"20\"/><line x1=\"12\" y1=\"4\" x2=\"12\" y2=\"20\"/></svg>"
+    },
+    {
+      "slug": "base32",
+      "name": "Base32 Encoder / Decoder",
+      "cat": "encoding",
+      "desc": "Encode and decode text using the Base32 alphabet — useful for TOTP secrets and file names.",
+      "tags": ["base32", "encode", "decode", "totp", "secret"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18M9 21V9\"/></svg>"
+    },
+    {
+      "slug": "hex-codec",
+      "name": "Hex Encoder / Decoder",
+      "cat": "encoding",
+      "desc": "Convert text to hexadecimal and back — useful for binary data inspection.",
+      "tags": ["hex", "hexadecimal", "encode", "decode", "binary"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"4\" y1=\"9\" x2=\"20\" y2=\"9\"/><line x1=\"4\" y1=\"15\" x2=\"20\" y2=\"15\"/><line x1=\"10\" y1=\"3\" x2=\"8\" y2=\"21\"/><line x1=\"16\" y1=\"3\" x2=\"14\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "html-codec",
+      "name": "HTML Encode / Decode",
+      "cat": "encoding",
+      "desc": "Escape HTML entities like &amp;, &lt;, &gt; or decode them back to characters.",
+      "tags": ["html", "entity", "escape", "encode", "decode"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg>"
+    },
+    {
+      "slug": "binary-text",
+      "name": "Binary Text Converter",
+      "cat": "encoding",
+      "desc": "Convert text to binary (0s and 1s) and binary back to text.",
+      "tags": ["binary", "text", "convert", "bits", "encode"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "ascii",
+      "name": "ASCII Converter",
+      "cat": "encoding",
+      "desc": "Convert characters to ASCII codes and vice versa — decimal, hex, octal and binary.",
+      "tags": ["ascii", "char code", "decimal", "convert", "encoding"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M4 7l3-3 3 3M7 4v16M17 4l3 3-3 3M20 7H14M14 17h6\"/></svg>"
+    },
+    {
+      "slug": "rot13",
+      "name": "ROT13 Encoder / Decoder",
+      "cat": "encoding",
+      "desc": "Apply the ROT13 cipher to text — encodes and decodes with the same operation.",
+      "tags": ["rot13", "cipher", "encode", "decode", "obfuscate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"17 1 21 5 17 9\"/><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"/><polyline points=\"7 23 3 19 7 15\"/><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"/></svg>"
+    },
+    {
+      "slug": "json-formatter",
+      "name": "JSON Formatter",
+      "cat": "devtools",
+      "desc": "Validate, beautify and minify JSON with human-friendly error messages.",
+      "tags": ["json", "format", "beautify", "minify", "validate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"/></svg>"
+    },
+    {
+      "slug": "json-minifier",
+      "name": "JSON Minifier",
+      "cat": "devtools",
+      "desc": "Remove whitespace and compress JSON to its smallest valid form.",
+      "tags": ["json", "minify", "compress", "uglify", "optimize"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"4 8 2 12 4 16\"/><polyline points=\"20 8 22 12 20 16\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"16\"/></svg>"
+    },
+    {
+      "slug": "json-validator",
+      "name": "JSON Validator",
+      "cat": "devtools",
+      "desc": "Validate JSON syntax and get clear, line-specific error messages.",
+      "tags": ["json", "validate", "check", "lint", "syntax"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"20 6 9 17 4 12\"/></svg>"
+    },
+    {
+      "slug": "json-to-yaml",
+      "name": "JSON to YAML",
+      "cat": "devtools",
+      "desc": "Convert JSON objects to YAML format — clean, human-readable output.",
+      "tags": ["json", "yaml", "convert", "transform"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg>"
+    },
+    {
+      "slug": "yaml-to-json",
+      "name": "YAML to JSON",
+      "cat": "devtools",
+      "desc": "Convert YAML to JSON — parse YAML files and output structured JSON.",
+      "tags": ["yaml", "json", "convert", "parse"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M19 12H5M12 19l-7-7 7-7\"/></svg>"
+    },
+    {
+      "slug": "json-to-csv",
+      "name": "JSON to CSV",
+      "cat": "devtools",
+      "desc": "Convert a JSON array of objects to a CSV table with column auto-detection.",
+      "tags": ["json", "csv", "convert", "table", "export"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"3\" y1=\"15\" x2=\"21\" y2=\"15\"/><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "csv-to-json",
+      "name": "CSV to JSON",
+      "cat": "devtools",
+      "desc": "Parse CSV data and convert it to a JSON array of objects using header row as keys.",
+      "tags": ["csv", "json", "parse", "convert", "table"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"9\" y1=\"3\" x2=\"9\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "json-diff",
+      "name": "JSON Diff Tool",
+      "cat": "devtools",
+      "desc": "Compare two JSON objects and highlight differences, additions and deletions.",
+      "tags": ["json", "diff", "compare", "difference", "delta"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\"/><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\"/><line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\"/></svg>"
+    },
+    {
+      "slug": "json-sorter",
+      "name": "JSON Sorter",
+      "cat": "devtools",
+      "desc": "Sort JSON object keys alphabetically or by value — ascending or descending.",
+      "tags": ["json", "sort", "order", "alphabetical", "keys"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"8\" y1=\"6\" x2=\"21\" y2=\"6\"/><line x1=\"8\" y1=\"12\" x2=\"21\" y2=\"12\"/><line x1=\"8\" y1=\"18\" x2=\"21\" y2=\"18\"/><line x1=\"3\" y1=\"6\" x2=\"3.01\" y2=\"6\"/><line x1=\"3\" y1=\"12\" x2=\"3.01\" y2=\"12\"/><line x1=\"3\" y1=\"18\" x2=\"3.01\" y2=\"18\"/></svg>"
+    },
+    {
+      "slug": "regex-tester",
+      "name": "Regex Tester",
+      "cat": "devtools",
+      "desc": "Test regular expressions with live match highlighting and capture group display.",
+      "tags": ["regex", "regexp", "pattern", "match", "test"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/></svg>"
+    },
+    {
+      "slug": "markdown",
+      "name": "Markdown Previewer",
+      "cat": "devtools",
+      "desc": "Write and preview Markdown in real time — safe, fully client-side rendering.",
+      "tags": ["markdown", "preview", "md", "render", "write"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/></svg>"
+    },
+    {
+      "slug": "text-diff",
+      "name": "Text Diff Checker",
+      "cat": "devtools",
+      "desc": "Compare two texts line-by-line — see additions, deletions and unchanged lines.",
+      "tags": ["diff", "compare", "text", "difference", "changes"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"18\" y1=\"20\" x2=\"18\" y2=\"10\"/><line x1=\"12\" y1=\"20\" x2=\"12\" y2=\"4\"/><line x1=\"6\" y1=\"20\" x2=\"6\" y2=\"14\"/></svg>"
+    },
+    {
+      "slug": "sql-formatter",
+      "name": "SQL Formatter",
+      "cat": "devtools",
+      "desc": "Format and prettify SQL queries — supports SELECT, INSERT, UPDATE and more.",
+      "tags": ["sql", "format", "query", "database", "beautify"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\"/><path d=\"M21 12c0 1.66-4 3-9 3s-9-1.34-9-3\"/><path d=\"M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5\"/></svg>"
+    },
+    {
+      "slug": "xml-formatter",
+      "name": "XML Formatter",
+      "cat": "devtools",
+      "desc": "Indent and format XML documents for better readability.",
+      "tags": ["xml", "format", "beautify", "indent", "markup"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg>"
+    },
+    {
+      "slug": "html-minifier",
+      "name": "HTML Minifier",
+      "cat": "devtools",
+      "desc": "Minify HTML by removing comments, whitespace and unused attributes.",
+      "tags": ["html", "minify", "compress", "optimize", "size"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/></svg>"
+    },
+    {
+      "slug": "css-minifier",
+      "name": "CSS Minifier",
+      "cat": "devtools",
+      "desc": "Minify CSS stylesheets by removing whitespace, comments and redundant declarations.",
+      "tags": ["css", "minify", "compress", "optimize", "stylesheet"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M8 14s1.5 2 4 2 4-2 4-2\"/><line x1=\"9\" y1=\"9\" x2=\"9.01\" y2=\"9\"/><line x1=\"15\" y1=\"9\" x2=\"15.01\" y2=\"9\"/></svg>"
+    },
+    {
+      "slug": "js-minifier",
+      "name": "JavaScript Minifier",
+      "cat": "devtools",
+      "desc": "Minify JavaScript by removing comments and unnecessary whitespace.",
+      "tags": ["javascript", "js", "minify", "compress", "uglify"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/><line x1=\"7\" y1=\"17\" x2=\"17\" y2=\"7\"/></svg>"
+    },
+    {
+      "slug": "http-status",
+      "name": "HTTP Status Code Lookup",
+      "cat": "devtools",
+      "desc": "Look up any HTTP status code and get a full explanation of its meaning.",
+      "tags": ["http", "status", "404", "200", "500", "error codes"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>"
+    },
+    {
+      "slug": "mime-lookup",
+      "name": "MIME Type Lookup",
+      "cat": "devtools",
+      "desc": "Find MIME types by file extension or extension from MIME type.",
+      "tags": ["mime", "content-type", "file type", "extension", "media type"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><circle cx=\"12\" cy=\"14\" r=\"2\"/></svg>"
+    },
+    {
+      "slug": "word-counter",
+      "name": "Word Counter",
+      "cat": "text",
+      "desc": "Count words, characters, sentences and paragraphs with reading time estimate.",
+      "tags": ["word count", "characters", "text", "count", "statistics"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"17\" y1=\"10\" x2=\"3\" y2=\"10\"/><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"/><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"/><line x1=\"17\" y1=\"18\" x2=\"3\" y2=\"18\"/></svg>"
+    },
+    {
+      "slug": "typing-test",
+      "name": "Typing Speed Test",
+      "cat": "text",
+      "desc": "Measure typing speed and accuracy in English or Turkish with themed word lists.",
+      "tags": ["typing", "wpm", "speed", "keyboard", "test", "accuracy", "practice"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M6 9h.01M9 9h.01M12 9h.01M15 9h.01M18 9h.01M7.5 13h.01M10.5 13h.01M13.5 13h.01M16.5 13h.01M9 16h6\"/></svg>"
+    },
+    {
+      "slug": "text-sorter",
+      "name": "Text Sorter",
+      "cat": "text",
+      "desc": "Sort lines of text alphabetically, numerically or by length — ascending or descending.",
+      "tags": ["sort", "lines", "alphabetical", "order", "text"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"8\" y1=\"6\" x2=\"21\" y2=\"6\"/><line x1=\"8\" y1=\"12\" x2=\"21\" y2=\"12\"/><line x1=\"8\" y1=\"18\" x2=\"21\" y2=\"18\"/><path d=\"M3 6l3-3 3 3\"/><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"14\"/></svg>"
+    },
+    {
+      "slug": "deduplicate-lines",
+      "name": "Remove Duplicate Lines",
+      "cat": "text",
+      "desc": "Remove duplicate lines from a list — with optional trim and case-insensitive mode.",
+      "tags": ["duplicate", "lines", "remove", "unique", "dedupe"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"/><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"/></svg>"
+    },
+    {
+      "slug": "line-numbers",
+      "name": "Line Numbering Tool",
+      "cat": "text",
+      "desc": "Add or remove line numbers from any block of text — with custom prefix options.",
+      "tags": ["line numbers", "numbering", "text", "prefix", "lines"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"17\" y1=\"10\" x2=\"3\" y2=\"10\"/><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"/><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"/></svg>"
+    },
+    {
+      "slug": "text-reverser",
+      "name": "Text Reverser",
+      "cat": "text",
+      "desc": "Reverse text character by character or word by word.",
+      "tags": ["reverse", "text", "flip", "mirror", "backwards"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"17 1 21 5 17 9\"/><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"/><polyline points=\"7 23 3 19 7 15\"/><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"/></svg>"
+    },
+    {
+      "slug": "slug",
+      "name": "Slug Generator",
+      "cat": "text",
+      "desc": "Convert any text into a URL-friendly slug — spaces to hyphens, lowercase, no special chars.",
+      "tags": ["slug", "url", "kebab", "seo", "permalink"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"/><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"/></svg>"
+    },
+    {
+      "slug": "random-string",
+      "name": "Random String Generator",
+      "cat": "text",
+      "desc": "Generate random strings with custom length, characters and format options.",
+      "tags": ["random", "string", "generate", "text", "password"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\"/><path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\"/></svg>"
+    },
+    {
+      "slug": "text-cleaner",
+      "name": "Text Cleaner",
+      "cat": "text",
+      "desc": "Strip extra whitespace, trim lines, remove special characters and normalize line endings.",
+      "tags": ["clean", "text", "strip", "whitespace", "normalize"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg>"
+    },
+    {
+      "slug": "find-replace",
+      "name": "Find and Replace Tool",
+      "cat": "text",
+      "desc": "Find and replace text with support for regex, case sensitivity and global replace.",
+      "tags": ["find", "replace", "text", "regex", "search"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/><line x1=\"8\" y1=\"11\" x2=\"14\" y2=\"11\"/><line x1=\"11\" y1=\"8\" x2=\"11\" y2=\"14\"/></svg>"
+    },
+    {
+      "slug": "uuid",
+      "name": "UUID Generator",
+      "cat": "generators",
+      "desc": "Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source.",
+      "tags": ["uuid", "guid", "unique", "id", "generate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>"
+    },
+    {
+      "slug": "lorem-ipsum",
+      "name": "Lorem Ipsum",
+      "cat": "generators",
+      "desc": "Generate placeholder text by words, sentences, or paragraphs — instantly.",
+      "tags": ["lorem ipsum", "placeholder", "text", "dummy", "generate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"17\" y1=\"10\" x2=\"3\" y2=\"10\"/><line x1=\"21\" y1=\"6\" x2=\"3\" y2=\"6\"/><line x1=\"21\" y1=\"14\" x2=\"3\" y2=\"14\"/><line x1=\"17\" y1=\"18\" x2=\"3\" y2=\"18\"/></svg>"
+    },
+    {
+      "slug": "qr-generator",
+      "name": "QR Code Generator",
+      "cat": "generators",
+      "desc": "Generate QR codes for text, URLs, Wi-Fi, email and SMS with colour options.",
+      "tags": ["qr", "qr code", "generate", "barcode", "scan"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"4\" height=\"4\"/></svg>"
+    },
+    {
+      "slug": "gradient",
+      "name": "Gradient Generator",
+      "cat": "generators",
+      "desc": "Build beautiful CSS linear gradients with live preview and one-click copy.",
+      "tags": ["gradient", "css", "color", "background", "design"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polygon points=\"12 2 2 7 2 17 12 22 22 17 22 7 12 2\"/></svg>"
+    },
+    {
+      "slug": "color-palette",
+      "name": "Color Palette Generator",
+      "cat": "generators",
+      "desc": "Generate harmonious color palettes — complementary, triadic, analogous and more.",
+      "tags": ["color", "palette", "design", "scheme", "harmony"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><circle cx=\"12\" cy=\"12\" r=\"6\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/></svg>"
+    },
+    {
+      "slug": "random-number",
+      "name": "Random Number Generator",
+      "cat": "generators",
+      "desc": "Generate random numbers with custom min/max, count, and integer/decimal options.",
+      "tags": ["random", "number", "generate", "dice", "lottery"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"15.5\" cy=\"8.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"15.5\" cy=\"15.5\" r=\"1.5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"15.5\" r=\"1.5\" fill=\"currentColor\"/></svg>"
+    },
+    {
+      "slug": "random-color",
+      "name": "Random Color Generator",
+      "cat": "generators",
+      "desc": "Generate random colors with HEX, RGB and HSL output — single or bulk.",
+      "tags": ["random", "color", "generate", "hex", "palette"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z\"/></svg>"
+    },
+    {
+      "slug": "random-name",
+      "name": "Random Name Generator",
+      "cat": "generators",
+      "desc": "Generate random first names, last names and full names from diverse datasets.",
+      "tags": ["random", "name", "generate", "fake", "person"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>"
+    },
+    {
+      "slug": "fake-data",
+      "name": "Fake Data Generator",
+      "cat": "generators",
+      "desc": "Generate realistic fake data — names, emails, addresses, phones — in JSON or CSV.",
+      "tags": ["fake", "data", "generate", "mock", "test data"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"/><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/></svg>"
+    },
+    {
+      "slug": "timestamp",
+      "name": "Timestamp Converter",
+      "cat": "converters",
+      "desc": "Convert Unix timestamps to human-readable dates and back — with live clock.",
+      "tags": ["timestamp", "unix", "date", "time", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg>"
+    },
+    {
+      "slug": "color-converter",
+      "name": "Color Converter",
+      "cat": "converters",
+      "desc": "Convert between HEX, RGB and HSL with a live color preview swatch and picker.",
+      "tags": ["color", "hex", "rgb", "hsl", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z\"/></svg>"
+    },
+    {
+      "slug": "unit-converter",
+      "name": "Unit Converter (px/rem/em)",
+      "cat": "converters",
+      "desc": "Convert between CSS units — px, rem, em, vw, vh and percentages.",
+      "tags": ["px", "rem", "em", "css unit", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z\"/></svg>"
+    },
+    {
+      "slug": "temperature",
+      "name": "Temperature Converter",
+      "cat": "converters",
+      "desc": "Convert between Celsius, Fahrenheit and Kelvin.",
+      "tags": ["temperature", "celsius", "fahrenheit", "kelvin", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z\"/></svg>"
+    },
+    {
+      "slug": "bytes",
+      "name": "Bytes Converter",
+      "cat": "converters",
+      "desc": "Convert between bytes, KB, MB, GB, TB and binary units (KiB, MiB, GiB).",
+      "tags": ["bytes", "kb", "mb", "gb", "storage", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "number-base",
+      "name": "Number Base Converter",
+      "cat": "converters",
+      "desc": "Convert numbers between binary, octal, decimal and hexadecimal.",
+      "tags": ["binary", "hex", "octal", "decimal", "base", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"4\" y1=\"9\" x2=\"20\" y2=\"9\"/><line x1=\"4\" y1=\"15\" x2=\"20\" y2=\"15\"/><line x1=\"10\" y1=\"3\" x2=\"8\" y2=\"21\"/><line x1=\"16\" y1=\"3\" x2=\"14\" y2=\"21\"/></svg>"
+    },
+    {
+      "slug": "percentage",
+      "name": "Percentage Calculator",
+      "cat": "converters",
+      "desc": "Calculate percentages, percentage change, and reverse percentage calculations.",
+      "tags": ["percentage", "percent", "calculate", "math", "ratio"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"19\" y1=\"5\" x2=\"5\" y2=\"19\"/><circle cx=\"6.5\" cy=\"6.5\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"2.5\"/></svg>"
+    },
+    {
+      "slug": "aspect-ratio",
+      "name": "Aspect Ratio Calculator",
+      "cat": "converters",
+      "desc": "Calculate aspect ratios for images and videos — resize while preserving proportions.",
+      "tags": ["aspect ratio", "resolution", "image", "video", "resize"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/></svg>"
+    },
+    {
+      "slug": "url-parser",
+      "name": "URL Parser",
+      "cat": "web",
+      "desc": "Parse any URL into its components — protocol, host, path, query params, hash.",
+      "tags": ["url", "parse", "query string", "path", "protocol"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"/><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"/></svg>"
+    },
+    {
+      "slug": "meta-tags",
+      "name": "Meta Tag Generator",
+      "cat": "web",
+      "desc": "Generate essential HTML meta tags for SEO — title, description, robots, viewport.",
+      "tags": ["meta", "seo", "html", "tags", "head"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"/><polyline points=\"10 9 9 9 8 9\"/></svg>"
+    },
+    {
+      "slug": "open-graph",
+      "name": "Open Graph Tag Generator",
+      "cat": "web",
+      "desc": "Generate Open Graph and Twitter Card meta tags for better social sharing previews.",
+      "tags": ["open graph", "og", "twitter card", "social", "meta"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>"
+    },
+    {
+      "slug": "query-string",
+      "name": "Query String Parser",
+      "cat": "web",
+      "desc": "Parse URL query strings into key-value pairs and vice versa.",
+      "tags": ["query string", "url params", "parse", "search params"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"/></svg>"
+    },
+    {
+      "slug": "url-builder",
+      "name": "URL Builder",
+      "cat": "web",
+      "desc": "Build URLs by adding base URL, path and query parameters step by step.",
+      "tags": ["url", "build", "construct", "params", "query"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"/><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"/></svg>"
+    },
+    {
+      "slug": "user-agent",
+      "name": "User Agent Parser",
+      "cat": "web",
+      "desc": "Parse User-Agent strings to extract browser, OS, device and engine info.",
+      "tags": ["user agent", "browser", "os", "device", "parse"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"5\" y=\"2\" width=\"14\" height=\"20\" rx=\"2\" ry=\"2\"/><line x1=\"12\" y1=\"18\" x2=\"12.01\" y2=\"18\"/></svg>"
+    },
+    {
+      "slug": "robots-generator",
+      "name": "Robots.txt Generator",
+      "cat": "web",
+      "desc": "Generate robots.txt files with rules for search engine bot crawling.",
+      "tags": ["robots.txt", "seo", "crawler", "sitemap", "disallow"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><circle cx=\"15.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"9 15 12 18 15 15\"/></svg>"
+    },
+    {
+      "slug": "qr-reader",
+      "name": "QR Code Reader",
+      "cat": "media",
+      "desc": "Upload an image with a QR code and instantly decode its contents.",
+      "tags": ["qr", "scan", "decode", "read", "image"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"/><circle cx=\"12\" cy=\"13\" r=\"4\"/></svg>"
+    },
+    {
+      "slug": "image-to-base64",
+      "name": "Image to Base64",
+      "cat": "media",
+      "desc": "Convert any image file to a Base64 data URI — for CSS backgrounds and HTML embeds.",
+      "tags": ["image", "base64", "data uri", "encode", "convert"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg>"
+    },
+    {
+      "slug": "base64-to-image",
+      "name": "Base64 to Image",
+      "cat": "media",
+      "desc": "Preview and download images from Base64 data URIs.",
+      "tags": ["base64", "image", "decode", "preview", "data uri"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg>"
+    },
+    {
+      "slug": "image-metadata",
+      "name": "Image Metadata Viewer",
+      "cat": "media",
+      "desc": "View EXIF metadata from images — dimensions, camera info, GPS coordinates and more.",
+      "tags": ["image", "exif", "metadata", "dimensions", "gps"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>"
+    },
+    {
+      "slug": "svg-optimizer",
+      "name": "SVG Optimizer",
+      "cat": "media",
+      "desc": "Reduce SVG file size by removing unnecessary attributes, comments and metadata.",
+      "tags": ["svg", "optimize", "compress", "clean", "vector"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>"
+    },
+    {
+      "slug": "favicon-generator",
+      "name": "Favicon Generator",
+      "cat": "media",
+      "desc": "Generate favicons from text, emoji or uploaded image — multiple sizes.",
+      "tags": ["favicon", "icon", "generate", "logo", "ico"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg>"
+    },
+    {
+      "slug": "image-dimensions",
+      "name": "Image Dimension Checker",
+      "cat": "media",
+      "desc": "Instantly check image dimensions, file size and aspect ratio from a URL or upload.",
+      "tags": ["image", "dimensions", "width", "height", "size"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z\"/></svg>"
+    },
+    {
+      "slug": "qr-batch",
+      "name": "QR Batch Generator",
+      "cat": "media",
+      "desc": "Generate multiple QR codes at once from a list — download as individual PNGs.",
+      "tags": ["qr", "batch", "multiple", "bulk", "generate"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"4\" height=\"4\"/></svg>"
+    },
+    {
+      "slug": "aes-gcm",
+      "name": "AES-GCM Encryptor",
+      "cat": "security",
+      "desc": "Encrypt or decrypt text locally with AES-GCM and a passphrase.",
+      "tags": ["aes", "encrypt", "decrypt", "crypto", "passphrase"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "rsa-keypair",
+      "name": "RSA Key Pair Generator",
+      "cat": "security",
+      "desc": "Generate browser-only RSA-OAEP key pairs and export PEM or JWK.",
+      "tags": ["rsa", "key", "pem", "jwk", "crypto"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "pem-jwk",
+      "name": "PEM / JWK Converter",
+      "cat": "security",
+      "desc": "Convert supported RSA public and private keys between PEM and JWK.",
+      "tags": ["pem", "jwk", "rsa", "key", "convert"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "certificate-inspector",
+      "name": "Certificate Inspector",
+      "cat": "security",
+      "desc": "Inspect an X.509 PEM certificate locally as a readable ASN.1 tree.",
+      "tags": ["certificate", "x509", "pem", "asn1", "security"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "totp",
+      "name": "TOTP Generator",
+      "cat": "security",
+      "desc": "Generate time-based one-time passwords from a Base32 secret, entirely offline.",
+      "tags": ["totp", "2fa", "otp", "base32", "security"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "csp-generator",
+      "name": "CSP Generator",
+      "cat": "web",
+      "desc": "Build a Content-Security-Policy header from directive values.",
+      "tags": ["csp", "security", "header", "content security policy"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "curl-builder",
+      "name": "cURL Builder",
+      "cat": "web",
+      "desc": "Create a shell-safe cURL command from a method, URL, headers and body.",
+      "tags": ["curl", "http", "api", "request", "command"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "http-header-analyzer",
+      "name": "HTTP Header Analyzer",
+      "cat": "web",
+      "desc": "Parse pasted HTTP headers and flag common browser security headers.",
+      "tags": ["http", "headers", "security", "analyze"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "cron-assistant",
+      "name": "Cron Expression Assistant",
+      "cat": "devtools",
+      "desc": "Explain a five-field cron expression and calculate upcoming runs locally.",
+      "tags": ["cron", "schedule", "time", "devops"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "unix-permissions",
+      "name": "Unix Permissions Calculator",
+      "cat": "devtools",
+      "desc": "Translate Unix rwx permissions between checkboxes, symbolic mode and octal.",
+      "tags": ["chmod", "unix", "permissions", "octal"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "css-specificity",
+      "name": "CSS Specificity Calculator",
+      "cat": "devtools",
+      "desc": "Calculate CSS selector specificity with an inspectable A-B-C score.",
+      "tags": ["css", "specificity", "selector", "frontend"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "css-clamp",
+      "name": "CSS Clamp Calculator",
+      "cat": "devtools",
+      "desc": "Generate a responsive CSS clamp() expression from size and viewport ranges.",
+      "tags": ["css", "clamp", "responsive", "fluid typography"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "json-to-typescript",
+      "name": "JSON to TypeScript",
+      "cat": "devtools",
+      "desc": "Infer TypeScript interfaces from JSON without uploading data.",
+      "tags": ["json", "typescript", "interface", "generate"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "json-to-markdown",
+      "name": "JSON to Markdown Table",
+      "cat": "devtools",
+      "desc": "Convert a JSON array of objects into a Markdown table.",
+      "tags": ["json", "markdown", "table", "convert"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "xml-to-json",
+      "name": "XML to JSON Converter",
+      "cat": "devtools",
+      "desc": "Convert XML documents to a clear JSON representation in the browser.",
+      "tags": ["xml", "json", "convert", "parser"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "csv-viewer",
+      "name": "CSV Viewer",
+      "cat": "devtools",
+      "desc": "Preview CSV data as a searchable local table.",
+      "tags": ["csv", "table", "viewer", "data"],
+      "shell": "expansion",
+      "exampleStarter": true
+    },
+    {
+      "slug": "unicode-inspector",
+      "name": "Unicode Inspector",
+      "cat": "text",
+      "desc": "Inspect Unicode code points and normalize text with standard Unicode forms.",
+      "tags": ["unicode", "text", "normalize", "code point"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "time-zone-converter",
+      "name": "Time Zone Converter",
+      "cat": "converters",
+      "desc": "View one date and time across IANA time zones using browser locale data.",
+      "tags": ["timezone", "date", "time", "intl"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "date-duration",
+      "name": "Date Duration Calculator",
+      "cat": "converters",
+      "desc": "Calculate the exact day and week distance between two calendar dates.",
+      "tags": ["date", "duration", "days", "weeks"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "image-compressor",
+      "name": "Image Compressor",
+      "cat": "media",
+      "desc": "Resize and recompress images locally with Canvas; nothing is uploaded.",
+      "tags": ["image", "compress", "resize", "canvas"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "sitemap-generator",
+      "name": "Sitemap Generator",
+      "cat": "web",
+      "desc": "Generate a standards-friendly sitemap.xml from a list of URLs.",
+      "tags": ["sitemap", "seo", "xml", "urls"],
+      "shell": "expansion"
+    },
+    {
+      "slug": "color-contrast",
+      "name": "Color Contrast Checker",
+      "cat": "devtools",
+      "desc": "Check WCAG contrast ratios for foreground and background colors.",
+      "tags": ["color", "contrast", "wcag", "accessibility"],
+      "shell": "expansion"
+    }
+  ]
+}

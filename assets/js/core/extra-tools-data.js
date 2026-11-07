@@ -1,9 +1,12 @@
 /* ═══════════════════════════════════════════════════════════
-   Toolkit — expansion tool metadata (78 → 100)
+   Toolkit — expansion tool metadata
    All tools are browser-only and require no network service.
+   The list is generated from _data/tools.json by
+   `python3 build.py --all`; edit that file, not the list below.
    ═══════════════════════════════════════════════════════════ */
 
 const EXPANSION_TOOLS = [
+  // EXPANSION-TOOLS:START
   { name: 'AES-GCM Encryptor', slug: 'aes-gcm', cat: 'security', catLabel: 'Security', desc: 'Encrypt or decrypt text locally with AES-GCM and a passphrase.', tags: ['aes', 'encrypt', 'decrypt', 'crypto', 'passphrase'] },
   { name: 'RSA Key Pair Generator', slug: 'rsa-keypair', cat: 'security', catLabel: 'Security', desc: 'Generate browser-only RSA-OAEP key pairs and export PEM or JWK.', tags: ['rsa', 'key', 'pem', 'jwk', 'crypto'] },
   { name: 'PEM / JWK Converter', slug: 'pem-jwk', cat: 'security', catLabel: 'Security', desc: 'Convert supported RSA public and private keys between PEM and JWK.', tags: ['pem', 'jwk', 'rsa', 'key', 'convert'] },
@@ -25,7 +28,7 @@ const EXPANSION_TOOLS = [
   { name: 'Date Duration Calculator', slug: 'date-duration', cat: 'converters', catLabel: 'Converters', desc: 'Calculate the exact day and week distance between two calendar dates.', tags: ['date', 'duration', 'days', 'weeks'] },
   { name: 'Image Compressor', slug: 'image-compressor', cat: 'media', catLabel: 'Media', desc: 'Resize and recompress images locally with Canvas; nothing is uploaded.', tags: ['image', 'compress', 'resize', 'canvas'] },
   { name: 'Sitemap Generator', slug: 'sitemap-generator', cat: 'web', catLabel: 'Web Utils', desc: 'Generate a standards-friendly sitemap.xml from a list of URLs.', tags: ['sitemap', 'seo', 'xml', 'urls'] },
-  { name: 'Color Contrast Checker', slug: 'color-contrast', cat: 'devtools', catLabel: 'Dev Tools', desc: 'Check WCAG contrast ratios for foreground and background colors.', tags: ['color', 'contrast', 'wcag', 'accessibility'] }
+  { name: 'Color Contrast Checker', slug: 'color-contrast', cat: 'devtools', catLabel: 'Dev Tools', desc: 'Check WCAG contrast ratios for foreground and background colors.', tags: ['color', 'contrast', 'wcag', 'accessibility'] },  // EXPANSION-TOOLS:END
 ];
 
 if (typeof TOOLS_DATA !== 'undefined' && !TOOLS_DATA.some((tool) => tool.slug === 'aes-gcm')) {

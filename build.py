@@ -8,11 +8,17 @@ Usage:
   python3 build.py --check           Fail if any maintained file is out of date (used by CI)
   python3 build.py --site            Assemble the publishable site in _site/
 
+  python3 build.py --registry        Generate the browser tool registries from _data/tools.json
+  python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
   python3 build.py --tool-count      Synchronize published static tool-count copy
-  python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --words           Generate the word-list precache manifest
   python3 build.py --offline         Generate the tool precache manifest
+  python3 build.py --sitemap         Generate sitemap.xml with content-based lastmod dates
+
+_data/tools.json is the single source for the tool list: the two browser
+registries, the expansion-tool shells and the sitemap are all generated from
+it.
 
 Any task also refreshes the service-worker CACHE_VERSION, a content hash of
 every published file, so returning visitors never mix new HTML with stale
@@ -21,9 +27,11 @@ cached CSS or JavaScript.
 
 import argparse
 import contextlib
+import datetime
 import hashlib
 import html as html_lib
 import io
+import json
 import os
 import re
 import shutil
@@ -39,6 +47,9 @@ NAV_FILE    = os.path.join(ROOT, '_includes', '_nav.html')
 SITE_BASE   = 'https://abel0x.github.io/toolkit/'
 
 SITE_DIR    = os.path.join(ROOT, '_site')
+TOOLS_JSON  = os.path.join(ROOT, '_data', 'tools.json')
+LASTMOD_JSON = os.path.join(ROOT, '_data', 'lastmod.json')
+CORE_JS_DIR = os.path.join(ROOT, 'assets', 'js', 'core')
 
 # Shared by every published page; tests/site-audit.mjs enforces it.
 CONTENT_SECURITY_POLICY = (
@@ -49,47 +60,71 @@ CONTENT_SECURITY_POLICY = (
 )
 
 # Everything GitHub Pages serves. Repository-only files (tests, build tooling,
-# documentation, editor and assistant settings) are deliberately excluded.
+# source data, documentation and local editor settings) are deliberately
+# excluded.
 PUBLISHED_FILES = (
     '.nojekyll', '404.html', 'LICENSE', 'index.html', 'manifest.json',
-    'robots.txt', 'sitemap.xml', 'style.css', 'sw.js',
+    'sitemap.xml', 'style.css', 'sw.js',
 )
 PUBLISHED_DIRS = ('assets', 'license', 'tools', 'words')
 UNPUBLISHED_SUFFIXES = ('.md',)
 
 
-# Browser-only additions used to take Toolkit from 78 to 100 utilities.
-# Keep this list in sync with assets/js/core/extra-tools-data.js.
-EXPANSION_PAGES = [
-    ('aes-gcm', 'AES-GCM Encryptor', 'Encrypt or decrypt text locally with AES-GCM and a passphrase.', 'Security'),
-    ('rsa-keypair', 'RSA Key Pair Generator', 'Generate browser-only RSA-OAEP key pairs and export PEM or JWK.', 'Security'),
-    ('pem-jwk', 'PEM / JWK Converter', 'Convert supported RSA public and private keys between PEM and JWK.', 'Security'),
-    ('certificate-inspector', 'Certificate Inspector', 'Inspect an X.509 PEM certificate locally as a readable ASN.1 tree.', 'Security'),
-    ('totp', 'TOTP Generator', 'Generate time-based one-time passwords from a Base32 secret, entirely offline.', 'Security'),
-    ('csp-generator', 'CSP Generator', 'Build a Content-Security-Policy header from directive values.', 'Web Utils'),
-    ('curl-builder', 'cURL Builder', 'Create a shell-safe cURL command from a method, URL, headers and body.', 'Web Utils'),
-    ('http-header-analyzer', 'HTTP Header Analyzer', 'Parse pasted HTTP headers and flag common browser security headers.', 'Web Utils'),
-    ('cron-assistant', 'Cron Expression Assistant', 'Explain a five-field cron expression and calculate upcoming runs locally.', 'Dev Tools'),
-    ('unix-permissions', 'Unix Permissions Calculator', 'Translate Unix rwx permissions between checkboxes, symbolic mode and octal.', 'Dev Tools'),
-    ('css-specificity', 'CSS Specificity Calculator', 'Calculate CSS selector specificity with an inspectable A-B-C score.', 'Dev Tools'),
-    ('css-clamp', 'CSS Clamp Calculator', 'Generate a responsive CSS clamp() expression from size and viewport ranges.', 'Dev Tools'),
-    ('json-to-typescript', 'JSON to TypeScript', 'Infer TypeScript interfaces from JSON without uploading data.', 'Dev Tools'),
-    ('json-to-markdown', 'JSON to Markdown Table', 'Convert a JSON array of objects into a Markdown table.', 'Dev Tools'),
-    ('xml-to-json', 'XML to JSON Converter', 'Convert XML documents to a clear JSON representation in the browser.', 'Dev Tools'),
-    ('csv-viewer', 'CSV Viewer', 'Preview CSV data as a searchable local table.', 'Dev Tools'),
-    ('unicode-inspector', 'Unicode Inspector', 'Inspect Unicode code points and normalize text with standard Unicode forms.', 'Text Tools'),
-    ('time-zone-converter', 'Time Zone Converter', 'View one date and time across IANA time zones using browser locale data.', 'Converters'),
-    ('date-duration', 'Date Duration Calculator', 'Calculate the exact day and week distance between two calendar dates.', 'Converters'),
-    ('image-compressor', 'Image Compressor', 'Resize and recompress images locally with Canvas; nothing is uploaded.', 'Media'),
-    ('sitemap-generator', 'Sitemap Generator', 'Generate a standards-friendly sitemap.xml from a list of URLs.', 'Web Utils'),
-    ('color-contrast', 'Color Contrast Checker', 'Check WCAG contrast ratios for foreground and background colors.', 'Dev Tools'),
-]
+# ---------------------------------------------------------------------------
+# Tool registry — _data/tools.json is the single source of the tool list
+# ---------------------------------------------------------------------------
 
-EXAMPLE_STARTER_EXPANSION_TOOLS = {
-    'csp-generator', 'curl-builder', 'http-header-analyzer',
-    'cron-assistant', 'unix-permissions', 'css-specificity',
-    'json-to-typescript', 'json-to-markdown', 'xml-to-json', 'csv-viewer',
-}
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'icon', 'shell', 'exampleStarter'}
+_REGISTRY = None
+
+
+def _registry():
+    """Load and validate _data/tools.json once per run.
+
+    Returns a list of tool dicts in catalogue order, each with its catLabel
+    resolved from the category table.
+    """
+    global _REGISTRY
+    if _REGISTRY is not None:
+        return _REGISTRY
+    with open(TOOLS_JSON, 'r', encoding='utf-8') as fh:
+        data = json.load(fh)
+    categories = data['categories']
+    tools, seen, errors = [], set(), []
+    for index, entry in enumerate(data['tools']):
+        label = entry.get('slug', f'#{index}')
+        unknown = set(entry) - _TOOL_KEYS
+        if unknown:
+            errors.append(f'{label}: unknown keys {sorted(unknown)}')
+        for key in ('slug', 'name', 'cat', 'desc', 'tags'):
+            if not entry.get(key):
+                errors.append(f'{label}: missing {key}')
+        slug = entry.get('slug', '')
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug):
+            errors.append(f'{label}: slug must be lowercase words joined by hyphens')
+        if slug in seen:
+            errors.append(f'{label}: duplicate slug')
+        seen.add(slug)
+        if entry.get('cat') not in categories:
+            errors.append(f'{label}: unknown category {entry.get("cat")!r}')
+        expansion = entry.get('shell') == 'expansion'
+        if 'shell' in entry and not expansion:
+            errors.append(f'{label}: shell must be "expansion" when present')
+        if expansion and 'icon' in entry:
+            errors.append(f'{label}: expansion tools use the shared icon; remove icon')
+        if not expansion and not entry.get('icon'):
+            errors.append(f'{label}: missing icon')
+        if entry.get('exampleStarter') and not expansion:
+            errors.append(f'{label}: exampleStarter applies only to expansion tools')
+        tools.append(dict(entry, catLabel=categories.get(entry.get('cat'), '')))
+    if errors:
+        raise SystemExit('_data/tools.json is invalid:\n  ' + '\n  '.join(errors))
+    _REGISTRY = tools
+    return tools
+
+
+def _expansion_tools():
+    return [tool for tool in _registry() if tool.get('shell') == 'expansion']
 
 
 # ---------------------------------------------------------------------------
@@ -129,10 +164,8 @@ def _read_bytes(path):
 
 
 def _registered_tool_count():
-    """Return the number of tool entries across both browser registries."""
-    registry = _read(os.path.join(ROOT, 'assets', 'js', 'core', 'tools-data.js'))
-    expansion = _read(os.path.join(ROOT, 'assets', 'js', 'core', 'extra-tools-data.js'))
-    return len(re.findall(r"slug:\s*'", registry + expansion))
+    """Return the number of tools in the catalogue."""
+    return len(_registry())
 
 
 def _write(path, content):
@@ -147,14 +180,16 @@ def _write(path, content):
 # Expansion pages — static shell, local shared implementation
 # ---------------------------------------------------------------------------
 
-def _expansion_page(slug, title, description, category):
-    safe_title = html_lib.escape(title)
-    safe_desc = html_lib.escape(description)
+def _expansion_page(tool):
+    slug = tool['slug']
+    category = tool['catLabel']
+    safe_title = html_lib.escape(tool['name'])
+    safe_desc = html_lib.escape(tool['desc'])
     url = f'{SITE_BASE}tools/{slug}.html'
     tool_count = _registered_tool_count()
     example_starter = ''
     example_script = ''
-    if slug in EXAMPLE_STARTER_EXPANSION_TOOLS:
+    if tool.get('exampleStarter'):
         example_starter = f'''        <div class="example-starter reveal">
           <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
           <p class="example-starter__copy"><strong>Need a spark?</strong><span>Load a ready-made example, then make it yours.</span></p>
@@ -255,9 +290,10 @@ def run_sync_expansion():
     """Create missing expansion-tool shells and refresh existing ones."""
     print('\n[--sync-expansion] Synchronizing browser-only expansion tools...')
     created = updated = unchanged = 0
-    for slug, title, description, category in EXPANSION_PAGES:
+    for tool in _expansion_tools():
+        slug = tool['slug']
         path = os.path.join(TOOLS_DIR, f'{slug}.html')
-        shell = _expansion_page(slug, title, description, category)
+        shell = _expansion_page(tool)
         if not os.path.exists(path):
             _write(path, shell)
             print(f'  NEW   {slug}.html')
@@ -272,17 +308,6 @@ def run_sync_expansion():
         _write(path, shell)
         print(f'  SYNC  {slug}.html')
         updated += 1
-
-    sitemap_path = os.path.join(ROOT, 'sitemap.xml')
-    sitemap = _read(sitemap_path)
-    additions = []
-    for slug, _, _, _ in EXPANSION_PAGES:
-        location = f'{SITE_BASE}tools/{slug}.html'
-        if location not in sitemap:
-            additions.append(f'  <url>\n    <loc>{location}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>')
-    if additions:
-        sitemap = sitemap.replace('</urlset>', '\n' + '\n'.join(additions) + '\n</urlset>')
-        _write(sitemap_path, sitemap)
 
     if created or updated:
         # Generated pages carry empty NAV markers; materialize the shared
@@ -300,6 +325,97 @@ def replace_marker(content, marker, entries):
     if count != 1:
         raise RuntimeError(f'Could not update generated marker: {marker}')
     return updated
+
+
+def _js_string(value):
+    """Return a single-quoted JavaScript string literal."""
+    return "'" + value.replace('\\', '\\\\').replace("'", "\\'") + "'"
+
+
+def _js_tags(tags):
+    return '[' + ', '.join(_js_string(tag) for tag in tags) + ']'
+
+
+def run_registry():
+    """Generate the two browser registries from _data/tools.json."""
+    print('\n[--registry] Generating browser tool registries...')
+    base, expansion = [], []
+    for tool in _registry():
+        if tool.get('shell') == 'expansion':
+            expansion.append(
+                f"  {{ name: {_js_string(tool['name'])}, slug: {_js_string(tool['slug'])}, "
+                f"cat: {_js_string(tool['cat'])}, catLabel: {_js_string(tool['catLabel'])}, "
+                f"desc: {_js_string(tool['desc'])}, tags: {_js_tags(tool['tags'])} }},")
+        else:
+            base.append('\n'.join((
+                '  {',
+                f"    name: {_js_string(tool['name'])},",
+                f"    slug: {_js_string(tool['slug'])},",
+                f"    cat: {_js_string(tool['cat'])},",
+                f"    catLabel: {_js_string(tool['catLabel'])},",
+                f"    desc: {_js_string(tool['desc'])},",
+                f"    tags: {_js_tags(tool['tags'])},",
+                f"    icon: {_js_string(tool['icon'])},",
+                '  },',
+            )))
+    for name, marker, entries in (
+        ('tools-data.js', '// TOOLS', base),
+        ('extra-tools-data.js', '// EXPANSION-TOOLS', expansion),
+    ):
+        path = os.path.join(CORE_JS_DIR, name)
+        content = _read(path)
+        revised = replace_marker(content, marker, entries)
+        if revised != content:
+            _write(path, revised)
+    print(f'  OK    {len(base)} page tools and {len(expansion)} expansion tools.')
+
+
+def _sitemap_pages():
+    """Yield (URL path, repository path) for every page listed in the sitemap."""
+    yield '', 'index.html'
+    yield 'license/', 'license/index.html'
+    for tool in _registry():
+        yield f"tools/{tool['slug']}.html", f"tools/{tool['slug']}.html"
+
+
+def run_sitemap():
+    """Generate sitemap.xml; a page's lastmod moves only when its bytes change.
+
+    _data/lastmod.json records the content hash and date of each page, so the
+    output is stable across runs and machines and needs no git history.
+    """
+    print('\n[--sitemap] Generating sitemap.xml...')
+    try:
+        stored_ledger = _read(LASTMOD_JSON)
+    except FileNotFoundError:
+        stored_ledger = '{}'
+    ledger = json.loads(stored_ledger)
+    today = datetime.date.today().isoformat()
+    revised, entries, changed = {}, [], 0
+    for location, relative in _sitemap_pages():
+        try:
+            page = _read_bytes(os.path.join(ROOT, *relative.split('/')))
+        except FileNotFoundError:
+            raise SystemExit(f'{relative} is listed in _data/tools.json but does not exist; '
+                             'create the page (expansion shells are created automatically).')
+        digest = hashlib.sha256(page).hexdigest()
+        record = ledger.get(relative)
+        if not record or record['sha256'] != digest:
+            record = {'date': today, 'sha256': digest}
+            changed += 1
+        revised[relative] = record
+        entries.append(f'  <url><loc>{html_lib.escape(SITE_BASE + location)}</loc>'
+                       f'<lastmod>{record["date"]}</lastmod></url>')
+    ledger_text = json.dumps(revised, indent=2, sort_keys=True) + '\n'
+    if stored_ledger != ledger_text:
+        _write(LASTMOD_JSON, ledger_text)
+    sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+               + '\n'.join(entries) + '\n</urlset>\n')
+    sitemap_path = os.path.join(ROOT, 'sitemap.xml')
+    if _read(sitemap_path) != sitemap:
+        _write(sitemap_path, sitemap)
+    print(f'  OK    {len(entries)} URLs, {changed} with a new lastmod.')
 
 
 def run_offline_manifest():
@@ -547,11 +663,13 @@ def run_site():
 
 def run_all():
     """Regenerate every maintained file; the cache version always comes last."""
+    run_registry()
     run_sync_expansion()
     run_nav()
     run_tool_count()
     run_words_manifest()
     run_offline_manifest()
+    run_sitemap()
     run_cache_version()
 
 
@@ -567,6 +685,8 @@ def main():
                         help='Fail if any maintained file is out of date')
     parser.add_argument('--site', action='store_true',
                         help='Assemble the publishable site in _site/')
+    parser.add_argument('--registry', action='store_true',
+                        help='Generate the browser tool registries from _data/tools.json')
     parser.add_argument('--nav', action='store_true',
                         help='Inject nav HTML from _includes/_nav.html into published pages')
     parser.add_argument('--tool-count', action='store_true',
@@ -577,6 +697,8 @@ def main():
                         help='Generate the word-list precache manifest')
     parser.add_argument('--offline', action='store_true',
                         help='Generate the tool precache manifest')
+    parser.add_argument('--sitemap', action='store_true',
+                        help='Generate sitemap.xml with content-based lastmod dates')
 
     args = parser.parse_args()
 
@@ -592,11 +714,13 @@ def main():
         run_all()
     else:
         tasks = (
+            (args.registry, run_registry),
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
             (args.tool_count, run_tool_count),
             (args.words, run_words_manifest),
             (args.offline, run_offline_manifest),
+            (args.sitemap, run_sitemap),
         )
         ran = False
         for selected, task in tasks:

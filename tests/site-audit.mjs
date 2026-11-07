@@ -16,7 +16,13 @@ const toolPages = readdirSync(toolsDirectory)
 const licensePage = join(root, 'license', 'index.html');
 const pages = [join(root, 'index.html'), join(root, '404.html'), licensePage, ...toolPages];
 
-assert.equal(toolPages.length, 101, `Expected 101 tool pages, found ${toolPages.length}.`);
+// _data/tools.json is the single source of the catalogue; build.py generates
+// the browser registries, expansion shells and sitemap from it.
+const catalogue = JSON.parse(readFileSync(join(root, '_data/tools.json'), 'utf8')).tools;
+const catalogueSlugs = catalogue.map((tool) => tool.slug);
+const expansionSlugs = new Set(catalogue.filter((tool) => tool.shell === 'expansion').map((tool) => tool.slug));
+assert.equal(toolPages.length, catalogue.length,
+  `Expected ${catalogue.length} tool pages (one per _data/tools.json entry), found ${toolPages.length}.`);
 
 const sharedStyles = [
   'assets/css/core.css',
@@ -43,6 +49,10 @@ for (const file of pages) {
 
   const expansionStyle = `${prefix}assets/css/features/expansion-tools.css`;
   const isExpansionTool = html.includes('id="toolApp"');
+  if (relativeName.startsWith('tools/')) {
+    assert.equal(isExpansionTool, expansionSlugs.has(basename(file, '.html')),
+      `${relativeName} does not match its shell in _data/tools.json.`);
+  }
   assert(isExpansionTool === html.includes(`href="${expansionStyle}"`),
     `${relativeName} has an incorrect expansion-tool stylesheet.`);
   if (isExpansionTool) {
@@ -124,6 +134,8 @@ const publishedSlugs = toolPages.map((file) => basename(file, '.html'));
 assert.equal(new Set(registeredSlugs).size, registeredSlugs.length, 'Tool registries contain a duplicate slug.');
 assert.deepEqual([...registeredSlugs].sort(), [...publishedSlugs].sort(),
   'Published tool pages and registry entries are out of sync.');
+assert.deepEqual(registeredSlugs, catalogueSlugs,
+  'Browser registries differ from _data/tools.json; run `python3 build.py --all`.');
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
 for (const slug of registeredSlugs) {
   const location = `https://abel0x.github.io/toolkit/tools/${slug}.html`;
