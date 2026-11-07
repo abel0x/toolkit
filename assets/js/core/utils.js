@@ -112,12 +112,13 @@ function formatBytes(bytes, decimals = 2) {
 }
 
 /**
- * Escape HTML special characters
- * @param {string} str
+ * Escape HTML special characters. The one shared implementation: every page
+ * loads utils.js before its tool module.
+ * @param {*} str  Converted to a string first
  * @returns {string}
  */
 function escapeHTML(str) {
-  return str
+  return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

@@ -12,10 +12,6 @@
   const clearBtn     = document.getElementById('regexClearBtn');
   if (!patternInput) return;
 
-  function escapeHTML(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
   function runRegex() {
     errorEl.hidden = true;
     highlight.textContent = '';

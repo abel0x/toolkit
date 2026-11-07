@@ -29,8 +29,6 @@
     return result;
   }
 
-  function escapeHTML(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
   compareBtn.addEventListener('click', () => {
     const a = textA.value, b = textB.value;
     if (!a && !b) { showToast('Both fields are empty', 'error'); return; }
