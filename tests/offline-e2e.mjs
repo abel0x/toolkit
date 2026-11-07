@@ -197,7 +197,9 @@ async function main() {
         navigator.serviceWorker.ready,
         new Promise((_, reject) => setTimeout(() => reject(new Error('Service worker installation timed out.')), 30000))
       ]);
-      for (let attempt = 0; attempt < 200 && !navigator.serviceWorker.controller; attempt += 1) {
+      // ready resolves while the worker is still "activating"; clients.claim()
+      // runs inside activation, so wait for both control and the final state.
+      for (let attempt = 0; attempt < 200 && (!navigator.serviceWorker.controller || registration.active?.state !== 'activated'); attempt += 1) {
         await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
       }
       const cacheNames = await caches.keys();
