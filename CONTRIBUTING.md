@@ -103,17 +103,18 @@ Run `node tests/i18n-audit.mjs` after changing either dictionary or the i18n run
 Edit `_includes/_nav.html` for shared navigation, then run the narrow maintenance commands that match the change:
 
 ```bash
-# Shared nav, visible count copy, complete Service Worker precache, and word-list precache.
-python3 build.py --nav --tool-count --offline --words
+# Regenerate everything build.py maintains: shared nav, visible tool counts,
+# expansion-tool shells, precache lists, and the content-hashed cache version.
+python3 build.py --all
+
+# Confirm nothing is out of date (CI runs this and fails on drift).
+python3 build.py --check
 
 # Localisation dictionaries, runtime safeguards, and Turkish title coverage.
 node tests/i18n-audit.mjs
-
-# Only when changing the generated expansion-tool template or EXPANSION_PAGES.
-python3 build.py --sync-expansion --offline
 ```
 
-`--sync-expansion` rewrites generated expansion-page shells, so inspect its diff carefully. Do not manually increment every textual tool count; `--tool-count` owns the published static copies.
+Run `python3 build.py --all` after **any** change to a published file, including a one-line CSS fix. The service worker serves assets cache-first, so `CACHE_VERSION` is a hash of every published file; a stale hash would leave returning visitors on old CSS and JavaScript, and CI rejects it. Every task is idempotent, so running it twice changes nothing. Do not edit `CACHE_VERSION` or textual tool counts by hand.
 
 ### 6. Validate before opening a PR
 
@@ -164,17 +165,16 @@ Typing-test preferences may persist under one settings key because they are UI s
 
 | Flag | Purpose |
 | --- | --- |
+| `--all` | Run every task below, then refresh the cache version. Run this before committing. |
+| `--check` | Run every task in memory and fail, listing the files, if anything is out of date. |
+| `--site` | Copy only the published files into `_site/` and verify every page reference and precache entry resolves. CI deploys this directory. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
-| `--meta` | Add missing canonical, Open Graph, and Twitter metadata to tool pages. |
-| `--scripts` | Migrate legacy script references to the modular pattern. |
-| `--enhance` | Add shared i18n and tool-finder scripts to published pages. |
-| `--styles` | Replace retired monolithic stylesheet references with page modules. |
-| `--new-tools` | Create the generated expansion tool pages and sitemap entries. |
-| `--sync-expansion` | Refresh existing generated expansion-page shells from the template. |
-| `--offline` | Rebuild the complete service-worker precache manifest. |
-| `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |
 | `--tool-count` | Synchronise published static tool-count copy. |
-| `--all` | Run every maintenance task; review the resulting diff especially carefully. |
+| `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |
+| `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |
+| `--offline` | Rebuild the service-worker precache entries for tool pages and modules. |
+
+Any task also recomputes `CACHE_VERSION` in `sw.js`. Repository-only files (tests, documentation, `build.py`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
 
 ## Commit messages
 

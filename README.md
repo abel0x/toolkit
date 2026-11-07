@@ -44,7 +44,11 @@ The live site is the complete, searchable catalogue of all 101 tools. The curren
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.2.0
+### Latest release — 1.2.1
+
+A maintenance release: returning visitors now always receive the current CSS and JavaScript, `build.py` is safe to re-run, pull requests run the full test pipeline, and only the site itself is published.
+
+### 1.2.0
 
 - **Typing Speed Test:** bilingual English/Turkish typing practice with time, word, quote, and zen modes; themed lists; Turkish diacritic support; accessibility controls; charts; and a keyboard error heat map.
 - **Reusable word data:** `words/` provides 20 categories and 9,246 local entries for typing practice and future tools, with structural audits and reproducible primary-source checks for medical descriptors and literary excerpts.
@@ -138,8 +142,10 @@ To enable it once in GitHub, open **Settings → Pages**, choose **GitHub Action
 The repository includes a small, dependency-free maintenance helper and static/browser checks. From the project root:
 
 ```bash
-# Regenerate static navigation, visible tool-count text, offline entries, and word-list entries.
-python3 build.py --nav --tool-count --offline --words
+# Regenerate navigation, tool counts, precache lists, and the content-hashed cache version.
+python3 build.py --all
+# Fail if any generated file is out of date (CI runs this).
+python3 build.py --check
 
 # Check published pages, references, assets, and tool metadata.
 node tests/site-audit.mjs

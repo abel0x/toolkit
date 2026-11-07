@@ -2,6 +2,20 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] — 2026-11-07
+
+### Fixed
+
+- Returning visitors could receive new HTML alongside stale cached CSS and JavaScript, because the service worker serves assets cache-first and its `CACHE_VERSION` was bumped by hand (it was not bumped for the last CSS and home-page title changes). `CACHE_VERSION` is now a content hash of every published file, written by `build.py`.
+- `build.py --sync-expansion` removed the Content-Security-Policy and `inline-styles.css` from the 22 generated expansion pages, and `--styles` / `--all` reordered stylesheets on all 101 tool pages. The expansion template now matches the published pages and every task is idempotent.
+
+### Changed
+
+- Removed the completed one-off migration tasks `--meta`, `--scripts`, `--styles`, `--enhance` and `--new-tools` from `build.py`; `--sync-expansion` now also creates missing pages.
+- Added `build.py --check`, which fails when any generated file is out of date; CI runs it instead of silently regenerating files before deployment.
+- Added `build.py --site`, which assembles only the published files in `_site/` and verifies that every page reference and precache entry resolves. GitHub Pages now deploys `_site/`, so tests, build tooling and documentation are no longer served.
+- The build-and-test workflow now also runs on pull requests (deployment remains `main`-only), and the offline test runs against the assembled `_site/`.
+
 ## [1.2.0] — 2026-10-04
 
 ### Added
@@ -113,6 +127,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.2.1]: https://github.com/abel0x/toolkit/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/abel0x/toolkit/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/abel0x/toolkit/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/abel0x/toolkit/releases/tag/v1.0.0
