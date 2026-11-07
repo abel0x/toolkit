@@ -1,15 +1,17 @@
 name: Deploy Toolkit to GitHub Pages
 
+# Pull requests run the full build and test pipeline; only main deploys.
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: github-pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -30,11 +32,14 @@ jobs:
         uses: browser-actions/setup-firefox@v1
 
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Refresh generated publication files
-        run: python3 build.py --nav --tool-count --offline --words
+      # Generated files (nav, counts, precache lists, cache version) must be
+      # committed; run `python3 build.py --all` locally when this fails.
+      - name: Check generated files are up to date
+        run: python3 build.py --check
 
       - name: Audit published site
         run: node tests/site-audit.mjs
@@ -69,16 +74,23 @@ jobs:
       - name: Check tool outputs against known answers in Firefox
         run: node tests/tool-vectors.mjs
 
+      - name: Assemble the published site
+        run: python3 build.py --site
+
       - name: Exercise the installed offline site in Firefox
         run: node tests/offline-e2e.mjs
+        env:
+          TOOLKIT_SITE_ROOT: ${{ github.workspace }}/_site
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
 
   deploy:
     name: Deploy to GitHub Pages
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     permissions:

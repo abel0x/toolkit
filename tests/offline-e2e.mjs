@@ -11,7 +11,8 @@ import { dirname, extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import net from 'node:net';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+// TOOLKIT_SITE_ROOT lets CI test the assembled _site/ exactly as it is published.
+const root = resolve(process.env.TOOLKIT_SITE_ROOT || resolve(dirname(fileURLToPath(import.meta.url)), '..'));
 const mountPath = '/toolkit';
 const sleep = (milliseconds) => new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
 const mimeTypes = {

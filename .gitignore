@@ -35,3 +35,6 @@ test-results/
 
 # Tool caches
 .cache/
+
+# Assembled publication output (python3 build.py --site)
+_site/
