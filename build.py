@@ -1,22 +1,32 @@
 """
 build.py — Toolkit build helper
 =====================================
+Every task is idempotent: running it twice leaves the tree unchanged.
+
 Usage:
-  python build.py --meta      Add canonical + OG/Twitter meta tags to tools/*.html
-  python build.py --nav       Inject nav HTML from _includes/_nav.html into tools/*.html
-  python build.py --scripts   Migrate old script.js references to modular script tags
-  python build.py --enhance   Add global tool-finder scripts to published pages
-  python build.py --styles    Replace the retired monolithic stylesheet with page modules
-  python build.py --offline   Generate the complete offline precache manifest
-  python build.py --words     Generate the word-list precache manifest
-  python build.py --tool-count Synchronize published static tool-count copy
-  python build.py --all       Run every task
+  python3 build.py --all             Regenerate every maintained file (run before committing)
+  python3 build.py --check           Fail if any maintained file is out of date (used by CI)
+  python3 build.py --site            Assemble the publishable site in _site/
+
+  python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
+  python3 build.py --tool-count      Synchronize published static tool-count copy
+  python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
+  python3 build.py --words           Generate the word-list precache manifest
+  python3 build.py --offline         Generate the tool precache manifest
+
+Any task also refreshes the service-worker CACHE_VERSION, a content hash of
+every published file, so returning visitors never mix new HTML with stale
+cached CSS or JavaScript.
 """
 
 import argparse
+import contextlib
+import hashlib
 import html as html_lib
+import io
 import os
 import re
+import shutil
 import sys
 
 # ---------------------------------------------------------------------------
@@ -28,21 +38,24 @@ WORDS_DIR   = os.path.join(ROOT, 'words')
 NAV_FILE    = os.path.join(ROOT, '_includes', '_nav.html')
 SITE_BASE   = 'https://abel0x.github.io/toolkit/'
 
-COMMON_STYLE_MODULES = (
-    'assets/css/core.css',
-    'assets/css/components.css',
-    'assets/css/compatibility.css',
+SITE_DIR    = os.path.join(ROOT, '_site')
+
+# Shared by every published page; tests/site-audit.mjs enforces it.
+CONTENT_SECURITY_POLICY = (
+    "default-src 'self'; script-src 'self'; style-src 'self'; "
+    "img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; "
+    "worker-src 'self'; manifest-src 'self'; object-src 'none'; "
+    "base-uri 'self'; form-action 'none'"
 )
 
-# Old-style tools that need script-tag migration
-SCRIPT_MIGRATION_FILES = [
-    'password.html', 'hash.html', 'base64.html', 'uuid.html',
-    'json-formatter.html', 'url-codec.html', 'jwt-decoder.html',
-    'regex-tester.html', 'timestamp.html', 'case-converter.html',
-    'markdown.html', 'qr-generator.html', 'qr-reader.html',
-    'color-converter.html', 'gradient.html', 'lorem-ipsum.html',
-    'text-diff.html',
-]
+# Everything GitHub Pages serves. Repository-only files (tests, build tooling,
+# documentation, editor and assistant settings) are deliberately excluded.
+PUBLISHED_FILES = (
+    '.nojekyll', '404.html', 'LICENSE', 'index.html', 'manifest.json',
+    'robots.txt', 'sitemap.xml', 'style.css', 'sw.js',
+)
+PUBLISHED_DIRS = ('assets', 'license', 'tools', 'words')
+UNPUBLISHED_SUFFIXES = ('.md',)
 
 
 # Browser-only additions used to take Toolkit from 78 to 100 utilities.
@@ -96,8 +109,22 @@ def _page_prefix(path):
     return '../' * (len(relative.split(os.sep)) - 1)
 
 
+# In --check mode writes land here instead of on disk, and later reads see
+# them, so the full pipeline runs exactly as it would for real.
+_PENDING = None
+
+
 def _read(path):
+    if _PENDING is not None and path in _PENDING:
+        return _PENDING[path]
     with open(path, 'r', encoding='utf-8') as fh:
+        return fh.read()
+
+
+def _read_bytes(path):
+    if _PENDING is not None and path in _PENDING:
+        return _PENDING[path].encode('utf-8')
+    with open(path, 'rb') as fh:
         return fh.read()
 
 
@@ -109,6 +136,9 @@ def _registered_tool_count():
 
 
 def _write(path, content):
+    if _PENDING is not None:
+        _PENDING[path] = content
+        return
     with open(path, 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(content)
 
@@ -136,6 +166,7 @@ def _expansion_page(slug, title, description, category):
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="{CONTENT_SECURITY_POLICY}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{safe_desc}" />
   <link rel="canonical" href="{url}" />
@@ -153,6 +184,7 @@ def _expansion_page(slug, title, description, category):
   <link rel="stylesheet" href="../assets/css/compatibility.css" />
   <link rel="stylesheet" href="../assets/css/pages/tool.css" />
   <link rel="stylesheet" href="../assets/css/features/expansion-tools.css" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <meta name="theme-color" content="#0d1117" />
@@ -219,25 +251,27 @@ def _expansion_page(slug, title, description, category):
 '''
 
 
-def run_new_tools(sync_existing=False):
-    """Create expansion tools, optionally refreshing their generated shells."""
-    print('\n[--new-tools] Creating browser-only expansion tools...')
-    created = updated = skipped = 0
+def run_sync_expansion():
+    """Create missing expansion-tool shells and refresh existing ones."""
+    print('\n[--sync-expansion] Synchronizing browser-only expansion tools...')
+    created = updated = unchanged = 0
     for slug, title, description, category in EXPANSION_PAGES:
         path = os.path.join(TOOLS_DIR, f'{slug}.html')
         shell = _expansion_page(slug, title, description, category)
-        if os.path.exists(path):
-            if sync_existing:
-                _write(path, shell)
-                print(f'  SYNC  {slug}.html')
-                updated += 1
-                continue
-            print(f'  SKIP  {slug}.html  (already exists)')
-            skipped += 1
+        if not os.path.exists(path):
+            _write(path, shell)
+            print(f'  NEW   {slug}.html')
+            created += 1
+            continue
+        # The stored page carries the injected nav; compare the shell with the
+        # nav block emptied so an unchanged page is not rewritten.
+        stored = re.sub(r'(<!-- NAV:START -->).*?(<!-- NAV:END -->)', r'\1\n\2', _read(path), flags=re.DOTALL)
+        if stored == shell:
+            unchanged += 1
             continue
         _write(path, shell)
-        print(f'  OK    {slug}.html')
-        created += 1
+        print(f'  SYNC  {slug}.html')
+        updated += 1
 
     sitemap_path = os.path.join(ROOT, 'sitemap.xml')
     sitemap = _read(sitemap_path)
@@ -255,7 +289,7 @@ def run_new_tools(sync_existing=False):
         # header here so a synchronized shell is immediately publishable.
         run_nav()
 
-    print(f'\n[--new-tools] Done. {created} created, {updated} synchronized, {skipped} skipped.')
+    print(f'\n[--sync-expansion] Done. {created} created, {updated} synchronized, {unchanged} unchanged.')
 
 
 def replace_marker(content, marker, entries):
@@ -327,98 +361,7 @@ def run_tool_count():
 
 
 # ---------------------------------------------------------------------------
-# Task A — Canonical + OG meta tags
-# ---------------------------------------------------------------------------
-
-def _extract_title(html):
-    """Return the text content of the first <title> element, or ''."""
-    m = re.search(r'<title>(.*?)</title>', html, re.IGNORECASE | re.DOTALL)
-    return m.group(1).strip() if m else ''
-
-
-def _extract_description(html):
-    """Return the content= attribute value of <meta name="description">, or ''."""
-    m = re.search(
-        r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']',
-        html, re.IGNORECASE | re.DOTALL
-    )
-    if m:
-        return m.group(1).strip()
-    # Also handle content= before name=
-    m2 = re.search(
-        r'<meta\s+content=["\'](.*?)["\']\s+name=["\']description["\']',
-        html, re.IGNORECASE | re.DOTALL
-    )
-    return m2.group(1).strip() if m2 else ''
-
-
-def _build_meta_block(filename, title, description):
-    url = f'{SITE_BASE}tools/{filename}'
-    lines = [
-        f'  <link rel="canonical" href="{url}" />',
-        f'  <meta property="og:title" content="{title}" />',
-        f'  <meta property="og:description" content="{description}" />',
-        f'  <meta property="og:url" content="{url}" />',
-        f'  <meta property="og:type" content="website" />',
-        f'  <meta property="og:site_name" content="Toolkit" />',
-        f'  <meta name="twitter:card" content="summary" />',
-        f'  <meta name="twitter:title" content="{title}" />',
-        f'  <meta name="twitter:description" content="{description}" />',
-    ]
-    return '\n'.join(lines)
-
-
-def run_meta():
-    """Add canonical + OG/Twitter tags to all tools/*.html files."""
-    print('\n[--meta] Adding canonical + OG/Twitter meta tags...')
-    added = skipped = 0
-
-    for path in _tool_files():
-        filename = os.path.basename(path)
-        html = _read(path)
-
-        # Skip if already has og:title
-        if 'og:title' in html:
-            print(f'  SKIP  {filename}  (og:title already present)')
-            skipped += 1
-            continue
-
-        title       = _extract_title(html)
-        description = _extract_description(html)
-
-        if not title and not description:
-            print(f'  WARN  {filename}  (no title/description found, skipping)')
-            skipped += 1
-            continue
-
-        meta_block = _build_meta_block(filename, title, description)
-
-        # Find the <meta name="description" ...> line and insert after it
-        # We match the full self-closing or non-self-closing tag line
-        pattern = r'([ \t]*<meta\s+name=["\']description["\'][^>]*/?>)'
-        replacement = r'\1' + '\n' + meta_block
-
-        new_html, n = re.subn(pattern, replacement, html, count=1, flags=re.IGNORECASE)
-
-        if n == 0:
-            # Fallback: insert after </title>
-            pattern2 = r'([ \t]*</title>)'
-            replacement2 = r'\1' + '\n' + meta_block
-            new_html, n2 = re.subn(pattern2, replacement2, html, count=1, flags=re.IGNORECASE)
-            if n2 == 0:
-                print(f'  WARN  {filename}  (could not find insertion point, skipping)')
-                skipped += 1
-                continue
-
-        _write(path, new_html)
-        print(f'  OK    {filename}')
-        added += 1
-
-    print(f'\n[--meta] Done. {added} updated, {skipped} skipped.')
-
-
-# ---------------------------------------------------------------------------
-# Task B — Nav injection
+# Nav injection
 # ---------------------------------------------------------------------------
 
 _NAV_START = '<!-- NAV:START -->'
@@ -468,122 +411,7 @@ def run_nav():
 
 
 # ---------------------------------------------------------------------------
-# Task B.1 — Modular stylesheets
-# ---------------------------------------------------------------------------
-
-def _style_tags(path):
-    """Return the smallest stylesheet set needed by a published page."""
-    prefix = _page_prefix(path)
-    modules = list(COMMON_STYLE_MODULES)
-    if os.path.abspath(path) == os.path.join(ROOT, 'index.html'):
-        modules.append('assets/css/pages/home.css')
-    elif path.startswith(TOOLS_DIR + os.sep):
-        modules.append('assets/css/pages/tool.css')
-        slug = os.path.splitext(os.path.basename(path))[0]
-        if slug in {entry[0] for entry in EXPANSION_PAGES}:
-            modules.append('assets/css/features/expansion-tools.css')
-    else:
-        modules.append('assets/css/pages/tool.css')
-    return '\n'.join(f'  <link rel="stylesheet" href="{prefix}{module}" />' for module in modules)
-
-
-def run_styles():
-    """Move pages from style.css to clear, page-scoped stylesheet modules."""
-    print('\n[--styles] Linking modular stylesheets...')
-    updated = skipped = 0
-    style_pattern = (
-        r'\s*<link rel="stylesheet" href="(?:\.\./)?(?:'
-        r'style\.css|assets/css/(?:core|components|compatibility)\.css|'
-        r'assets/css/pages/(?:home|tool)\.css|'
-        r'assets/css/features/expansion-tools\.css)"\s*/>'
-    )
-
-    for path in _published_pages():
-        html = _read(path)
-        without_styles = re.sub(style_pattern, '', html)
-        style_tags = _style_tags(path)
-        anchor = '  <link rel="manifest"'
-        if anchor not in without_styles:
-            # Some legacy tool pages keep their favicon directly beside the
-            # title, so locate the tag rather than relying on indentation.
-            new_html, inserted = re.subn(
-                r'\s*(?=<link rel="icon")', f'\n{style_tags}\n  ', without_styles, count=1
-            )
-            if inserted != 1:
-                raise RuntimeError(f'Could not find a stylesheet insertion point in {path}')
-        else:
-            new_html = without_styles.replace(anchor, f'{style_tags}\n{anchor}', 1)
-        if new_html != html:
-            _write(path, new_html)
-            print(f'  OK    {os.path.relpath(path, ROOT)}')
-            updated += 1
-        else:
-            print(f'  SKIP  {os.path.relpath(path, ROOT)}  (already modular)')
-            skipped += 1
-
-    legacy_path = os.path.join(ROOT, 'style.css')
-    _write(legacy_path, '''/*
- * Retired compatibility entry point.
- * Published pages load the focused modules in assets/css/ directly.
- * Keep this file only so stale external links fail gracefully during rollout.
- */
-''')
-    print(f'\n[--styles] Done. {updated} linked, {skipped} already modular.')
-
-
-# ---------------------------------------------------------------------------
-# Task C — Script tag migration
-# ---------------------------------------------------------------------------
-
-_OLD_SCRIPT = '  <script src="../script.js" defer></script>'
-
-
-def _new_scripts(toolname):
-    return (
-        f'  <script src="../assets/js/core/utils.js" defer></script>\n'
-        f'  <script src="../assets/js/core/nav.js" defer></script>\n'
-        f'  <script src="../assets/js/tools/{toolname}.js" defer></script>'
-    )
-
-
-def run_scripts():
-    """Migrate old ../script.js references to modular script tags."""
-    print('\n[--scripts] Migrating script tags...')
-    updated = skipped = 0
-
-    for filename in SCRIPT_MIGRATION_FILES:
-        path = os.path.join(TOOLS_DIR, filename)
-
-        if not os.path.isfile(path):
-            print(f'  MISS  {filename}  (file not found)')
-            skipped += 1
-            continue
-
-        html = _read(path)
-
-        # Skip if already migrated
-        if '../assets/js/core/utils.js' in html:
-            print(f'  SKIP  {filename}  (already has utils.js)')
-            skipped += 1
-            continue
-
-        if _OLD_SCRIPT not in html:
-            print(f'  WARN  {filename}  (old script tag not found)')
-            skipped += 1
-            continue
-
-        toolname = os.path.splitext(filename)[0]   # e.g. "password"
-        new_html = html.replace(_OLD_SCRIPT, _new_scripts(toolname), 1)
-
-        _write(path, new_html)
-        print(f'  OK    {filename}')
-        updated += 1
-
-    print(f'\n[--scripts] Done. {updated} updated, {skipped} skipped.')
-
-
-# ---------------------------------------------------------------------------
-# Task D — Shared interface enhancements
+# Published files and the content-hashed cache version
 # ---------------------------------------------------------------------------
 
 def _published_pages():
@@ -594,80 +422,138 @@ def _published_pages():
     yield from _tool_files()
 
 
-def run_enhancements():
-    """Add shared i18n, tool data and command-palette scripts to every page."""
-    print('\n[--enhance] Adding shared interface scripts...')
-    updated = skipped = 0
+def _published_files():
+    """Return the sorted repository-relative paths that GitHub Pages serves."""
+    paths = [name for name in PUBLISHED_FILES if os.path.isfile(os.path.join(ROOT, name))]
+    for directory in PUBLISHED_DIRS:
+        for current, dirs, names in os.walk(os.path.join(ROOT, directory)):
+            dirs[:] = [d for d in dirs if d != '__pycache__']
+            for name in names:
+                if name.endswith(UNPUBLISHED_SUFFIXES):
+                    continue
+                paths.append(os.path.relpath(os.path.join(current, name), ROOT).replace(os.sep, '/'))
+    return sorted(paths)
 
-    for path in _published_pages():
-        filename = os.path.relpath(path, ROOT)
-        html = _read(path)
-        prefix = _page_prefix(path)
-        i18n_extra_tag = f'  <script src="{prefix}assets/js/core/i18n-expansion.js" defer></script>'
-        i18n_tag = f'  <script src="{prefix}assets/js/core/i18n.js" defer></script>'
-        data_tag = f'  <script src="{prefix}assets/js/core/tools-data.js" defer></script>'
-        extra_data_tag = f'  <script src="{prefix}assets/js/core/extra-tools-data.js" defer></script>'
-        palette_tag = f'  <script src="{prefix}assets/js/core/command-palette.js" defer></script>'
-        i18n_extra_src = f'{prefix}assets/js/core/i18n-expansion.js'
-        i18n_src = f'{prefix}assets/js/core/i18n.js'
-        data_src = f'{prefix}assets/js/core/tools-data.js'
-        extra_data_src = f'{prefix}assets/js/core/extra-tools-data.js'
-        palette_src = f'{prefix}assets/js/core/command-palette.js'
 
-        missing_i18n_extra = i18n_extra_src not in html
-        missing_i18n = i18n_src not in html
-        missing_data = data_src not in html
-        missing_extra_data = extra_data_src not in html
-        missing_palette = palette_src not in html
-        if not (missing_i18n_extra or missing_i18n or missing_data or missing_extra_data or missing_palette):
-            print(f'  SKIP  {filename}  (already has shared scripts)')
-            skipped += 1
+_CACHE_VERSION_PATTERN = r"const CACHE_VERSION = '[^']*';"
+
+
+def run_cache_version():
+    """Derive CACHE_VERSION from the bytes of every published file.
+
+    Static assets are served cache-first, so any change to a published file
+    must produce a new cache name or returning visitors keep stale assets.
+    The version line itself is excluded from the digest so the result is
+    stable when the task runs again.
+    """
+    sw_path = os.path.join(ROOT, 'sw.js')
+    service_worker = _read(sw_path)
+    if len(re.findall(_CACHE_VERSION_PATTERN, service_worker)) != 1:
+        raise RuntimeError('sw.js must declare exactly one CACHE_VERSION.')
+    digest = hashlib.sha256()
+    for relative in _published_files():
+        path = os.path.join(ROOT, *relative.split('/'))
+        if relative == 'sw.js':
+            data = re.sub(_CACHE_VERSION_PATTERN, "const CACHE_VERSION = '';", service_worker).encode('utf-8')
+        else:
+            data = _read_bytes(path)
+        digest.update(relative.encode('utf-8') + b'\0' + data + b'\0')
+    version = digest.hexdigest()[:12]
+    revised = re.sub(_CACHE_VERSION_PATTERN, f"const CACHE_VERSION = '{version}';", service_worker)
+    if revised != service_worker:
+        _write(sw_path, revised)
+    print(f'\n[cache] CACHE_VERSION = {version}')
+
+
+# ---------------------------------------------------------------------------
+# Drift check and site assembly
+# ---------------------------------------------------------------------------
+
+def run_check():
+    """Run every task in memory and report files that would change."""
+    global _PENDING
+    _PENDING = {}
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            run_all()
+        stale = []
+        for path, content in sorted(_PENDING.items()):
+            if not os.path.exists(path):
+                stale.append(path)
+                continue
+            with open(path, 'r', encoding='utf-8') as fh:
+                if fh.read() != content:
+                    stale.append(path)
+    finally:
+        _PENDING = None
+    if stale:
+        print('Generated files are out of date. Run `python3 build.py --all` and commit the result:')
+        for path in stale:
+            print(f'  {os.path.relpath(path, ROOT)}')
+        sys.exit(1)
+    print('Generated files are up to date.')
+
+
+_LOCAL_REFERENCE = re.compile(r'\b(?:href|src)=["\']([^"\']+)["\']')
+_PRECACHE_ENTRY = re.compile(r"^\s*'([^']+)',\s*$", re.MULTILINE)
+
+
+def run_site():
+    """Copy the published allowlist into _site/ and verify it is complete."""
+    print('\n[--site] Assembling _site/...')
+    if os.path.isdir(SITE_DIR):
+        shutil.rmtree(SITE_DIR)
+    files = _published_files()
+    for relative in files:
+        target = os.path.join(SITE_DIR, *relative.split('/'))
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        shutil.copy2(os.path.join(ROOT, *relative.split('/')), target)
+
+    missing = []
+    published = set(files)
+    service_worker = _read(os.path.join(ROOT, 'sw.js'))
+    for entry in _PRECACHE_ENTRY.findall(service_worker):
+        path = entry.split('?', 1)[0]
+        if path.endswith('/'):
+            path += 'index.html'
+        if path not in published:
+            missing.append(f'sw.js precaches {entry}')
+    for relative in files:
+        if not relative.endswith('.html'):
             continue
-
-        nav_src = f'{prefix}assets/js/core/nav.js'
-        nav_pattern = rf'(<script\b[^>]*\bsrc=["\']{re.escape(nav_src)}["\'][^>]*></script>)'
-        data_pattern = rf'(<script\b[^>]*\bsrc=["\']{re.escape(data_src)}["\'][^>]*></script>)'
-        extra_data_pattern = rf'(<script\b[^>]*\bsrc=["\']{re.escape(extra_data_src)}["\'][^>]*></script>)'
-        new_html = html
-        changes = 0
-
-        # Keep the execution order deterministic: nav → locale copy → i18n → tool data →
-        # expansion data → command palette → page script.
-        first_tags = []
-        if missing_i18n_extra:
-            first_tags.append(i18n_extra_tag)
-        if missing_i18n:
-            first_tags.append(i18n_tag)
-        if missing_data:
-            first_tags.append(data_tag)
-        if first_tags:
-            new_html, count = re.subn(nav_pattern, r'\1\n' + '\n'.join(first_tags), new_html, count=1)
-            changes += count
-
-        if missing_extra_data:
-            new_html, count = re.subn(data_pattern, r'\1\n' + extra_data_tag, new_html, count=1)
-            changes += count
-
-        if missing_palette:
-            anchor_pattern = extra_data_pattern if extra_data_src in new_html else data_pattern
-            new_html, count = re.subn(anchor_pattern, r'\1\n' + palette_tag, new_html, count=1)
-            changes += count
-
-        if changes == 0:
-            print(f'  WARN  {filename}  (nav/data script not found, skipping)')
-            skipped += 1
-            continue
-
-        _write(path, new_html)
-        print(f'  OK    {filename}')
-        updated += 1
-
-    print(f'\n[--enhance] Done. {updated} updated, {skipped} skipped.')
+        html = re.sub(r'<base\b[^>]*>', '', _read(os.path.join(ROOT, *relative.split('/'))))
+        for reference in _LOCAL_REFERENCE.findall(html):
+            if not reference or re.match(r'^(?:[a-z]+:|//|#)', reference, re.IGNORECASE):
+                continue
+            path = re.sub(r'[?#].*$', '', reference)
+            if not path:
+                continue
+            resolved = os.path.normpath(os.path.join(os.path.dirname(relative), path)).replace(os.sep, '/')
+            if os.path.isdir(os.path.join(ROOT, resolved)):
+                resolved += '/index.html'
+            if resolved not in published:
+                missing.append(f'{relative} references {reference}')
+    if missing:
+        print('  ERROR  _site/ is missing referenced files:')
+        for item in missing:
+            print(f'    {item}')
+        sys.exit(1)
+    print(f'  OK    {len(files)} files published.')
 
 
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
+
+def run_all():
+    """Regenerate every maintained file; the cache version always comes last."""
+    run_sync_expansion()
+    run_nav()
+    run_tool_count()
+    run_words_manifest()
+    run_offline_manifest()
+    run_cache_version()
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -675,28 +561,22 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__
     )
-    parser.add_argument('--meta',    action='store_true',
-                        help='Add canonical + OG/Twitter meta tags to tools/*.html')
-    parser.add_argument('--nav',     action='store_true',
-                        help='Inject nav HTML from _includes/_nav.html into tools/*.html')
-    parser.add_argument('--scripts', action='store_true',
-                        help='Migrate old script.js tags to modular script tags')
-    parser.add_argument('--enhance', action='store_true',
-                        help='Add shared i18n and tool-finder scripts to published pages')
-    parser.add_argument('--styles',  action='store_true',
-                        help='Replace style.css links with page-scoped stylesheet modules')
-    parser.add_argument('--new-tools', action='store_true',
-                        help='Create the 22 browser-only expansion tool pages and sitemap entries')
-    parser.add_argument('--sync-expansion', action='store_true',
-                        help='Refresh generated expansion-tool shells from the current template')
-    parser.add_argument('--offline', action='store_true',
-                        help='Generate the complete offline precache manifest')
-    parser.add_argument('--words', action='store_true',
-                        help='Generate the word-list precache manifest')
+    parser.add_argument('--all', action='store_true',
+                        help='Regenerate every maintained file')
+    parser.add_argument('--check', action='store_true',
+                        help='Fail if any maintained file is out of date')
+    parser.add_argument('--site', action='store_true',
+                        help='Assemble the publishable site in _site/')
+    parser.add_argument('--nav', action='store_true',
+                        help='Inject nav HTML from _includes/_nav.html into published pages')
     parser.add_argument('--tool-count', action='store_true',
                         help='Synchronize published static tool-count copy')
-    parser.add_argument('--all',     action='store_true',
-                        help='Run every task')
+    parser.add_argument('--sync-expansion', action='store_true',
+                        help='Create or refresh generated expansion-tool shells')
+    parser.add_argument('--words', action='store_true',
+                        help='Generate the word-list precache manifest')
+    parser.add_argument('--offline', action='store_true',
+                        help='Generate the tool precache manifest')
 
     args = parser.parse_args()
 
@@ -704,32 +584,30 @@ def main():
         parser.print_help()
         sys.exit(0)
 
-    if args.all or args.new_tools or args.sync_expansion:
-        run_new_tools(sync_existing=args.all or args.sync_expansion)
+    if args.check:
+        run_check()
+        return
 
-    if args.all or args.offline:
-        run_offline_manifest()
+    if args.all:
+        run_all()
+    else:
+        tasks = (
+            (args.sync_expansion, run_sync_expansion),
+            (args.nav, run_nav),
+            (args.tool_count, run_tool_count),
+            (args.words, run_words_manifest),
+            (args.offline, run_offline_manifest),
+        )
+        ran = False
+        for selected, task in tasks:
+            if selected:
+                task()
+                ran = True
+        if ran:
+            run_cache_version()
 
-    if args.all or args.words:
-        run_words_manifest()
-
-    if args.all or args.tool_count:
-        run_tool_count()
-
-    if args.all or args.meta:
-        run_meta()
-
-    if args.all or args.nav:
-        run_nav()
-
-    if args.all or args.styles:
-        run_styles()
-
-    if args.all or args.scripts:
-        run_scripts()
-
-    if args.all or args.enhance:
-        run_enhancements()
+    if args.site:
+        run_site()
 
     print('\nBuild complete.')
 

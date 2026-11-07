@@ -173,6 +173,8 @@ assert(!toolPageStyles.includes('/* ── Footer ──────────
   'Footer styles belong in the shared component stylesheet, not the tool-page stylesheet.');
 
 const serviceWorker = readFileSync(join(root, 'sw.js'), 'utf8');
+assert(/const CACHE_VERSION = '[0-9a-f]{12}';/.test(serviceWorker),
+  'CACHE_VERSION must be the content hash written by build.py; run `python3 build.py --all`.');
 for (const asset of [
   ...sharedStyles,
   'assets/css/pages/home.css',
