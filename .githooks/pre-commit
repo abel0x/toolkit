@@ -1,0 +1,11 @@
+#!/bin/sh
+# Refuse a commit while generated files (registries, nav, counts, precache
+# lists, sitemap, cache version) are out of date. CI runs the same check.
+#
+# Enable once per clone:   git config core.hooksPath .githooks
+# Skip in an emergency:    git commit --no-verify
+if ! python3 build.py --check; then
+  echo
+  echo 'Run `python3 build.py --all`, stage the regenerated files, then commit again.'
+  exit 1
+fi

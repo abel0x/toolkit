@@ -129,23 +129,28 @@ Open [http://localhost:8080](http://localhost:8080). Serving over HTTP (instead 
 
 ## Deployment
 
-The repository includes a GitHub Actions deployment workflow at `.github/workflows/deploy-pages.yml`. Every push to `main` and every manual workflow dispatch will:
+The repository includes a GitHub Actions deployment workflow at `.github/workflows/deploy-pages.yml`. Pull requests run the same build and tests without deploying. Every push to `main` and every manual workflow dispatch will:
 
-1. refresh generated navigation, static tool counts, and the offline precache manifest;
+1. fail if any generated file (registries, navigation, tool counts, precache lists, sitemap, cache version) is out of date;
 2. run the static, localisation, accessibility, browser-function, and installed-offline audits; and
-3. upload and deploy the verified static artifact to GitHub Pages.
+3. assemble only the published files in `_site/`, then upload and deploy that verified artifact to GitHub Pages.
 
 To enable it once in GitHub, open **Settings → Pages**, choose **GitHub Actions** as the publishing source, then push or run **Deploy Toolkit to GitHub Pages** from the Actions tab. The deployment environment reports the resulting site URL; for this repository it is `https://abel0x.github.io/toolkit/`.
+
+Search engines read `robots.txt` only at the root of a host, so a project site under `/toolkit/` cannot advertise its sitemap that way. Submit `https://abel0x.github.io/toolkit/sitemap.xml` once in Google Search Console and Bing Webmaster Tools instead.
 
 ## Quality checks
 
 The repository includes a small, dependency-free maintenance helper and static/browser checks. From the project root:
 
 ```bash
-# Regenerate navigation, tool counts, precache lists, and the content-hashed cache version.
+# Regenerate tool registries, expansion pages, navigation, tool counts,
+# precache lists, the sitemap, and the content-hashed cache version.
 python3 build.py --all
-# Fail if any generated file is out of date (CI runs this).
+# Fail if any generated file is out of date (CI and the pre-commit hook run this).
 python3 build.py --check
+# Optional, once per clone: run that check before every commit.
+git config core.hooksPath .githooks
 
 # Check published pages, references, assets, and tool metadata.
 node tests/site-audit.mjs
@@ -199,6 +204,9 @@ toolkit/
 ├── tools/                        # 101 individual static tool pages
 ├── words/                        # Reusable bilingual word-list data
 ├── _includes/_nav.html           # Shared navigation source
+├── _data/tools.json              # Single source of the tool catalogue
+├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
+├── .githooks/pre-commit          # Optional generated-file check
 ├── assets/
 │   ├── css/
 │   │   ├── core.css              # Tokens, reset, base rules
@@ -216,7 +224,7 @@ toolkit/
 ├── tests/                        # Static audit and browser E2E checks
 ├── build.py                      # Repeatable maintenance tasks
 ├── sw.js                         # Offline cache worker
-└── sitemap.xml                   # Published URL index
+└── sitemap.xml                   # Published URL index (generated)
 ```
 
 ### Localisation model

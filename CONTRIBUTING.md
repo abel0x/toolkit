@@ -13,7 +13,7 @@ Thanks for helping improve Toolkit. The project is deliberately small at runtime
 
 ## Before you start
 
-1. Search the [live catalogue](https://abel0x.github.io/toolkit/#tools) and `assets/js/core/tools-data.js` for an existing equivalent.
+1. Search the [live catalogue](https://abel0x.github.io/toolkit/#tools) and `_data/tools.json` for an existing equivalent.
 2. Open an [issue](https://github.com/abel0x/toolkit/issues) for a feature, a new tool, or a non-trivial design change.
 3. Keep a pull request focused: one tool, one bug fix, or one cohesive maintenance change.
 
@@ -31,6 +31,12 @@ python3 -m http.server 8080
 
 Open [http://localhost:8080](http://localhost:8080). The runtime has no npm dependency. Node.js is only used for the repository checks below.
 
+Enable the repository's pre-commit hook once per clone. It runs `python3 build.py --check` (well under a second) and refuses a commit whose generated files are out of date, the same check CI runs:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Adding or extending a tool
 
 ### 1. Decide the implementation shape
@@ -43,21 +49,22 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 
 ### 2. Register the tool
 
-Add complete metadata to `assets/js/core/tools-data.js` (or, for an expansion tool, `assets/js/core/extra-tools-data.js`):
+`_data/tools.json` is the single source of the catalogue. Add one entry there; `build.py` generates the browser registries (`assets/js/core/tools-data.js` and `extra-tools-data.js`), the expansion-tool shells, and `sitemap.xml` from it. Do not edit those generated lists by hand.
 
-```javascript
+```json
 {
-  name: 'Your Tool Name',
-  slug: 'your-tool',
-  cat: 'devtools',
-  catLabel: 'Dev Tools',
-  desc: 'A concise, browser-only description.',
-  tags: ['searchable', 'keywords'],
-  icon: '<svg ...>...</svg>',
+  "slug": "your-tool",
+  "name": "Your Tool Name",
+  "cat": "devtools",
+  "desc": "A concise, browser-only description.",
+  "tags": ["searchable", "keywords"],
+  "icon": "<svg ...>...</svg>"
 }
 ```
 
-The `slug` must be unique, match `tools/your-tool.html`, be present in `sitemap.xml`, and resolve through the live tool finder.
+- `cat` must be a key of the `categories` table at the top of the file; its display label comes from there.
+- For an expansion tool, replace `icon` with `"shell": "expansion"` (the shell uses the shared icon) and add `"exampleStarter": true` if it has a “Try a sample” starter. `python3 build.py --all` then creates `tools/your-tool.html`.
+- The `slug` must be unique and lowercase-hyphenated, and match `tools/your-tool.html`. `build.py` rejects an invalid entry, and the site audit checks that pages, registries and the sitemap agree with the file.
 
 ### 3. Create the page and module
 
@@ -103,8 +110,9 @@ Run `node tests/i18n-audit.mjs` after changing either dictionary or the i18n run
 Edit `_includes/_nav.html` for shared navigation, then run the narrow maintenance commands that match the change:
 
 ```bash
-# Regenerate everything build.py maintains: shared nav, visible tool counts,
-# expansion-tool shells, precache lists, and the content-hashed cache version.
+# Regenerate everything build.py maintains: tool registries, expansion-tool
+# shells, shared nav, visible tool counts, precache lists, sitemap, and the
+# content-hashed cache version.
 python3 build.py --all
 
 # Confirm nothing is out of date (CI runs this and fails on drift).
@@ -114,7 +122,7 @@ python3 build.py --check
 node tests/i18n-audit.mjs
 ```
 
-Run `python3 build.py --all` after **any** change to a published file, including a one-line CSS fix. The service worker serves assets cache-first, so `CACHE_VERSION` is a hash of every published file; a stale hash would leave returning visitors on old CSS and JavaScript, and CI rejects it. Every task is idempotent, so running it twice changes nothing. Do not edit `CACHE_VERSION` or textual tool counts by hand.
+Run `python3 build.py --all` after **any** change to a published file, including a one-line CSS fix. The service worker serves assets cache-first, so `CACHE_VERSION` is a hash of every published file; a stale hash would leave returning visitors on old CSS and JavaScript, and CI rejects it. Every task is idempotent, so running it twice changes nothing. Do not edit `CACHE_VERSION`, textual tool counts, or `sitemap.xml` by hand. A page's sitemap `<lastmod>` moves only when its bytes change; `_data/lastmod.json` records the hash and date, so commit it with the pages.
 
 ### 6. Validate before opening a PR
 
