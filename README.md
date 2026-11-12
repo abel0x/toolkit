@@ -215,6 +215,7 @@ toolkit/
 ├── tr/                           # Turkish copies of every page (generated)
 ├── words/                        # Reusable bilingual word-list data
 ├── _includes/_nav.html           # Shared navigation source
+├── _includes/og-card.html        # Source of the social preview images
 ├── _data/tools.json              # Single source of the tool catalogue
 ├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
 ├── _data/seo-tr.json             # Turkish titles and descriptions for tr/

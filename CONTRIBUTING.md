@@ -45,7 +45,7 @@ Use an existing, independently structured page as a starting point for a convent
 
 Never copy a page without updating its title, description, canonical URL, Open Graph/Twitter values, breadcrumb, module path, Turkish text, and its entry in `_data/seo-tr.json`.
 
-Every published page carries the same `Content-Security-Policy` meta tag directly after `<meta charset>`. It allows only same-origin scripts and stylesheets, so do not add inline `<script>` or `<style>` blocks, `on*=` or `style=` attributes (including inside markup built with `innerHTML`), `eval`, or remote resources. Attach handlers with `addEventListener`; put static styles in a stylesheet (`assets/css/inline-styles.css` holds the former inline styles, `assets/css/tools/<slug>.css` holds page-specific rules) and set computed values through the CSSOM, for example `element.style.setProperty()`, which the policy allows. `404.html` is the one exception: its tiny inline script is allowed by a `sha256-` hash, which must be recomputed whenever that script changes. `node tests/site-audit.mjs` enforces both rules.
+Every published page carries the same `Content-Security-Policy` meta tag directly after `<meta charset>`. It allows only same-origin scripts and stylesheets, so do not add inline `<script>` or `<style>` blocks, `on*=` or `style=` attributes (including inside markup built with `innerHTML`), `eval`, or remote resources. Attach handlers with `addEventListener`; put static styles in a stylesheet (`assets/css/inline-styles.css` holds the former inline styles, `assets/css/tools/<slug>.css` holds page-specific rules) and set computed values through the CSSOM, for example `element.style.setProperty()`, which the policy allows. `404.html` is the one exception: its tiny inline script is allowed by a `sha256-` hash, which must be recomputed whenever that script changes. `node tests/site-audit.mjs` enforces both rules. The `<script type="application/ld+json">` block that `build.py` adds to each page is structured data, not code; browsers never execute it, so the policy does not apply to it. Do not edit it by hand.
 
 ### 2. Register the tool
 
@@ -185,11 +185,16 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--tool-count` | Synchronise published static tool-count copy. |
 | `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |
 | `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |
+| `--metadata` | Add the social preview image tags (`og:image`, `twitter:image`, locale) and the JSON-LD block to every English page. |
 | `--turkish` | Generate the `tr/` pages and the hreflang links from `_data/seo-tr.json`. |
 | `--offline` | Rebuild the service-worker precache entries for tool pages and modules. |
 | `--sitemap` | Generate `sitemap.xml`, with `lastmod` dates from `_data/lastmod.json` and hreflang alternates. |
 
 Any task also recomputes `CACHE_VERSION` in `sw.js`. Repository-only files (tests, documentation, `build.py`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
+
+## Social preview images
+
+`assets/images/og-en.png` and `og-tr.png` are the 1200×630 link-preview images for the English and Turkish pages. Their source is `_includes/og-card.html`, which is not published. After changing it, render both images with the Chromium command in that file's header comment and run `python3 build.py --all`. The site audit checks the size and dimensions of both images.
 
 ## Commit messages
 

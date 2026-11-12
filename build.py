@@ -12,6 +12,7 @@ Usage:
   python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
   python3 build.py --tool-count      Synchronize published static tool-count copy
+  python3 build.py --metadata        Add social preview images and JSON-LD to the English pages
   python3 build.py --turkish         Generate the tr/ pages from _data/seo-tr.json
   python3 build.py --words           Generate the word-list precache manifest
   python3 build.py --offline         Generate the tool precache manifest
@@ -543,6 +544,98 @@ def run_nav():
 
 
 # ---------------------------------------------------------------------------
+# Social previews and structured data
+# ---------------------------------------------------------------------------
+#
+# Every indexable page gets the shared 1200×630 preview image of its
+# language and a JSON-LD block describing the page (WebSite, WebPage, or a
+# WebApplication with a breadcrumb). JSON-LD is a data block, not a script,
+# so the same-origin Content-Security-Policy does not apply to it.
+
+_SOCIAL = {
+    'en': {
+        'locale': 'en_US', 'alternate': 'tr_TR', 'image': 'assets/images/og-en.png',
+        'alt': 'Toolkit: everyday developer tools that run entirely in your browser.',
+        'browser': 'Requires a modern browser with JavaScript enabled.',
+    },
+    'tr': {
+        'locale': 'tr_TR', 'alternate': 'en_US', 'image': 'assets/images/og-tr.png',
+        'alt': 'Toolkit: tamamen tarayıcınızda çalışan günlük geliştirici araçları.',
+        'browser': 'JavaScript etkin, güncel bir tarayıcı gerektirir.',
+    },
+}
+_GENERATED_SOCIAL = re.compile(
+    r'\n[ \t]*<meta (?:property="og:(?:locale|locale:alternate|image|image:width|image:height|image:alt)"'
+    r'|name="twitter:image(?::alt)?") content="[^"]*" />')
+_JSON_LD = re.compile(r'\n[ \t]*<script type="application/ld\+json">.*?</script>', re.DOTALL)
+
+
+def _structured_data(relative, language, title, description):
+    """Describe one page in schema.org terms for its language."""
+    prefix = TR_PREFIX if language == 'tr' else ''
+    home = SITE_BASE + prefix
+    url = SITE_BASE + prefix + _page_location(relative)
+    name = re.sub(r' — Toolkit$', '', title)
+    website = {'@type': 'WebSite', 'name': 'Toolkit', 'url': home}
+    if relative == 'index.html':
+        data = {'@context': 'https://schema.org', **website,
+                'inLanguage': language, 'description': description}
+    elif relative.startswith('tools/'):
+        data = {'@context': 'https://schema.org', '@graph': [
+            {'@type': 'WebApplication', 'name': name, 'url': url, 'description': description,
+             'applicationCategory': 'DeveloperApplication', 'operatingSystem': 'Any',
+             'browserRequirements': _SOCIAL[language]['browser'], 'isAccessibleForFree': True,
+             'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'},
+             'inLanguage': language, 'isPartOf': website},
+            {'@type': 'BreadcrumbList', 'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Toolkit', 'item': home},
+                {'@type': 'ListItem', 'position': 2, 'name': name, 'item': url}]},
+        ]}
+    else:
+        data = {'@context': 'https://schema.org', '@type': 'WebPage', 'name': name, 'url': url,
+                'description': description, 'inLanguage': language, 'isPartOf': website}
+    return json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
+
+
+def _with_page_metadata(html, relative, language, title, description):
+    """Insert the preview image tags and JSON-LD for one page, replacing any earlier copy."""
+    social = _SOCIAL[language]
+    image = html_lib.escape(SITE_BASE + social['image'])
+    alt = html_lib.escape(social['alt'], quote=True)
+    html = _JSON_LD.sub('', _GENERATED_SOCIAL.sub('', html))
+    html = _replace_once(html, r'<meta property="og:site_name" content="Toolkit" />',
+                         '<meta property="og:site_name" content="Toolkit" />\n'
+                         f'  <meta property="og:locale" content="{social["locale"]}" />\n'
+                         f'  <meta property="og:locale:alternate" content="{social["alternate"]}" />\n'
+                         f'  <meta property="og:image" content="{image}" />\n'
+                         '  <meta property="og:image:width" content="1200" />\n'
+                         '  <meta property="og:image:height" content="630" />\n'
+                         f'  <meta property="og:image:alt" content="{alt}" />', relative)
+    html = re.sub(r'<meta name="twitter:card" content="[^"]*" />',
+                  '<meta name="twitter:card" content="summary_large_image" />', html, count=1)
+    html = re.sub(r'(<meta name="twitter:description" content="[^"]*" />)',
+                  lambda match: f'{match.group(1)}\n  <meta name="twitter:image" content="{image}" />\n'
+                                f'  <meta name="twitter:image:alt" content="{alt}" />', html, count=1)
+    block = _structured_data(relative, language, title, description)
+    return _replace_once(html, r'\n</head>',
+                         f'\n  <script type="application/ld+json">{block}</script>\n</head>', relative)
+
+
+def run_page_metadata():
+    """Add preview images and structured data to every English page with a Turkish twin."""
+    print('\n[--metadata] Adding social previews and structured data...')
+    for relative in _localized_pages():
+        path = os.path.join(ROOT, *relative.split('/'))
+        html = _read(path)
+        title = html_lib.unescape(re.search(r'<title>(.*?)</title>', html).group(1))
+        description = html_lib.unescape(re.search(r'<meta name="description" content="([^"]*)"', html).group(1))
+        revised = _with_page_metadata(html, relative, 'en', title, description)
+        if revised != html:
+            _write(path, revised)
+    print(f'  OK    {len(_localized_pages())} pages.')
+
+
+# ---------------------------------------------------------------------------
 # Turkish pages — /tr/ copies with Turkish metadata for search engines
 # ---------------------------------------------------------------------------
 #
@@ -653,6 +746,7 @@ def _turkish_page(relative, english_html, entry, localized):
         (r'<meta name="twitter:description" content="[^"]*" />', f'<meta name="twitter:description" content="{attr(og_description)}" />'),
     ):
         page = _replace_once(page, pattern, value, relative, required=False)
+    page = _with_page_metadata(page, relative, 'tr', title, description)
     page = _HTML_REFERENCE.sub(
         lambda match: f'{match.group(1)}{match.group(2)}'
                       f'{_turkish_reference(match.group(3), relative, localized)}{match.group(2)}',
@@ -838,6 +932,7 @@ def run_all():
     run_sync_expansion()
     run_nav()
     run_tool_count()
+    run_page_metadata()
     run_turkish_pages()
     run_words_manifest()
     run_offline_manifest()
@@ -865,6 +960,8 @@ def main():
                         help='Synchronize published static tool-count copy')
     parser.add_argument('--sync-expansion', action='store_true',
                         help='Create or refresh generated expansion-tool shells')
+    parser.add_argument('--metadata', action='store_true',
+                        help='Add social preview images and JSON-LD to the English pages')
     parser.add_argument('--turkish', action='store_true',
                         help='Generate the tr/ pages from _data/seo-tr.json')
     parser.add_argument('--words', action='store_true',
@@ -892,6 +989,7 @@ def main():
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
             (args.tool_count, run_tool_count),
+            (args.metadata, run_page_metadata),
             (args.turkish, run_turkish_pages),
             (args.words, run_words_manifest),
             (args.offline, run_offline_manifest),

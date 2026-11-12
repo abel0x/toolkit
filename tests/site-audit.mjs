@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkPageMetadata, checkPreviewImage } from './page-metadata.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const toolsDirectory = join(root, 'tools');
@@ -418,6 +419,18 @@ assert(existsSync(licensePage), 'Published license page is missing.');
 assert(readFileSync(join(root, 'index.html'), 'utf8')
   .includes('<meta name="google-site-verification" content="XacY5y52KIxRIvYicwvR-VJYq8Yw1od7nXy4N9m9evI" />'),
   'index.html lost its Google Search Console verification meta tag.');
+
+for (const language of ['en', 'tr']) checkPreviewImage(join(root, `assets/images/og-${language}.png`), `og-${language}.png`);
+const metadataTypes = new Set();
+for (const file of [join(root, 'index.html'), licensePage, ...toolPages]) {
+  const relativeName = file.slice(root.length + 1);
+  metadataTypes.add(checkPageMetadata(readFileSync(file, 'utf8'), relativeName, {
+    language: 'en',
+    url: `https://abel0x.github.io/toolkit/${relativeName.replace(/index\.html$/, '')}`,
+    image: 'https://abel0x.github.io/toolkit/assets/images/og-en.png'
+  }));
+}
+assert.deepEqual([...metadataTypes].sort(), ['WebApplication', 'WebPage', 'WebSite'], 'Unexpected JSON-LD page types.');
 
 const licenseHtml = readFileSync(licensePage, 'utf8');
 assert(licenseHtml.includes('https://abel0x.github.io/toolkit/license/'),

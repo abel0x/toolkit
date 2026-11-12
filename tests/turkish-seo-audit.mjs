@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkPageMetadata } from './page-metadata.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const siteBase = 'https://abel0x.github.io/toolkit/';
@@ -66,6 +67,10 @@ for (const page of pages) {
     assert(turkish.includes(`<meta property="og:url" content="${turkishURL}" />`), `tr/${page} has the wrong og:url.`);
     assert.equal(meta(turkish, /<meta property="og:title" content="([^"]*)"/), title, `tr/${page} has an English og:title.`);
   }
+
+  checkPageMetadata(turkish, `tr/${page}`, {
+    language: 'tr', url: turkishURL, image: `${siteBase}assets/images/og-tr.png`
+  });
 
   // Assets resolve to the shared files; page links stay inside tr/.
   for (const match of turkish.matchAll(/\b(?:href|src)=["']([^"']+)["']/g)) {

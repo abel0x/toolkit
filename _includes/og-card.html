@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+  Source of the social preview images (assets/images/og-en.png, og-tr.png).
+  Not published. Render at 1200×630, for example:
+    chromium --headless --hide-scrollbars --force-device-scale-factor=1 \
+      --window-size=1200,630 --screenshot=assets/images/og-en.png \
+      "file://$PWD/_includes/og-card.html#en"
+  and again with #tr and og-tr.png. Then run python3 build.py --all.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Toolkit social card</title>
+<style>
+  @font-face { font-family: 'Space Grotesk'; src: url('../assets/fonts/SpaceGrotesk.woff2') format('woff2'); font-weight: 300 700; }
+  @font-face { font-family: 'JetBrains Mono'; src: url('../assets/fonts/JetBrainsMono.woff2') format('woff2'); font-weight: 100 800; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background: #05070f;
+    color: #e8efff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 90% at 40% 45%, #000 40%, transparent 100%);
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .glow--cyan { width: 520px; height: 420px; left: -120px; top: -140px; background: rgba(0, 212, 255, 0.22); }
+  .glow--purple { width: 600px; height: 480px; right: -160px; bottom: -220px; background: rgba(124, 58, 237, 0.30); }
+  .card {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: 1fr 300px; align-items: center;
+    padding: 72px 80px 64px 88px;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid rgba(0, 212, 255, 0.35); background: rgba(0, 212, 255, 0.08);
+    color: #00d4ff; font: 600 18px 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #00d4ff; }
+  h1 {
+    margin-top: 26px;
+    font-size: 132px; font-weight: 700; line-height: 0.95; letter-spacing: -0.035em;
+    background: linear-gradient(100deg, #00d4ff 0%, #6d8bff 55%, #a678ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { margin-top: 26px; max-width: 700px; font-size: 38px; font-weight: 500; line-height: 1.2; color: #e8efff; }
+  .facts { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .facts span {
+    padding: 9px 18px; border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(17, 24, 41, 0.75);
+    font-size: 22px; font-weight: 500; color: #b8c2d6;
+  }
+  .mark { justify-self: end; width: 280px; height: 280px; filter: drop-shadow(0 18px 60px rgba(124, 58, 237, 0.45)); }
+  .url {
+    position: absolute; left: 88px; bottom: 34px;
+    font: 500 20px 'JetBrains Mono', monospace; color: #718096;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow glow--cyan"></div>
+  <div class="glow glow--purple"></div>
+  <div class="card">
+    <div>
+      <span class="eyebrow" data-copy="eyebrow">Developer utilities</span>
+      <h1>Toolkit</h1>
+      <p class="tagline" data-copy="tagline">Everyday developer tools that run entirely in your browser.</p>
+      <div class="facts">
+        <span data-copy="fact1">No tracking</span>
+        <span data-copy="fact2">No backend</span>
+        <span data-copy="fact3">Works offline</span>
+      </div>
+    </div>
+    <img class="mark" src="../assets/images/favicon-512.png" alt="" />
+  </div>
+  <div class="url">abel0x.github.io/toolkit</div>
+  <script>
+    const copy = {
+      tr: {
+        eyebrow: 'Geliştirici araçları',
+        tagline: 'Tamamen tarayıcınızda çalışan günlük geliştirici araçları.',
+        fact1: 'İzleme yok',
+        fact2: 'Sunucu yok',
+        fact3: 'Çevrimdışı çalışır'
+      }
+    };
+    const language = location.hash.slice(1);
+    if (copy[language]) {
+      document.documentElement.lang = language;
+      document.querySelectorAll('[data-copy]').forEach((node) => { node.textContent = copy[language][node.dataset.copy]; });
+    }
+  </script>
+</body>
+</html>
