@@ -8,7 +8,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 
 - Every page has a Turkish address under `/tr/` (`/toolkit/tr/`, `/toolkit/tr/tools/<slug>.html`, `/toolkit/tr/license/`), so search engines can index and show the Turkish interface. Previously Turkish existed only as a client-side setting, and every URL was indexed in English. `build.py --turkish` (part of `--all`) generates these 103 pages from the English ones. Each copy declares `lang="tr"`, renders in Turkish regardless of the saved setting, and has its own Turkish title, description, Open Graph and Twitter tags and canonical URL, taken from the new `_data/seo-tr.json`. The build stops when a page has no Turkish entry or its English metadata changed since the Turkish copy was written.
 - Reciprocal `hreflang` links (`en`, `tr`, `x-default` → English) on both language versions of every page, and the matching `xhtml:link` alternates in `sitemap.xml`, which now lists 206 URLs.
-- Google Search Console ownership is verified with a `google-site-verification` meta tag on the home page, which must stay in `index.html` while the property exists. It replaces the `googlea232df08b3b74961.html` verification file, which is no longer published.
+- Google Search Console ownership is verified with a `google-site-verification` meta tag on the home page, which must stay in `index.html` while the property exists. It replaces the `googlea232df08b3b74961.html` verification file, which is no longer published, and the site audit fails if the tag is removed.
 - `tests/turkish-seo-audit.mjs` checks the generated pages, their metadata, references and the sitemap. `tests/turkish-pages-e2e.mjs` opens them in Firefox. Both run in CI.
 
 ### Changed

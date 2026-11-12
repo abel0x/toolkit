@@ -1,6 +1,6 @@
 # Contributing to Toolkit
 
-Thanks for helping improve Toolkit. The project is deliberately small at runtime: static HTML, CSS, and browser-native JavaScript. Contributions should preserve its core promise—private local processing, accessibility, and offline use after the first successful load.
+Thanks for helping improve Toolkit. The project is deliberately small at runtime: static HTML, CSS, and browser-native JavaScript. Contributions should keep tool input on the device, stay accessible, and keep working offline after the first successful load.
 
 ## Ground rules
 
@@ -43,7 +43,7 @@ git config core.hooksPath .githooks
 
 Use an existing, independently structured page as a starting point for a conventional tool. The 22 expansion tools share a generated shell and `assets/js/tools/expansion-tools.js`; use that route when the existing component system is a close fit.
 
-Never copy a page without updating its title, description, canonical URL, Open Graph/Twitter values, breadcrumb, module path, and Turkish text.
+Never copy a page without updating its title, description, canonical URL, Open Graph/Twitter values, breadcrumb, module path, Turkish text, and its entry in `_data/seo-tr.json`.
 
 Every published page carries the same `Content-Security-Policy` meta tag directly after `<meta charset>`. It allows only same-origin scripts and stylesheets, so do not add inline `<script>` or `<style>` blocks, `on*=` or `style=` attributes (including inside markup built with `innerHTML`), `eval`, or remote resources. Attach handlers with `addEventListener`; put static styles in a stylesheet (`assets/css/inline-styles.css` holds the former inline styles, `assets/css/tools/<slug>.css` holds page-specific rules) and set computed values through the CSSOM, for example `element.style.setProperty()`, which the policy allows. `404.html` is the one exception: its tiny inline script is allowed by a `sha256-` hash, which must be recomputed whenever that script changes. `node tests/site-audit.mjs` enforces both rules.
 
@@ -113,8 +113,8 @@ Edit `_includes/_nav.html` for shared navigation, then run the narrow maintenanc
 
 ```bash
 # Regenerate everything build.py maintains: tool registries, expansion-tool
-# shells, shared nav, visible tool counts, precache lists, sitemap, and the
-# content-hashed cache version.
+# shells, shared nav, visible tool counts, the Turkish tr/ pages, precache
+# lists, sitemap, and the content-hashed cache version.
 python3 build.py --all
 
 # Confirm nothing is out of date (CI runs this and fails on drift).
@@ -133,6 +133,7 @@ node tests/site-audit.mjs
 node tests/tool-dom-audit.mjs
 node tests/words-audit.mjs
 node tests/i18n-audit.mjs
+node tests/turkish-seo-audit.mjs
 node tests/accessibility-audit.mjs
 node tests/conversion-regressions.mjs
 node tests/typing-regressions.mjs
@@ -140,17 +141,18 @@ node tests/audit-regressions.mjs
 node tests/tool-vectors.mjs
 node tests/tool-pages-e2e.mjs
 node tests/expansion-e2e.mjs
+node tests/turkish-pages-e2e.mjs
 node tests/offline-e2e.mjs
 ```
 
-The static checks verify publication structure, word data, localisation, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with Turkish switching, accessible control names, and example starters; another exercises functional flows and exact standard vectors; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
+The static checks verify publication structure, word data, localisation, the generated Turkish pages and their hreflang links, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with Turkish switching, accessible control names, and example starters; another exercises functional flows and exact standard vectors; one opens the `/tr/` pages and switches languages by URL; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
 
 ## Style guide
 
 - **JavaScript:** modern browser JavaScript, strict IIFE modules, no transpilation.
 - **CSS:** use existing custom properties and the relevant modular stylesheet; do not add global one-off rules when a component or page module is appropriate.
 - **HTML:** semantic landmarks, associated labels, usable keyboard controls, meaningful `aria-*` values, and `alt` text for informative images.
-- **Copy:** short, direct English source language and natural Turkish—not word-for-word machine translation.
+- **Copy:** short, direct English source text and natural Turkish, not word-for-word machine translation.
 - **Formatting:** two spaces for HTML, CSS, and JavaScript; keep files UTF-8 with a final newline. Byte-for-byte pinned third-party distributions may retain their upstream EOF style when their checksum and the exception are documented in `assets/js/vendor/README.md`.
 
 ## Word lists
@@ -178,11 +180,14 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--all` | Run every task below, then refresh the cache version. Run this before committing. |
 | `--check` | Run every task in memory and fail, listing the files, if anything is out of date. |
 | `--site` | Copy only the published files into `_site/` and verify every page reference and precache entry resolves. CI deploys this directory. |
+| `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
 | `--tool-count` | Synchronise published static tool-count copy. |
 | `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |
 | `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |
+| `--turkish` | Generate the `tr/` pages and the hreflang links from `_data/seo-tr.json`. |
 | `--offline` | Rebuild the service-worker precache entries for tool pages and modules. |
+| `--sitemap` | Generate `sitemap.xml`, with `lastmod` dates from `_data/lastmod.json` and hreflang alternates. |
 
 Any task also recomputes `CACHE_VERSION` in `sw.js`. Repository-only files (tests, documentation, `build.py`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
 
@@ -196,5 +201,3 @@ fix: preserve HMAC key encoding
 docs: clarify offline contribution checks
 style: align tool footer spacing
 ```
-
-Thank you for keeping Toolkit useful, local, and dependable.

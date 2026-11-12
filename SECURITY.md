@@ -4,7 +4,7 @@
 
 Toolkit is a static, client-side application. Hashing, encoding, password generation, file analysis, conversion, and image work are performed in the visitor's browser with native Web APIs such as Web Crypto, FileReader, Canvas, and `Intl`. Toolkit has no application backend, user accounts, database, or endpoint that receives tool input.
 
-This design reduces the attack surface, but it does not remove it. Cross-site scripting, unsafe output rendering, incorrect cryptographic use, cache issues, and unintended client-side persistence are security concerns and are handled seriously.
+This design reduces the attack surface but does not remove it. Cross-site scripting, unsafe output rendering, incorrect cryptographic use, cache issues, and unintended client-side persistence are still possible, and reports about them are treated as security issues.
 
 ## Supported versions
 
@@ -49,6 +49,7 @@ An acknowledgement is targeted within **72 hours** and an initial status update 
 | Browser-native cryptography | Web Crypto avoids implementing sensitive primitives in application code. |
 | No application backend | Tool input has no Toolkit server destination. |
 | Self-hosted application assets | The published runtime does not depend on a third-party CDN. |
+| Content-Security-Policy | Every page allows only same-origin scripts and stylesheets, with no inline scripts or styles (the 404 page's one inline script is allowed by hash). |
 | Careful DOM output | Prefer `textContent` and explicit escaping over rendering untrusted values as HTML. |
 | Same-origin service worker | Cache scope is limited to Toolkit's own origin and path. |
 | Minimal local state | The selected language, optional recent-tool slugs, and tool preferences may be stored locally. Typing-test personal bests are opt-in, aggregate-only, off by default, and user-clearable. Typed input, generated sequences, error text, uploaded files, and full run history are never persisted. |

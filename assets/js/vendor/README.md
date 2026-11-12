@@ -15,6 +15,6 @@ Upstream projects:
 - QR Code Generator: <https://github.com/kazuhikoarase/qrcode-generator>
 - jsQR: <https://github.com/cozmo/jsQR>
 
-When updating a library, replace it from the upstream project, retain its licence, update the checksum here and in `tests/site-audit.mjs`, verify script load order, bump `CACHE_VERSION` in `sw.js`, and run the complete test suite.
+When updating a library, replace it from the upstream project, retain its licence, update the checksum here and in `tests/site-audit.mjs`, verify script load order, run `python3 build.py --all` (it recomputes `CACHE_VERSION` in `sw.js`), and run the complete test suite.
 
 Pinned distributions remain byte-for-byte identical to the documented upstream artifact. `jsQR.min.js` therefore intentionally retains its upstream end-of-file style without an added newline; changing it would invalidate the pinned checksum without changing executable behaviour.

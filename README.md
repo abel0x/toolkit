@@ -4,7 +4,7 @@
 
 # Toolkit
 
-### 101 privacy-first developer utilities that run entirely in your browser.
+### 101 developer utilities that run entirely in your browser.
 
 [![Live site](https://img.shields.io/badge/Live%20site-abel0x.github.io%2Ftoolkit-00d4ff?style=flat-square&logo=github)](https://abel0x.github.io/toolkit/)
 [![Tools](https://img.shields.io/badge/Tools-101-7c3aed?style=flat-square)](https://abel0x.github.io/toolkit/#tools)
@@ -21,11 +21,11 @@
 
 Toolkit is a static collection of developer utilities for the everyday work that should not require uploading data to a third party: encoding, cryptography, data conversion, text work, web inspection, image handling, and more.
 
-- **Private by design.** Tool input is processed on-device with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
-- **Offline after the first successful load.** The service worker precaches the published application so its tools remain usable without a network connection.
-- **Fast to navigate.** Press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> to search the full catalogue from any page.
-- **Bilingual interface.** English is the default. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu moves between the two, and the choice is remembered locally in that browser.
-- **No accounts or telemetry.** There is no backend, analytics service, or tool-input persistence.
+- Tool input stays on your device. It is processed with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
+- After the first successful load the service worker has cached the site, so the tools keep working without a network connection.
+- <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page.
+- The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser.
+- There are no accounts, no backend, no analytics, and no stored tool input.
 
 > A small amount of interface state can be stored locally: the selected language, optional recent-tool slugs, and typing-test preferences. Typing-test personal bests are opt-in, aggregate-only, and user-clearable; tool input, typed text, generated results, and uploaded files are not persisted by Toolkit.
 
@@ -55,7 +55,7 @@ The second half of a two-part maintenance pass with 1.2.1. 1.2.1 made the releas
 - **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
 - **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
 - **Example starters:** 40 frequently used tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
-- **Release hardening:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown/QR rendering, pinned vendor licences, and a real service-worker offline test strengthen the full catalogue.
+- **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
 
 ### Previous catalogue expansion — 1.1.0
 
@@ -72,7 +72,7 @@ The expansion from the original 78 tools added fully browser-based utilities for
 
 <img src="assets/images/Main.webp" alt="Toolkit main landing page" width="100%" />
 
-<p><strong>Main</strong> — a privacy-first landing page with direct access to the full toolkit.</p>
+<p><strong>Main</strong>: the home page and tool catalogue.</p>
 
 <table>
   <tr>
@@ -88,7 +88,7 @@ The expansion from the original 78 tools added fully browser-based utilities for
   <tr>
     <td colspan="2" valign="top">
       <img src="assets/images/Password.webp" alt="Toolkit password generator" width="100%" />
-      <p align="center"><strong>Password</strong><br />A focused tool page with local-only password generation.</p>
+      <p align="center"><strong>Password</strong><br />A tool page; passwords are generated locally.</p>
     </td>
   </tr>
 </table>
@@ -113,7 +113,7 @@ Some tools use pinned, self-hosted vendor scripts for QR-code and bcrypt support
 
 `words/` is a reusable bilingual data layer for local, themed typing practice. Consumers read `words/manifest.json` first and lazily load the selected list. To contribute a list, add its JSON file, register it in the manifest with an English source label, add the Turkish label to `assets/js/core/i18n-expansion.js`, and run `node tests/words-audit.mjs`. Lists must be neutral, appropriately licensed, NFC-normalised, and remain within the documented size budget.
 
-The September 26 quality review removed synthetic expressions and unsupported quote attributions instead of retaining them to inflate list sizes. There are now 4,203 Turkish and 5,043 English entries. English medical terms retain exact NLM MeSH descriptor IDs; the 146 excerpts per language derive from 66 edition-matched base passages and explicitly labelled combinations. Turkish translations are editorial, not certified. See [word sources and verification](words/README.md) for the counts, licences, commands and limits of these checks.
+The 2026-09-26 quality review removed synthetic expressions and unsupported quote attributions instead of retaining them to inflate list sizes. There are now 4,203 Turkish and 5,043 English entries. English medical terms retain exact NLM MeSH descriptor IDs; the 146 excerpts per language derive from 66 edition-matched base passages and explicitly labelled combinations. Turkish translations are editorial, not certified. See [word sources and verification](words/README.md) for the counts, licences, commands and limits of these checks.
 
 ## Run locally
 
@@ -243,7 +243,7 @@ English source text lives in the HTML and JavaScript source. `assets/js/core/i18
 
 ## Contributing
 
-Toolkit accepts focused improvements that keep the following promise intact: local processing, offline usability, clear accessibility, and no external application dependency. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request and [SECURITY.md](SECURITY.md) for responsible disclosure guidance.
+Contributions are welcome if they keep tool input local, the site usable offline and accessible, and the runtime free of external dependencies. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request and [SECURITY.md](SECURITY.md) for responsible disclosure guidance.
 
 ## License
 
