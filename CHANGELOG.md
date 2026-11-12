@@ -2,7 +2,9 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.3.0] — 2026-11-12
+
+Makes the Turkish interface visible to search engines: every page now has a Turkish address with Turkish metadata, linked to its English twin. No tool is added or changed.
 
 ### Added
 
@@ -16,6 +18,7 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 - On pages that have a Turkish twin, the language menu now opens the other URL instead of translating in place. Opening a `/tr/` page saves Turkish as the preference.
 - The service worker is registered, and the typing test loads its word lists, relative to the site root rather than the page, so both also work from `/tr/`. Offline, an unvisited `/tr/` page redirects to its precached English twin, which renders in the saved language.
 - The offline end-to-end test waits for the service worker to finish activating before it checks the cache; it was intermittently failing in CI.
+- CONTRIBUTING, SECURITY and the vendor README describe the current build and tests: the Turkish page step and checks, every `build.py` flag, the Content-Security-Policy, and the automatic `CACHE_VERSION`.
 
 ### Fixed
 
@@ -165,6 +168,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.3.0]: https://github.com/abel0x/toolkit/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/abel0x/toolkit/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/abel0x/toolkit/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/abel0x/toolkit/compare/v1.1.0...v1.2.0
