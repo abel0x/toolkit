@@ -12,6 +12,7 @@ Usage:
   python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
   python3 build.py --tool-count      Synchronize published static tool-count copy
+  python3 build.py --turkish         Generate the tr/ pages from _data/seo-tr.json
   python3 build.py --words           Generate the word-list precache manifest
   python3 build.py --offline         Generate the tool precache manifest
   python3 build.py --sitemap         Generate sitemap.xml with content-based lastmod dates
@@ -49,6 +50,9 @@ SITE_BASE   = 'https://abel0x.github.io/toolkit/'
 SITE_DIR    = os.path.join(ROOT, '_site')
 TOOLS_JSON  = os.path.join(ROOT, '_data', 'tools.json')
 LASTMOD_JSON = os.path.join(ROOT, '_data', 'lastmod.json')
+SEO_TR_JSON = os.path.join(ROOT, '_data', 'seo-tr.json')
+TR_DIR      = os.path.join(ROOT, 'tr')
+TR_PREFIX   = 'tr/'
 CORE_JS_DIR = os.path.join(ROOT, 'assets', 'js', 'core')
 
 # Shared by every published page; tests/site-audit.mjs enforces it.
@@ -68,7 +72,7 @@ PUBLISHED_FILES = (
     # Google Search Console ownership token; keep it while the property exists.
     'googlea232df08b3b74961.html',
 )
-PUBLISHED_DIRS = ('assets', 'license', 'tools', 'words')
+PUBLISHED_DIRS = ('assets', 'license', 'tools', 'tr', 'words')
 UNPUBLISHED_SUFFIXES = ('.md',)
 
 
@@ -176,6 +180,13 @@ def _write(path, content):
         return
     with open(path, 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(content)
+
+
+def _remove(path):
+    if _PENDING is not None:
+        _PENDING[path] = None
+        return
+    os.remove(path)
 
 
 # ---------------------------------------------------------------------------
@@ -373,11 +384,12 @@ def run_registry():
 
 
 def _sitemap_pages():
-    """Yield (URL path, repository path) for every page listed in the sitemap."""
-    yield '', 'index.html'
-    yield 'license/', 'license/index.html'
-    for tool in _registry():
-        yield f"tools/{tool['slug']}.html", f"tools/{tool['slug']}.html"
+    """Yield (URL path, repository path, hreflang alternates) for every sitemap page."""
+    for relative in _localized_pages():
+        location = _page_location(relative)
+        alternates = (('en', location), ('tr', TR_PREFIX + location), ('x-default', location))
+        yield location, relative, alternates
+        yield TR_PREFIX + location, TR_PREFIX + relative, alternates
 
 
 def run_sitemap():
@@ -394,7 +406,7 @@ def run_sitemap():
     ledger = json.loads(stored_ledger)
     today = datetime.date.today().isoformat()
     revised, entries, changed = {}, [], 0
-    for location, relative in _sitemap_pages():
+    for location, relative, alternates in _sitemap_pages():
         try:
             page = _read_bytes(os.path.join(ROOT, *relative.split('/')))
         except FileNotFoundError:
@@ -406,13 +418,17 @@ def run_sitemap():
             record = {'date': today, 'sha256': digest}
             changed += 1
         revised[relative] = record
+        links = ''.join(f'<xhtml:link rel="alternate" hreflang="{language}" '
+                        f'href="{html_lib.escape(SITE_BASE + target)}"/>'
+                        for language, target in alternates)
         entries.append(f'  <url><loc>{html_lib.escape(SITE_BASE + location)}</loc>'
-                       f'<lastmod>{record["date"]}</lastmod></url>')
+                       f'<lastmod>{record["date"]}</lastmod>{links}</url>')
     ledger_text = json.dumps(revised, indent=2, sort_keys=True) + '\n'
     if stored_ledger != ledger_text:
         _write(LASTMOD_JSON, ledger_text)
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
-               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+               'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
                + '\n'.join(entries) + '\n</urlset>\n')
     sitemap_path = os.path.join(ROOT, 'sitemap.xml')
     if _read(sitemap_path) != sitemap:
@@ -529,6 +545,160 @@ def run_nav():
 
 
 # ---------------------------------------------------------------------------
+# Turkish pages — /tr/ copies with Turkish metadata for search engines
+# ---------------------------------------------------------------------------
+#
+# Every English page gets a generated twin under tr/. The twin keeps the
+# English body (the i18n runtime translates it in the browser, forced to
+# Turkish by data-page-language) but ships Turkish <title>, description,
+# Open Graph and canonical tags, plus reciprocal hreflang links. Asset
+# references gain one '../' so they still point at the shared files, while
+# links between pages stay inside the Turkish tree.
+
+_ALTERNATE_LINKS = re.compile(r'\n[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" />')
+_HTML_REFERENCE = re.compile(r'(\b(?:href|src)=)(["\'])([^"\']*)\2')
+
+
+def _localized_pages():
+    """Return the repository paths that get a Turkish twin under tr/."""
+    return (['index.html', 'license/index.html']
+            + [f'tools/{os.path.basename(path)}' for path in _tool_files()])
+
+
+def _page_location(relative):
+    """Map a repository path to its public URL path ('license/index.html' → 'license/')."""
+    return relative[:-len('index.html')] if relative.endswith('index.html') else relative
+
+
+def _alternate_links(relative):
+    english = html_lib.escape(SITE_BASE + _page_location(relative))
+    turkish = html_lib.escape(SITE_BASE + TR_PREFIX + _page_location(relative))
+    return (f'<link rel="alternate" hreflang="en" href="{english}" />\n'
+            f'  <link rel="alternate" hreflang="tr" href="{turkish}" />\n'
+            f'  <link rel="alternate" hreflang="x-default" href="{english}" />')
+
+
+def _with_alternates(html, relative):
+    """Place the hreflang block right after the canonical link."""
+    html = _ALTERNATE_LINKS.sub('', html)
+    html, count = re.subn(r'(<link rel="canonical" href="[^"]*" />)',
+                          lambda match: f'{match.group(1)}\n  {_alternate_links(relative)}',
+                          html, count=1)
+    if count != 1:
+        raise SystemExit(f'{relative} needs exactly one canonical link for its hreflang alternates.')
+    return html
+
+
+def _turkish_reference(reference, relative, localized):
+    """Keep page links inside tr/ and point everything else one level up."""
+    if not reference or re.match(r'^(?:[a-z][a-z0-9+.-]*:|//|/|#)', reference, re.IGNORECASE):
+        return reference
+    path = re.sub(r'[?#].*$', '', reference)
+    if not path:
+        return reference
+    resolved = os.path.normpath(os.path.join(os.path.dirname(relative), path)).replace(os.sep, '/')
+    if path.endswith('/') or os.path.isdir(os.path.join(ROOT, resolved)):
+        resolved = f'{resolved}/index.html'
+    return reference if resolved in localized else f'../{reference}'
+
+
+def _replace_once(html, pattern, replacement, relative, required=True):
+    revised, count = re.subn(pattern, lambda _: replacement, html, count=1)
+    if count == 0 and required:
+        raise SystemExit(f'{relative} is missing {pattern!r}, which its Turkish copy needs.')
+    return revised
+
+
+def _seo_entry(entries, relative, english_html, count):
+    """Return the Turkish copy for one page and fail if its English source moved."""
+    entry = entries.get(relative)
+    if not entry:
+        raise SystemExit(f'{relative} has no Turkish title and description; add them to _data/seo-tr.json.')
+
+    def english(pattern):
+        match = re.search(pattern, english_html)
+        return html_lib.unescape(match.group(1)) if match else None
+
+    current = {
+        'title': english(r'<title>(.*?)</title>'),
+        'description': english(r'<meta name="description" content="([^"]*)"'),
+    }
+    og_description = english(r'<meta property="og:description" content="([^"]*)"')
+    if og_description is not None and og_description != current['description']:
+        current['ogDescription'] = og_description
+    source = {key: value.replace('{{count}}', str(count)) for key, value in entry['source'].items()}
+    if source != current:
+        raise SystemExit(f'The English metadata of {relative} changed; update its Turkish copy and '
+                         f'"source" in _data/seo-tr.json.\n  recorded: {source}\n  current:  {current}')
+    title = entry['title'].replace('{{count}}', str(count))
+    description = entry['description'].replace('{{count}}', str(count))
+    og = entry.get('ogDescription', entry['description']).replace('{{count}}', str(count))
+    return title, description, og
+
+
+def _turkish_page(relative, english_html, entry, localized):
+    title, description, og_description = entry
+    url = html_lib.escape(SITE_BASE + TR_PREFIX + _page_location(relative))
+    attr = lambda value: html_lib.escape(value, quote=True)
+    page = english_html
+    page = _replace_once(page, r'<html lang="en">', '<html lang="tr" data-page-language="tr">', relative)
+    page = _replace_once(page, r'<title>.*?</title>', f'<title>{html_lib.escape(title, quote=False)}</title>', relative)
+    page = _replace_once(page, r'<meta name="description" content="[^"]*" />',
+                         f'<meta name="description" content="{attr(description)}" />', relative)
+    page = _replace_once(page, r'<link rel="canonical" href="[^"]*" />',
+                         f'<link rel="canonical" href="{url}" />', relative)
+    for pattern, value in (
+        (r'<meta property="og:title" content="[^"]*" />', f'<meta property="og:title" content="{attr(title)}" />'),
+        (r'<meta property="og:description" content="[^"]*" />', f'<meta property="og:description" content="{attr(og_description)}" />'),
+        (r'<meta property="og:url" content="[^"]*" />', f'<meta property="og:url" content="{url}" />'),
+        (r'<meta name="twitter:title" content="[^"]*" />', f'<meta name="twitter:title" content="{attr(title)}" />'),
+        (r'<meta name="twitter:description" content="[^"]*" />', f'<meta name="twitter:description" content="{attr(og_description)}" />'),
+    ):
+        page = _replace_once(page, pattern, value, relative, required=False)
+    page = _HTML_REFERENCE.sub(
+        lambda match: f'{match.group(1)}{match.group(2)}'
+                      f'{_turkish_reference(match.group(3), relative, localized)}{match.group(2)}',
+        page)
+    page = _replace_once(page, r'<!DOCTYPE html>\n',
+                         f'<!DOCTYPE html>\n<!-- Generated by build.py from {relative}; edit that page '
+                         'and _data/seo-tr.json instead. -->\n', relative)
+    return page
+
+
+def run_turkish_pages():
+    """Generate tr/ twins of every indexable page and link both with hreflang."""
+    print('\n[--turkish] Generating Turkish pages...')
+    entries = json.loads(_read(SEO_TR_JSON))
+    localized = _localized_pages()
+    localized_set = set(localized)
+    unknown = sorted(set(entries) - localized_set)
+    if unknown:
+        raise SystemExit(f'_data/seo-tr.json lists pages that do not exist: {", ".join(unknown)}')
+    count = _registered_tool_count()
+    for relative in localized:
+        english_path = os.path.join(ROOT, *relative.split('/'))
+        english_html = _with_alternates(_read(english_path), relative)
+        if english_html != _read(english_path):
+            _write(english_path, english_html)
+        entry = _seo_entry(entries, relative, english_html, count)
+        turkish_path = os.path.join(TR_DIR, *relative.split('/'))
+        turkish_html = _turkish_page(relative, english_html, entry, localized_set)
+        if not os.path.exists(turkish_path) or _read(turkish_path) != turkish_html:
+            if _PENDING is None:
+                os.makedirs(os.path.dirname(turkish_path), exist_ok=True)
+            _write(turkish_path, turkish_html)
+
+    removed = 0
+    for current, _, names in os.walk(TR_DIR):
+        for name in names:
+            path = os.path.join(current, name)
+            if os.path.relpath(path, TR_DIR).replace(os.sep, '/') not in localized_set:
+                _remove(path)
+                removed += 1
+    print(f'  OK    {len(localized)} Turkish pages, {removed} stale removed.')
+
+
+# ---------------------------------------------------------------------------
 # Published files and the content-hashed cache version
 # ---------------------------------------------------------------------------
 
@@ -596,8 +766,9 @@ def run_check():
             run_all()
         stale = []
         for path, content in sorted(_PENDING.items()):
-            if not os.path.exists(path):
-                stale.append(path)
+            if content is None or not os.path.exists(path):
+                if content is not None or os.path.exists(path):
+                    stale.append(path)
                 continue
             with open(path, 'r', encoding='utf-8') as fh:
                 if fh.read() != content:
@@ -669,6 +840,7 @@ def run_all():
     run_sync_expansion()
     run_nav()
     run_tool_count()
+    run_turkish_pages()
     run_words_manifest()
     run_offline_manifest()
     run_sitemap()
@@ -695,6 +867,8 @@ def main():
                         help='Synchronize published static tool-count copy')
     parser.add_argument('--sync-expansion', action='store_true',
                         help='Create or refresh generated expansion-tool shells')
+    parser.add_argument('--turkish', action='store_true',
+                        help='Generate the tr/ pages from _data/seo-tr.json')
     parser.add_argument('--words', action='store_true',
                         help='Generate the word-list precache manifest')
     parser.add_argument('--offline', action='store_true',
@@ -720,6 +894,7 @@ def main():
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
             (args.tool_count, run_tool_count),
+            (args.turkish, run_turkish_pages),
             (args.words, run_words_manifest),
             (args.offline, run_offline_manifest),
             (args.sitemap, run_sitemap),

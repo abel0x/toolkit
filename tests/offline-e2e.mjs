@@ -251,6 +251,32 @@ async function main() {
     assert.equal(nestedMissing.home, `${baseUrl}/index.html`, 'The nested 404 page links outside the site root.');
     assert.deepEqual(nestedMissing.failed, [], `The nested 404 page requested missing assets: ${nestedMissing.failed.join(', ')}`);
 
+    // Turkish pages live one level deeper but share the root worker and assets.
+    await navigate(bidi, tab.context, `${baseUrl}/tr/tools/base64.html`);
+    const turkishOnline = await evaluate(bidi, tab.context, `(async () => {
+      await document.fonts.ready;
+      for (let attempt = 0; attempt < 200 && !navigator.serviceWorker.controller; attempt += 1) {
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+      }
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      return {
+        lang: document.documentElement.lang,
+        heading: document.querySelector('h1')?.textContent.trim() || '',
+        background: getComputedStyle(document.body).backgroundColor,
+        worker: navigator.serviceWorker.controller?.scriptURL || '',
+        scopes: registrations.map((registration) => new URL(registration.scope).pathname),
+        failed: performance.getEntriesByType('resource').filter((entry) => entry.responseStatus >= 400).map((entry) => entry.name)
+      };
+    })()`);
+    assert.equal(turkishOnline.lang, 'tr', 'The Turkish page did not render in Turkish.');
+    assert.equal(turkishOnline.heading, 'Base64 Kodlama / Kod Çözme', 'The Turkish page body was not translated.');
+    assert.notEqual(turkishOnline.background, 'rgba(0, 0, 0, 0)', 'The Turkish page rendered without its stylesheets.');
+    assert(turkishOnline.worker.endsWith('/toolkit/sw.js'), `The Turkish page registered the wrong worker: ${turkishOnline.worker}`);
+    assert.deepEqual(turkishOnline.scopes, ['/toolkit/'], 'The Turkish page registered an extra service-worker scope.');
+    assert.deepEqual(turkishOnline.failed, [], `The Turkish page requested missing assets: ${turkishOnline.failed.join(', ')}`);
+    // Opening a /tr/ page saves Turkish; restore English for the checks below.
+    await evaluate(bidi, tab.context, `(() => { localStorage.setItem('toolkit-language', 'en'); return true; })()`);
+
     await closeServer(server);
 
     await navigate(bidi, tab.context, `${baseUrl}/tools/typing-test.html`);
@@ -296,7 +322,32 @@ async function main() {
     assert(fallback.title.includes('Page Not Found'), 'An uncached offline route did not fall back to 404.html.');
     assert(fallback.heading, 'The offline 404 fallback did not render its heading.');
 
-    console.log(`Offline E2E passed: ${expectedCache} installed at /toolkit/, preserved unrelated caches, and served tools, word lists, vendor assets, license, and 404 fallback without a network.`);
+    // A visited Turkish page comes from the cache; an unvisited one redirects
+    // to its precached English twin, still rendered in Turkish.
+    await navigate(bidi, tab.context, `${baseUrl}/tr/tools/base64.html`);
+    const turkishCached = await evaluate(bidi, tab.context, `(() => ({
+      path: location.pathname,
+      heading: document.querySelector('h1')?.textContent.trim() || ''
+    }))()`);
+    assert.equal(turkishCached.path, '/toolkit/tr/tools/base64.html', 'A visited Turkish page did not open offline.');
+    assert.equal(turkishCached.heading, 'Base64 Kodlama / Kod Çözme', 'A visited Turkish page lost its translation offline.');
+    await navigate(bidi, tab.context, `${baseUrl}/tr/tools/hash.html`);
+    const turkishTwin = await evaluate(bidi, tab.context, `(async () => {
+      for (let attempt = 0; attempt < 200 && document.documentElement.lang !== 'tr'; attempt += 1) {
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+      }
+      return {
+        path: location.pathname,
+        lang: document.documentElement.lang,
+        background: getComputedStyle(document.body).backgroundColor
+      };
+    })()`);
+    assert.equal(turkishTwin.path, '/toolkit/tools/hash.html', 'An unvisited Turkish page did not fall back to its English twin offline.');
+    assert.equal(turkishTwin.lang, 'tr', 'The offline English twin ignored the saved Turkish preference.');
+    assert.notEqual(turkishTwin.background, 'rgba(0, 0, 0, 0)', 'The offline English twin rendered without its stylesheets.');
+
+
+    console.log(`Offline E2E passed: ${expectedCache} installed at /toolkit/, preserved unrelated caches, and served tools, Turkish pages, word lists, vendor assets, license, and 404 fallback without a network.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();

@@ -53,6 +53,9 @@ jobs:
       - name: Audit localisation
         run: node tests/i18n-audit.mjs
 
+      - name: Audit Turkish pages and hreflang links
+        run: node tests/turkish-seo-audit.mjs
+
       - name: Test conversion edge cases
         run: node tests/conversion-regressions.mjs
 
@@ -73,6 +76,9 @@ jobs:
 
       - name: Check tool outputs against known answers in Firefox
         run: node tests/tool-vectors.mjs
+
+      - name: Exercise the Turkish pages in Firefox
+        run: node tests/turkish-pages-e2e.mjs
 
       - name: Assemble the published site
         run: python3 build.py --site

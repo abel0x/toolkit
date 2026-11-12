@@ -49,7 +49,7 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 
 ### 2. Register the tool
 
-`_data/tools.json` is the single source of the catalogue. Add one entry there; `build.py` generates the browser registries (`assets/js/core/tools-data.js` and `extra-tools-data.js`), the expansion-tool shells, and `sitemap.xml` from it. Do not edit those generated lists by hand.
+`_data/tools.json` is the single source of the catalogue. Add one entry there; `build.py` generates the browser registries (`assets/js/core/tools-data.js` and `extra-tools-data.js`), the expansion-tool shells, the Turkish copy under `tr/`, and `sitemap.xml` from it. Do not edit those generated files by hand.
 
 ```json
 {
@@ -102,6 +102,8 @@ Verify all of the following in both English and Turkish:
 - empty, loading, success, and error states;
 - generated results, including values interpolated into a sentence;
 - titles, navigation labels, and accessible names.
+
+Every page also needs an entry in `_data/seo-tr.json`: the Turkish `title`, `description` (and `ogDescription` where the page's Open Graph description differs), plus a `source` block that repeats the English values. `build.py` stops when a page has no entry or when its English title or description no longer matches `source`, so update both together. Use `{{count}}` for the tool count. Run `node tests/turkish-seo-audit.mjs` afterwards.
 
 Run `node tests/i18n-audit.mjs` after changing either dictionary or the i18n runtime. It checks dictionary shadowing and duplicate source keys, translated document titles, dynamic translation patterns, and the guarantee that functional form values are never translated.
 

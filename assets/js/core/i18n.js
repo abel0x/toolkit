@@ -1,7 +1,9 @@
 /* ═══════════════════════════════════════════════════════════
    Toolkit — client-side internationalisation
    English is the source locale. A visitor's explicit choice is
-   saved locally and reused on every published page.
+   saved locally and reused on every published page. Pages under
+   /tr/ declare data-page-language="tr" and always render Turkish;
+   their hreflang links let the language menu switch URLs.
    ═══════════════════════════════════════════════════════════ */
 
 (function initI18n() {
@@ -12,8 +14,14 @@
   const SUPPORTED_LANGUAGES = new Set(['en', 'tr']);
   const originalText = new WeakMap();
   const originalAttributes = new WeakMap();
-  let language = readLanguage();
+  const pageLanguage = SUPPORTED_LANGUAGES.has(document.documentElement.dataset.pageLanguage)
+    ? document.documentElement.dataset.pageLanguage
+    : null;
+  let language = pageLanguage || readLanguage();
+  if (pageLanguage) storeLanguage(pageLanguage);
   const originalDocumentTitle = document.title;
+  // assets/js/core/i18n.js → the site root.
+  const SITE_ROOT = document.currentScript?.src ? new URL('../../../', document.currentScript.src) : null;
 
   /*
    * English source text is deliberately the key. This lets static pages,
@@ -403,6 +411,24 @@
     }
   }
 
+  function storeLanguage(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch {}
+  }
+
+  /*
+   * The same page in another language, resolved against the site root this
+   * script was served from so local previews stay on their own origin.
+   * Only pages that publish hreflang alternates have a twin.
+   */
+  function alternateURL(locale) {
+    if (!SITE_ROOT || !document.querySelector(`link[rel="alternate"][hreflang="${locale}"]`)) return null;
+    if (!location.pathname.startsWith(SITE_ROOT.pathname)) return null;
+    const relative = location.pathname.slice(SITE_ROOT.pathname.length);
+    const english = relative.startsWith('tr/') ? relative.slice(3) : relative;
+    const target = new URL(locale === 'tr' ? `tr/${english}` : english, SITE_ROOT);
+    return target.pathname === location.pathname ? null : target.href;
+  }
+
   function interpolate(text, values) {
     if (!values) return text;
     return text.replace(/{{(\w+)}}/g, (_, key) => String(values[key] ?? ''));
@@ -629,6 +655,12 @@
       option.setAttribute('aria-selected', String(locale === language));
       option.textContent = locale === 'tr' ? 'Türkçe' : 'English';
       option.addEventListener('click', () => {
+        const target = alternateURL(locale);
+        if (target) {
+          storeLanguage(locale);
+          location.assign(target + location.search + location.hash);
+          return;
+        }
         setLanguage(locale);
         setMenuOpen(false);
         trigger.focus();
@@ -676,7 +708,7 @@
   function setLanguage(nextLanguage) {
     const next = SUPPORTED_LANGUAGES.has(nextLanguage) ? nextLanguage : DEFAULT_LANGUAGE;
     language = next;
-    try { localStorage.setItem(STORAGE_KEY, next); } catch {}
+    storeLanguage(next);
     apply();
     document.querySelectorAll('.nav-language').forEach((control) => {
       const trigger = control.querySelector('.nav-language__trigger');

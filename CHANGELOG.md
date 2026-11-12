@@ -2,6 +2,25 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Every page has a Turkish address under `/tr/` (`/toolkit/tr/`, `/toolkit/tr/tools/<slug>.html`, `/toolkit/tr/license/`), so search engines can index and show the Turkish interface. Previously Turkish existed only as a client-side setting, and every URL was indexed in English. `build.py --turkish` (part of `--all`) generates these 103 pages from the English ones. Each copy declares `lang="tr"`, renders in Turkish regardless of the saved setting, and has its own Turkish title, description, Open Graph and Twitter tags and canonical URL, taken from the new `_data/seo-tr.json`. The build stops when a page has no Turkish entry or its English metadata changed since the Turkish copy was written.
+- Reciprocal `hreflang` links (`en`, `tr`, `x-default` → English) on both language versions of every page, and the matching `xhtml:link` alternates in `sitemap.xml`, which now lists 206 URLs.
+- Google Search Console ownership is verified with a `google-site-verification` meta tag on the home page.
+- `tests/turkish-seo-audit.mjs` checks the generated pages, their metadata, references and the sitemap. `tests/turkish-pages-e2e.mjs` opens them in Firefox. Both run in CI.
+
+### Changed
+
+- On pages that have a Turkish twin, the language menu now opens the other URL instead of translating in place. Opening a `/tr/` page saves Turkish as the preference.
+- The service worker is registered, and the typing test loads its word lists, relative to the site root rather than the page, so both also work from `/tr/`. Offline, an unvisited `/tr/` page redirects to its precached English twin, which renders in the saved language.
+- The offline end-to-end test waits for the service worker to finish activating before it checks the cache; it was intermittently failing in CI.
+
+### Fixed
+
+- `.githooks/pre-commit` is tracked as executable. It was stored as a plain file, so git ignored the hook in fresh clones even after `core.hooksPath` was set.
+
 ## [1.2.2] — 2026-11-07
 
 Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and deployment produced; 1.2.2 removes the hand-synchronised lists and manual steps that let those faults happen.

@@ -5,6 +5,10 @@
 
   const root = document.getElementById('typing-test');
   if (!root) return;
+  // assets/js/tools/typing-test.js → words/, also from the /tr/ copy of the page.
+  const WORDS_BASE = document.currentScript?.src
+    ? new URL('../../../words/', document.currentScript.src)
+    : new URL('../words/', document.baseURI);
 
   const MODES = ['time', 'words', 'quote', 'zen'];
   const PRACTICES = ['standard', 'weak-keys', 'turkish-q', 'turkish-f', 'daily', 'custom', 'code', 'repeat-errors'];
@@ -346,7 +350,7 @@
       return;
     }
     try {
-      const response = await fetch(new URL('../words/manifest.json', document.baseURI), { cache: 'default' });
+      const response = await fetch(new URL('manifest.json', WORDS_BASE), { cache: 'default' });
       if (!response.ok) throw new Error('manifest unavailable');
       state.manifest = await response.json();
     } catch {
@@ -365,7 +369,7 @@
       state.listCache.set(cacheKey, payload);
       return payload;
     }
-    const response = await fetch(new URL(`../words/${category.file}`, document.baseURI), { cache: 'default' });
+    const response = await fetch(new URL(category.file, WORDS_BASE), { cache: 'default' });
     if (!response.ok) throw new Error(`Word list unavailable: ${cacheKey}`);
     const payload = await response.json();
     if (token !== state.requestToken) return null;

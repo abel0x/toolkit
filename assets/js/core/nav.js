@@ -72,8 +72,8 @@
 (function registerServiceWorker() {
   'use strict';
 
-  if (!('serviceWorker' in navigator)) return;
-  const isNestedPage = /\/(?:tools|license)(?:\/|$)/.test(new URL(document.baseURI).pathname);
-  const path = isNestedPage ? '../sw.js' : 'sw.js';
-  navigator.serviceWorker.register(path).catch(() => {});
+  if (!('serviceWorker' in navigator) || !document.currentScript?.src) return;
+  // assets/js/core/nav.js → the site root, wherever the page itself lives.
+  const worker = new URL('../../../sw.js', document.currentScript.src);
+  navigator.serviceWorker.register(worker.href).catch(() => {});
 }());

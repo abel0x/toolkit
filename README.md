@@ -24,7 +24,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 - **Private by design.** Tool input is processed on-device with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
 - **Offline after the first successful load.** The service worker precaches the published application so its tools remain usable without a network connection.
 - **Fast to navigate.** Press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> to search the full catalogue from any page.
-- **Bilingual interface.** English is the default. Turkish is available from the language menu, and an explicit choice is remembered locally in that browser.
+- **Bilingual interface.** English is the default. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu moves between the two, and the choice is remembered locally in that browser.
 - **No accounts or telemetry.** There is no backend, analytics service, or tool-input persistence.
 
 > A small amount of interface state can be stored locally: the selected language, optional recent-tool slugs, and typing-test preferences. Typing-test personal bests are opt-in, aggregate-only, and user-clearable; tool input, typed text, generated results, and uploaded files are not persisted by Toolkit.
@@ -131,7 +131,7 @@ Open [http://localhost:8080](http://localhost:8080). Serving over HTTP (instead 
 
 The repository includes a GitHub Actions deployment workflow at `.github/workflows/deploy-pages.yml`. Pull requests run the same build and tests without deploying. Every push to `main` and every manual workflow dispatch will:
 
-1. fail if any generated file (registries, navigation, tool counts, precache lists, sitemap, cache version) is out of date;
+1. fail if any generated file (registries, navigation, tool counts, Turkish pages, precache lists, sitemap, cache version) is out of date;
 2. run the static, localisation, accessibility, browser-function, and installed-offline audits; and
 3. assemble only the published files in `_site/`, then upload and deploy that verified artifact to GitHub Pages.
 
@@ -144,8 +144,8 @@ Search engines read `robots.txt` only at the root of a host, so a project site u
 The repository includes a small, dependency-free maintenance helper and static/browser checks. From the project root:
 
 ```bash
-# Regenerate tool registries, expansion pages, navigation, tool counts,
-# precache lists, the sitemap, and the content-hashed cache version.
+# Regenerate tool registries, expansion pages, navigation, tool counts, the
+# Turkish /tr/ pages, precache lists, the sitemap, and the content-hashed cache version.
 python3 build.py --all
 # Fail if any generated file is out of date (CI and the pre-commit hook run this).
 python3 build.py --check
@@ -181,6 +181,12 @@ node tests/webkit-smoke.mjs
 # Check Turkish dictionary integrity, dynamic patterns, title coverage, and form-control safety.
 node tests/i18n-audit.mjs
 
+# Check the generated /tr/ pages: Turkish metadata, canonical URLs, reciprocal hreflang links, references, and sitemap alternates.
+node tests/turkish-seo-audit.mjs
+
+# Open /tr/ pages in Firefox: forced Turkish, shared assets, Turkish internal links, URL-based language switching, and word lists.
+node tests/turkish-pages-e2e.mjs
+
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
@@ -194,7 +200,7 @@ node tests/expansion-e2e.mjs
 node tests/offline-e2e.mjs
 ```
 
-The browser checks start and stop their own local server and require a current Firefox installation. The offline suite installs the real service worker under `/toolkit/`, takes its server down, then verifies cached tools, word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
+The browser checks start and stop their own local server and require a current Firefox installation. The offline suite installs the real service worker under `/toolkit/`, takes its server down, then verifies cached tools, Turkish pages (an unvisited one falls back to its English twin), word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
 ## Project layout
 
@@ -202,10 +208,12 @@ The browser checks start and stop their own local server and require a current F
 toolkit/
 ├── index.html                    # Hub, filters, and tool catalogue
 ├── tools/                        # 101 individual static tool pages
+├── tr/                           # Turkish copies of every page (generated)
 ├── words/                        # Reusable bilingual word-list data
 ├── _includes/_nav.html           # Shared navigation source
 ├── _data/tools.json              # Single source of the tool catalogue
 ├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
+├── _data/seo-tr.json             # Turkish titles and descriptions for tr/
 ├── .githooks/pre-commit          # Optional generated-file check
 ├── assets/
 │   ├── css/
@@ -229,7 +237,9 @@ toolkit/
 
 ### Localisation model
 
-English source text lives in the HTML and JavaScript source. `assets/js/core/i18n.js` supplies the runtime and shared translations; `assets/js/core/i18n-expansion.js` contains the larger Turkish catalogue for tool pages and expansion controls. New visible copy must have a Turkish translation before it is merged. The selected language is read from and written to `localStorage` only after a user changes it.
+English source text lives in the HTML and JavaScript source. `assets/js/core/i18n.js` supplies the runtime and shared translations; `assets/js/core/i18n-expansion.js` contains the larger Turkish catalogue for tool pages and expansion controls. New visible copy must have a Turkish translation before it is merged. The selected language is read from and written to `localStorage` when a user changes it or opens a `/tr/` page.
+
+`build.py --turkish` (part of `--all`) generates `tr/` from the English pages. Each copy keeps the English body, which the runtime translates because the page declares `data-page-language="tr"`, and gets its Turkish `<title>`, description, Open Graph and canonical tags from `_data/seo-tr.json`. Both copies carry reciprocal `hreflang` links (`x-default` is English), and `sitemap.xml` lists both with their alternates. Never edit `tr/` by hand.
 
 ## Contributing
 
