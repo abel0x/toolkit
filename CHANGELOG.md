@@ -2,6 +2,14 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.1] — 2026-11-13
+
+### Added
+
+- Social preview images: `assets/images/og-en.png` and `og-tr.png` (1200×630), rendered from `_includes/og-card.html`. Every English and Turkish page now declares its language's image with `og:image` (plus size and alt text), `twitter:image`, and `twitter:card` set to `summary_large_image`, so shared links show a large card instead of a text-only one. `og:locale` and `og:locale:alternate` mark the page language.
+- JSON-LD structured data on every indexable page, in its own language: `WebSite` for the home page, `WebApplication` with a two-step `BreadcrumbList` for each tool, and `WebPage` for the license page. It is a non-executable data block, so the Content-Security-Policy is unchanged.
+- `build.py --metadata` (part of `--all`) generates both. The site and Turkish SEO audits check the tags, parse the JSON-LD, and check the images' format, size, and dimensions.
+
 ## [1.3.0] — 2026-11-12
 
 Makes the Turkish interface visible to search engines: every page now has a Turkish address with Turkish metadata, linked to its English twin. No tool is added or changed.
@@ -168,6 +176,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.3.1]: https://github.com/abel0x/toolkit/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/abel0x/toolkit/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/abel0x/toolkit/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/abel0x/toolkit/compare/v1.2.0...v1.2.1
