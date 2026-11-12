@@ -69,8 +69,6 @@ CONTENT_SECURITY_POLICY = (
 PUBLISHED_FILES = (
     '.nojekyll', '404.html', 'LICENSE', 'index.html', 'manifest.json',
     'sitemap.xml', 'style.css', 'sw.js',
-    # Google Search Console ownership token; keep it while the property exists.
-    'googlea232df08b3b74961.html',
 )
 PUBLISHED_DIRS = ('assets', 'license', 'tools', 'tr', 'words')
 UNPUBLISHED_SUFFIXES = ('.md',)

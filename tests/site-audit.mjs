@@ -414,6 +414,11 @@ for (const source of [
 }
 
 assert(existsSync(licensePage), 'Published license page is missing.');
+// Search Console verifies the URL-prefix property from this tag; removing it loses ownership.
+assert(readFileSync(join(root, 'index.html'), 'utf8')
+  .includes('<meta name="google-site-verification" content="XacY5y52KIxRIvYicwvR-VJYq8Yw1od7nXy4N9m9evI" />'),
+  'index.html lost its Google Search Console verification meta tag.');
+
 const licenseHtml = readFileSync(licensePage, 'utf8');
 assert(licenseHtml.includes('https://abel0x.github.io/toolkit/license/'),
   'License page has an invalid canonical URL.');
