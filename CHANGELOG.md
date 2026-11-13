@@ -2,7 +2,7 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.5.0] — 2026-11-13
 
 A calmer, monochrome look, and pages roughly half the size of 1.4.0 on a first visit. No tool is added or removed.
 
@@ -207,6 +207,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.5.0]: https://github.com/abel0x/toolkit/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/abel0x/toolkit/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/abel0x/toolkit/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/abel0x/toolkit/compare/v1.2.2...v1.3.0
