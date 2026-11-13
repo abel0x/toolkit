@@ -1,8 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
    Toolkit — Turkish interface copy
    The shared Turkish dictionary and the pattern rules for dynamic
-   strings. Only the /tr/ pages and 404.html load it (with
-   i18n-expansion.js); English pages never download Turkish copy.
+   strings. With i18n-expansion.js it is the source of every Turkish
+   string: build.py translates the /tr/ pages with both and cuts them
+   into small per-page packs (assets/js/i18n/tr/); only 404.html loads
+   them whole. English pages never download Turkish copy.
    English source text is deliberately the key, so static pages and
    generated controls share one dictionary without a framework.
    ═══════════════════════════════════════════════════════════ */
@@ -381,6 +383,7 @@
     'QR Batch Generator': 'Toplu QR Kod Oluşturucu'
   });
 
+  // TRANSLATE-PATTERN:START
   /* Turkish for English strings that carry numbers or variable parts. */
   function translatePattern(key, t) {
     let match = key.match(/^Search (\d+) tools…$/);
@@ -487,6 +490,13 @@
     }
     return key;
   }
+  // TRANSLATE-PATTERN:END
 
-  window.TOOLKIT_I18N_TR = Object.freeze({ strings, translatePattern });
+  /* Keys translatePattern looks up through t(); every /tr/ page pack keeps them. */
+  const patternKeys = Object.freeze([
+    'year', 'years', 'month', 'months', 'day', 'days', 'hour', 'hours',
+    'minute', 'minutes', 'second', 'seconds', 'Pass', 'Fail'
+  ]);
+
+  window.TOOLKIT_I18N_TR = Object.freeze({ strings, translatePattern, patternKeys });
 }());

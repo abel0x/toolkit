@@ -2,6 +2,18 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The `/tr/` pages no longer load the whole Turkish catalogue. Their HTML is already translated, so at run time they only need the strings their scripts can produce. `build.py --turkish` now writes small packs to `assets/js/i18n/tr/`: one shared by every page for the core scripts (the tool finder, navigation, example starters) and one per page script, each holding the dictionary entries whose English text appears as a string in those scripts. A Turkish tool page now loads about 40 KB of Turkish strings instead of 140 KB (for Base64, 369 KB instead of 472 KB in all). `i18n-tr.js` and `i18n-expansion.js` remain the only place translations are written; `404.html` still loads them whole.
+- `tests/turkish-pages-e2e.mjs` opens the tool finder and runs every Turkish tool page, then fails if the page shows English that the complete dictionaries would translate. The static-copy comparison now runs on `404.html`, the one page with the complete dictionaries.
+- The home page no longer ships the unused `<template>` with the old single-page versions of the tools, about 40 KB and a third of its HTML.
+
+### Fixed
+
+- Gradient Generator: the tooltip of the remove-stop button stayed in English on the Turkish page after a colour stop was added or removed.
+
 ## [1.4.0] — 2026-11-13
 
 The Turkish pages are Turkish in their HTML, and English pages stop downloading Turkish copy. No tool is added or changed.

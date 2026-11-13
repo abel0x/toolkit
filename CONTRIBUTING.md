@@ -68,7 +68,7 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 
 ### 3. Create the page and module
 
-Tool pages use the shared stylesheet modules and load shared scripts in this order at the end of `<body>`. Do not add the Turkish dictionaries (`i18n-tr.js`, `i18n-expansion.js`) or `language-redirect.js` yourself: `build.py --turkish` adds the dictionaries to the `tr/` copy and the redirect script to the English page's `<head>`.
+Tool pages use the shared stylesheet modules and load shared scripts in this order at the end of `<body>`. Do not add Turkish dictionaries, packs or `language-redirect.js` yourself: `build.py --turkish` generates the packs in `assets/js/i18n/tr/` (never edit them), adds them to the `tr/` copy, and adds the redirect script to the English page's `<head>`.
 
 ```html
 <script src="../assets/js/core/utils.js" defer></script>
@@ -93,7 +93,7 @@ Keep a conventional tool module isolated and strict:
 
 ### 4. Add localisation as part of the feature
 
-Visible English copy is the i18n source key. Add the matching Turkish value to `assets/js/core/i18n-tr.js` for shared UI text (strings with numbers or variable parts get a rule in its `translatePattern`) or `assets/js/core/i18n-expansion.js` for tool-page and expansion copy. Use `ToolkitI18n.t(key, values)` for dynamic strings; do not concatenate language-dependent fragments.
+Visible English copy is the i18n source key. Add the matching Turkish value to `assets/js/core/i18n-tr.js` for shared UI text (strings with numbers or variable parts get a rule in its `translatePattern`) or `assets/js/core/i18n-expansion.js` for tool-page and expansion copy. Use `ToolkitI18n.t(key, values)` for dynamic strings; do not concatenate language-dependent fragments. Write every key as a complete string literal in the script that uses it: the Turkish pages only receive the keys the build finds in their scripts (`tests/turkish-pages-e2e.mjs` fails when a Turkish page shows English it could have translated). The runtime translates inserted elements and text automatically, but not text or attributes changed on an existing element: wrap those in `ToolkitI18n.t()`.
 
 Verify all of the following in both English and Turkish:
 

@@ -643,7 +643,8 @@ def run_page_metadata():
 # Turkish body (see _walk_body below), Turkish <title>, description, Open
 # Graph and canonical tags, plus reciprocal hreflang links; data-page-language
 # keeps the i18n runtime in Turkish for text that scripts add later. Only the
-# twin loads the Turkish dictionaries (i18n-tr.js, i18n-expansion.js); the
+# twin loads Turkish strings, and only the ones its scripts can ask for at run
+# time: generated packs under assets/js/i18n/tr/ (see _turkish_packs). The
 # English page loads language-redirect.js instead. Asset references gain one
 # '../' so they still point at the shared files, while links between pages
 # stay inside the Turkish tree.
@@ -651,8 +652,16 @@ def run_page_metadata():
 _ALTERNATE_LINKS = re.compile(r'\n[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" />')
 # English pages send a visitor who chose Turkish to the twin before painting.
 _REDIRECT_SCRIPT = re.compile(r'\n[ \t]*<script src="[./]*assets/js/core/language-redirect\.js"></script>')
-# The Turkish dictionaries load on tr/ pages only, right before the runtime.
+# The Turkish packs load on tr/ pages only, right before the runtime.
 _I18N_RUNTIME = re.compile(r'([ \t]*)<script src="([./]*)assets/js/core/i18n\.js" defer></script>')
+_PAGE_SCRIPT = re.compile(r'<script src="[./]*(assets/js/[^"?]+\.js)(?:\?[^"]*)?"')
+_PACK_DIR = os.path.join(ROOT, 'assets', 'js', 'i18n', 'tr')
+_PACK_URL = 'assets/js/i18n/tr/'
+# Scripts that never ask for Turkish strings themselves.
+_NOT_TRANSLATED_SCRIPTS = ('assets/js/core/i18n-', 'assets/js/core/language-redirect.js', 'assets/js/vendor/')
+# Data a module turns into interface text at run time.
+_MODULE_DATA = {'typing-test': ('words/manifest.json',)}
+_PATTERN_SOURCE = re.compile(r'\n  // TRANSLATE-PATTERN:START\n(.*?\n)  // TRANSLATE-PATTERN:END\n', re.DOTALL)
 _HTML_REFERENCE = re.compile(r'(\b(?:href|src)=)(["\'])([^"\']*)\2')
 
 
@@ -866,6 +875,17 @@ def _walk_body(html, relative, translate):
     return ''.join(out)
 
 
+def _run_translator(payload, *arguments):
+    try:
+        result = subprocess.run(['node', _TRANSLATOR, *arguments], input=json.dumps(payload),
+                                capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        raise SystemExit('Node.js is required to build the Turkish pages (node was not found).')
+    if result.returncode != 0:
+        raise SystemExit(f'_scripts/translate.mjs failed:\n{result.stderr}')
+    return json.loads(result.stdout)
+
+
 def _turkish_strings(pages):
     """Translate every key found in the pages' bodies with the browser runtime."""
     keys = set()
@@ -875,17 +895,89 @@ def _turkish_strings(pages):
 
     for relative, html in pages.items():
         _walk_body(html, relative, collect)
-    try:
-        result = subprocess.run(['node', _TRANSLATOR], input=json.dumps(sorted(keys)),
-                                capture_output=True, text=True, check=False)
-    except FileNotFoundError:
-        raise SystemExit('Node.js is required to build the Turkish pages (node was not found).')
-    if result.returncode != 0:
-        raise SystemExit(f'_scripts/translate.mjs failed:\n{result.stderr}')
-    return json.loads(result.stdout)
+    return _run_translator(sorted(keys))
 
 
-def _turkish_page(relative, english_html, entry, localized):
+def _page_scripts(html):
+    """Return the translatable scripts one page loads, split into core and page modules."""
+    core, modules = [], []
+    for path in _PAGE_SCRIPT.findall(html):
+        if path.startswith(_NOT_TRANSLATED_SCRIPTS):
+            continue
+        (core if path.startswith('assets/js/core/') else modules).append(path)
+    return core, modules
+
+
+def _pack_literal(entries, indent):
+    lines = [f'{indent}{json.dumps(key, ensure_ascii=False)}: {json.dumps(value, ensure_ascii=False)}'
+             for key, value in entries.items()]
+    return ',\n'.join(lines)
+
+
+def _turkish_packs(english_pages):
+    """Write the per-module Turkish packs and return {page: [pack URLs]}.
+
+    The /tr/ body is already Turkish, so a page only needs the strings its
+    scripts can produce later. _scripts/translate.mjs picks the dictionary
+    entries whose English key appears as a string in those scripts: one
+    shared pack for the core scripts every page loads, plus one small pack
+    per page module (tools/*.js, pages/*.js) for the rest. The pack replaces
+    i18n-tr.js and i18n-expansion.js, which only 404.html loads whole.
+    """
+    core_scripts, module_scripts = set(), set()
+    page_modules = {}
+    for relative, html in english_pages.items():
+        core, modules = _page_scripts(html)
+        core_scripts.update(core)
+        module_scripts.update(modules)
+        page_modules[relative] = modules
+    name = lambda path: os.path.splitext(os.path.basename(path))[0]
+    shared_source = '\n'.join(_read(os.path.join(ROOT, *path.split('/'))) for path in sorted(core_scripts))
+    module_sources = {}
+    for path in sorted(module_scripts):
+        source = _read(os.path.join(ROOT, *path.split('/')))
+        for data in _MODULE_DATA.get(name(path), ()):
+            source += '\n' + _read(os.path.join(ROOT, *data.split('/')))
+        module_sources[name(path)] = source
+    packs = _run_translator({'shared': shared_source, 'modules': module_sources}, '--packs')
+
+    pattern = _PATTERN_SOURCE.search(_read(os.path.join(CORE_JS_DIR, 'i18n-tr.js')))
+    if not pattern:
+        raise SystemExit('assets/js/core/i18n-tr.js lost its TRANSLATE-PATTERN markers.')
+    header = ('/* Generated by build.py --turkish from assets/js/core/i18n-tr.js and\n'
+              '   i18n-expansion.js: the Turkish strings {what} can ask\n'
+              '   for at run time on /tr/ pages. Edit those files instead. */\n')
+    files = {'shared.js': (
+        header.format(what='the shared scripts') +
+        "\n(function registerTurkishPack() {\n  'use strict';\n\n"
+        f"  const strings = Object.freeze({{\n{_pack_literal(packs['shared'], '    ')}\n  }});\n\n"
+        f"{pattern.group(1)}\n"
+        '  window.TOOLKIT_I18N_TR = Object.freeze({ strings, translatePattern });\n'
+        '}());\n')}
+    for module, entries in sorted(packs['modules'].items()):
+        if entries:
+            files[f'{module}.js'] = (
+                header.format(what=f'{module}.js') +
+                '\nwindow.TOOLKIT_I18N_EXTRA = Object.freeze({\n'
+                '  tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {\n'
+                f"{_pack_literal(entries, '    ')}\n"
+                '  }))\n});\n')
+    if _PENDING is None:
+        os.makedirs(_PACK_DIR, exist_ok=True)
+    for filename, source in files.items():
+        path = os.path.join(_PACK_DIR, filename)
+        if not os.path.exists(path) or _read(path) != source:
+            _write(path, source)
+    if os.path.isdir(_PACK_DIR):
+        for filename in os.listdir(_PACK_DIR):
+            if filename not in files:
+                _remove(os.path.join(_PACK_DIR, filename))
+    return {relative: [_PACK_URL + 'shared.js'] + [_PACK_URL + f'{name(path)}.js' for path in modules
+                                                   if f'{name(path)}.js' in files]
+            for relative, modules in page_modules.items()}
+
+
+def _turkish_page(relative, english_html, entry, localized, packs):
     title, description, og_description = entry
     url = html_lib.escape(SITE_BASE + TR_PREFIX + _page_location(relative))
     attr = lambda value: html_lib.escape(value, quote=True)
@@ -907,9 +999,8 @@ def _turkish_page(relative, english_html, entry, localized):
     page = _with_page_metadata(page, relative, 'tr', title, description)
     page = _REDIRECT_SCRIPT.sub('', page)
     page, count = _I18N_RUNTIME.subn(
-        lambda match: (f'{match.group(1)}<script src="{match.group(2)}assets/js/core/i18n-tr.js" defer></script>\n'
-                       f'{match.group(1)}<script src="{match.group(2)}assets/js/core/i18n-expansion.js" defer></script>\n'
-                       f'{match.group(0)}'),
+        lambda match: ''.join(f'{match.group(1)}<script src="{match.group(2)}{pack}" defer></script>\n'
+                              for pack in packs) + match.group(0),
         page)
     if count != 1:
         raise SystemExit(f'{relative} must load assets/js/core/i18n.js exactly once.')
@@ -933,14 +1024,18 @@ def run_turkish_pages():
     if unknown:
         raise SystemExit(f'_data/seo-tr.json lists pages that do not exist: {", ".join(unknown)}')
     count = _registered_tool_count()
-    pages = {}
+    english_pages = {}
     for relative in localized:
         english_path = os.path.join(ROOT, *relative.split('/'))
         english_html = _with_alternates(_read(english_path), relative)
         if english_html != _read(english_path):
             _write(english_path, english_html)
+        english_pages[relative] = english_html
+    packs = _turkish_packs(english_pages)
+    pages = {}
+    for relative, english_html in english_pages.items():
         entry = _seo_entry(entries, relative, english_html, count)
-        pages[relative] = _turkish_page(relative, english_html, entry, localized_set)
+        pages[relative] = _turkish_page(relative, english_html, entry, localized_set, packs[relative])
     strings = _turkish_strings(pages)
     for relative, turkish_html in pages.items():
         turkish_html = _walk_body(turkish_html, relative, strings.get)

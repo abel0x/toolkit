@@ -31,7 +31,9 @@
     rows.forEach(r => {
       const btn = r.querySelector('.grad-remove');
       btn.disabled = rows.length <= 2;
-      btn.title = rows.length <= 2 ? 'Need at least 2 stops' : 'Remove color stop';
+      // i18n.js only sees inserted nodes, so translate attribute updates here.
+      const title = rows.length <= 2 ? 'Need at least 2 stops' : 'Remove color stop';
+      btn.title = window.ToolkitI18n ? window.ToolkitI18n.t(title) : title;
     });
   }
 

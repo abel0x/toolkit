@@ -3,6 +3,7 @@
 
 import assert from 'node:assert/strict';
 import { readdir } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { withFirefox } from './browser-session.mjs';
@@ -105,10 +106,14 @@ await withFirefox(async (page) => {
   assert.deepEqual(license.failed, [], `The Turkish license page requested missing files: ${license.failed.join(', ')}`);
 
   // The static Turkish body must equal what i18n.js makes of the English body,
-  // and leave the runtime nothing more to translate.
+  // and leave the runtime nothing more to translate. 404.html is the one page
+  // that loads the complete dictionaries, so the comparison runs there.
   const localized = ['index.html', 'license/index.html',
     ...(await readdir(join(root, 'tr', 'tools'))).filter((name) => name.endsWith('.html')).sort()
       .map((name) => `tools/${name}`)];
+  await page.evaluate(() => localStorage.setItem('toolkit-language', 'tr'));
+  await page.navigate('/404.html');
+  assert.equal(await page.evaluate(() => window.ToolkitI18n.getLanguage()), 'tr', '404.html did not load the Turkish dictionaries.');
   const drift = await page.evaluate(async (paths) => {
     const parse = (html) => new DOMParser().parseFromString(html, 'text/html');
     const strings = (doc) => {
@@ -148,7 +153,49 @@ await withFirefox(async (page) => {
   }, localized);
   assert.deepEqual(drift, [], `Static Turkish copy differs from the runtime translation:\n${drift.join('\n')}`);
 
-  // Tool scripts must cope with a body that is Turkish from the first paint.
+  // What i18n.js would translate on the page: the same text nodes and
+  // attributes apply() walks. Collected after the page's scripts have run.
+  const collectStrings = () => {
+    const found = new Set();
+    const skipped = 'script, style, noscript, pre, code, textarea, input, [contenteditable="true"], [data-i18n-skip]';
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const value = node.nodeValue.replace(/\s+/g, ' ').trim();
+      if (value && node.parentElement && !node.parentElement.closest(skipped)) found.add(value);
+    }
+    document.body.querySelectorAll('*').forEach((element) => {
+      ['aria-label', 'title', 'placeholder'].forEach((name) => {
+        if (element.hasAttribute(name)) found.add(element.getAttribute(name));
+      });
+    });
+    return [...found];
+  };
+  const leftovers = [];
+  const untranslated = (path, strings) => {
+    // _scripts/translate.mjs uses the complete dictionaries: anything it can
+    // still translate is a string this page's packs are missing.
+    const result = spawnSync('node', [join(root, '_scripts/translate.mjs')], { input: JSON.stringify(strings), encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr);
+    for (const [english, turkish] of Object.entries(JSON.parse(result.stdout))) {
+      leftovers.push(`/tr/${path}: ${JSON.stringify(english)} should read ${JSON.stringify(turkish)}`);
+    }
+  };
+
+  // The tool finder lists every tool from the shared pack.
+  await page.navigate('/tr/index.html');
+  await page.evaluate(async () => {
+    document.querySelector('.nav-command-trigger').click();
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    const input = document.querySelector('.command-palette__input');
+    input.value = 'e';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  });
+  untranslated('index.html (tool finder)', await page.evaluate(collectStrings));
+
+  // Tool scripts must cope with a body that is Turkish from the first paint,
+  // and everything they write must come out Turkish.
   for (const path of localized.filter((name) => name.startsWith('tools/'))) {
     await page.navigate(`/tr/${path}`);
     const result = await page.evaluate(async () => {
@@ -170,7 +217,9 @@ await withFirefox(async (page) => {
     });
     assert.deepEqual(result.errors, [], `/tr/${path} threw while running its tool: ${result.errors.join(', ')}`);
     assert.deepEqual(result.unloaded, [], `/tr/${path} did not load its example: ${result.unloaded.join(', ')}`);
+    untranslated(path, await page.evaluate(collectStrings));
   }
+  assert.deepEqual(leftovers, [], `Turkish pages show English their packs do not cover:\n${leftovers.join('\n')}`);
 
   assert.deepEqual(page.errors(), [], 'Turkish pages logged browser errors.');
 });
