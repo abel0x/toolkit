@@ -2,6 +2,14 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.1] — 2026-11-13
+
+### Fixed
+
+- After a release, the first visit of a returning visitor could show the new page with the previous release's stylesheets and scripts (in 1.6.0, the tool header without its layout) until the next reload. The previous service worker took the new HTML from the network but answered CSS and JavaScript from its cache. `build.py` now writes `?v=<CACHE_VERSION>` into every page's stylesheet and script links, so each release uses URLs the previous worker has never cached and the browser fetches them. `sw.js` answers its own version from the precache and sends any other version to the network without caching it, and `command-palette.js` loads the tool catalogue with the same version.
+- The service worker fills a new cache with fresh copies instead of ones the browser kept for up to ten minutes, so a release can no longer be precached with files from the release before.
+- `tests/offline-e2e.mjs` checks that every page links its assets with the current version, that the precache answers versioned links offline, and that a newer release's asset comes from the network and is not cached. The typing test's hand-written `?v=43` and `?v=42` links are replaced by the shared version, and sitemap `lastmod` dates ignore the version so releases do not touch every page's date.
+
 ## [1.6.0] — 2026-11-13
 
 Tool pages get the same left-aligned look as the home page. No tool is added or changed.
@@ -229,6 +237,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.1]: https://github.com/abel0x/toolkit/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/abel0x/toolkit/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/abel0x/toolkit/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/abel0x/toolkit/compare/v1.4.0...v1.5.0
