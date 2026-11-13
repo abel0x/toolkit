@@ -62,28 +62,20 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
-        <a href="../index.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Tüm Araçlar
-        </a>
-        <span class="tool-breadcrumb-sep">/</span>
-        <span>Regex Test Aracı</span>
-      </nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Geliştirici Araçları</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Regex Test Aracı</span></nav>
     </div>
 
     <section class="section" id="regex" aria-labelledby="regexHeading">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Geliştirici Araçları</span>
-          <h1 class="section-title" id="regexHeading">Regex Test Aracı</h1>
-          <p class="section-desc">Canlı eşleşme vurguları, grup yakalama ve bayrak desteğiyle düzenli ifadeleri test edin.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><h1 class="section-title" id="regexHeading">Regex Test Aracı</h1></div>
+            <p class="section-desc">Canlı eşleşme vurguları, grup yakalama ve bayrak desteğiyle düzenli ifadeleri test edin.</p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="regex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Örneği dene</button>
         </div>
-        <div class="example-starter reveal">
-          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>İlham mı lazım?</strong><span>Hazır bir örnek yükleyin, sonra kendinize göre düzenleyin.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="regex">Örneği dene</button>
-        </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="Regex Test Aracı">
           <div class="regex-pattern-row">
             <div class="regex-slash" aria-hidden="true">/</div>

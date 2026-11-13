@@ -73,6 +73,18 @@ await withFirefox(async (page) => {
   assert(lazyPalette.matches.includes('YAML to JSON'), `Lazy palette search missed "YAML to JSON": ${lazyPalette.matches}`);
   await page.evaluate(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })));
 
+  // The category link in a tool page breadcrumb opens the home page on that tab.
+  await open('/tools/hash.html');
+  const categoryLink = await page.evaluate(() => document.querySelector('.tool-breadcrumb a[href*="#category-"]').getAttribute('href'));
+  assert.equal(categoryLink, '../index.html#category-security');
+  await open('/index.html#category-media');
+  const categoryTab = await page.evaluate(() => ({
+    active: document.querySelector('.hub-filter-btn.active')?.dataset.filter,
+    shown: [...new Set([...document.querySelectorAll('.hub-card[data-cat]')]
+      .filter((card) => card.style.display !== 'none').map((card) => card.dataset.cat))]
+  }));
+  assert.deepEqual(categoryTab, { active: 'media', shown: ['media'] }, 'The #category-media link did not open the Media tab.');
+
   // Case-insensitive de-duplication folds İ and i together.
   await open('/tools/deduplicate-lines.html', 'tr');
   const deduplicated = await page.evaluate(() => {

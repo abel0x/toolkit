@@ -64,20 +64,19 @@
   </header>
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><span>Unix Permissions Calculator</span></nav>
+      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Dev Tools</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Unix Permissions Calculator</span></nav>
     </div>
     <section class="section" id="unix-permissions">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Dev Tools</span>
-          <h1 class="section-title gradient-text">Unix Permissions Calculator</h1>
-          <p class="section-desc">Translate Unix rwx permissions between checkboxes, symbolic mode and octal.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span><h1 class="section-title">Unix Permissions Calculator</h1></div>
+            <p class="section-desc">Translate Unix rwx permissions between checkboxes, symbolic mode and octal.</p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="unix-permissions"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
         </div>
-        <div class="example-starter reveal">
-          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>Need a spark?</strong><span>Load a ready-made example, then make it yours.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="unix-permissions">Try a sample</button>
-        </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal expansion-card">
           <div id="toolApp" class="expansion-tool" data-tool="unix-permissions" aria-live="polite"></div>
         </div>

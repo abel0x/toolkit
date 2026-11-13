@@ -62,25 +62,20 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
-        <a href="../index.html">← Tüm Araçlar</a>
-        <span class="tool-breadcrumb-sep">/</span>
-        <span>JSON Doğrulayıcı</span>
-      </nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Geliştirici Araçları</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">JSON Doğrulayıcı</span></nav>
     </div>
 
     <section class="section" id="json-validator">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">JSON ve Veri</span>
-          <h1 class="section-title">JSON Doğrulayıcı</h1>
-          <p class="section-desc">JSON sözdizimini doğrulayın ve satır numaralarıyla birlikte net hata mesajları alın.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></span><h1 class="section-title">JSON Doğrulayıcı</h1></div>
+            <p class="section-desc">JSON sözdizimini doğrulayın ve satır numaralarıyla birlikte net hata mesajları alın.</p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="json-validator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Örneği dene</button>
         </div>
-        <div class="example-starter reveal">
-          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>İlham mı lazım?</strong><span>Hazır bir örnek yükleyin, sonra kendinize göre düzenleyin.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="json-validator">Örneği dene</button>
-        </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal">
           <div class="form-group">
             <label class="form-label" for="jval-input">JSON Girdisi</label>

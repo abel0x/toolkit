@@ -11,6 +11,7 @@ Usage:
   python3 build.py --registry        Generate the browser tool registries from _data/tools.json
   python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
+  python3 build.py --tool-headers    Generate the tool page headers (breadcrumb, icon, sample button)
   python3 build.py --tool-count      Synchronize published static tool-count copy
   python3 build.py --metadata        Add social preview images and JSON-LD to the English pages
   python3 build.py --turkish         Generate the tr/ pages from _data/seo-tr.json
@@ -195,21 +196,16 @@ def _remove(path):
 
 def _expansion_page(tool):
     slug = tool['slug']
-    category = tool['catLabel']
     safe_title = html_lib.escape(tool['name'])
     safe_desc = html_lib.escape(tool['desc'])
     url = f'{SITE_BASE}tools/{slug}.html'
     tool_count = _registered_tool_count()
-    example_starter = ''
     example_script = ''
     if tool.get('exampleStarter'):
-        example_starter = f'''        <div class="example-starter reveal">
-          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>Need a spark?</strong><span>Load a ready-made example, then make it yours.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="{slug}">Try a sample</button>
-        </div>
-'''
         example_script = '  <script src="../assets/js/core/example-starters.js" defer></script>\n'
+    header = _tool_header(tool, f'<h1 class="section-title">{safe_title}</h1>',
+                          f'<p class="section-desc">{safe_desc}</p>',
+                          slug if tool.get('exampleStarter') else None, '        ')
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -245,16 +241,11 @@ def _expansion_page(tool):
   </header>
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><span>{safe_title}</span></nav>
+      {_tool_breadcrumb(tool, safe_title)}
     </div>
     <section class="section" id="{slug}">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">{html_lib.escape(category)}</span>
-          <h1 class="section-title gradient-text">{safe_title}</h1>
-          <p class="section-desc">{safe_desc}</p>
-        </div>
-{example_starter}        <div class="card glass reveal expansion-card">
+{header}        <div class="card glass reveal expansion-card">
           <div id="toolApp" class="expansion-tool" data-tool="{slug}" aria-live="polite"></div>
         </div>
       </div>
@@ -540,6 +531,108 @@ def run_nav():
         injected += 1
 
     print(f'\n[--nav] Done. {injected} updated, {skipped_no_markers} skipped.')
+
+
+# ---------------------------------------------------------------------------
+# Tool page headers
+# ---------------------------------------------------------------------------
+#
+# Every tool page opens with the same header: a breadcrumb through its home
+# page category, the tool's catalogue icon beside the title, the description,
+# and a "Try a sample" button when example-starters.js has examples for it.
+# The title and description stay as each page words them; the icon and the
+# category come from _data/tools.json, so this step keeps them in step.
+
+_TOOL_HEADER_START = '<!-- TOOL-HEADER:START -->'
+_TOOL_HEADER_END = '<!-- TOOL-HEADER:END -->'
+# Expansion tools have no icon of their own; home.js gives their cards this one.
+_FALLBACK_ICON = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                  'stroke-width="1.8"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>')
+_SAMPLE_ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                'stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 '
+                '10l-5.7-1.3L12 3Z"/></svg>')
+_GENERATED_HEADER = re.compile(r'([ \t]*)<!-- TOOL-HEADER:START -->.*?<!-- TOOL-HEADER:END -->\n', re.DOTALL)
+_HANDWRITTEN_HEADER = re.compile(r'([ \t]*)<div class="section-header reveal">.*?</div>\n', re.DOTALL)
+_EXAMPLE_STARTER = re.compile(r'[ \t]*<div class="example-starter reveal">.*?</div>\n', re.DOTALL)
+_SAMPLE_GROUP = re.compile(r'data-example-group="([^"]+)"')
+_BREADCRUMB = re.compile(r'<nav class="tool-breadcrumb" aria-label="Breadcrumb">(.*?)</nav>', re.DOTALL)
+_BREADCRUMB_PAGE = re.compile(r'<span(?: aria-current="page")?>([^<]*)</span>\s*$')
+
+
+def _tool_breadcrumb(tool, page_name):
+    """Return the breadcrumb: all tools, the home page category, this page."""
+    category = html_lib.escape(tool['catLabel'])
+    separator = '<span class="tool-breadcrumb-sep">/</span>'
+    return ('<nav class="tool-breadcrumb" aria-label="Breadcrumb">'
+            f'<a href="../index.html">← All Tools</a>{separator}'
+            f'<a href="../index.html#category-{tool["cat"]}">{category}</a>{separator}'
+            f'<span aria-current="page">{page_name}</span></nav>')
+
+
+def _tool_header(tool, title_html, description_html, sample_group, indent):
+    """Return the marked header block of one tool page."""
+    icon = tool.get('icon') or _FALLBACK_ICON
+    button = ''
+    if sample_group:
+        button = (f'\n{indent}  <button type="button" class="btn btn--ghost btn--sm tool-header__sample" '
+                  f'data-example-group="{sample_group}">{_SAMPLE_ICON}Try a sample</button>')
+    return (f'{indent}{_TOOL_HEADER_START}\n'
+            f'{indent}<div class="tool-header reveal">\n'
+            f'{indent}  <div class="tool-header__text">\n'
+            f'{indent}    <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true">'
+            f'{icon}</span>{title_html}</div>\n'
+            f'{indent}    {description_html}\n'
+            f'{indent}  </div>{button}\n'
+            f'{indent}</div>\n'
+            f'{indent}{_TOOL_HEADER_END}\n')
+
+
+def _with_tool_header(html, tool, filename):
+    """Rewrite one tool page's breadcrumb and header from its catalogue entry."""
+    def fail(problem):
+        raise SystemExit(f'{filename}: {problem}')
+
+    starter = _EXAMPLE_STARTER.search(html)
+    starter_group = None
+    if starter:
+        starter_group = _SAMPLE_GROUP.search(starter.group(0)).group(1)
+        html = html[:starter.start()] + html[starter.end():]
+    header = _GENERATED_HEADER.search(html) or _HANDWRITTEN_HEADER.search(html)
+    if not header:
+        fail('has no tool header (section-header or TOOL-HEADER markers).')
+    block = header.group(0)
+    title = re.search(r'<h1\b.*?</h1>', block, re.DOTALL)
+    description = re.search(r'<p class="section-desc">.*?</p>', block, re.DOTALL)
+    if not title or not description:
+        fail('its header needs an <h1> and a <p class="section-desc">.')
+    group = _SAMPLE_GROUP.search(block)
+    sample_group = starter_group or (group.group(1) if group else None)
+    html = (html[:header.start()] +
+            _tool_header(tool, title.group(0), description.group(0), sample_group, header.group(1)) +
+            html[header.end():])
+
+    breadcrumb = _BREADCRUMB.search(html)
+    page = _BREADCRUMB_PAGE.search(breadcrumb.group(1)) if breadcrumb else None
+    if not page:
+        fail('has no breadcrumb ending in the page name.')
+    return html[:breadcrumb.start()] + _tool_breadcrumb(tool, page.group(1)) + html[breadcrumb.end():]
+
+
+def run_tool_headers():
+    """Give every tool page the shared header with its catalogue icon and category."""
+    print('\n[--tool-headers] Generating tool page headers...')
+    tools = {tool['slug']: tool for tool in _registry()}
+    updated = 0
+    for path in _tool_files():
+        slug = os.path.splitext(os.path.basename(path))[0]
+        if slug not in tools:
+            raise SystemExit(f'tools/{slug}.html is not in _data/tools.json.')
+        html = _read(path)
+        revised = _with_tool_header(html, tools[slug], f'tools/{slug}.html')
+        if revised != html:
+            _write(path, revised)
+            updated += 1
+    print(f'  OK    {updated} tool pages updated.')
 
 
 # ---------------------------------------------------------------------------
@@ -1214,6 +1307,7 @@ def run_all():
     run_registry()
     run_sync_expansion()
     run_nav()
+    run_tool_headers()
     run_tool_count()
     run_page_metadata()
     run_turkish_pages()
@@ -1239,6 +1333,8 @@ def main():
                         help='Generate the browser tool registries from _data/tools.json')
     parser.add_argument('--nav', action='store_true',
                         help='Inject nav HTML from _includes/_nav.html into published pages')
+    parser.add_argument('--tool-headers', action='store_true',
+                        help='Generate the tool page headers from _data/tools.json')
     parser.add_argument('--tool-count', action='store_true',
                         help='Synchronize published static tool-count copy')
     parser.add_argument('--sync-expansion', action='store_true',
@@ -1271,6 +1367,7 @@ def main():
             (args.registry, run_registry),
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
+            (args.tool_headers, run_tool_headers),
             (args.tool_count, run_tool_count),
             (args.metadata, run_page_metadata),
             (args.turkish, run_turkish_pages),

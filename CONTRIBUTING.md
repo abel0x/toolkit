@@ -65,7 +65,7 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 ```
 
 - `cat` must be a key of the `categories` table at the top of the file; its display label comes from there.
-- For an expansion tool, replace `icon` with `"shell": "expansion"` (the shell uses the shared icon) and add `"exampleStarter": true` if it has a “Try a sample” starter. `python3 build.py --all` then creates `tools/your-tool.html`.
+- For an expansion tool, replace `icon` with `"shell": "expansion"` (the shell uses the shared icon) and add `"exampleStarter": true` if it has a “Try a sample” button. `python3 build.py --all` then creates `tools/your-tool.html`.
 - The `slug` must be unique and lowercase-hyphenated, and match `tools/your-tool.html`. `build.py` rejects an invalid entry, and the site audit checks that pages, registries and the sitemap agree with the file.
 
 ### 3. Create the page and module
@@ -81,6 +81,20 @@ Tool pages use the shared stylesheet modules and load shared scripts in this ord
 ```
 
 Do not load `tools-data.js` or `extra-tools-data.js` on a tool page: only the home page needs the catalogue up front. `command-palette.js` fetches it, and its Turkish pack on `/tr/` pages, when the tool finder is about to open.
+
+Start the page body with the breadcrumb and header that every tool page shares; `build.py --tool-headers` fills them in. Write just the page name in the breadcrumb, and the `<h1>` and description in a plain header, and the build turns them into the generated block between `<!-- TOOL-HEADER:START -->` and `<!-- TOOL-HEADER:END -->`:
+
+```html
+<nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><span>Your Tool Name</span></nav>
+…
+<div class="section-header reveal">
+  <h1 class="section-title" id="yourToolHeading">Your Tool Name</h1>
+  <p class="section-desc">One sentence on what the tool does.</p>
+  <button type="button" data-example-group="your-tool">Try a sample</button>
+</div>
+```
+
+The breadcrumb gains the tool's category (linked to that tab on the home page, `index.html#category-<cat>`) and the title gains the tool's `icon` from `_data/tools.json` (expansion tools get the shared one). The button is optional: add it only when `assets/js/core/example-starters.js` has examples under that group name, and load that script; the build restyles it and places it beside the header. Afterwards edit the title and description inside the generated block; the build keeps them, and the group name, and regenerates the rest.
 
 Keep a conventional tool module isolated and strict:
 
@@ -183,6 +197,7 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--site` | Copy only the published files into `_site/` and verify every page reference and precache entry resolves. CI deploys this directory. |
 | `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
+| `--tool-headers` | Generate each tool page's breadcrumb (with its category) and header (catalogue icon, title, description, "Try a sample" button) from `_data/tools.json`. |
 | `--tool-count` | Synchronise published static tool-count copy. |
 | `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |
 | `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |

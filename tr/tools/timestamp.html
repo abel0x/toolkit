@@ -62,23 +62,19 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
-        <a href="../index.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Tüm Araçlar
-        </a>
-        <span class="tool-breadcrumb-sep">/</span>
-        <span>Zaman Damgası Dönüştürücü</span>
-      </nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-converters">Dönüştürücüler</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Zaman Damgası Dönüştürücü</span></nav>
     </div>
 
     <section class="section" id="timestamp" aria-labelledby="tsHeading">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Dönüştürücüler</span>
-          <h1 class="section-title" id="tsHeading">Zaman Damgası Dönüştürücü</h1>
-          <p class="section-desc">Unix zaman damgalarını yerel ve UTC saatine göre insan tarafından okunabilen tarihlere ve geriye dönüştürün.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><h1 class="section-title" id="tsHeading">Zaman Damgası Dönüştürücü</h1></div>
+            <p class="section-desc">Unix zaman damgalarını yerel ve UTC saatine göre insan tarafından okunabilen tarihlere ve geriye dönüştürün.</p>
+          </div>
         </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="Zaman Damgası Dönüştürücü Aracı">
           <div class="ts-now-bar">
             <span class="ts-live" id="tsLive" aria-live="polite"></span>

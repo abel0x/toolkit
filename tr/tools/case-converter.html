@@ -62,23 +62,19 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
-        <a href="../index.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Tüm Araçlar
-        </a>
-        <span class="tool-breadcrumb-sep">/</span>
-        <span>Büyük/Küçük Harf Dönüştürücü</span>
-      </nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-encoding">Kodlama</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Büyük/Küçük Harf Dönüştürücü</span></nav>
     </div>
 
     <section class="section" id="case" aria-labelledby="caseHeading">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Metin</span>
-          <h1 class="section-title" id="caseHeading">Büyük/Küçük Harf Dönüştürücü</h1>
-          <p class="section-desc">Metni, camelCase'den kebab-case'e ve ötesine kadar herhangi bir adlandırma düzenine dönüştürün.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span><h1 class="section-title" id="caseHeading">Büyük/Küçük Harf Dönüştürücü</h1></div>
+            <p class="section-desc">Metni, camelCase'den kebab-case'e ve ötesine kadar herhangi bir adlandırma düzenine dönüştürün.</p>
+          </div>
         </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="Büyük/Küçük Harf Dönüştürücü Aracı">
           <label for="caseInput" class="control-label">Girdi Metni</label>
           <textarea id="caseInput" class="textarea" rows="4" placeholder="Metninizi buraya yazın veya yapıştırın…" spellcheck="false" aria-label="Dönüştürülecek metin"></textarea>

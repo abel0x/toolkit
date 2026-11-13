@@ -63,23 +63,19 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
-        <a href="../index.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Tüm Araçlar
-        </a>
-        <span class="tool-breadcrumb-sep">/</span>
-        <span>QR Kod Okuyucu</span>
-      </nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-media">Medya</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">QR Kod Okuyucu</span></nav>
     </div>
 
     <section class="section" id="qrread" aria-labelledby="qrReadHeading">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Medya</span>
-          <h1 class="section-title" id="qrReadHeading">QR Kod Okuyucu</h1>
-          <p class="section-desc">QR kodu içeren bir görsel yükleyin ve içeriğinin kodunu anında çözün.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span><h1 class="section-title" id="qrReadHeading">QR Kod Okuyucu</h1></div>
+            <p class="section-desc">QR kodu içeren bir görsel yükleyin ve içeriğinin kodunu anında çözün.</p>
+          </div>
         </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="QR Kod Okuyucu Aracı">
           <label id="qrDropZone" for="qrFileInput" class="qr-dropzone" tabindex="0" role="button" aria-label="QR koduyla resim yükleyin" aria-describedby="qrDropDesc">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>

@@ -143,8 +143,18 @@
     });
   }
 
+  /* ── Category links (#category-security from tool breadcrumbs) ── */
+  function selectCategoryFromHash() {
+    const match = location.hash.match(/^#category-([a-z]+)$/);
+    const button = match && [...filterBtns].find((btn) => btn.dataset.filter === match[1]);
+    if (button) button.click();
+  }
+
+  window.addEventListener('hashchange', selectCategoryFromHash);
+
   /* ── Initial run ────────────────────────────────────────── */
   applyFilters();
+  selectCategoryFromHash();
 })();
 
 

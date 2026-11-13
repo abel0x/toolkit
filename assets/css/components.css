@@ -407,55 +407,6 @@
 .action-row--section { margin-top: 1.5rem; }
 .card--spaced { margin-top: 1.5rem; }
 
-/* Example starters */
-.example-starter {
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  display: flex;
-  gap: 0.8rem;
-  margin: 0 0 1rem;
-  padding: 0.75rem 0.9rem;
-}
-
-.example-starter__icon {
-  color: var(--yellow);
-  flex: 0 0 auto;
-}
-
-.example-starter__copy {
-  color: var(--text-muted);
-  flex: 1;
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-.example-starter__copy strong,
-.example-starter__copy span {
-  display: block;
-}
-
-.example-starter__copy strong {
-  color: var(--text-primary);
-  font-size: 0.84rem;
-  margin-bottom: 0.08rem;
-}
-
-.example-starter__button {
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  .example-starter {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .example-starter__button { margin-left: 1.75rem; }
-}
-
 /* Slider */
 .slider {
   -webkit-appearance: none;

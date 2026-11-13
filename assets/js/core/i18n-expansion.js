@@ -1144,8 +1144,6 @@
       'No tools match your search. Try a different keyword.': 'Aramanızla eşleşen araç yok. Başka bir anahtar sözcük deneyin.',
       'Open tool →': 'Aracı aç →',
       // Example starters
-      'Need a spark?': 'İlham mı lazım?',
-      'Load a ready-made example, then make it yours.': 'Hazır bir örnek yükleyin, sonra kendinize göre düzenleyin.',
       'Try a sample': 'Örneği dene',
       'Example loaded: {{name}}': 'Örnek yüklendi: {{name}}',
       'Friendly hello': 'Neşeli selam',

@@ -139,6 +139,21 @@ for (const file of pages) {
   }
 }
 
+// Tool page headers come from build.py --tool-headers: breadcrumb through the
+// home page category, the catalogue icon beside the title, no category pill.
+const categories = JSON.parse(readFileSync(join(root, '_data/tools.json'), 'utf8')).categories;
+for (const tool of catalogue) {
+  const html = readFileSync(join(toolsDirectory, `${tool.slug}.html`), 'utf8');
+  const header = html.match(/<!-- TOOL-HEADER:START -->([\s\S]*?)<!-- TOOL-HEADER:END -->/)?.[1];
+  assert(header, `tools/${tool.slug}.html has no generated tool header.`);
+  assert(header.includes('<span class="tool-header__icon" aria-hidden="true"><svg'), `tools/${tool.slug}.html has no header icon.`);
+  if (tool.icon) assert(header.includes(tool.icon), `tools/${tool.slug}.html shows a different icon than _data/tools.json.`);
+  assert.equal(header.match(/<h1\b/g)?.length, 1, `tools/${tool.slug}.html needs exactly one <h1> in its header.`);
+  assert(html.includes(`<a href="../index.html#category-${tool.cat}">${categories[tool.cat]}</a>`),
+    `tools/${tool.slug}.html does not link its category in the breadcrumb.`);
+  assert(!/class="(?:section-tag|example-starter)\b/.test(html), `tools/${tool.slug}.html still has the old header parts.`);
+}
+
 const registrySource = [
   readFileSync(join(root, 'assets/js/core/tools-data.js'), 'utf8'),
   readFileSync(join(root, 'assets/js/core/extra-tools-data.js'), 'utf8')
@@ -391,12 +406,11 @@ const exampleStarterPages = {
 };
 for (const [pageName, group] of Object.entries(exampleStarterPages)) {
   const html = readFileSync(join(toolsDirectory, pageName), 'utf8');
-  assert(html.includes(`data-example-group="${group}"`), `${pageName} misses its example starter.`);
+  assert(html.includes(`class="btn btn--ghost btn--sm tool-header__sample" data-example-group="${group}"`),
+    `${pageName} misses its "Try a sample" button.`);
   assert(html.includes('src="../assets/js/core/example-starters.js"'), `${pageName} misses the example starter runtime.`);
 }
 for (const source of [
-  'Need a spark?',
-  'Load a ready-made example, then make it yours.',
   'Try a sample',
   'Example loaded: {{name}}'
 ]) {

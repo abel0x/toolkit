@@ -64,20 +64,19 @@
   </header>
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><span>CSS Özgüllük Hesaplayıcı</span></nav>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu"><a href="../index.html">← Tüm Araçlar</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Geliştirici Araçları</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">CSS Özgüllük Hesaplayıcı</span></nav>
     </div>
     <section class="section" id="css-specificity">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-tag">Geliştirici Araçları</span>
-          <h1 class="section-title gradient-text">CSS Özgüllük Hesaplayıcı</h1>
-          <p class="section-desc">CSS seçici özgüllüğünü incelenebilir bir A-B-C puanıyla hesaplayın.</p>
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span><h1 class="section-title">CSS Özgüllük Hesaplayıcı</h1></div>
+            <p class="section-desc">CSS seçici özgüllüğünü incelenebilir bir A-B-C puanıyla hesaplayın.</p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="css-specificity"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Örneği dene</button>
         </div>
-        <div class="example-starter reveal">
-          <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>İlham mı lazım?</strong><span>Hazır bir örnek yükleyin, sonra kendinize göre düzenleyin.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="css-specificity">Örneği dene</button>
-        </div>
+        <!-- TOOL-HEADER:END -->
         <div class="card glass reveal expansion-card">
           <div id="toolApp" class="expansion-tool" data-tool="css-specificity" aria-live="polite"></div>
         </div>
