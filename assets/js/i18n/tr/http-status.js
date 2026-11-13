@@ -88,6 +88,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Gateway Timeout": "Ağ Geçidi Zaman Aşımı",
     "Upstream server timeout.": "Yukarı akış sunucusu zaman aşımı.",
     "The server, while acting as a gateway or proxy, did not receive a timely response from an upstream server. Common in microservice architectures.": "Sunucu, ağ geçidi veya proxy görevi görürken, yukarı akış sunucusundan zamanında yanıt alamadı. Mikro hizmet mimarilerinde yaygındır.",
+    "Location": "Konum",
     "errors": "hata",
     "No matching status codes.": "Eşleşen durum kodu yok."
   }))

@@ -80,6 +80,13 @@ jobs:
       - name: Exercise the Turkish pages in Firefox
         run: node tests/turkish-pages-e2e.mjs
 
+      # Independent QR decoders for the generator's exports (test-only).
+      - name: Install QR decoders
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends zbar-tools librsvg2-bin
+
+      - name: Check QR codes with three decoders
+        run: node tests/qr-generator-e2e.mjs
+
       - name: Assemble the published site
         run: python3 build.py --site
 

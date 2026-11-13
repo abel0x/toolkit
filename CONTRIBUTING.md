@@ -157,10 +157,11 @@ node tests/tool-vectors.mjs
 node tests/tool-pages-e2e.mjs
 node tests/expansion-e2e.mjs
 node tests/turkish-pages-e2e.mjs
+node tests/qr-generator-e2e.mjs
 node tests/offline-e2e.mjs
 ```
 
-The static checks verify publication structure, word data, localisation, the generated Turkish pages and their hreflang links, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with the language menu, accessible control names, and example starters; another exercises functional flows and exact standard vectors; one opens the `/tr/` pages, switches languages by URL, follows the Turkish-preference redirect, and fails when a Turkish page shows English its pack should cover; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
+The static checks verify publication structure, word data, localisation, the generated Turkish pages and their hreflang links, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with the language menu, accessible control names, and example starters; another exercises functional flows and exact standard vectors; one opens the `/tr/` pages, switches languages by URL, follows the Turkish-preference redirect, and fails when a Turkish page shows English its pack should cover; the QR suite decodes the generator's PNG and SVG exports with jsQR, ZBar (`zbarimg`, via `rsvg-convert` for SVG) and, when installed, ZXing-C++ (`ZXingReader`), and checks its capacity table and alignment patterns against the QR library; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
 
 ## Style guide
 

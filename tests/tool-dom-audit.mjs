@@ -12,7 +12,9 @@ const toolsDirectory = join(root, 'tools');
 const dynamicElementIds = new Map([
   ['qr-generator', new Set([
     'qrText', 'qrURL', 'qrEmail', 'qrEmailSub', 'qrEmailBody', 'qrPhone',
-    'qrSMSPhone', 'qrSMSMsg', 'qrWifiSSID', 'qrWifiPass', 'qrWifiSec', 'qrWifiHidden'
+    'qrSMSPhone', 'qrSMSMsg', 'qrWifiSSID', 'qrWifiPass', 'qrWifiPassToggle', 'qrWifiSec', 'qrWifiHidden',
+    'qrVcFirst', 'qrVcLast', 'qrVcOrg', 'qrVcTitle', 'qrVcPhone', 'qrVcEmail', 'qrVcUrl', 'qrVcAddress',
+    'qrEvTitle', 'qrEvStart', 'qrEvEnd', 'qrEvAllDay', 'qrEvLocation', 'qrEvDesc', 'qrGeoLat', 'qrGeoLng'
   ])],
   ['qr-reader', new Set(['qrReadCopyBtn'])]
 ]);

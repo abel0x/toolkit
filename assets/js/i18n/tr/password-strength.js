@@ -18,6 +18,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Fair": "Orta",
     "Strong": "Güçlü",
     "Very Strong": "Çok güçlü",
-    "Looks good!": "İyi görünüyor!"
+    "Looks good!": "İyi görünüyor!",
+    "Hide": "Gizle"
   }))
 });

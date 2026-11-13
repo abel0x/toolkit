@@ -24,6 +24,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     ".json": ".json",
     ".mov": ".mov",
     ".conf": ".conf",
+    "Hide": "Gizle",
     "Length:": "Uzunluk:",
     "Token": "Belirteç",
     "daily": "günlük",

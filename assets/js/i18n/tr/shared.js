@@ -94,6 +94,7 @@
     "Weak": "Zayıf",
     "Good": "İyi",
     "Margin": "Marj",
+    "Show": "Göster",
     "text": "metin",
     "url": "URL",
     "email": "e-posta",

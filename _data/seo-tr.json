@@ -523,10 +523,10 @@
   },
   "tools/qr-generator.html": {
     "title": "QR Kod Oluşturucu — Toolkit",
-    "description": "Metin, URL, Wi-Fi bilgileri, e-posta ve SMS için QR kod oluşturun. PNG olarak indirin. Tamamen tarayıcınızda çalışır.",
+    "description": "Metin, bağlantı, Wi-Fi, kişi kartı, takvim etkinliği, konum, e-posta ve SMS için QR kod oluşturun. Canlı önizleme, tarama kontrolü, PNG ve SVG indirme. Tamamen tarayıcınızda çalışır.",
     "source": {
       "title": "QR Code Generator — Toolkit",
-      "description": "Generate QR codes for text, URLs, Wi-Fi credentials, email and SMS. Download as PNG. 100% client-side."
+      "description": "Generate QR codes for text, links, Wi-Fi, contact cards, calendar events, locations, email and SMS. Live preview, scan check, PNG and SVG download. 100% client-side."
     }
   },
   "tools/qr-reader.html": {

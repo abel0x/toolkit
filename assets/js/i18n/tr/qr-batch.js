@@ -12,6 +12,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Generating one QR code…": "Bir QR kodu oluşturuluyor…",
     "Generating {{count}} QR codes…": "{{count}} QR kodu oluşturuluyor…",
     "One QR code generated": "Bir QR kodu oluşturuldu",
-    "{{count}} QR codes generated": "{{count}} QR kodu oluşturuldu"
+    "{{count}} QR codes generated": "{{count}} QR kodu oluşturuldu",
+    "Generated QR code": "Oluşturulan QR kodu"
   }))
 });

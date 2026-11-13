@@ -406,7 +406,7 @@
       "slug": "qr-generator",
       "name": "QR Code Generator",
       "cat": "generators",
-      "desc": "Generate QR codes for text, URLs, Wi-Fi, email and SMS with colour options.",
+      "desc": "Live QR codes for links, Wi-Fi, contacts, events and places, with a scan check and SVG export.",
       "tags": ["qr", "qr code", "generate", "barcode", "scan"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"4\" height=\"4\"/></svg>"
     },
