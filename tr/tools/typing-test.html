@@ -43,16 +43,16 @@
   <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
   <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
   <!-- NAV:START -->
-<nav class="navbar" id="navbar" aria-label="Main navigation">
+<nav class="navbar" id="navbar" aria-label="Ana gezinme">
   <div class="nav-container">
-    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit ana sayfası">
       <span class="brand-icon" aria-hidden="true">
         <img src="../../assets/images/favicon-64.png" width="44" height="44" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
     <div class="nav-actions">
-      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+      <a href="../license/index.html" class="nav-license-link" aria-label="Proje lisansını görüntüle" title="Proje lisansını görüntüle">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
           <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
@@ -65,215 +65,215 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb">
-        <a href="../index.html">← All Tools</a>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
+        <a href="../index.html">← Tüm Araçlar</a>
         <span class="tool-breadcrumb-sep">/</span>
-        <span>Typing Speed Test</span>
+        <span>Yazma Hızı Testi</span>
       </nav>
     </div>
 
     <section class="section" id="typing-test">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-tag">Text Tools</span>
-          <h1 class="section-title gradient-text">Typing Speed Test</h1>
-          <p class="section-desc">Measure typing speed and accuracy in English or Turkish with themed word lists.</p>
+          <span class="section-tag">Metin Araçları</span>
+          <h1 class="section-title gradient-text">Yazma Hızı Testi</h1>
+          <p class="section-desc">İngilizce veya Türkçe temalı kelime listeleriyle yazma hızınızı ve doğruluğunuzu ölçün.</p>
         </div>
 
         <div class="card glass reveal tt-config" id="tt-config">
           <div class="tt-quick-start">
             <div>
-              <p class="form-label">Quick start</p>
-              <p class="tt-help">1 minute · Most Common 1000</p>
+              <p class="form-label">Hızlı başlat</p>
+              <p class="tt-help">1 dakika · En Yaygın 1000</p>
             </div>
             <div class="tt-quick-actions">
-              <button class="btn btn--primary" id="tt-prepare" type="button" disabled>Start 1-minute test</button>
-              <button class="btn btn--ghost" id="tt-customize-toggle" type="button" aria-expanded="false" aria-controls="tt-customize">Customize test</button>
+              <button class="btn btn--primary" id="tt-prepare" type="button" disabled>1 dakikalık testi başlat</button>
+              <button class="btn btn--ghost" id="tt-customize-toggle" type="button" aria-expanded="false" aria-controls="tt-customize">Testi özelleştir</button>
             </div>
             <div class="tt-quick-status">
-              <p class="tt-status" id="tt-status" role="status">Choose a word list to prepare your test.</p>
-              <button class="btn btn--ghost btn--sm" id="tt-clear-records-config" type="button" hidden>Clear stored results</button>
+              <p class="tt-status" id="tt-status" role="status">Testinizi hazırlamak için bir kelime listesi seçin.</p>
+              <button class="btn btn--ghost btn--sm" id="tt-clear-records-config" type="button" hidden>Kaydedilmiş sonuçları temizle</button>
             </div>
           </div>
 
           <div class="tt-customize" id="tt-customize" hidden>
           <div class="tt-config-grid">
             <div class="form-group">
-              <label class="form-label" for="tt-language">Content language</label>
+              <label class="form-label" for="tt-language">İçerik dili</label>
               <select class="form-control select-field" id="tt-language">
-                <option value="tr">Turkish</option>
-                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+                <option value="en">İngilizce</option>
               </select>
-              <p class="tt-help">This controls the words you type, separately from the interface language.</p>
+              <p class="tt-help">Bu seçim, arayüz dilinden bağımsız olarak yazacağınız kelimeleri belirler.</p>
             </div>
             <div class="form-group">
-              <span class="form-label" id="tt-mode-label">Test mode</span>
+              <span class="form-label" id="tt-mode-label">Test türü</span>
               <div class="tt-mode-row" role="radiogroup" aria-labelledby="tt-mode-label">
-                <button class="tt-mode-btn tt-mode-btn--selected" type="button" role="radio" aria-checked="true" data-mode="time">Timed</button>
-                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="words">Words</button>
-                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="quote">Quote</button>
-                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="zen">Zen</button>
+                <button class="tt-mode-btn tt-mode-btn--selected" type="button" role="radio" aria-checked="true" data-mode="time">Süreli</button>
+                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="words">Kelimeler</button>
+                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="quote">Alıntı</button>
+                <button class="tt-mode-btn" type="button" role="radio" aria-checked="false" data-mode="zen">Serbest</button>
               </div>
             </div>
           </div>
 
           <div class="tt-practice-grid">
             <fieldset class="tt-practice-picker">
-              <legend class="form-label" id="tt-practice-label">Practice type</legend>
+              <legend class="form-label" id="tt-practice-label">Alıştırma türü</legend>
               <div class="tt-practice-options" id="tt-practice-options" role="radiogroup" aria-labelledby="tt-practice-label" aria-describedby="tt-practice-help">
-                <button class="tt-practice-btn tt-practice-btn--selected" type="button" role="radio" aria-checked="true" data-practice="standard">Standard practice</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="weak-keys" disabled>Weak-key drill</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="turkish-q" hidden>Turkish Q keyboard lesson</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="turkish-f" hidden>Turkish F keyboard lesson</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="daily">Daily challenge</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="custom">Custom text</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="code">Code typing</button>
-                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="repeat-errors" disabled>Repeat recent errors</button>
+                <button class="tt-practice-btn tt-practice-btn--selected" type="button" role="radio" aria-checked="true" data-practice="standard">Standart alıştırma</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="weak-keys" disabled>Zayıf tuş alıştırması</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="turkish-q" hidden>Türkçe Q klavye dersi</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="turkish-f" hidden>Türkçe F klavye dersi</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="daily">Günlük meydan okuması</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="custom">Özel metin</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="code">Kod yazma</button>
+                <button class="tt-practice-btn" type="button" role="radio" aria-checked="false" data-practice="repeat-errors" disabled>Son hataları tekrar et</button>
               </div>
-              <p class="tt-help" id="tt-practice-help">Use the selected word list and test mode.</p>
-              <p class="tt-variety-note">Each list is shuffled and avoids repeats until the list has been cycled.</p>
-              <p class="tt-variety-note">Multi-word entries stay together; word targets may be rounded up to finish an entry.</p>
-              <p class="tt-variety-note" id="tt-data-notice" hidden>NLM MeSH 2026. Courtesy of the U.S. National Library of Medicine. This static selection is not current medical advice and is not endorsed by NLM.</p>
+              <p class="tt-help" id="tt-practice-help">Seçilen kelime listesini ve test türünü kullanın.</p>
+              <p class="tt-variety-note">Her liste karıştırılır; liste tamamlanana kadar aynı giriş tekrar gösterilmez.</p>
+              <p class="tt-variety-note">Çok kelimeli ifadeler bir arada kalır; bir ifadeyi tamamlamak için kelime hedefi artırılabilir.</p>
+              <p class="tt-variety-note" id="tt-data-notice" hidden>NLM MeSH 2026. Courtesy of the U.S. National Library of Medicine. Bu sabit veri seçkisi güncel tıbbi öneri değildir ve NLM tarafından onaylanmamıştır.</p>
             </fieldset>
             <div class="form-group tt-custom-text" id="tt-custom-text-wrap" hidden>
-              <label class="form-label" for="tt-custom-text">Custom practice text</label>
-              <textarea class="form-control input-field" id="tt-custom-text" rows="3" placeholder="Paste text to practise. It is never saved." spellcheck="false"></textarea>
+              <label class="form-label" for="tt-custom-text">Özel alıştırma metni</label>
+              <textarea class="form-control input-field" id="tt-custom-text" rows="3" placeholder="Çalışmak istediğiniz metni yapıştırın. Asla kaydedilmez." spellcheck="false"></textarea>
             </div>
           </div>
 
-          <div class="tt-mode-options" aria-label="Test length">
+          <div class="tt-mode-options" aria-label="Test uzunluğu">
             <div class="tt-length-group" data-mode-options="time">
-              <span class="form-label">Duration</span>
-              <div class="tt-option-row" role="radiogroup" aria-label="Duration">
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="15">15 seconds</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="30">30 seconds</button>
-                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-duration="60">60 seconds</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="120">120 seconds</button>
+              <span class="form-label">Süre</span>
+              <div class="tt-option-row" role="radiogroup" aria-label="Süre">
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="15">15 saniye</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="30">30 saniye</button>
+                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-duration="60">60 saniye</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-duration="120">120 saniye</button>
               </div>
             </div>
             <div class="tt-length-group" data-mode-options="words" hidden>
-              <span class="form-label">Word count</span>
-              <div class="tt-option-row" role="radiogroup" aria-label="Word count">
-                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-words="10">10 words</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="25">25 words</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="50">50 words</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="100">100 words</button>
+              <span class="form-label">Kelime sayısı</span>
+              <div class="tt-option-row" role="radiogroup" aria-label="Kelime sayısı">
+                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-words="10">10 kelime</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="25">25 kelime</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="50">50 kelime</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-words="100">100 kelime</button>
               </div>
             </div>
             <div class="tt-length-group" data-mode-options="quote" hidden>
-              <span class="form-label">Quote length</span>
-              <div class="tt-option-row" role="radiogroup" aria-label="Quote length">
-                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-quote-length="short">Short</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-quote-length="medium">Medium</button>
-                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-quote-length="long">Long</button>
+              <span class="form-label">Alıntı uzunluğu</span>
+              <div class="tt-option-row" role="radiogroup" aria-label="Alıntı uzunluğu">
+                <button type="button" class="tt-option-btn tt-option-btn--selected" role="radio" aria-checked="true" data-quote-length="short">Kısa</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-quote-length="medium">Orta</button>
+                <button type="button" class="tt-option-btn" role="radio" aria-checked="false" data-quote-length="long">Uzun</button>
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <div class="tt-category-heading">
-              <span class="form-label" id="tt-category-label">Word list</span>
-              <span class="tt-category-nav" aria-label="Word list navigation">
-                <button class="tt-category-scroll" id="tt-category-prev" type="button" aria-label="Show previous word lists">←</button>
-                <button class="tt-category-scroll" id="tt-category-next" type="button" aria-label="Show more word lists">→</button>
+              <span class="form-label" id="tt-category-label">Kelime listesi</span>
+              <span class="tt-category-nav" aria-label="Kelime listesi gezintisi">
+                <button class="tt-category-scroll" id="tt-category-prev" type="button" aria-label="Önceki kelime listelerini göster">←</button>
+                <button class="tt-category-scroll" id="tt-category-next" type="button" aria-label="Daha fazla kelime listesi göster">→</button>
               </span>
             </div>
             <div class="tt-category-bar" id="tt-categories" role="radiogroup" aria-labelledby="tt-category-label" aria-busy="true">
-              <span class="tt-skeleton">Loading word lists…</span>
+              <span class="tt-skeleton">Kelime listeleri yükleniyor…</span>
             </div>
-            <p class="tt-category-hint">Use the arrows or scroll to see all word lists.</p>
-            <p class="tt-file-notice" id="tt-file-notice" hidden>All word lists require an HTTP server. This file preview uses a small fallback list. Run python3 -m http.server 8080, then open http://localhost:8080/tools/typing-test.html.</p>
+            <p class="tt-category-hint">Tüm kelime listelerini görmek için okları kullanın veya kaydırın.</p>
+            <p class="tt-file-notice" id="tt-file-notice" hidden>Tüm kelime listeleri için sayfayı HTTP sunucusundan açmanız gerekir. Bu dosya önizlemesinde küçük bir yedek liste kullanılır. python3 -m http.server 8080 komutunu çalıştırın; ardından http://localhost:8080/tools/typing-test.html adresini açın.</p>
           </div>
 
           <fieldset class="tt-modifiers">
-            <legend class="form-label">Modifiers</legend>
+            <legend class="form-label">Ek seçenekler</legend>
             <div class="options-grid">
-              <label class="checkbox-card"><input id="tt-punctuation" type="checkbox" /><span><strong>Punctuation</strong><small>Add occasional punctuation and brackets.</small></span></label>
-              <label class="checkbox-card"><input id="tt-numbers" type="checkbox" /><span><strong>Numbers</strong><small>Inject occasional one to four digit numbers.</small></span></label>
-              <label class="checkbox-card"><input id="tt-capitalisation" type="checkbox" /><span><strong>Capitalisation</strong><small>Add sentence-style capitals; word practice otherwise uses lowercase.</small></span></label>
-              <label class="checkbox-card" id="tt-strict-wrap"><input id="tt-strict" type="checkbox" checked /><span><strong>Strict diacritics</strong><small>Require ç, ğ, ı, ö, ş and ü exactly.</small></span></label>
-              <label class="checkbox-card"><input id="tt-stop-error" type="checkbox" /><span><strong>Stop on error</strong><small>Do not move past an incorrect character.</small></span></label>
-              <label class="checkbox-card"><input id="tt-blind" type="checkbox" /><span><strong>Blind mode</strong><small>Hide correctness colours until the run ends.</small></span></label>
+              <label class="checkbox-card"><input id="tt-punctuation" type="checkbox" /><span><strong>Noktalama işaretleri</strong><small>Ara sıra noktalama işaretleri ve köşeli ayraçlar ekler.</small></span></label>
+              <label class="checkbox-card"><input id="tt-numbers" type="checkbox" /><span><strong>Sayılar</strong><small>Ara sıra bir ila dört basamaklı sayılar ekler.</small></span></label>
+              <label class="checkbox-card"><input id="tt-capitalisation" type="checkbox" /><span><strong>İlk harfi büyük yap</strong><small>Cümle başlangıçlarına büyük harf ekler; kelime alıştırması bunun dışında küçük harf kullanır.</small></span></label>
+              <label class="checkbox-card" id="tt-strict-wrap"><input id="tt-strict" type="checkbox" checked /><span><strong>Türkçe karakterleri zorunlu tut</strong><small>ç, ğ, ı, ö, ş ve ü harflerinin tam karşılığını yazmanızı ister.</small></span></label>
+              <label class="checkbox-card"><input id="tt-stop-error" type="checkbox" /><span><strong>Hatada dur</strong><small>Yanlış karakter yazıldığında ilerlemez.</small></span></label>
+              <label class="checkbox-card"><input id="tt-blind" type="checkbox" /><span><strong>Gizli mod</strong><small>Test bitene kadar doğru/yanlış renklerini gizler.</small></span></label>
             </div>
           </fieldset>
 
           <div class="tt-goal" id="tt-goal">
-            <label class="checkbox-card tt-goal-toggle" id="tt-goal-toggle"><input id="tt-goal-enabled" type="checkbox" /><span><strong>Enable a goal</strong><small>Reach both targets to pass this run.</small></span></label>
+            <label class="checkbox-card tt-goal-toggle" id="tt-goal-toggle"><input id="tt-goal-enabled" type="checkbox" /><span><strong>Hedef etkinleştir</strong><small>Bu denemeyi geçmek için iki hedefe de ulaşın.</small></span></label>
             <div class="tt-goal-options" id="tt-goal-options" hidden>
-              <div class="form-group"><label class="form-label" for="tt-goal-wpm">Target WPM</label><input class="form-control input-field" id="tt-goal-wpm" type="number" min="1" max="500" value="40" inputmode="numeric" /></div>
-              <div class="form-group"><label class="form-label" for="tt-goal-accuracy">Target accuracy</label><input class="form-control input-field" id="tt-goal-accuracy" type="number" min="1" max="100" value="95" inputmode="decimal" /></div>
+              <div class="form-group"><label class="form-label" for="tt-goal-wpm">Hedef KPM</label><input class="form-control input-field" id="tt-goal-wpm" type="number" min="1" max="500" value="40" inputmode="numeric" /></div>
+              <div class="form-group"><label class="form-label" for="tt-goal-accuracy">Hedef doğruluk</label><input class="form-control input-field" id="tt-goal-accuracy" type="number" min="1" max="100" value="95" inputmode="decimal" /></div>
             </div>
           </div>
 
           <div class="tt-customize-actions">
-            <button class="btn btn--primary" id="tt-start-selected" type="button" disabled>Start selected test</button>
+            <button class="btn btn--primary" id="tt-start-selected" type="button" disabled>Seçili testi başlat</button>
           </div>
           </div>
         </div>
 
         <div class="card glass reveal tt-test" id="tt-test" hidden>
           <div class="tt-live" aria-live="off">
-            <div><span class="tt-live-label" id="tt-progress-label">Time remaining</span><strong class="font-mono" id="tt-timer">1:00</strong></div>
-            <div><span class="tt-live-label">Net WPM</span><strong class="font-mono" id="tt-live-wpm">0</strong></div>
-            <div><span class="tt-live-label">CPM</span><strong class="font-mono" id="tt-live-cpm">0</strong></div>
-            <div><span class="tt-live-label">Accuracy</span><strong class="font-mono" id="tt-live-accuracy">100%</strong></div>
+            <div><span class="tt-live-label" id="tt-progress-label">Kalan süre</span><strong class="font-mono" id="tt-timer">1:00</strong></div>
+            <div><span class="tt-live-label">Net KPM</span><strong class="font-mono" id="tt-live-wpm">0</strong></div>
+            <div><span class="tt-live-label">Karakter/dk.</span><strong class="font-mono" id="tt-live-cpm">0</strong></div>
+            <div><span class="tt-live-label">Doğruluk</span><strong class="font-mono" id="tt-live-accuracy">100%</strong></div>
           </div>
           <div class="tt-stream-shell" id="tt-stream-shell">
-            <label class="sr-only" for="tt-input">Type the displayed words</label>
-            <input id="tt-input" class="tt-input" type="text" inputmode="text" lang="en" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Type the displayed words" />
-            <div class="tt-stream" id="tt-stream" data-i18n-skip aria-label="Typing word stream"></div>
+            <label class="sr-only" for="tt-input">Gösterilen kelimeleri yazın</label>
+            <input id="tt-input" class="tt-input" type="text" inputmode="text" lang="en" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Gösterilen kelimeleri yazın" />
+            <div class="tt-stream" id="tt-stream" data-i18n-skip aria-label="Yazılacak kelime akışı"></div>
             <span class="tt-caret" id="tt-caret" aria-hidden="true"></span>
           </div>
           <div class="tt-test-footer">
-            <p class="tt-hint">Start with the first non-space key. Tab then Enter restarts. Ctrl/Cmd + Backspace clears the current word. Esc returns to settings.</p>
+            <p class="tt-hint">Boşluk olmayan ilk tuşla başlayın. Tab ardından Enter yeniden başlatır. Ctrl/Cmd + Backspace geçerli kelimeyi temizler. Esc ayarlara döner.</p>
             <p class="tt-quote-attribution" id="tt-quote-attribution" data-i18n-skip hidden></p>
-            <button class="btn btn--ghost btn--sm" id="tt-restart-running" type="button">Restart</button>
-            <button class="btn btn--ghost btn--sm" id="tt-end-zen" type="button" hidden>End test</button>
+            <button class="btn btn--ghost btn--sm" id="tt-restart-running" type="button">Yeniden başlat</button>
+            <button class="btn btn--ghost btn--sm" id="tt-end-zen" type="button" hidden>Testi bitir</button>
           </div>
         </div>
 
         <div class="card glass reveal tt-results" id="tt-results" hidden>
-          <h2 class="tt-results-title" id="tt-results-heading" tabindex="-1" aria-describedby="tt-summary">Your results</h2>
+          <h2 class="tt-results-title" id="tt-results-heading" tabindex="-1" aria-describedby="tt-summary">Sonuçlarınız</h2>
           <p class="sr-only" id="tt-summary" aria-live="polite" aria-atomic="true"></p>
           <p class="tt-result-descriptor font-mono" id="tt-descriptor" data-i18n-skip></p>
           <p class="tt-quote-attribution tt-quote-attribution--result" id="tt-result-quote-attribution" data-i18n-skip hidden></p>
           <p class="tt-best" id="tt-best"></p>
           <p class="tt-goal-result" id="tt-goal-result" hidden></p>
           <div class="tt-results-grid">
-            <div class="tt-result-stat"><span>Net WPM</span><strong id="tt-result-net">0</strong></div>
-            <div class="tt-result-stat"><span>Raw WPM</span><strong id="tt-result-raw">0</strong></div>
-            <div class="tt-result-stat"><span>CPM</span><strong id="tt-result-cpm">0</strong></div>
-            <div class="tt-result-stat"><span>Accuracy</span><strong id="tt-result-accuracy">0%</strong></div>
-            <div class="tt-result-stat"><span>Consistency</span><strong id="tt-result-consistency">—</strong></div>
-            <div class="tt-result-stat"><span>Elapsed time</span><strong id="tt-result-elapsed">0:00</strong></div>
+            <div class="tt-result-stat"><span>Net KPM</span><strong id="tt-result-net">0</strong></div>
+            <div class="tt-result-stat"><span>Brüt KPM</span><strong id="tt-result-raw">0</strong></div>
+            <div class="tt-result-stat"><span>Karakter/dk.</span><strong id="tt-result-cpm">0</strong></div>
+            <div class="tt-result-stat"><span>Doğruluk</span><strong id="tt-result-accuracy">0%</strong></div>
+            <div class="tt-result-stat"><span>Tutarlılık</span><strong id="tt-result-consistency">—</strong></div>
+            <div class="tt-result-stat"><span>Geçen süre</span><strong id="tt-result-elapsed">0:00</strong></div>
           </div>
-          <p class="tt-comparability">WPM uses five characters per word, so it is not directly comparable across languages. CPM is shown alongside it.</p>
-          <div class="tt-breakdown" aria-label="Character breakdown">
-            <span><b id="tt-correct">0</b> correct</span><span><b id="tt-incorrect">0</b> incorrect</span><span><b id="tt-extra">0</b> extra</span><span><b id="tt-missed">0</b> missed</span>
+          <p class="tt-comparability">KPM, kelime başına beş karaktere göre hesaplanır; bu nedenle diller arasında doğrudan karşılaştırılamaz. Yanında karakter/dk. değeri gösterilir.</p>
+          <div class="tt-breakdown" aria-label="Karakter dağılımı">
+            <span><b id="tt-correct">0</b> doğru</span><span><b id="tt-incorrect">0</b> yanlış</span><span><b id="tt-extra">0</b> fazladan</span><span><b id="tt-missed">0</b> atlanan</span>
           </div>
           <section class="tt-chart-section" aria-labelledby="tt-chart-heading">
-            <h3 id="tt-chart-heading">Speed over time</h3>
-            <canvas id="tt-chart" role="img" aria-label="Net and raw typing speed chart"></canvas>
-            <table class="sr-only" id="tt-samples-table"><caption>Speed samples</caption><thead><tr><th>Second</th><th>Net WPM</th><th>Raw WPM</th><th>Errors</th></tr></thead><tbody></tbody></table>
+            <h3 id="tt-chart-heading">Zamana göre hız</h3>
+            <canvas id="tt-chart" role="img" aria-label="Net ve brüt yazma hızı grafiği"></canvas>
+            <table class="sr-only" id="tt-samples-table"><caption>Hız örnekleri</caption><thead><tr><th>Saniye</th><th>Net KPM</th><th>Brüt KPM</th><th>Hatalar</th></tr></thead><tbody></tbody></table>
           </section>
           <section class="tt-heat-section" aria-labelledby="tt-heat-heading">
-            <h3 id="tt-heat-heading">Keyboard error heat map</h3>
+            <h3 id="tt-heat-heading">Klavye hata yoğunluk haritası</h3>
             <div class="tt-keyboard" id="tt-keyboard" data-i18n-skip></div>
           </section>
           <section class="tt-errors-section" aria-labelledby="tt-errors-heading">
-            <h3 id="tt-errors-heading">Words to review</h3>
+            <h3 id="tt-errors-heading">Gözden geçirilecek kelimeler</h3>
             <ul class="tt-error-list" id="tt-error-list" data-i18n-skip></ul>
           </section>
           <div class="tt-records">
-            <label class="checkbox-card"><input id="tt-remember" type="checkbox" /><span><strong>Remember my personal bests on this device</strong><small>Only aggregate scores stay in this browser. Typed text is never saved.</small></span></label>
-            <button class="btn btn--ghost btn--sm" id="tt-clear-records" type="button" hidden>Clear stored results</button>
+            <label class="checkbox-card"><input id="tt-remember" type="checkbox" /><span><strong>Bu cihazdaki kişisel en iyi sonuçlarımı hatırla</strong><small>Yalnızca özet puanlar bu tarayıcıda saklanır. Yazılan metin asla kaydedilmez.</small></span></label>
+            <button class="btn btn--ghost btn--sm" id="tt-clear-records" type="button" hidden>Kaydedilmiş sonuçları temizle</button>
           </div>
           <div class="tt-result-actions">
-            <button class="btn btn--primary" id="tt-restart" type="button">Restart</button>
-            <button class="btn btn--ghost" id="tt-weak-keys" type="button" hidden>Practice weak keys</button>
-            <button class="btn btn--ghost" id="tt-repeat-errors" type="button" hidden>Repeat errors</button>
-            <button class="btn btn--ghost" id="tt-new" type="button">New test</button>
-            <button class="btn btn--ghost" id="tt-copy" type="button">Copy result</button>
+            <button class="btn btn--primary" id="tt-restart" type="button">Yeniden başlat</button>
+            <button class="btn btn--ghost" id="tt-weak-keys" type="button" hidden>Zayıf tuşları çalış</button>
+            <button class="btn btn--ghost" id="tt-repeat-errors" type="button" hidden>Hataları tekrar et</button>
+            <button class="btn btn--ghost" id="tt-new" type="button">Yeni test</button>
+            <button class="btn btn--ghost" id="tt-copy" type="button">Sonucu kopyala</button>
           </div>
         </div>
       </div>
@@ -285,22 +285,22 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <span class="brand-name">Toolkit</span>
-          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+          <p class="footer-tagline">Gizlilik odaklı geliştirici araçları. Her şey tarayıcınızda çalışır.</p>
         </div>
         <div class="footer-social">
-          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="abel0x GitHub profili">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             <span>abel0x</span>
           </a>
-          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Bana kahve ısmarla">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            <span>Buy me a coffee</span>
+            <span>Bana kahve ısmarla</span>
           </a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Toolkit. No data leaves your device.</p>
-        <p class="footer-tech">101 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p>© 2026 Toolkit. Verileriniz cihazınızdan ayrılmaz.</p>
+        <p class="footer-tech">101 araç · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>

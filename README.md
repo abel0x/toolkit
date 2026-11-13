@@ -192,7 +192,7 @@ node tests/i18n-audit.mjs
 # Check the generated /tr/ pages: Turkish metadata, canonical URLs, reciprocal hreflang links, references, and sitemap alternates.
 node tests/turkish-seo-audit.mjs
 
-# Open /tr/ pages in Firefox: forced Turkish, shared assets, Turkish internal links, URL-based language switching, and word lists.
+# Open /tr/ pages in Firefox: static Turkish copy matching the runtime, forced Turkish, shared assets, Turkish internal links, URL-based language switching, every tool's script, and word lists.
 node tests/turkish-pages-e2e.mjs
 
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
@@ -223,6 +223,7 @@ toolkit/
 ├── _data/tools.json              # Single source of the tool catalogue
 ├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
 ├── _data/seo-tr.json             # Turkish titles and descriptions for tr/
+├── _scripts/translate.mjs        # Build helper that translates the tr/ pages
 ├── .githooks/pre-commit          # Optional generated-file check
 ├── assets/
 │   ├── css/
@@ -248,7 +249,7 @@ toolkit/
 
 English source text lives in the HTML and JavaScript source. `assets/js/core/i18n.js` supplies the runtime and shared translations; `assets/js/core/i18n-expansion.js` contains the larger Turkish catalogue for tool pages and expansion controls. New visible copy must have a Turkish translation before it is merged. The selected language is read from and written to `localStorage` when a user changes it or opens a `/tr/` page.
 
-`build.py --turkish` (part of `--all`) generates `tr/` from the English pages. Each copy keeps the English body, which the runtime translates because the page declares `data-page-language="tr"`, and gets its Turkish `<title>`, description, Open Graph and canonical tags from `_data/seo-tr.json`. Both copies carry reciprocal `hreflang` links (`x-default` is English), and `sitemap.xml` lists both with their alternates. Never edit `tr/` by hand.
+`build.py --turkish` (part of `--all`) generates `tr/` from the English pages. Each copy ships its body already in Turkish: the build translates the visible text and the `aria-label`, `title` and `placeholder` attributes with the same `i18n.js` dictionaries and rules the browser uses (through `_scripts/translate.mjs`, so Node.js is needed to build), and the page declares `data-page-language="tr"` so text that scripts add later is translated too. It gets its Turkish `<title>`, description, Open Graph and canonical tags from `_data/seo-tr.json`. Both copies carry reciprocal `hreflang` links (`x-default` is English), and `sitemap.xml` lists both with their alternates. Never edit `tr/` by hand.
 
 ## Contributing
 

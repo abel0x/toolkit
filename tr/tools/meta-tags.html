@@ -42,16 +42,16 @@
   <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
   <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
   <!-- NAV:START -->
-<nav class="navbar" id="navbar" aria-label="Main navigation">
+<nav class="navbar" id="navbar" aria-label="Ana gezinme">
   <div class="nav-container">
-    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit ana sayfası">
       <span class="brand-icon" aria-hidden="true">
         <img src="../../assets/images/favicon-64.png" width="44" height="44" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
     <div class="nav-actions">
-      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+      <a href="../license/index.html" class="nav-license-link" aria-label="Proje lisansını görüntüle" title="Proje lisansını görüntüle">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
           <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
@@ -64,113 +64,113 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb">
-        <a href="../index.html">← All Tools</a>
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
+        <a href="../index.html">← Tüm Araçlar</a>
         <span class="tool-breadcrumb-sep">/</span>
-        <span>Meta Tag Generator</span>
+        <span>Meta Etiket Oluşturucu</span>
       </nav>
     </div>
     <section class="section" id="meta-tags">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-tag">Web Utilities</span>
-          <h1 class="section-title gradient-text">Meta Tag Generator</h1>
-          <p class="section-desc">Generate HTML meta tags for SEO. Fill in fields and copy the generated code.</p>
+          <span class="section-tag">Web Yardımcı Programları</span>
+          <h1 class="section-title gradient-text">Meta Etiket Oluşturucu</h1>
+          <p class="section-desc">SEO için HTML meta etiketleri oluşturun. Alanları doldurun ve oluşturulan kodu kopyalayın.</p>
         </div>
         <div class="example-starter reveal">
           <svg class="example-starter__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/><path d="m19 15-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6L19 15Z"/></svg>
-          <p class="example-starter__copy"><strong>Need a spark?</strong><span>Load a ready-made example, then make it yours.</span></p>
-          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="meta-tags">Try a sample</button>
+          <p class="example-starter__copy"><strong>İlham mı lazım?</strong><span>Hazır bir örnek yükleyin, sonra kendinize göre düzenleyin.</span></p>
+          <button type="button" class="btn btn--ghost btn--sm example-starter__button" data-example-group="meta-tags">Örneği dene</button>
         </div>
         <div class="card glass reveal">
           <div class="tool-split">
             <div class="tool-split-left">
               <div class="form-group">
-                <label class="form-label" for="metaTitle">Page Title <span class="ix-3bea71" id="titleCount">0/60</span></label>
+                <label class="form-label" for="metaTitle">Sayfa Başlığı <span class="ix-3bea71" id="titleCount">0/60</span></label>
                 <input type="text" class="form-control" id="metaTitle" placeholder="My Awesome Page" maxlength="100" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaDesc">Description <span class="ix-3bea71" id="descCount">0/160</span></label>
-                <textarea class="form-control" id="metaDesc" rows="3" placeholder="Brief description for search engines..." maxlength="300"></textarea>
+                <label class="form-label" for="metaDesc">Açıklama <span class="ix-3bea71" id="descCount">0/160</span></label>
+                <textarea class="form-control" id="metaDesc" rows="3" placeholder="Arama motorları için kısa açıklama..." maxlength="300"></textarea>
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaKw">Keywords</label>
+                <label class="form-label" for="metaKw">Anahtar Kelimeler</label>
                 <input type="text" class="form-control" id="metaKw" placeholder="keyword1, keyword2, keyword3" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaAuthor">Author</label>
+                <label class="form-label" for="metaAuthor">Yazar</label>
                 <input type="text" class="form-control" id="metaAuthor" placeholder="Jane Doe" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaRobots">Robots</label>
+                <label class="form-label" for="metaRobots">Robotlar</label>
                 <select class="form-control form-select" id="metaRobots">
-                  <option value="index, follow">index, follow (default)</option>
+                  <option value="index, follow">index, follow (varsayılan)</option>
                   <option value="noindex, follow">noindex, follow</option>
                   <option value="index, nofollow">index, nofollow</option>
                   <option value="noindex, nofollow">noindex, nofollow</option>
-                  <option value="noarchive">noarchive</option>
-                  <option value="nosnippet">nosnippet</option>
+                  <option value="noarchive">noarchive (arşivleme yok)</option>
+                  <option value="nosnippet">nosnippet (arama sonucu alıntısı yok)</option>
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaCanon">Canonical URL</label>
+                <label class="form-label" for="metaCanon">Kanonik URL</label>
                 <input type="url" class="form-control" id="metaCanon" placeholder="https://example.com/page" />
               </div>
               <div class="tool-split tool-split--compact">
                 <div class="form-group">
-                  <label class="form-label" for="metaLang">Document Language</label>
+                  <label class="form-label" for="metaLang">Belge Dili</label>
                   <input type="text" class="form-control" id="metaLang" value="en" maxlength="35" placeholder="en" />
                 </div>
                 <div class="form-group">
-                  <label class="form-label" for="metaTheme">Theme Color</label>
+                  <label class="form-label" for="metaTheme">Tema Rengi</label>
                   <input type="color" class="form-control color-input color-input--field" id="metaTheme" value="#0d1117" />
                 </div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaGenerator">Generator (optional)</label>
+                <label class="form-label" for="metaGenerator">Oluşturucu (isteğe bağlı)</label>
                 <input type="text" class="form-control" id="metaGenerator" placeholder="Toolkit" />
               </div>
             </div>
             <div class="tool-split-right">
               <div class="form-group">
-                <label class="form-label" for="metaOgTitle">Open Graph Title <span class="ix-3bea71">falls back to Page Title</span></label>
+                <label class="form-label" for="metaOgTitle">Open Graph Başlığı <span class="ix-3bea71">Sayfa başlığı kullanılır</span></label>
                 <input type="text" class="form-control" id="metaOgTitle" placeholder="My Awesome Page" maxlength="100" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaOgDesc">Open Graph Description <span class="ix-3bea71">falls back to Description</span></label>
-                <textarea class="form-control" id="metaOgDesc" rows="2" placeholder="Brief social sharing description..." maxlength="300"></textarea>
+                <label class="form-label" for="metaOgDesc">Open Graph Açıklaması <span class="ix-3bea71">Açıklama kullanılır</span></label>
+                <textarea class="form-control" id="metaOgDesc" rows="2" placeholder="Sosyal medya paylaşımı için kısa açıklama..." maxlength="300"></textarea>
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaOgImage">Open Graph Image URL</label>
+                <label class="form-label" for="metaOgImage">Open Graph Görsel URL’si</label>
                 <input type="url" class="form-control" id="metaOgImage" placeholder="https://example.com/preview.png" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaOgSite">Open Graph Site Name (optional)</label>
+                <label class="form-label" for="metaOgSite">Open Graph Site Adı (isteğe bağlı)</label>
                 <input type="text" class="form-control" id="metaOgSite" placeholder="My Site" maxlength="100" />
               </div>
               <div class="tool-split tool-split--compact">
                 <div class="form-group">
-                  <label class="form-label" for="metaOgType">Open Graph Type</label>
+                  <label class="form-label" for="metaOgType">Open Graph Türü</label>
                   <select class="form-control form-select" id="metaOgType"><option value="website">website</option><option value="article">article</option><option value="profile">profile</option></select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label" for="metaTwitterCard">Twitter Card</label>
+                  <label class="form-label" for="metaTwitterCard">Twitter Kartı</label>
                   <select class="form-control form-select" id="metaTwitterCard"><option value="summary">summary</option><option value="summary_large_image">summary_large_image</option></select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaTwitter">Twitter / X Handle (optional)</label>
+                <label class="form-label" for="metaTwitter">Twitter / X kullanıcı adı (isteğe bağlı)</label>
                 <input type="text" class="form-control" id="metaTwitter" placeholder="@example" maxlength="50" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaTwitterCreator">Twitter / X Creator Handle (optional)</label>
+                <label class="form-label" for="metaTwitterCreator">Twitter / X içerik üreticisi kullanıcı adı (isteğe bağlı)</label>
                 <input type="text" class="form-control" id="metaTwitterCreator" placeholder="@author" maxlength="50" />
               </div>
               <div class="form-group">
-                <label class="form-label" for="metaOutput">Generated Head Code</label>
+                <label class="form-label" for="metaOutput">Oluşturulan &lt;head&gt; kodu</label>
                 <textarea class="form-control font-mono ix-3a4ab9" id="metaOutput" rows="18" readonly></textarea>
               </div>
-              <button class="btn btn-primary ix-69d66e" id="copyMetaBtn">Copy Code</button>
+              <button class="btn btn-primary ix-69d66e" id="copyMetaBtn">Kodu Kopyala</button>
             </div>
           </div>
         </div>
@@ -183,22 +183,22 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <span class="brand-name">Toolkit</span>
-          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+          <p class="footer-tagline">Gizlilik odaklı geliştirici araçları. Her şey tarayıcınızda çalışır.</p>
         </div>
         <div class="footer-social">
-          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="abel0x GitHub profili">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             <span>abel0x</span>
           </a>
-          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Bana kahve ısmarla">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            <span>Buy me a coffee</span>
+            <span>Bana kahve ısmarla</span>
           </a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Toolkit. No data leaves your device.</p>
-        <p class="footer-tech">101 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p>© 2026 Toolkit. Verileriniz cihazınızdan ayrılmaz.</p>
+        <p class="footer-tech">101 araç · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>

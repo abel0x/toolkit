@@ -45,16 +45,16 @@
   <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
 
   <!-- NAV:START -->
-<nav class="navbar" id="navbar" aria-label="Main navigation">
+<nav class="navbar" id="navbar" aria-label="Ana gezinme">
   <div class="nav-container">
-    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit ana sayfası">
       <span class="brand-icon" aria-hidden="true">
         <img src="../../assets/images/favicon-64.png" width="44" height="44" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
     <div class="nav-actions">
-      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+      <a href="../license/index.html" class="nav-license-link" aria-label="Proje lisansını görüntüle" title="Proje lisansını görüntüle">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
           <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
@@ -67,86 +67,86 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb">
+      <nav class="tool-breadcrumb" aria-label="Gezinti yolu">
         <a href="../index.html">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          All Tools
+          Tüm Araçlar
         </a>
         <span class="tool-breadcrumb-sep">/</span>
-        <span>QR Code Generator</span>
+        <span>QR Kod Oluşturucu</span>
       </nav>
     </div>
 
     <section class="section" id="qrgen" aria-labelledby="qrGenHeading">
       <div class="container container--wide">
         <div class="section-header reveal">
-          <span class="section-tag">Generators</span>
-          <h1 class="section-title" id="qrGenHeading">QR Code Generator</h1>
-          <p class="section-desc">Generate scannable QR codes for text, URLs, Wi-Fi, email, SMS, and phone numbers.</p>
+          <span class="section-tag">Oluşturucular</span>
+          <h1 class="section-title" id="qrGenHeading">QR Kod Oluşturucu</h1>
+          <p class="section-desc">Metin, URL'ler, Wi-Fi, e-posta, SMS ve telefon numaraları için taranabilir QR kodları oluşturun.</p>
         </div>
-        <div class="card glass reveal" role="region" aria-label="QR Code Generator Tool">
+        <div class="card glass reveal" role="region" aria-label="QR Kod Oluşturma Aracı">
           <div class="qr-layout">
             <div class="qr-controls">
               <div class="control-row">
-                <label for="qrMode" class="control-label">Content Mode</label>
-                <select id="qrMode" class="select-field" aria-label="QR code content type">
-                  <option value="text">Plain Text</option>
+                <label for="qrMode" class="control-label">İçerik Modu</label>
+                <select id="qrMode" class="select-field" aria-label="QR kodu içerik türü">
+                  <option value="text">Düz Metin</option>
                   <option value="url">URL</option>
-                  <option value="email">Email</option>
-                  <option value="phone">Phone Number</option>
+                  <option value="email">E-posta</option>
+                  <option value="phone">Telefon Numarası</option>
                   <option value="sms">SMS</option>
-                  <option value="wifi">Wi-Fi Credentials</option>
+                  <option value="wifi">Wi-Fi Kimlik Bilgileri</option>
                 </select>
               </div>
               <div id="qrForm"><!-- populated by JS --></div>
               <div class="qr-options">
                 <div class="qr-opt-row">
                   <div class="qr-opt">
-                    <label for="qrSize" class="control-label">Size <span class="control-value" id="qrSizeVal">256px</span></label>
-                    <input type="range" id="qrSize" class="slider" min="128" max="512" step="32" value="256" aria-label="QR code size" />
+                    <label for="qrSize" class="control-label">Boyut <span class="control-value" id="qrSizeVal">256px</span></label>
+                    <input type="range" id="qrSize" class="slider" min="128" max="512" step="32" value="256" aria-label="QR kodu boyutu" />
                   </div>
                   <div class="qr-opt">
-                    <label for="qrMargin" class="control-label">Margin <span class="control-value" id="qrMarginVal">2</span></label>
-                    <input type="range" id="qrMargin" class="slider" min="0" max="6" step="1" value="2" aria-label="QR code margin" />
+                    <label for="qrMargin" class="control-label">Marj <span class="control-value" id="qrMarginVal">2</span></label>
+                    <input type="range" id="qrMargin" class="slider" min="0" max="6" step="1" value="2" aria-label="QR kodu kenar boşluğu" />
                   </div>
                 </div>
                 <div class="qr-opt-row ix-d590ad">
                   <div class="qr-color-opt">
-                    <label for="qrColorDark" class="control-label">Foreground</label>
-                    <input type="color" id="qrColorDark" class="color-input" value="#000000" aria-label="QR code foreground color" />
+                    <label for="qrColorDark" class="control-label">Ön plan</label>
+                    <input type="color" id="qrColorDark" class="color-input" value="#000000" aria-label="QR kodu ön plan rengi" />
                   </div>
                   <div class="qr-color-opt">
-                    <label for="qrColorLight" class="control-label">Background</label>
-                    <input type="color" id="qrColorLight" class="color-input" value="#ffffff" aria-label="QR code background color" />
+                    <label for="qrColorLight" class="control-label">Arka plan</label>
+                    <input type="color" id="qrColorLight" class="color-input" value="#ffffff" aria-label="QR kodu arka plan rengi" />
                   </div>
                   <div class="qr-color-opt">
-                    <label for="qrECC" class="control-label">Error Correction</label>
-                    <select id="qrECC" class="select-field" aria-label="Error correction level">
-                      <option value="L">L — Low (7%)</option>
-                      <option value="M" selected>M — Med (15%)</option>
-                      <option value="Q">Q — Quartile (25%)</option>
-                      <option value="H">H — High (30%)</option>
+                    <label for="qrECC" class="control-label">Hata Düzeltme</label>
+                    <select id="qrECC" class="select-field" aria-label="Hata düzeltme seviyesi">
+                      <option value="L">L — Düşük (%7)</option>
+                      <option value="M" selected>M — Orta (%15)</option>
+                      <option value="Q">Q — Çeyrek (%25)</option>
+                      <option value="H">H — Yüksek (%30)</option>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="btn-row ix-3fb132">
-                <button class="btn btn--primary" id="qrGenBtn">Generate QR</button>
-                <button class="btn btn--ghost" id="qrClearBtn">Clear</button>
+                <button class="btn btn--primary" id="qrGenBtn">QR oluştur</button>
+                <button class="btn btn--ghost" id="qrClearBtn">Temizle</button>
               </div>
-              <p class="qr-hint">&#9432; For best scanning results, maintain high contrast between foreground and background colors.</p>
+              <p class="qr-hint">ⓘ En iyi tarama sonuçlarını elde etmek için ön plan ve arka plan renkleri arasında yüksek kontrastı koruyun.</p>
             </div>
             <div class="qr-preview-col">
-              <div class="qr-canvas-wrap" id="qrCanvasWrap" aria-label="QR code preview">
+              <div class="qr-canvas-wrap" id="qrCanvasWrap" aria-label="QR kodu önizlemesi">
                 <div class="qr-placeholder" id="qrPlaceholder">
                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/></svg>
-                  <p>QR code will appear here</p>
+                  <p>QR kodu burada görünecek</p>
                 </div>
                 <div id="qrOutput"></div>
               </div>
               <div class="qr-actions" id="qrActions" hidden>
-                <button class="btn btn--primary" id="qrDownloadBtn">Download PNG</button>
-                <button class="btn btn--ghost" id="qrCopyImgBtn">Copy Image</button>
+                <button class="btn btn--primary" id="qrDownloadBtn">PNG'yi indir</button>
+                <button class="btn btn--ghost" id="qrCopyImgBtn">Resmi Kopyala</button>
               </div>
             </div>
           </div>
@@ -160,22 +160,22 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <span class="brand-name">Toolkit</span>
-          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+          <p class="footer-tagline">Gizlilik odaklı geliştirici araçları. Her şey tarayıcınızda çalışır.</p>
         </div>
         <div class="footer-social">
-          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="abel0x GitHub profili">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             <span>abel0x</span>
           </a>
-          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Bana kahve ısmarla">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            <span>Buy me a coffee</span>
+            <span>Bana kahve ısmarla</span>
           </a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Toolkit. No data leaves your device.</p>
-        <p class="footer-tech">101 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p>© 2026 Toolkit. Verileriniz cihazınızdan ayrılmaz.</p>
+        <p class="footer-tech">101 araç · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>

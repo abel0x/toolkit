@@ -37,6 +37,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 
 # ---------------------------------------------------------------------------
@@ -639,10 +640,10 @@ def run_page_metadata():
 # Turkish pages — /tr/ copies with Turkish metadata for search engines
 # ---------------------------------------------------------------------------
 #
-# Every English page gets a generated twin under tr/. The twin keeps the
-# English body (the i18n runtime translates it in the browser, forced to
-# Turkish by data-page-language) but ships Turkish <title>, description,
-# Open Graph and canonical tags, plus reciprocal hreflang links. Asset
+# Every English page gets a generated twin under tr/. The twin ships a
+# Turkish body (see _walk_body below), Turkish <title>, description, Open
+# Graph and canonical tags, plus reciprocal hreflang links; data-page-language
+# keeps the i18n runtime in Turkish for text that scripts add later. Asset
 # references gain one '../' so they still point at the shared files, while
 # links between pages stay inside the Turkish tree.
 
@@ -727,6 +728,156 @@ def _seo_entry(entries, relative, english_html, count):
     return title, description, og
 
 
+# Static Turkish body. The tr/ pages ship their visible copy already in
+# Turkish so crawlers, link previews and the first paint never show English.
+# The walk mirrors apply() in assets/js/core/i18n.js: the same text nodes,
+# whitespace handling, skipped containers and attributes. The strings
+# themselves come from _scripts/translate.mjs, which runs that same i18n.js,
+# so there is one dictionary and one set of pattern rules.
+
+_TRANSLATOR = os.path.join(ROOT, '_scripts', 'translate.mjs')
+_BODY_TOKEN = re.compile(
+    r'<!--.*?-->'
+    r'|<(/?)([a-zA-Z][a-zA-Z0-9:-]*)'
+    r'((?:\s+[^\s"\'>/=]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s"\'=<>`]+))?)*)'
+    r'\s*(/?)>',
+    re.DOTALL)
+_TAG_ATTRIBUTE = re.compile(
+    r'(\s+)([^\s"\'>/=]+)(?:(\s*=\s*)(?:"([^"]*)"|\'([^\']*)\'|([^\s"\'=<>`]+)))?')
+_VOID_ELEMENTS = frozenset('area base br col embed hr img input link meta source track wbr'.split())
+# Their content is text to the HTML parser, never elements.
+_RAW_TEXT_ELEMENTS = frozenset(('script', 'style', 'textarea', 'noscript'))
+# canTranslateText() leaves text inside these alone.
+_UNTRANSLATED_TEXT = frozenset(('script', 'style', 'noscript', 'pre', 'code', 'textarea', 'input'))
+_TRANSLATED_ATTRIBUTES = ('aria-label', 'title', 'placeholder')
+_BUTTON_INPUT_TYPES = frozenset(('button', 'reset', 'submit'))
+
+
+def _attribute_text(value):
+    """Escape a double-quoted attribute value, leaving apostrophes readable."""
+    return value.replace('&', '&amp;').replace('"', '&quot;')
+
+
+def _text_parts(text):
+    """Split a decoded text node the way translateTextNode() does: lead, key, trail."""
+    match = re.match(r'^(\s*)(.*?)(\s*)$', text, re.DOTALL)
+    return match.group(1), re.sub(r'\s+', ' ', match.group(2)).strip(), match.group(3)
+
+
+def _walk_body(html, relative, translate):
+    """Rewrite translatable text and attributes inside <body>.
+
+    `translate(key)` returns the Turkish string or None to keep the source.
+    Untouched bytes are copied verbatim, so only translated strings change.
+    """
+    out = []
+    stack = []          # (tag, hides_text, hides_everything)
+    in_body = False
+    position = 0
+
+    def hidden(index):
+        return any(entry[index] for entry in stack)
+
+    def emit_text(raw):
+        if not in_body or not raw.strip() or hidden(1):
+            out.append(raw)
+            return
+        lead, key, trail = _text_parts(html_lib.unescape(raw))
+        turkish = translate(key) if key else None
+        if turkish is None:
+            out.append(raw)
+        else:
+            out.append(html_lib.escape(lead + turkish + trail, quote=False).replace('\xa0', '&nbsp;'))
+
+    def rewrite_tag(tag, attributes_source):
+        attributes = {}
+        for match in _TAG_ATTRIBUTE.finditer(attributes_source):
+            value = next((group for group in match.group(4, 5, 6) if group is not None), None)
+            attributes[match.group(2).lower()] = value
+        if tag == 'option' and 'value' not in attributes:
+            raise SystemExit(f'{relative} has an <option> without a value; the Turkish page needs one '
+                             'so the selected value stays English.')
+        names = set(_TRANSLATED_ATTRIBUTES)
+        if tag == 'input' and (attributes.get('type') or '').lower() in _BUTTON_INPUT_TYPES:
+            names.add('value')
+
+        def attribute(match):
+            name = match.group(2).lower()
+            value = next((group for group in match.group(4, 5, 6) if group is not None), None)
+            if name not in names or value is None:
+                return match.group(0)
+            turkish = translate(html_lib.unescape(value))
+            if turkish is None:
+                return match.group(0)
+            return f'{match.group(1)}{match.group(2)}{match.group(3)}"{_attribute_text(turkish)}"'
+
+        return _TAG_ATTRIBUTE.sub(attribute, attributes_source), attributes
+
+    for token in _BODY_TOKEN.finditer(html):
+        if token.start() < position:
+            continue
+        emit_text(html[position:token.start()])
+        position = token.end()
+        closing, tag, attributes_source, self_closing = token.group(1, 2, 3, 4)
+        if tag is None:                      # comment
+            out.append(token.group(0))
+            continue
+        tag = tag.lower()
+        if closing:
+            out.append(token.group(0))
+            if tag == 'body':
+                in_body = False
+            names = [entry[0] for entry in stack]
+            if tag in names:
+                del stack[len(names) - 1 - names[::-1].index(tag):]
+            continue
+        if tag == 'body':
+            in_body = True
+        source = token.group(0)
+        if in_body and not hidden(2):
+            revised, attributes = rewrite_tag(tag, attributes_source)
+            source = source.replace(attributes_source, revised, 1) if revised != attributes_source else source
+        else:
+            attributes = {match.group(2).lower(): match.group(4) or match.group(5) or match.group(6)
+                          for match in _TAG_ATTRIBUTE.finditer(attributes_source)}
+        out.append(source)
+        if tag in _RAW_TEXT_ELEMENTS and not self_closing:
+            end = re.compile(rf'</{tag}\s*>', re.IGNORECASE).search(html, position)
+            if not end:
+                raise SystemExit(f'{relative} never closes <{tag}>.')
+            out.append(html[position:end.start()])
+            position = end.start()
+            stack.append((tag, True, True))
+            continue
+        if self_closing or tag in _VOID_ELEMENTS or tag == 'body':
+            continue
+        hides_text = (tag in _UNTRANSLATED_TEXT or 'data-i18n-skip' in attributes
+                      or (attributes.get('contenteditable') or '').lower() == 'true')
+        # Template content is inert: i18n.js only reaches it once a script clones it.
+        stack.append((tag, hides_text, tag == 'template'))
+    emit_text(html[position:])
+    return ''.join(out)
+
+
+def _turkish_strings(pages):
+    """Translate every key found in the pages' bodies with the browser runtime."""
+    keys = set()
+
+    def collect(key):
+        keys.add(key)
+
+    for relative, html in pages.items():
+        _walk_body(html, relative, collect)
+    try:
+        result = subprocess.run(['node', _TRANSLATOR], input=json.dumps(sorted(keys)),
+                                capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        raise SystemExit('Node.js is required to build the Turkish pages (node was not found).')
+    if result.returncode != 0:
+        raise SystemExit(f'_scripts/translate.mjs failed:\n{result.stderr}')
+    return json.loads(result.stdout)
+
+
 def _turkish_page(relative, english_html, entry, localized):
     title, description, og_description = entry
     url = html_lib.escape(SITE_BASE + TR_PREFIX + _page_location(relative))
@@ -767,14 +918,18 @@ def run_turkish_pages():
     if unknown:
         raise SystemExit(f'_data/seo-tr.json lists pages that do not exist: {", ".join(unknown)}')
     count = _registered_tool_count()
+    pages = {}
     for relative in localized:
         english_path = os.path.join(ROOT, *relative.split('/'))
         english_html = _with_alternates(_read(english_path), relative)
         if english_html != _read(english_path):
             _write(english_path, english_html)
         entry = _seo_entry(entries, relative, english_html, count)
+        pages[relative] = _turkish_page(relative, english_html, entry, localized_set)
+    strings = _turkish_strings(pages)
+    for relative, turkish_html in pages.items():
+        turkish_html = _walk_body(turkish_html, relative, strings.get)
         turkish_path = os.path.join(TR_DIR, *relative.split('/'))
-        turkish_html = _turkish_page(relative, english_html, entry, localized_set)
         if not os.path.exists(turkish_path) or _read(turkish_path) != turkish_html:
             if _PENDING is None:
                 os.makedirs(os.path.dirname(turkish_path), exist_ok=True)

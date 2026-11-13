@@ -2,6 +2,13 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The `/tr/` pages now ship their body already in Turkish instead of English that the browser translated after loading. Search engines that do not run JavaScript, link previews and the first paint now see Turkish, and the brief flash of English on `/tr/` is gone. `build.py --turkish` translates the visible text and the `aria-label`, `title` and `placeholder` attributes with the browser's own `i18n.js` dictionaries and rules, run by the new `_scripts/translate.mjs`, so the two can never disagree. The build fails if a translated string would be translated again in the browser, or if an `<option>` has no `value`.
+- `tests/turkish-pages-e2e.mjs` checks that every Turkish page equals the runtime translation of its English page and leaves the runtime nothing to translate, and runs the example starters and primary actions of all 101 Turkish tool pages.
+
 ## [1.3.1] — 2026-11-13
 
 ### Added
