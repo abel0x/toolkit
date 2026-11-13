@@ -13,7 +13,7 @@ Thanks for helping improve Toolkit. The project is deliberately small at runtime
 
 ## Before you start
 
-1. Search the [live catalogue](https://abel0x.github.io/toolkit/#tools) and `_data/tools.json` for an existing equivalent.
+1. Search the [live catalogue](https://abel0x.github.io/toolkit/#tools-hub) and `_data/tools.json` for an existing equivalent.
 2. Open an [issue](https://github.com/abel0x/toolkit/issues) for a feature, a new tool, or a non-trivial design change.
 3. Keep a pull request focused: one tool, one bug fix, or one cohesive maintenance change.
 
@@ -29,7 +29,9 @@ cd toolkit
 python3 -m http.server 8080
 ```
 
-Open [http://localhost:8080](http://localhost:8080). The runtime has no npm dependency. Node.js is only used for the repository checks below.
+Open [http://localhost:8080](http://localhost:8080). The runtime has no npm dependency. Node.js is used for the repository checks below and by `build.py`, which translates the Turkish pages with it.
+
+To check a change the way GitHub Pages will serve it (under `/toolkit/`, with the 404 page for missing addresses), run `python3 build.py --site` and then `python3 _scripts/serve.py _site`, and open <http://127.0.0.1:8000/toolkit/>.
 
 Enable the repository's pre-commit hook once per clone. It runs `python3 build.py --check` (well under a second) and refuses a commit whose generated files are out of date, the same check CI runs:
 
@@ -144,12 +146,12 @@ node tests/turkish-pages-e2e.mjs
 node tests/offline-e2e.mjs
 ```
 
-The static checks verify publication structure, word data, localisation, the generated Turkish pages and their hreflang links, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with Turkish switching, accessible control names, and example starters; another exercises functional flows and exact standard vectors; one opens the `/tr/` pages and switches languages by URL; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
+The static checks verify publication structure, word data, localisation, the generated Turkish pages and their hreflang links, semantic landmarks, label references, focus-order hazards, live regions, and token contrast. The browser suites start Firefox and isolated local servers themselves: one smoke-tests every tool page on desktop and mobile with the language menu, accessible control names, and example starters; another exercises functional flows and exact standard vectors; one opens the `/tr/` pages, switches languages by URL, follows the Turkish-preference redirect, and fails when a Turkish page shows English its pack should cover; and the offline suite installs the production service worker under `/toolkit/`, stops its server, and verifies cached navigation plus cache isolation. For a conventional new tool, manually check it in current Firefox and a Chromium browser too.
 
 ## Style guide
 
 - **JavaScript:** modern browser JavaScript, strict IIFE modules, no transpilation.
-- **CSS:** use existing custom properties and the relevant modular stylesheet; do not add global one-off rules when a component or page module is appropriate.
+- **CSS:** use the custom properties in `assets/css/core.css` by role (`--bg-*`, `--text-*`, `--border*`, `--accent*`, and `--green`, `--yellow`, `--red` for status) and the relevant modular stylesheet; do not add global one-off rules when a component or page module is appropriate. The design is monochrome and flat: no gradients, glows, blur or new brand colours, and colour only where it carries meaning. Interface text uses the system font; `--font-mono` (JetBrains Mono, subset to Latin, Turkish and common symbols) is for code and data.
 - **HTML:** semantic landmarks, associated labels, usable keyboard controls, meaningful `aria-*` values, and `alt` text for informative images.
 - **Copy:** short, direct English source text and natural Turkish, not word-for-word machine translation.
 - **Formatting:** two spaces for HTML, CSS, and JavaScript; keep files UTF-8 with a final newline. Byte-for-byte pinned third-party distributions may retain their upstream EOF style when their checksum and the exception are documented in `assets/js/vendor/README.md`.
@@ -191,9 +193,13 @@ Typing-test preferences may persist under one settings key because they are UI s
 
 Any task also recomputes `CACHE_VERSION` in `sw.js`. Repository-only files (tests, documentation, `build.py`, `_scripts/`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
 
-## Social preview images
+## Images
 
 `assets/images/og-en.png` and `og-tr.png` are the 1200×630 link-preview images for the English and Turkish pages. Their source is `_includes/og-card.html`, which is not published. After changing it, render both images with the Chromium command in that file's header comment and run `python3 build.py --all`. The site audit checks the size and dimensions of both images.
+
+`.github/social-preview.png` (1280×640, not published) is the English card centred on the page background, for the repository's social preview. GitHub has no API for it: upload it under **Settings → General → Social preview** after it changes.
+
+`assets/images/logo.png` is the navigation logo; `favicon-*.png` are the same mark on a dark tile for browser tabs, the PWA and Apple touch icons. The README screenshots (`Main`, `Category`, `Finder`, `Password`, `Turkish`, `Mobile` `.webp`) are 1280×720 captures of the live design; retake them when the design changes.
 
 ## Commit messages
 

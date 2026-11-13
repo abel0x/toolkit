@@ -6,12 +6,14 @@
 
 ### 101 developer utilities that run entirely in your browser.
 
-[![Live site](https://img.shields.io/badge/Live%20site-abel0x.github.io%2Ftoolkit-00d4ff?style=flat-square&logo=github)](https://abel0x.github.io/toolkit/)
-[![Tools](https://img.shields.io/badge/Tools-101-7c3aed?style=flat-square)](https://abel0x.github.io/toolkit/#tools)
-[![License](https://img.shields.io/badge/License-Apache--2.0-10d97e?style=flat-square)](LICENSE)
-[![Runtime](https://img.shields.io/badge/Runtime-Static%20%2B%20offline-10d97e?style=flat-square)](#privacy-and-offline)
+[![Live site](https://img.shields.io/badge/Live%20site-abel0x.github.io%2Ftoolkit-262626?style=flat-square&logo=github)](https://abel0x.github.io/toolkit/)
+[![Tools](https://img.shields.io/badge/Tools-101-262626?style=flat-square)](https://abel0x.github.io/toolkit/#tools-hub)
+[![License](https://img.shields.io/badge/License-Apache--2.0-262626?style=flat-square)](LICENSE)
+[![Runtime](https://img.shields.io/badge/Runtime-Static%20%2B%20offline-262626?style=flat-square)](#privacy-and-offline)
 
-**[Open Toolkit](https://abel0x.github.io/toolkit/)** · [Browse tools](https://abel0x.github.io/toolkit/#tools) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
+**[Open Toolkit](https://abel0x.github.io/toolkit/)** · [Türkçe](https://abel0x.github.io/toolkit/tr/) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
+
+<img src="assets/images/og-en.png" alt="Toolkit: everyday developer utilities, without the backend." width="100%" />
 
 </div>
 
@@ -31,7 +33,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 
 ## Tool catalogue
 
-The live site is the complete, searchable catalogue of all 101 tools. The current distribution is:
+The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable catalogue of all 101 tools. The current distribution is:
 
 | Area | Tools | Examples |
 | --- | ---: | --- |
@@ -44,7 +46,11 @@ The live site is the complete, searchable catalogue of all 101 tools. The curren
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.4.0
+### Latest release — 1.5.0
+
+A new, calmer look: near-black surfaces, one light accent and the system font replace the cyan–purple gradients, background grid and glows, and colour is kept for meaning (success, warning, error). The home page now opens with the search box and goes straight into category tabs and the tool cards. The logo, favicons and link previews follow the new style. Pages are about half the size on a first visit (about 100 KB instead of 185 KB in English), because the display font is gone, the code font is trimmed, the home page lost an unused template, and Turkish pages load only the strings their scripts still need.
+
+### 1.4.0
 
 The [`/tr/`](https://abel0x.github.io/toolkit/tr/) pages now arrive in Turkish, so search engines that do not run JavaScript, link previews and the first paint see Turkish instead of English that was translated after loading. English pages no longer download the Turkish dictionaries, about 142 KB of JavaScript (45 KB compressed) less per page. A visitor who chose Turkish and opens an English address goes straight to its Turkish page.
 
@@ -82,25 +88,35 @@ The expansion from the original 78 tools added fully browser-based utilities for
 
 <div align="center">
 
-<img src="assets/images/Main.webp" alt="Toolkit main landing page" width="100%" />
+<img src="assets/images/Main.webp" alt="Toolkit home page: headline, tool search and the first tool cards" width="100%" />
 
-<p><strong>Main</strong>: the home page and tool catalogue.</p>
+<p><strong>Home</strong>: search first, then every tool by category.</p>
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="assets/images/Category.webp" alt="Toolkit category browser" />
-      <p align="center"><strong>Category</strong><br />Browse the catalogue by area.</p>
+      <img src="assets/images/Category.webp" alt="Toolkit home page filtered to the Security category" />
+      <p align="center"><strong>Categories</strong><br />Tabs with tool counts filter the catalogue.</p>
     </td>
     <td width="50%" valign="top">
-      <img src="assets/images/Finder.webp" alt="Toolkit keyboard tool finder" />
+      <img src="assets/images/Finder.webp" alt="Toolkit tool finder listing JSON tools" />
       <p align="center"><strong>Finder</strong><br />Find any utility with <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd>.</p>
     </td>
   </tr>
   <tr>
+    <td width="50%" valign="top">
+      <img src="assets/images/Password.webp" alt="Toolkit password generator" />
+      <p align="center"><strong>Tool page</strong><br />Passwords are generated locally.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="assets/images/Turkish.webp" alt="The Turkish JSON formatter page" />
+      <p align="center"><strong>Türkçe</strong><br />Every page has a Turkish address under <code>/tr/</code>.</p>
+    </td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top">
-      <img src="assets/images/Password.webp" alt="Toolkit password generator" width="100%" />
-      <p align="center"><strong>Password</strong><br />A tool page; passwords are generated locally.</p>
+      <img src="assets/images/Mobile.webp" alt="Toolkit on a phone: home page, hash generator and Turkish home page" width="100%" />
+      <p align="center"><strong>Mobile</strong><br />The same pages on a phone.</p>
     </td>
   </tr>
 </table>
@@ -139,6 +155,15 @@ python3 -m http.server 8080
 
 Open [http://localhost:8080](http://localhost:8080). Serving over HTTP (instead of opening files directly) gives the browser access to the service worker and avoids file-origin restrictions.
 
+To preview exactly what GitHub Pages serves, including the 404 page for missing addresses, assemble the published files and serve them under `/toolkit/`:
+
+```bash
+python3 build.py --site
+python3 _scripts/serve.py _site
+```
+
+Then open [http://127.0.0.1:8000/toolkit/](http://127.0.0.1:8000/toolkit/); any missing address, such as `/toolkit/missing`, shows the 404 page.
+
 ## Deployment
 
 The repository includes a GitHub Actions deployment workflow at `.github/workflows/deploy-pages.yml`. Pull requests run the same build and tests without deploying. Every push to `main` and every manual workflow dispatch will:
@@ -149,7 +174,7 @@ The repository includes a GitHub Actions deployment workflow at `.github/workflo
 
 To enable it once in GitHub, open **Settings → Pages**, choose **GitHub Actions** as the publishing source, then push or run **Deploy Toolkit to GitHub Pages** from the Actions tab. The deployment environment reports the resulting site URL; for this repository it is `https://abel0x.github.io/toolkit/`.
 
-Search engines read `robots.txt` only at the root of a host, so a project site under `/toolkit/` cannot advertise its sitemap that way. Submit `https://abel0x.github.io/toolkit/sitemap.xml` once in Google Search Console and Bing Webmaster Tools instead.
+Search engines read `robots.txt` only at the root of a host, so a project site under `/toolkit/` cannot advertise its sitemap that way. Submit `https://abel0x.github.io/toolkit/sitemap.xml` once in Google Search Console (and Bing Webmaster Tools, if you use it) instead.
 
 ## Quality checks
 
@@ -196,7 +221,7 @@ node tests/i18n-audit.mjs
 # Check the generated /tr/ pages: Turkish metadata, canonical URLs, reciprocal hreflang links, references, and sitemap alternates.
 node tests/turkish-seo-audit.mjs
 
-# Open /tr/ pages in Firefox: static Turkish copy matching the runtime, forced Turkish, shared assets, Turkish internal links, URL-based language switching, every tool's script, and word lists.
+# Open /tr/ pages in Firefox: static Turkish copy matching the runtime, forced Turkish, the Turkish-preference redirect, URL-based language switching, every tool's script with no English left that its Turkish pack should cover, and word lists.
 node tests/turkish-pages-e2e.mjs
 
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
@@ -228,6 +253,8 @@ toolkit/
 ├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
 ├── _data/seo-tr.json             # Turkish titles and descriptions for tr/
 ├── _scripts/translate.mjs        # Build helper that translates the tr/ pages
+├── _scripts/serve.py             # Local preview of _site/ as GitHub Pages serves it
+├── .github/social-preview.png    # Repository social preview (upload in Settings)
 ├── .githooks/pre-commit          # Optional generated-file check
 ├── assets/
 │   ├── css/
@@ -242,8 +269,8 @@ toolkit/
 │   │   ├── pages/                # Page-specific controllers
 │   │   ├── tools/                # Tool implementations
 │   │   └── vendor/               # Self-hosted browser libraries
-│   ├── fonts/                    # Self-hosted fonts
-│   └── images/                   # Project icons and screenshots
+│   ├── fonts/                    # JetBrains Mono, subset, for code areas
+│   └── images/                   # Logo, icons, link previews and screenshots
 ├── tests/                        # Static audit and browser E2E checks
 ├── build.py                      # Repeatable maintenance tasks
 ├── sw.js                         # Offline cache worker
