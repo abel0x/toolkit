@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.2
+### Latest release — 1.6.3
+
+The QR Code Generator now updates as you type and checks that every code really scans before you download it, with a note when colours, margin, size or a logo might stop a phone. It adds contact cards, calendar events and locations, WPA3 Wi-Fi, round dots and rounded corners, an optional logo, SVG and print-size PNG downloads, and file names that match the content. Email codes no longer turn spaces into "+".
+
+### 1.6.2
 
 Every tool page lines up: all 101 tools share one column, so the breadcrumb, the title and the tool start at the same edge on every page and nothing jumps when you move between tools.
 
@@ -249,11 +253,14 @@ node tests/tool-pages-e2e.mjs
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
 node tests/expansion-e2e.mjs
 
+# Check the QR generator several independent ways: its capacity table and alignment patterns against the QR library, every content type's payload format, and PNG/SVG exports of every style, colour, logo and size, decoded by jsQR, ZBar and (when installed) ZXing-C++.
+node tests/qr-generator-e2e.mjs
+
 # Install the real service worker under the GitHub Pages path, stop the server, and verify the cached site in Firefox.
 node tests/offline-e2e.mjs
 ```
 
-The browser checks start and stop their own local server and require a current Firefox installation. The offline suite installs the real service worker under `/toolkit/`, takes its server down, then verifies cached tools, Turkish pages (an unvisited one falls back to its English twin), word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
+The browser checks start and stop their own local server and require a current Firefox installation. The QR suite also needs `zbarimg` and `rsvg-convert` (Debian/Ubuntu: `zbar-tools` and `librsvg2-bin`); set `TOOLKIT_SKIP_EXTERNAL_DECODERS=1` to run it without them. The offline suite installs the real service worker under `/toolkit/`, takes its server down, then verifies cached tools, Turkish pages (an unvisited one falls back to its English twin), word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
 ## Project layout
 

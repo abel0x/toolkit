@@ -2,6 +2,37 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.3] — 2026-11-14
+
+A much more capable QR Code Generator that checks its own output.
+
+### Added
+
+- QR Code Generator: live preview. The code redraws as you type or change a setting; the Generate button is still there.
+- Scan check: every code is decoded again with jsQR from the very image you download (scaled to camera-like resolution when it is larger than 1024 px), without colour inversion, the way phones read it. The page says whether it scans, and why it might not: light code on a dark background, contrast under 4:1, a margin under 2 modules, a logo without error correction H, a dense code (version 16 or more), or modules smaller than 3 px.
+- Capacity line: QR version, module count and bytes used against the most the chosen level holds. Content that does not fit says by how much instead of failing with a library error.
+- SVG download, and PNG sizes up to 2048 px (was 512) for print. PNG and SVG come from one geometry, so they always show the same code.
+- Downloads are named after their content, for example `qr-wifi-cafe-istanbul.png`, instead of `toolkit-qr.png`.
+- New content types: contact card (vCard 3.0), calendar event (iCalendar, timed or all-day) and location (`geo:`). Wi-Fi gains WPA3 (SAE), a show/hide password button, and leaves the password out of open networks.
+- Style options: round dots and rounded corner markers. Finder and alignment patterns stay solid, so decoders still lock on.
+- Optional logo in the middle, read in the browser and never uploaded. Choosing one switches error correction to H. Its size is limited to 14–20% of the code width, the range where jsQR, ZBar and ZXing all read every style.
+
+### Fixed
+
+- Email QR codes wrote spaces in the subject and body as "+", which mail apps show literally ("Hello+from+Toolkit"). They are now `%20`, and line breaks are `%0D%0A` (RFC 6068).
+- A link typed without a scheme (`example.com`) now gets `https://`, so phones open it instead of treating it as text.
+- The Turkish page showed the email, SMS and Wi-Fi form labels in English; they are translated now.
+- The preview no longer adds its own white frame around the code, so it shows the margin you chose.
+
+### Tests
+
+- New `tests/qr-generator-e2e.mjs`, also run in CI:
+  - checks the byte-capacity table (160 values) and the alignment-pattern positions (799 patterns, versions 2–40) against the QR library;
+  - checks every content type's payload, decoded back from the page;
+  - decodes the PNG and SVG exports of every style, colour, logo and size, including a 64-image size sweep and version 40 at 2048 px, with jsQR, ZBar and ZXing-C++;
+  - checks the warnings for unreadable codes, the overflow message, download names and sizes, the logo picker and the Turkish page.
+- CI installs ZBar and librsvg for this suite.
+
 ## [1.6.2] — 2026-11-14
 
 Every tool page now has the same column, so the header stays put when you move between tools.
@@ -247,6 +278,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.3]: https://github.com/abel0x/toolkit/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/abel0x/toolkit/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/abel0x/toolkit/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/abel0x/toolkit/compare/v1.5.1...v1.6.0
