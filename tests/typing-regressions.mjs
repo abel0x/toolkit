@@ -6,16 +6,17 @@ import { withFirefox } from './browser-session.mjs';
 await withFirefox(async (page) => {
   await page.viewport(1280, 900);
   await page.navigate('/tools/typing-test.html');
-  async function configure(settings, records = {}) {
+  // The interface language is a page choice: Turkish runs open the /tr/ twin.
+  async function configure(settings, records = {}, interfaceLanguage = 'en') {
     // Write storage from another page: an open typing test saves its own settings once words load,
     // which could overwrite the configuration below.
     await page.navigate('/index.html');
-    await page.evaluate(({ settings, records }) => {
-      localStorage.setItem('toolkit-language', 'en');
+    await page.evaluate(({ settings, records, interfaceLanguage }) => {
+      localStorage.setItem('toolkit-language', interfaceLanguage);
       localStorage.setItem('toolkit-typing-test-settings', JSON.stringify({ contentLanguage: 'en', categoryId: 'common-200', categoryTouched: true, mode: 'zen', ...settings }));
       localStorage.setItem('toolkit-typing-test-records', JSON.stringify(records));
-    }, { settings, records });
-    await page.navigate('/tools/typing-test.html');
+    }, { settings, records, interfaceLanguage });
+    await page.navigate(interfaceLanguage === 'tr' ? '/tr/tools/typing-test.html' : '/tools/typing-test.html');
     await page.evaluate(async () => {
       for (let attempt = 0; attempt < 200 && document.getElementById('tt-prepare').disabled; attempt += 1) await new Promise((resolve) => setTimeout(resolve, 20));
       if (document.getElementById('tt-prepare').disabled) throw new Error('Typing test did not become ready.');
@@ -66,13 +67,7 @@ await withFirefox(async (page) => {
     assert(replacement.chartPainted, 'The visible results chart must contain pixels.');
     assert(replacement.errors.includes('!' + word.slice(1)), 'An unfinished incorrect word must appear in review.');
     assert.equal(replacement.repeatHidden, false);
-    const translated = await page.evaluate(() => {
-      const before = document.getElementById('tt-stream').textContent;
-      ToolkitI18n.setLanguage('tr');
-      return { before, after: document.getElementById('tt-stream').textContent, accuracy: document.getElementById('tt-result-accuracy').textContent };
-    });
-    assert.equal(translated.before, translated.after, 'UI translation must not touch practice content.');
-    assert(translated.accuracy.includes(','), 'Result numbers must be formatted again on language change.');
+    assert(/^\d+\.\d%$/.test(replacement.accuracy), 'English results must use a decimal point.');
     await page.evaluate(async () => {
       document.getElementById('tt-repeat-errors').click();
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -209,16 +204,34 @@ await withFirefox(async (page) => {
     assert.equal(await page.evaluate(() => document.querySelector('[data-words="100"]').getAttribute('aria-checked')), 'true',
       'Reloading must retain the chosen word-count control.');
 
-    await page.navigate('/tools/sitemap-generator.html');
+    await page.navigate('/tr/tools/sitemap-generator.html');
     const xml = await page.evaluate(async () => {
-      ToolkitI18n.setLanguage('tr');
-      await new Promise((resolve) => setTimeout(resolve, 30));
       document.getElementById('sitemapUrls').value = 'https://example.com/';
       document.getElementById('sitemapRun').click();
       return document.getElementById('sitemapOutput').value;
     });
     assert(xml.includes('<changefreq>weekly</changefreq>'), 'Translated option labels must not change XML enum values.');
   }
+
+  // English practice content on the Turkish page: the stream is never
+  // translated, and results use Turkish number formatting.
+  await configure({}, {}, 'tr');
+  await start();
+  const practice = await page.evaluate(async () => {
+    // 'Copy' is an interface key; inside the stream it must stay as typed.
+    const probe = document.createElement('span');
+    probe.textContent = 'Copy';
+    document.getElementById('tt-stream').appendChild(probe);
+    await new Promise((resolve) => setTimeout(resolve, 30));
+    const text = probe.textContent;
+    probe.remove();
+    return { language: document.documentElement.lang, text };
+  });
+  assert.equal(practice.language, 'tr', 'The Turkish typing test did not open in Turkish.');
+  assert.equal(practice.text, 'Copy', 'The Turkish interface translated practice content.');
+  await type((await firstWord()) + '!');
+  const turkishResult = await finish();
+  assert(/^\d+,\d%$/.test(turkishResult.accuracy), `Turkish results must use a decimal comma: ${turkishResult.accuracy}`);
   await configure({ mode: 'words', wordCount: 10 });
   const catalogue = await page.evaluate(async () => {
     const manifest = await (await fetch('../words/manifest.json')).json();

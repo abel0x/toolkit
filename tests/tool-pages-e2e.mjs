@@ -199,10 +199,11 @@ async function inspectDesktopPage(bidi, context, url, slug) {
       })
       .filter(Boolean);
     const exampleButtons = [...document.querySelectorAll('[data-example-group]')];
-    window.ToolkitI18n?.setLanguage('tr');
-    const translated = document.documentElement.lang === 'tr';
-    const examplesTranslated = exampleButtons.every((button) => text(button) === 'Örneği dene');
-    window.ToolkitI18n?.setLanguage('en');
+    // Turkish lives on the /tr/ twin (tests/turkish-pages-e2e.mjs); the English
+    // page must not download its dictionaries but must offer the switch.
+    const englishOnly = document.documentElement.lang === 'en' && !window.TOOLKIT_I18N_TR && !window.TOOLKIT_I18N_EXTRA;
+    const turkishOption = Boolean(document.querySelector('.nav-language__option[data-language="tr"]'))
+      && Boolean(document.querySelector('link[rel="alternate"][hreflang="tr"]'));
     exampleButtons.forEach((button) => button.click());
     await new Promise((resolve) => setTimeout(resolve, 30));
     const unloadedExamples = exampleButtons
@@ -226,7 +227,8 @@ async function inspectDesktopPage(bidi, context, url, slug) {
     return {
       title: document.title,
       hasLanguageRuntime: Boolean(window.ToolkitI18n),
-      translated,
+      englishOnly,
+      turkishOption,
       hasHeader: Boolean(document.querySelector('.nav-actions')),
       hasFooter: Boolean(document.querySelector('.footer-inner, .footer')),
       noOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
@@ -239,7 +241,6 @@ async function inspectDesktopPage(bidi, context, url, slug) {
       primaryActions: primaryActions.length,
       interactionErrors,
       exampleCount: exampleButtons.length,
-      examplesTranslated,
       unloadedExamples,
       controls: controls.length
     };
@@ -247,7 +248,8 @@ async function inspectDesktopPage(bidi, context, url, slug) {
   const issues = [];
   if (!page.title) issues.push(`${slug}: missing document title.`);
   if (!page.hasLanguageRuntime) issues.push(`${slug}: i18n runtime did not initialise.`);
-  if (!page.translated) issues.push(`${slug}: Turkish language switch failed.`);
+  if (!page.englishOnly) issues.push(`${slug}: the English page loaded the Turkish dictionaries.`);
+  if (!page.turkishOption) issues.push(`${slug}: the language menu cannot open the Turkish page.`);
   if (!page.hasHeader) issues.push(`${slug}: shared header is missing.`);
   if (!page.hasFooter) issues.push(`${slug}: shared footer is missing.`);
   if (!page.noOverflow) issues.push(`${slug}: desktop page has horizontal overflow.`);
@@ -263,7 +265,6 @@ async function inspectDesktopPage(bidi, context, url, slug) {
   if (page.interactionErrors.length) {
     issues.push(`${slug}: primary action caused a runtime error: ${page.interactionErrors.join(', ')}`);
   }
-  if (!page.examplesTranslated) issues.push(`${slug}: example starter did not translate to Turkish.`);
   if (page.unloadedExamples.length) issues.push(`${slug}: example starter did not load: ${page.unloadedExamples.join(', ')}`);
   return { controls: page.controls, examples: page.exampleCount, actions: page.primaryActions, issues };
 }
@@ -325,7 +326,7 @@ async function main() {
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts, and English/Turkish switching.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts, and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();

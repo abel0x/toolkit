@@ -136,11 +136,7 @@ async function evaluate(bidi, context, source) {
 }
 
 async function navigate(bidi, context, baseUrl, slug) {
-  await bidi.call('browsingContext.navigate', {
-    context,
-    url: `${baseUrl}/tools/${slug}.html`,
-    wait: 'complete'
-  });
+  await navigateRaw(bidi, context, `${baseUrl}/tools/${slug}.html`);
   return evaluate(bidi, context, `(() => {
     const footer = document.querySelector('.footer');
     const requiredStyles = ['core.css', 'components.css', 'compatibility.css', 'tool.css', 'expansion-tools.css'];
@@ -174,16 +170,23 @@ async function runTool(bidi, context, baseUrl, slug, body) {
   })()`);
   assert.equal(result.ok, true, `${slug}: ${result.message || 'functional assertion failed.'}`);
 
-  const i18n = await evaluate(bidi, context, `(() => {
-    window.ToolkitI18n.setLanguage('tr');
-    const translated = document.documentElement.lang === 'tr' && document.querySelector('.footer-tagline')?.textContent.includes('tarayıcınızda');
-    window.ToolkitI18n.setLanguage('en');
-    return { ok: translated && document.documentElement.lang === 'en', message: 'Turkish language switch or English restore failed.' };
-  })()`);
+  // English pages leave Turkish to their /tr/ twin and never download its dictionaries.
+  const i18n = await evaluate(bidi, context, `(() => ({
+    ok: document.documentElement.lang === 'en' && !window.TOOLKIT_I18N_TR && !window.TOOLKIT_I18N_EXTRA
+      && Boolean(document.querySelector('link[rel="alternate"][hreflang="tr"]')),
+    message: 'The English page loaded the Turkish dictionaries or lost its Turkish twin.'
+  }))()`);
   assert.equal(i18n.ok, true, `${slug}: ${i18n.message}`);
 }
 
 async function navigateRaw(bidi, context, url) {
+  // Opening a /tr/ page saves Turkish, and English pages would then redirect
+  // to their twin; English checks start from an English preference.
+  if (!new URL(url).pathname.startsWith('/tr/')) {
+    try {
+      await evaluate(bidi, context, `(() => { localStorage.setItem('toolkit-language', 'en'); return true; })()`);
+    } catch {}
+  }
   await bidi.call('browsingContext.navigate', {
     context,
     url,
@@ -191,10 +194,10 @@ async function navigateRaw(bidi, context, url) {
   });
 }
 
+// Turkish behaviour is exercised on the /tr/ pages, where the dictionaries load.
 async function assertI18nFormControlSafety(bidi, context, baseUrl) {
-  await navigateRaw(bidi, context, `${baseUrl}/tools/qr-generator.html`);
+  await navigateRaw(bidi, context, `${baseUrl}/tr/tools/qr-generator.html`);
   const qr = await evaluate(bidi, context, `(() => {
-    window.ToolkitI18n.setLanguage('tr');
     const mode = document.querySelector('#qrMode');
     const initialValue = mode.value;
     mode.value = 'wifi';
@@ -216,9 +219,8 @@ async function assertI18nFormControlSafety(bidi, context, baseUrl) {
     securityOptionValue: 'WPA'
   }, 'QR Generator: Turkish UI translation changed a functional select value.');
 
-  await navigateRaw(bidi, context, `${baseUrl}/tools/meta-tags.html`);
+  await navigateRaw(bidi, context, `${baseUrl}/tr/tools/meta-tags.html`);
   const meta = await evaluate(bidi, context, `(() => {
-    window.ToolkitI18n.setLanguage('tr');
     const robots = document.querySelector('#metaRobots');
     robots.value = 'noindex, nofollow';
     robots.dispatchEvent(new Event('change', { bubbles: true }));
@@ -232,9 +234,8 @@ async function assertI18nFormControlSafety(bidi, context, baseUrl) {
   assert.equal(meta.selectedText, 'noindex, nofollow', 'Meta Tag Generator: robots directive label changed unexpectedly.');
   assert(meta.output.includes('content="noindex, nofollow"'), 'Meta Tag Generator: translated directive changed generated markup.');
 
-  await navigateRaw(bidi, context, `${baseUrl}/tools/text-reverser.html`);
+  await navigateRaw(bidi, context, `${baseUrl}/tr/tools/text-reverser.html`);
   const reverser = await evaluate(bidi, context, `(() => {
-    window.ToolkitI18n.setLanguage('tr');
     const radio = document.querySelector('input[name="tr-mode"][value="word"]');
     radio.checked = true;
     const input = document.querySelector('#tr-input');
@@ -251,10 +252,9 @@ async function assertI18nFormControlSafety(bidi, context, baseUrl) {
 
 async function assertGeneratedContentI18nIsolation(bidi, context, baseUrl) {
   async function run(slug, body) {
-    await navigateRaw(bidi, context, `${baseUrl}/tools/${slug}.html`);
+    await navigateRaw(bidi, context, `${baseUrl}/tr/tools/${slug}.html`);
     const result = await evaluate(bidi, context, `(async () => {
       const wait = (milliseconds = 0) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-      window.ToolkitI18n.setLanguage('tr');
       ${body}
     })()`);
     assert.equal(result.ok, true, `${slug}: ${result.message || 'generated content was altered by i18n.'}`);
@@ -391,8 +391,8 @@ async function assertBcryptCompatibility(bidi, context, baseUrl) {
 }
 
 async function assertConventionalCoreTools(bidi, context, baseUrl) {
-  async function run(slug, body) {
-    await navigateRaw(bidi, context, `${baseUrl}/tools/${slug}.html`);
+  async function run(slug, body, language = 'en') {
+    await navigateRaw(bidi, context, `${baseUrl}/${language === 'tr' ? 'tr/' : ''}tools/${slug}.html`);
     const result = await evaluate(bidi, context, `(async () => {
       const wait = (milliseconds = 0) => new Promise((resolve) => setTimeout(resolve, milliseconds));
       ${body}
@@ -534,7 +534,6 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
     }`);
 
   await run('case-converter', `
-    window.ToolkitI18n.setLanguage('tr');
     const input = document.querySelector('#caseInput');
     input.value = 'istanbul ışık. izmir işi';
     input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -549,11 +548,10 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
     const titleIndex = 2;
     const untouched = values[titleIndex].endsWith('Home');
     const safe = !window.__caseConverterXss && !document.querySelector('.case-value img');
-    window.ToolkitI18n.setLanguage('en');
     return {
       ok: casing && untouched && safe,
       message: 'Turkish casing, i18n output isolation, or safe rendering failed.'
-    };`);
+    };`, 'tr');
 
   await run('markdown', `
     window.__markdownXss = false;
@@ -600,7 +598,6 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
     };`);
 
   await run('qr-reader', `
-    window.ToolkitI18n.setLanguage('tr');
     const loadScript = (source) => new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = source;
@@ -608,8 +605,8 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
       script.addEventListener('error', reject, { once: true });
       document.head.appendChild(script);
     });
-    await loadScript('../assets/js/vendor/qrcode-generator.js');
-    await loadScript('../assets/js/vendor/qrcode-generator-utf8.js');
+    await loadScript('/assets/js/vendor/qrcode-generator.js');
+    await loadScript('/assets/js/vendor/qrcode-generator-utf8.js');
     const payload = 'WIFI:T:WPA;S:<img src=x onerror="window.__qrReaderXss=true">;P:secret;H:false;;';
     const code = window.qrcode(0, 'M');
     code.addData(payload, 'Byte');
@@ -643,13 +640,12 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
       ok: !window.__qrReaderXss && !document.querySelector('#qrReaderResult img')
         && values.includes('<img src=x onerror="window.__qrReaderXss=true">'),
       message: 'Decoded QR content was not preserved safely in the result view.'
-    };`);
+    };`, 'tr');
 }
 
 async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
   await bidi.call('browsingContext.setViewport', { context, viewport: { width: 1024, height: 900 }, devicePixelRatio: 1 });
-  await navigateRaw(bidi, context, `${baseUrl}/`);
-  const desktop = await evaluate(bidi, context, `(async () => {
+  const measure = `(async () => {
     for (let attempt = 0; attempt < 50 && !window.ToolkitI18n; attempt += 1) {
       await new Promise((resolve) => setTimeout(resolve, 20));
     }
@@ -665,17 +661,24 @@ async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
         centered: Math.abs((filterRect.width - trackRect.width) / 2 - (trackRect.left - filterRect.left)) <= 1
       };
     };
-    window.ToolkitI18n.setLanguage('en');
-    const english = layout();
-    window.ToolkitI18n.setLanguage('tr');
-    const turkish = layout();
     return {
       noPageOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
-      english,
-      turkish,
+      language: document.documentElement.lang,
+      layout: layout(),
       hasAllCategories: buttons.length === 9
     };
-  })()`);
+  })()`;
+  await navigateRaw(bidi, context, `${baseUrl}/`);
+  const englishPage = await evaluate(bidi, context, measure);
+  await navigateRaw(bidi, context, `${baseUrl}/tr/index.html`);
+  const turkishPage = await evaluate(bidi, context, measure);
+  const desktop = {
+    noPageOverflow: englishPage.noPageOverflow && turkishPage.noPageOverflow,
+    english: englishPage.layout,
+    turkish: turkishPage.layout,
+    hasAllCategories: englishPage.hasAllCategories && turkishPage.hasAllCategories
+  };
+  assert.deepEqual([englishPage.language, turkishPage.language], ['en', 'tr'], 'Homepage: wrong page language.');
   assert.equal(desktop.noPageOverflow, true, 'Homepage: Turkish category filters cause page-level horizontal overflow.');
   assert.equal(desktop.english.singleRow, true, 'Homepage: English category filters wrap onto multiple rows.');
   assert.equal(desktop.english.centered, true, 'Homepage: English category filters are not centered when they fit.');
@@ -781,12 +784,8 @@ async function assertTypingCoreFlow(bidi, context, baseUrl) {
       - Number.parseFloat(shellStyle.paddingBottom);
     const lineHeight = Number.parseFloat(getComputedStyle(stream).lineHeight);
     const compactThreeLines = usableHeight >= lineHeight * 2.8 && usableHeight <= lineHeight * 3.2;
-    const beforeLanguageChange = words().join(' ');
-    window.ToolkitI18n.setLanguage('tr');
-    await wait(40);
-    const afterLanguageChange = words().join(' ');
-    const streamIsolated = beforeLanguageChange === afterLanguageChange
-      && /Home|Copy|Clear|Value|open|close/.test(afterLanguageChange);
+    // Custom words that are also interface keys stay as typed.
+    const streamIsolated = /Home|Copy|Clear|Value|open|close/.test(words().join(' '));
     const englishInputAndLayout = document.querySelector('#tt-input').lang === 'en';
 
     const firstRun = await typeCurrentRun();
@@ -819,7 +818,6 @@ async function assertTypingCoreFlow(bidi, context, baseUrl) {
       && document.querySelector('#tt-clear-records').hidden;
 
     localStorage.removeItem('toolkit-typing-test-settings');
-    window.ToolkitI18n.setLanguage('en');
     return {
       ok: quickStart.category === 'common-1000'
         && quickStart.duration === 'true'
@@ -835,7 +833,7 @@ async function assertTypingCoreFlow(bidi, context, baseUrl) {
         && firstResult.resultsFocused
         && firstResult.accuracy.startsWith('100')
         && firstResult.correct > 0
-        && firstResult.descriptor.includes('6 kelime')
+        && firstResult.descriptor.includes('6 words')
         && firstResult.englishKeyboard
         && firstResult.noStoredRecord
         && recordShapeSafe
@@ -849,7 +847,7 @@ async function assertTypingCoreFlow(bidi, context, baseUrl) {
 }
 
 async function assertTypingTurkishDiacritics(bidi, context, baseUrl) {
-  await navigateRaw(bidi, context, `${baseUrl}/tools/typing-test.html`);
+  await navigateRaw(bidi, context, `${baseUrl}/tr/tools/typing-test.html`);
   const result = await evaluate(bidi, context, `(async () => {
     const wait = (milliseconds = 0) => new Promise((resolve) => setTimeout(resolve, milliseconds));
     const waitFor = async (predicate, message) => {
@@ -875,7 +873,6 @@ async function assertTypingTurkishDiacritics(bidi, context, baseUrl) {
     const language = document.querySelector('#tt-language');
     language.value = 'tr';
     language.dispatchEvent(new Event('change', { bubbles: true }));
-    window.ToolkitI18n.setLanguage('tr');
     document.querySelector('[data-mode="words"]').click();
     document.querySelector('[data-practice="custom"]').click();
     const custom = document.querySelector('#tt-custom-text');
@@ -930,7 +927,6 @@ async function assertTypingTurkishDiacritics(bidi, context, baseUrl) {
     };
     localStorage.removeItem('toolkit-typing-test-settings');
     localStorage.removeItem('toolkit-typing-test-records');
-    window.ToolkitI18n.setLanguage('en');
     return { ok: Object.values(answer).every(Boolean), message: JSON.stringify(answer) };
   })()`);
   assert.equal(result.ok, true, `Typing test Turkish-diacritic flow failed: ${result.message}`);

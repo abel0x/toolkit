@@ -52,7 +52,7 @@ An acknowledgement is targeted within **72 hours** and an initial status update 
 | Content-Security-Policy | Every page allows only same-origin scripts and stylesheets, with no inline scripts or styles (the 404 page's one inline script is allowed by hash). |
 | Careful DOM output | Prefer `textContent` and explicit escaping over rendering untrusted values as HTML. |
 | Same-origin service worker | Cache scope is limited to Toolkit's own origin and path. |
-| Minimal local state | The selected language, optional recent-tool slugs, and tool preferences may be stored locally. Typing-test personal bests are opt-in, aggregate-only, off by default, and user-clearable. Typed input, generated sequences, error text, uploaded files, and full run history are never persisted. |
+| Minimal local state | The selected language, optional recent-tool slugs, and tool preferences may be stored locally; the language redirect keeps one page path in `sessionStorage` for the current tab. Typing-test personal bests are opt-in, aggregate-only, off by default, and user-clearable. Typed input, generated sequences, error text, uploaded files, and full run history are never persisted. |
 | External-link isolation | External links use `rel="noopener"` to avoid opener access. |
 
 ## Acknowledgements

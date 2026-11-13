@@ -7,7 +7,7 @@ Thanks for helping improve Toolkit. The project is deliberately small at runtime
 - Write code, comments, commit messages, and documentation in **English**.
 - Keep every tool **client-side**. Do not add APIs, telemetry, trackers, remote processors, or runtime CDN dependencies.
 - Keep every tool usable after the offline cache has been installed. Use browser APIs, self-hosted assets, and progressive enhancement.
-- Do not store tool input or results. The permitted persistent UI state is the selected language, optional recent-tool slugs, and tool preferences. An explicit exception applies only to opt-in, off-by-default aggregate personal-best scores: they must never contain input text, generated sequences, or error text, must be stored only on the current device, and must have a visible user-clearable control.
+- Do not store tool input or results. The permitted persistent UI state is the selected language, optional recent-tool slugs, and tool preferences (plus the per-tab redirect loop guard in `sessionStorage`, which holds one page path). An explicit exception applies only to opt-in, off-by-default aggregate personal-best scores: they must never contain input text, generated sequences, or error text, must be stored only on the current device, and must have a visible user-clearable control.
 - Avoid duplicate tools. Extend an existing tool when the use case and output meaning overlap.
 - Treat English as the source locale and provide polished Turkish text for every new visible label, placeholder, description, status, error, and generated message.
 
@@ -68,12 +68,11 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 
 ### 3. Create the page and module
 
-Tool pages use the shared stylesheet modules and load shared scripts in this order at the end of `<body>`:
+Tool pages use the shared stylesheet modules and load shared scripts in this order at the end of `<body>`. Do not add the Turkish dictionaries (`i18n-tr.js`, `i18n-expansion.js`) or `language-redirect.js` yourself: `build.py --turkish` adds the dictionaries to the `tr/` copy and the redirect script to the English page's `<head>`.
 
 ```html
 <script src="../assets/js/core/utils.js" defer></script>
 <script src="../assets/js/core/nav.js" defer></script>
-<script src="../assets/js/core/i18n-expansion.js" defer></script>
 <script src="../assets/js/core/i18n.js" defer></script>
 <script src="../assets/js/core/tools-data.js" defer></script>
 <script src="../assets/js/core/extra-tools-data.js" defer></script>
@@ -94,7 +93,7 @@ Keep a conventional tool module isolated and strict:
 
 ### 4. Add localisation as part of the feature
 
-Visible English copy is the i18n source key. Add the matching Turkish value to `assets/js/core/i18n.js` for shared UI text or `assets/js/core/i18n-expansion.js` for tool-page and expansion copy. Use `ToolkitI18n.t(key, values)` for dynamic strings; do not concatenate language-dependent fragments.
+Visible English copy is the i18n source key. Add the matching Turkish value to `assets/js/core/i18n-tr.js` for shared UI text (strings with numbers or variable parts get a rule in its `translatePattern`) or `assets/js/core/i18n-expansion.js` for tool-page and expansion copy. Use `ToolkitI18n.t(key, values)` for dynamic strings; do not concatenate language-dependent fragments.
 
 Verify all of the following in both English and Turkish:
 

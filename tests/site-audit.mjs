@@ -66,10 +66,23 @@ for (const file of pages) {
   assert(html.includes(`src="${prefix}assets/images/favicon-64.png"`),
     `${relativeName} does not use the new navigation logo.`);
 
+  // English pages ship no Turkish dictionary; only 404.html, which has no
+  // Turkish twin, translates in place and needs both dictionaries first.
+  const dictionaryIndex = html.indexOf(`${prefix}assets/js/core/i18n-tr.js`);
   const extensionIndex = html.indexOf(`${prefix}assets/js/core/i18n-expansion.js`);
   const runtimeIndex = html.indexOf(`${prefix}assets/js/core/i18n.js`);
-  assert(extensionIndex !== -1 && runtimeIndex !== -1 && extensionIndex < runtimeIndex,
-    `${relativeName} has an invalid i18n script order.`);
+  const redirect = `<script src="${prefix}assets/js/core/language-redirect.js"></script>`;
+  assert(runtimeIndex !== -1, `${relativeName} does not load the i18n runtime.`);
+  if (relativeName === '404.html') {
+    assert(dictionaryIndex !== -1 && dictionaryIndex < extensionIndex && extensionIndex < runtimeIndex,
+      `${relativeName} must load i18n-tr.js, then i18n-expansion.js, before i18n.js.`);
+    assert(!html.includes('language-redirect.js'), `${relativeName} has no Turkish twin to redirect to.`);
+  } else {
+    assert(dictionaryIndex === -1 && extensionIndex === -1,
+      `${relativeName} must not download the Turkish dictionaries; its /tr/ twin carries them.`);
+    assert(html.indexOf(redirect) !== -1 && html.indexOf(redirect) < html.indexOf('</head>'),
+      `${relativeName} must load language-redirect.js synchronously in <head>.`);
+  }
 
   const policy = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/);
   assert(policy, `${relativeName} misses the Content-Security-Policy meta tag.`);
@@ -153,8 +166,10 @@ for (const asset of [
   'assets/css/features/expansion-tools.css',
   'assets/css/features/typing-test.css',
   'assets/js/core/example-starters.js',
+  'assets/js/core/i18n-tr.js',
   'assets/js/core/i18n-expansion.js',
-  'assets/js/core/i18n.js'
+  'assets/js/core/i18n.js',
+  'assets/js/core/language-redirect.js'
 ]) {
   assert(existsSync(join(root, asset)), `Missing required asset: ${asset}`);
 }
@@ -205,7 +220,9 @@ for (const asset of [
   'license/',
   'license/index.html',
   'assets/js/core/example-starters.js',
-  'assets/js/core/i18n-expansion.js'
+  'assets/js/core/i18n-tr.js',
+  'assets/js/core/i18n-expansion.js',
+  'assets/js/core/language-redirect.js'
 ]) {
   assert(serviceWorker.includes(`'${asset}'`), `Service worker does not precache ${asset}.`);
 }
@@ -315,7 +332,7 @@ const markdownHtml = readFileSync(join(toolsDirectory, 'markdown.html'), 'utf8')
 assert(markdownHtml.includes('id="mdPreview"') && /id="mdPreview"[^>]*data-i18n-skip/.test(markdownHtml),
   'Markdown Previewer output must be isolated from DOM translation.');
 
-const i18nCore = readFileSync(join(root, 'assets/js/core/i18n.js'), 'utf8');
+const i18nCore = readFileSync(join(root, 'assets/js/core/i18n-tr.js'), 'utf8');
 const i18nExpansion = readFileSync(join(root, 'assets/js/core/i18n-expansion.js'), 'utf8');
 for (const source of [
   'Generate SHA family digests from any text input using the Web Crypto API.',

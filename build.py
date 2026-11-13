@@ -288,7 +288,6 @@ def _expansion_page(tool):
   </footer>
   <script src="../assets/js/core/utils.js" defer></script>
   <script src="../assets/js/core/nav.js" defer></script>
-  <script src="../assets/js/core/i18n-expansion.js" defer></script>
   <script src="../assets/js/core/i18n.js" defer></script>
   <script src="../assets/js/core/tools-data.js" defer></script>
   <script src="../assets/js/core/extra-tools-data.js" defer></script>
@@ -643,11 +642,17 @@ def run_page_metadata():
 # Every English page gets a generated twin under tr/. The twin ships a
 # Turkish body (see _walk_body below), Turkish <title>, description, Open
 # Graph and canonical tags, plus reciprocal hreflang links; data-page-language
-# keeps the i18n runtime in Turkish for text that scripts add later. Asset
-# references gain one '../' so they still point at the shared files, while
-# links between pages stay inside the Turkish tree.
+# keeps the i18n runtime in Turkish for text that scripts add later. Only the
+# twin loads the Turkish dictionaries (i18n-tr.js, i18n-expansion.js); the
+# English page loads language-redirect.js instead. Asset references gain one
+# '../' so they still point at the shared files, while links between pages
+# stay inside the Turkish tree.
 
 _ALTERNATE_LINKS = re.compile(r'\n[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" />')
+# English pages send a visitor who chose Turkish to the twin before painting.
+_REDIRECT_SCRIPT = re.compile(r'\n[ \t]*<script src="[./]*assets/js/core/language-redirect\.js"></script>')
+# The Turkish dictionaries load on tr/ pages only, right before the runtime.
+_I18N_RUNTIME = re.compile(r'([ \t]*)<script src="([./]*)assets/js/core/i18n\.js" defer></script>')
 _HTML_REFERENCE = re.compile(r'(\b(?:href|src)=)(["\'])([^"\']*)\2')
 
 
@@ -665,14 +670,16 @@ def _page_location(relative):
 def _alternate_links(relative):
     english = html_lib.escape(SITE_BASE + _page_location(relative))
     turkish = html_lib.escape(SITE_BASE + TR_PREFIX + _page_location(relative))
+    prefix = '../' * relative.count('/')
     return (f'<link rel="alternate" hreflang="en" href="{english}" />\n'
             f'  <link rel="alternate" hreflang="tr" href="{turkish}" />\n'
-            f'  <link rel="alternate" hreflang="x-default" href="{english}" />')
+            f'  <link rel="alternate" hreflang="x-default" href="{english}" />\n'
+            f'  <script src="{prefix}assets/js/core/language-redirect.js"></script>')
 
 
 def _with_alternates(html, relative):
-    """Place the hreflang block right after the canonical link."""
-    html = _ALTERNATE_LINKS.sub('', html)
+    """Place the hreflang block and the redirect script right after the canonical link."""
+    html = _REDIRECT_SCRIPT.sub('', _ALTERNATE_LINKS.sub('', html))
     html, count = re.subn(r'(<link rel="canonical" href="[^"]*" />)',
                           lambda match: f'{match.group(1)}\n  {_alternate_links(relative)}',
                           html, count=1)
@@ -898,6 +905,14 @@ def _turkish_page(relative, english_html, entry, localized):
     ):
         page = _replace_once(page, pattern, value, relative, required=False)
     page = _with_page_metadata(page, relative, 'tr', title, description)
+    page = _REDIRECT_SCRIPT.sub('', page)
+    page, count = _I18N_RUNTIME.subn(
+        lambda match: (f'{match.group(1)}<script src="{match.group(2)}assets/js/core/i18n-tr.js" defer></script>\n'
+                       f'{match.group(1)}<script src="{match.group(2)}assets/js/core/i18n-expansion.js" defer></script>\n'
+                       f'{match.group(0)}'),
+        page)
+    if count != 1:
+        raise SystemExit(f'{relative} must load assets/js/core/i18n.js exactly once.')
     page = _HTML_REFERENCE.sub(
         lambda match: f'{match.group(1)}{match.group(2)}'
                       f'{_turkish_reference(match.group(3), relative, localized)}{match.group(2)}',

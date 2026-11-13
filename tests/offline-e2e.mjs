@@ -322,8 +322,9 @@ async function main() {
     assert(fallback.title.includes('Page Not Found'), 'An uncached offline route did not fall back to 404.html.');
     assert(fallback.heading, 'The offline 404 fallback did not render its heading.');
 
-    // A visited Turkish page comes from the cache; an unvisited one redirects
-    // to its precached English twin, still rendered in Turkish.
+    // A visited Turkish page comes from the cache. An unvisited one redirects
+    // to its precached English twin; language-redirect.js sends it back to
+    // /tr/ once, then its loop guard keeps the English page in English.
     await navigate(bidi, tab.context, `${baseUrl}/tr/tools/base64.html`);
     const turkishCached = await evaluate(bidi, tab.context, `(() => ({
       path: location.pathname,
@@ -332,18 +333,34 @@ async function main() {
     assert.equal(turkishCached.path, '/toolkit/tr/tools/base64.html', 'A visited Turkish page did not open offline.');
     assert.equal(turkishCached.heading, 'Base64 Kodlama / Kod Çözme', 'A visited Turkish page lost its translation offline.');
     await navigate(bidi, tab.context, `${baseUrl}/tr/tools/hash.html`);
-    const turkishTwin = await evaluate(bidi, tab.context, `(async () => {
-      for (let attempt = 0; attempt < 200 && document.documentElement.lang !== 'tr'; attempt += 1) {
-        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+    const settledTwin = async () => {
+      let previous = null;
+      for (let attempt = 0; attempt < 200; attempt += 1) {
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 50));
+        let state;
+        try {
+          state = await evaluate(bidi, tab.context, `(() => ({
+            path: location.pathname,
+            ready: document.readyState === 'complete' && Boolean(window.ToolkitI18n),
+            lang: document.documentElement.lang,
+            stored: localStorage.getItem('toolkit-language'),
+            guard: sessionStorage.getItem('toolkit-language-redirect'),
+            background: getComputedStyle(document.body).backgroundColor
+          }))()`);
+        } catch {
+          previous = null;
+          continue;
+        }
+        if (state.ready && previous && previous.path === state.path) return state;
+        previous = state.ready ? state : null;
       }
-      return {
-        path: location.pathname,
-        lang: document.documentElement.lang,
-        background: getComputedStyle(document.body).backgroundColor
-      };
-    })()`);
+      throw new Error('The offline Turkish fallback never settled on one page.');
+    };
+    const turkishTwin = await settledTwin();
     assert.equal(turkishTwin.path, '/toolkit/tools/hash.html', 'An unvisited Turkish page did not fall back to its English twin offline.');
-    assert.equal(turkishTwin.lang, 'tr', 'The offline English twin ignored the saved Turkish preference.');
+    assert.equal(turkishTwin.lang, 'en', 'The offline English twin should render in English; it has no Turkish dictionary.');
+    assert.equal(turkishTwin.stored, 'tr', 'The offline fallback overwrote the saved Turkish preference.');
+    assert.equal(turkishTwin.guard, null, 'The redirect loop guard was not cleared after it stopped the loop.');
     assert.notEqual(turkishTwin.background, 'rgba(0, 0, 0, 0)', 'The offline English twin rendered without its stylesheets.');
 
 

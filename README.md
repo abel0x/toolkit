@@ -24,7 +24,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 - Tool input stays on your device. It is processed with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
 - After the first successful load the service worker has cached the site, so the tools keep working without a network connection.
 - <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page.
-- The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser.
+- The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser: a visitor who chose Turkish and opens an English address is sent to its Turkish page. English pages do not download the Turkish dictionaries.
 - There are no accounts, no backend, no analytics, and no stored tool input.
 
 > A small amount of interface state can be stored locally: the selected language, optional recent-tool slugs, and typing-test preferences. Typing-test personal bests are opt-in, aggregate-only, and user-clearable; tool input, typed text, generated results, and uploaded files are not persisted by Toolkit.
@@ -198,7 +198,7 @@ node tests/turkish-pages-e2e.mjs
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
-# Smoke-test all 101 tool pages in Firefox across desktop and mobile layouts, including Turkish switching, accessible control names, and example starters.
+# Smoke-test all 101 tool pages in Firefox across desktop and mobile layouts, including the language menu, English pages free of Turkish dictionaries, accessible control names, and example starters.
 node tests/tool-pages-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
@@ -247,9 +247,9 @@ toolkit/
 
 ### Localisation model
 
-English source text lives in the HTML and JavaScript source. `assets/js/core/i18n.js` supplies the runtime and shared translations; `assets/js/core/i18n-expansion.js` contains the larger Turkish catalogue for tool pages and expansion controls. New visible copy must have a Turkish translation before it is merged. The selected language is read from and written to `localStorage` when a user changes it or opens a `/tr/` page.
+English source text lives in the HTML and JavaScript source. `assets/js/core/i18n.js` is the runtime; `assets/js/core/i18n-tr.js` holds the shared Turkish translations and the rules for strings with numbers, and `assets/js/core/i18n-expansion.js` the larger Turkish catalogue for tool pages and expansion controls. Only the `/tr/` pages and `404.html` (which has no Turkish twin and translates in place) load the two dictionaries; English pages load `language-redirect.js` in `<head>` instead, which sends a visitor who chose Turkish to the `/tr/` page before anything is drawn. New visible copy must have a Turkish translation before it is merged. The selected language is read from and written to `localStorage` when a user changes it or opens a `/tr/` page. The redirect keeps one path in `sessionStorage` for that tab, so that offline, when the service worker can only offer the English twin of an unvisited `/tr/` page, it does not bounce back and forth.
 
-`build.py --turkish` (part of `--all`) generates `tr/` from the English pages. Each copy ships its body already in Turkish: the build translates the visible text and the `aria-label`, `title` and `placeholder` attributes with the same `i18n.js` dictionaries and rules the browser uses (through `_scripts/translate.mjs`, so Node.js is needed to build), and the page declares `data-page-language="tr"` so text that scripts add later is translated too. It gets its Turkish `<title>`, description, Open Graph and canonical tags from `_data/seo-tr.json`. Both copies carry reciprocal `hreflang` links (`x-default` is English), and `sitemap.xml` lists both with their alternates. Never edit `tr/` by hand.
+`build.py --turkish` (part of `--all`) generates `tr/` from the English pages. Each copy ships its body already in Turkish: the build translates the visible text and the `aria-label`, `title` and `placeholder` attributes with the same dictionaries and rules the browser uses (through `_scripts/translate.mjs`, so Node.js is needed to build), and the page declares `data-page-language="tr"` so text that scripts add later is translated too. The build also adds the two dictionary scripts to the copy and the redirect script to the English page. It gets its Turkish `<title>`, description, Open Graph and canonical tags from `_data/seo-tr.json`. Both copies carry reciprocal `hreflang` links (`x-default` is English), and `sitemap.xml` lists both with their alternates. Never edit `tr/` by hand.
 
 ## Contributing
 

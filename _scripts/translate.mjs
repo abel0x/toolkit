@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /*
  * Build helper for `build.py --turkish`: translates English UI strings with
- * the same runtime the browser uses (assets/js/core/i18n.js plus
- * i18n-expansion.js), so the static Turkish pages and the live translator
+ * the same runtime the browser uses (assets/js/core/i18n.js with
+ * i18n-tr.js and i18n-expansion.js), so the static Turkish pages and the live translator
  * never disagree.
  *
  * stdin:  a JSON array of English keys
@@ -39,8 +39,12 @@ const context = {
 };
 context.window = context;
 vm.createContext(context);
-for (const name of ['i18n-expansion.js', 'i18n.js']) {
+for (const name of ['i18n-tr.js', 'i18n-expansion.js', 'i18n.js']) {
   vm.runInContext(readFileSync(join(core, name), 'utf8'), context, { filename: name });
+}
+if (!context.TOOLKIT_I18N_TR || !context.TOOLKIT_I18N_EXTRA || context.ToolkitI18n.getLanguage() !== 'tr') {
+  process.stderr.write('The Turkish dictionaries did not load, so nothing could be translated.\n');
+  process.exit(1);
 }
 const { t } = context.ToolkitI18n;
 

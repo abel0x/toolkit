@@ -9,13 +9,15 @@ import vm from 'node:vm';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const corePath = join(root, 'assets/js/core/i18n.js');
+const turkishPath = join(root, 'assets/js/core/i18n-tr.js');
 const expansionPath = join(root, 'assets/js/core/i18n-expansion.js');
 const coreSource = readFileSync(corePath, 'utf8');
+const turkishSource = readFileSync(turkishPath, 'utf8');
 const expansionSource = readFileSync(expansionPath, 'utf8');
-const coreDictionaryStart = coreSource.indexOf('  const translations = {');
-const coreDictionaryEnd = coreSource.indexOf('\n\n  function readLanguage()', coreDictionaryStart);
+const coreDictionaryStart = turkishSource.indexOf('  const strings = Object.freeze({');
+const coreDictionaryEnd = turkishSource.indexOf('\n  });', coreDictionaryStart);
 assert(coreDictionaryStart !== -1 && coreDictionaryEnd !== -1, 'Could not locate the core Turkish dictionary.');
-const coreDictionarySource = coreSource.slice(coreDictionaryStart, coreDictionaryEnd);
+const coreDictionarySource = turkishSource.slice(coreDictionaryStart, coreDictionaryEnd);
 
 class FakeElement {
   constructor(tagName = 'div', attributes = {}) {
@@ -99,6 +101,7 @@ function createRuntime() {
     }
   };
   vm.createContext(context);
+  vm.runInContext(turkishSource, context, { filename: turkishPath });
   vm.runInContext(expansionSource, context, { filename: expansionPath });
   vm.runInContext(coreSource, context, { filename: corePath });
   return { context, runtime: window.ToolkitI18n };
@@ -116,12 +119,6 @@ function findDuplicateSourceKeys(source) {
   return [...seen.entries()].filter(([, linesForKey]) => linesForKey.length > 1);
 }
 
-function loadCoreDictionary(context) {
-  const declaration = coreDictionarySource
-    .replace(/^  const translations = /, 'window.__coreTranslations = ');
-  vm.runInContext(declaration, context, { filename: corePath });
-  return context.window.__coreTranslations.tr;
-}
 
 const { context, runtime } = createRuntime();
 assert(runtime, 'The i18n runtime did not initialise.');
@@ -132,7 +129,7 @@ assert.deepEqual(duplicateExpansionKeys, [], 'The expansion Turkish dictionary h
 const duplicateCoreKeys = findDuplicateSourceKeys(coreDictionarySource);
 assert.deepEqual(duplicateCoreKeys, [], 'The core Turkish dictionary has duplicate source keys.');
 
-const coreDictionary = loadCoreDictionary(context);
+const coreDictionary = context.window.TOOLKIT_I18N_TR.strings;
 const expansionDictionary = context.window.TOOLKIT_I18N_EXTRA.tr;
 const overlappingKeys = Object.keys(coreDictionary).filter((key) => Object.hasOwn(expansionDictionary, key));
 assert.deepEqual(overlappingKeys, [], 'Core and expansion dictionaries must not shadow each other.');

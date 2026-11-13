@@ -69,6 +69,20 @@ await withFirefox(async (page) => {
   await settle('/tr/tools/base64.html');
   assert.equal((await inspect()).lang, 'tr', 'Switching back to Turkish did not open the Turkish page.');
 
+  // A saved Turkish preference sends an English URL straight to its twin,
+  // replacing the history entry, and the arrival clears the loop guard.
+  await page.navigate('/tools/hash.html?q=1#top');
+  await settle('/tr/tools/hash.html');
+  const redirected = await page.evaluate(() => ({
+    lang: document.documentElement.lang,
+    search: location.search,
+    hash: location.hash,
+    guard: sessionStorage.getItem('toolkit-language-redirect'),
+    dictionaries: Boolean(window.TOOLKIT_I18N_TR && window.TOOLKIT_I18N_EXTRA)
+  }));
+  assert.deepEqual(redirected, { lang: 'tr', search: '?q=1', hash: '#top', guard: null, dictionaries: true },
+    'An English page did not redirect a Turkish visitor to the Turkish page.');
+
   // Root-relative runtime resources: the typing test still finds the shared word lists.
   await page.navigate('/tr/tools/typing-test.html');
   const typing = await page.evaluate(async () => {
@@ -162,4 +176,4 @@ await withFirefox(async (page) => {
 });
 
 console.log('Turkish pages E2E passed: static Turkish copy matching the runtime, forced Turkish rendering, shared assets, '
-  + 'Turkish internal links, URL-based language switching, working tool scripts and word lists.');
+  + 'Turkish internal links, URL-based language switching, the Turkish-preference redirect, working tool scripts and word lists.');
