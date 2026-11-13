@@ -44,7 +44,11 @@ The live site is the complete, searchable catalogue of all 101 tools. The curren
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.3.1
+### Latest release — 1.4.0
+
+The [`/tr/`](https://abel0x.github.io/toolkit/tr/) pages now arrive in Turkish, so search engines that do not run JavaScript, link previews and the first paint see Turkish instead of English that was translated after loading. English pages no longer download the Turkish dictionaries, about 142 KB of JavaScript (45 KB compressed) less per page. A visitor who chose Turkish and opens an English address goes straight to its Turkish page.
+
+### 1.3.1
 
 Links to Toolkit now show a large preview card (English or Turkish, by page language) when shared on social networks and messaging apps, and every page describes itself to search engines with JSON-LD structured data: the site, each tool as a free web application with a breadcrumb, and the license page.
 
