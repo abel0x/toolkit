@@ -4,10 +4,10 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Error": "Hata",
     "Converted to JSON!": "JSON’a dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter YAML.": "Lütfen YAML girin.",
-    "Unsupported or invalid YAML. Use nested mappings, lists, quoted strings, booleans, numbers or null; flow collections must use JSON syntax.": "Desteklenmeyen veya geçersiz YAML. İç içe anahtar-değer çiftleri, listeler, tırnaklı metinler, mantıksal değerler, sayılar veya null kullanın; satır içi koleksiyonlar JSON sözdiziminde olmalıdır."
+    "Unsupported or invalid YAML. Use nested mappings, lists, quoted strings, booleans, numbers or null; flow collections must use JSON syntax.": "Desteklenmeyen veya geçersiz YAML. İç içe anahtar-değer çiftleri, listeler, tırnaklı metinler, mantıksal değerler, sayılar veya null kullanın; satır içi koleksiyonlar JSON sözdiziminde olmalıdır.",
+    "raw": "ham"
   }))
 });

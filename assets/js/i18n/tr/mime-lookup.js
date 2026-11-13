@@ -5,9 +5,11 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Please enter a value to look up.": "Sorgulamak için bir değer girin.",
+    "Lookup": "Ara",
     "image/jpeg": "resim/jpeg",
     "image/webp": "resim/webp",
     "image/png": "resim/png",
-    "Mode": "Mod"
+    "Mode": "Mod",
+    "video": "video"
   }))
 });

@@ -7,6 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid": "Geçersiz",
     "JSON minified!": "JSON küçültüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter JSON to minify.": "Küçültmek için JSON girin."
+    "Please enter JSON to minify.": "Küçültmek için JSON girin.",
+    "raw": "ham"
   }))
 });

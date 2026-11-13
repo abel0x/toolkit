@@ -49,6 +49,30 @@ await withFirefox(async (page) => {
   });
   assert(paletteMatches.some((text) => text.includes('SVG İyileştirici')), 'Turkish palette search missed "SVG İyileştirici".');
 
+  // Tool pages leave the catalogue out until the finder opens, then list every tool.
+  await open('/tools/hash.html');
+  assert.equal(await page.evaluate(() => typeof TOOLS_DATA), 'undefined', 'Tool pages should not load the tool catalogue up front.');
+  const lazyPalette = await page.evaluate(async () => {
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
+    const input = document.querySelector('.command-palette input');
+    for (let tries = 0; tries < 50 && !document.querySelector('.command-palette [role="option"]'); tries += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    const recent = [...document.querySelectorAll('.command-palette [role="option"] strong')].map((name) => name.textContent);
+    input.value = 'yaml';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    return {
+      count: TOOLS_DATA.length,
+      recent,
+      subtitle: document.querySelector('.command-palette__header p').textContent,
+      matches: [...document.querySelectorAll('.command-palette [role="option"] strong')].map((name) => name.textContent)
+    };
+  });
+  assert.equal(lazyPalette.subtitle, `Search all ${lazyPalette.count} utilities`);
+  assert.equal(lazyPalette.recent[0], 'Hash Generator', 'The current tool was not remembered as the most recent one.');
+  assert(lazyPalette.matches.includes('YAML to JSON'), `Lazy palette search missed "YAML to JSON": ${lazyPalette.matches}`);
+  await page.evaluate(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })));
+
   // Case-insensitive de-duplication folds İ and i together.
   await open('/tools/deduplicate-lines.html', 'tr');
   const deduplicated = await page.evaluate(() => {

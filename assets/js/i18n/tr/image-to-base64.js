@@ -5,8 +5,12 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
+    "Preview": "Önizle",
     "Width": "Genişlik",
     "Height": "Yükseklik",
-    "Please select an image file": "Lütfen bir görüntü dosyası seçin"
+    "Reader": "Okuyucu",
+    "Please select an image file": "Lütfen bir görüntü dosyası seçin",
+    "File": "Dosya",
+    "raw": "ham"
   }))
 });

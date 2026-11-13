@@ -12,6 +12,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Nothing to download": "İndirilecek bir şey yok",
     "Nothing to download.": "İndirilecek bir şey yok.",
     "Please enter JSON.": "Lütfen JSON girin.",
+    "raw": "ham",
     ".csv": ".csv"
   }))
 });

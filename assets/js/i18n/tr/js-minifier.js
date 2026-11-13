@@ -4,7 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Error": "Hata",
     "JS minified (basic)!": "JS küçültüldü (temel)!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter JavaScript.": "Lütfen JavaScript girin."

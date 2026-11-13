@@ -7,6 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid": "Geçersiz",
     "Converted to YAML!": "YAML’ye dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter JSON.": "Lütfen JSON girin."
+    "Please enter JSON.": "Lütfen JSON girin.",
+    "raw": "ham"
   }))
 });

@@ -4,11 +4,13 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Error": "Hata",
     "From": "Başlangıç",
+    "Formatter": "Biçimlendirici",
+    "Parser": "Ayrıştırıcı",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter XML.": "Lütfen XML girin.",
     "XML formatted!": "XML biçimlendirildi!",
-    "XML minified!": "XML küçültüldü!"
+    "XML minified!": "XML küçültüldü!",
+    "raw": "ham"
   }))
 });

@@ -5,6 +5,7 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
+    "Remove": "Kaldır",
     "Path segment": "Yol bölümü",
     "URL parameter name": "URL parametre adı",
     "URL parameter value": "URL parametre değeri"

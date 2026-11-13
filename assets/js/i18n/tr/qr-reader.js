@@ -4,13 +4,17 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Password": "Parola",
     "Width": "Genişlik",
     "Height": "Yükseklik",
     "Yes": "Evet",
+    "Reader": "Okuyucu",
     "Image is too large (max 10MB)": "Görüntü çok büyük (en fazla 10 MB)",
     "Please upload a valid image file": "Lütfen geçerli bir görüntü dosyası yükleyin",
     "QR code decoded!": "QR kodu çözüldü!",
     "QR reader library not loaded yet": "QR okuyucu kitaplığı henüz yüklenmedi",
+    "File": "Dosya",
+    "raw": "ham",
     "wifi": "Wi-Fi",
     "No QR code detected in this image. Ensure the QR code is clear, well-lit, and not distorted.": "Bu görselde QR kod algılanamadı. QR kodun net, iyi aydınlatılmış ve bozulmamış olduğundan emin olun.",
     "Copy decoded content": "Çözülmüş içeriği kopyala",

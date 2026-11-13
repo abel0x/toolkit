@@ -4,6 +4,7 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Generator": "Oluşturucu",
     "Please enter some text to hash": "Hash oluşturmak için metin girin",
     "Generating…": "Oluşturuluyor…"
   }))

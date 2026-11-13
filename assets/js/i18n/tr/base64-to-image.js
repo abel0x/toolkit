@@ -4,11 +4,13 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Preview": "Önizle",
     "Download": "İndir",
     "Width": "Genişlik",
     "Height": "Yükseklik",
     "Invalid": "Geçersiz",
     "Invalid Base64 image data": "Geçersiz Base64 görüntü verisi",
-    "image/png": "resim/png"
+    "image/png": "resim/png",
+    "raw": "ham"
   }))
 });

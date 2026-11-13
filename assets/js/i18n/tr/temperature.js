@@ -5,6 +5,7 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "From": "Başlangıç",
+    "raw": "ham",
     "Reference": "Referans",
     "Absolute Zero": "Mutlak Sıfır",
     "Water Freezing": "Suyun Donma Noktası",

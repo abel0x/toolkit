@@ -287,8 +287,6 @@ def _expansion_page(tool):
   <script src="../assets/js/core/utils.js" defer></script>
   <script src="../assets/js/core/nav.js" defer></script>
   <script src="../assets/js/core/i18n.js" defer></script>
-  <script src="../assets/js/core/tools-data.js" defer></script>
-  <script src="../assets/js/core/extra-tools-data.js" defer></script>
   <script src="../assets/js/core/command-palette.js" defer></script>
   <script src="../assets/js/tools/expansion-tools.js" defer></script>
 {example_script}</body>
@@ -483,6 +481,8 @@ def run_tool_count():
         revised = re.sub(r'Search \d+ tools…', f'Search {count} tools…', revised)
         revised = re.sub(r'Browse \d+ Tools', f'Browse {count} Tools', revised)
         revised = re.sub(r'\b\d+ free developer utilities', f'{count} free developer utilities', revised)
+        revised = re.sub(r'\b\d+ Free Developer Tools in Your Browser',
+                         f'{count} Free Developer Tools in Your Browser', revised)
         revised = re.sub(r'\b\d+ tools for encoding, security', f'{count} tools for encoding, security', revised)
         revised = re.sub(r'(All <span class="gradient-text">)\d+( Tools</span>)', rf'\g<1>{count}\2', revised)
         revised = re.sub(r'(<span class="stat-num" id="toolCountStat">)\d+(</span>)', rf'\g<1>{count}\2', revised)
@@ -658,6 +658,10 @@ _PACK_DIR = os.path.join(ROOT, 'assets', 'js', 'i18n', 'tr')
 _PACK_URL = 'assets/js/i18n/tr/'
 # Scripts that never ask for Turkish strings themselves.
 _NOT_TRANSLATED_SCRIPTS = ('assets/js/core/i18n-', 'assets/js/core/language-redirect.js', 'assets/js/vendor/')
+# The tool catalogue is one pack of its own: the home page loads it with the
+# data, and command-palette.js fetches both on other pages when the finder opens.
+_CATALOGUE_SCRIPTS = ('assets/js/core/tools-data.js', 'assets/js/core/extra-tools-data.js')
+_CATALOGUE_PACK = 'catalogue'
 # Data a module turns into interface text at run time.
 _MODULE_DATA = {'typing-test': ('words/manifest.json',)}
 _PATTERN_SOURCE = re.compile(r'\n  // TRANSLATE-PATTERN:START\n(.*?\n)  // TRANSLATE-PATTERN:END\n', re.DOTALL)
@@ -903,8 +907,16 @@ def _page_scripts(html):
     for path in _PAGE_SCRIPT.findall(html):
         if path.startswith(_NOT_TRANSLATED_SCRIPTS):
             continue
-        (core if path.startswith('assets/js/core/') else modules).append(path)
+        is_core = path.startswith('assets/js/core/') and path not in _CATALOGUE_SCRIPTS
+        (core if is_core else modules).append(path)
     return core, modules
+
+
+def _pack_name(path):
+    """Name the Turkish pack that serves one page module."""
+    if path in _CATALOGUE_SCRIPTS:
+        return _CATALOGUE_PACK
+    return os.path.splitext(os.path.basename(path))[0]
 
 
 def _pack_literal(entries, indent):
@@ -920,7 +932,8 @@ def _turkish_packs(english_pages):
     scripts can produce later. _scripts/translate.mjs picks the dictionary
     entries whose English key appears as a string in those scripts: one
     shared pack for the core scripts every page loads, plus one small pack
-    per page module (tools/*.js, pages/*.js) for the rest. The pack replaces
+    per page module (tools/*.js, pages/*.js) and one for the tool catalogue
+    (see _CATALOGUE_SCRIPTS) for the rest. The pack replaces
     i18n-tr.js and i18n-expansion.js, which only 404.html loads whole.
     """
     core_scripts, module_scripts = set(), set()
@@ -930,14 +943,14 @@ def _turkish_packs(english_pages):
         core_scripts.update(core)
         module_scripts.update(modules)
         page_modules[relative] = modules
-    name = lambda path: os.path.splitext(os.path.basename(path))[0]
     shared_source = '\n'.join(_read(os.path.join(ROOT, *path.split('/'))) for path in sorted(core_scripts))
     module_sources = {}
     for path in sorted(module_scripts):
         source = _read(os.path.join(ROOT, *path.split('/')))
-        for data in _MODULE_DATA.get(name(path), ()):
+        for data in _MODULE_DATA.get(_pack_name(path), ()):
             source += '\n' + _read(os.path.join(ROOT, *data.split('/')))
-        module_sources[name(path)] = source
+        name = _pack_name(path)
+        module_sources[name] = module_sources[name] + '\n' + source if name in module_sources else source
     packs = _run_translator({'shared': shared_source, 'modules': module_sources}, '--packs')
 
     pattern = _PATTERN_SOURCE.search(_read(os.path.join(CORE_JS_DIR, 'i18n-tr.js')))
@@ -961,6 +974,9 @@ def _turkish_packs(english_pages):
                 '  tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {\n'
                 f"{_pack_literal(entries, '    ')}\n"
                 '  }))\n});\n')
+    if f'{_CATALOGUE_PACK}.js' not in files:
+        raise SystemExit('No page loads the tool catalogue, so assets/js/i18n/tr/catalogue.js, '
+                         'which command-palette.js fetches, would be missing.')
     if _PENDING is None:
         os.makedirs(_PACK_DIR, exist_ok=True)
     for filename, source in files.items():
@@ -971,9 +987,12 @@ def _turkish_packs(english_pages):
         for filename in os.listdir(_PACK_DIR):
             if filename not in files:
                 _remove(os.path.join(_PACK_DIR, filename))
-    return {relative: [_PACK_URL + 'shared.js'] + [_PACK_URL + f'{name(path)}.js' for path in modules
-                                                   if f'{name(path)}.js' in files]
-            for relative, modules in page_modules.items()}
+    page_packs = {}
+    for relative, modules in page_modules.items():
+        names = dict.fromkeys(_pack_name(path) for path in modules)
+        page_packs[relative] = [_PACK_URL + 'shared.js'] + [_PACK_URL + f'{name}.js' for name in names
+                                                            if f'{name}.js' in files]
+    return page_packs
 
 
 def _turkish_page(relative, english_html, entry, localized, packs):

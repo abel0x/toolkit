@@ -5,11 +5,14 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
-    "Error": "Hata",
+    "Minify": "Küçült",
+    "Validate": "Doğrula",
+    "Formatter": "Biçimlendirici",
     "✓ Valid JSON": "✓ Geçerli JSON",
     "✕ Invalid JSON": "✕ Geçersiz JSON",
     "Invalid": "Geçersiz",
     "JSON is valid ✓": "JSON geçerli ✓",
-    "Please enter JSON to process": "İşlemek için JSON girin"
+    "Please enter JSON to process": "İşlemek için JSON girin",
+    "raw": "ham"
   }))
 });

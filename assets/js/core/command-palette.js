@@ -1,13 +1,15 @@
 /* ═══════════════════════════════════════════════════════════
    Toolkit — Global command palette
    Open with Ctrl/Cmd + K to find any tool from any page.
+   Only the home page ships the tool catalogue (tools-data.js and
+   extra-tools-data.js); other pages fetch it, plus its Turkish strings on
+   /tr/ pages, the first time the finder is about to open.
    ═══════════════════════════════════════════════════════════ */
 
 (function initCommandPalette() {
   'use strict';
 
-  if (typeof TOOLS_DATA === 'undefined') return;
-
+  const scriptBase = new URL('../', document.currentScript.src);
   // The document base differs from the location on the 404 page served at nested URLs.
   const pagePrefix = new URL(document.baseURI).pathname.includes('/tools/') ? '../' : '';
   const maxResults = 8;
@@ -15,6 +17,42 @@
   const recentStorageKey = 'toolkit-recent-tools-v1';
   let activeIndex = 0;
   let matches = [];
+  let catalogue = null;
+
+  function tools() {
+    return typeof TOOLS_DATA === 'undefined' ? [] : TOOLS_DATA;
+  }
+
+  function loadScript(path) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = new URL(path, scriptBase).href;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Could not load ${path}`));
+      document.head.appendChild(script);
+    });
+  }
+
+  // Resolves once TOOLS_DATA holds every tool. It never rejects: when a
+  // script cannot load (offline before it was cached) the next open retries.
+  function loadCatalogue() {
+    if (typeof TOOLS_DATA !== 'undefined' && window.EXPANSION_TOOLS) return Promise.resolve(true);
+    if (!catalogue) {
+      const turkish = document.documentElement.dataset.pageLanguage === 'tr'
+        ? loadScript('i18n/tr/catalogue.js').catch(() => {})
+        : Promise.resolve();
+      // tools-data.js declares a const, so it must never run twice.
+      const base = typeof TOOLS_DATA === 'undefined' ? loadScript('core/tools-data.js') : Promise.resolve();
+      catalogue = Promise.all([
+        base.then(() => loadScript('core/extra-tools-data.js')),
+        turkish
+      ]).then(() => true, () => {
+        catalogue = null;
+        return false;
+      });
+    }
+    return catalogue;
+  }
 
   function t(key, values) {
     return window.ToolkitI18n ? window.ToolkitI18n.t(key, values) : key.replace(/{{(\w+)}}/g, (_, name) => String(values?.[name] ?? ''));
@@ -30,7 +68,7 @@
         <span class="command-palette__icon" aria-hidden="true">⌘</span>
         <div>
           <h2 id="commandPaletteTitle">${t('Find a tool')}</h2>
-          <p>${t('Search all {{count}} utilities', { count: TOOLS_DATA.length })}</p>
+          <p></p>
         </div>
         <div class="command-palette__header-actions">
           <button class="command-palette__clear" type="button" data-command-clear hidden>${t('Clear recent')}</button>
@@ -53,6 +91,11 @@
   const resultsEl = palette.querySelector('#commandPaletteResults');
   const statusEl = palette.querySelector('#commandPaletteStatus');
   const clearButton = palette.querySelector('[data-command-clear]');
+  const subtitle = palette.querySelector('.command-palette__header p');
+
+  function updateSubtitle() {
+    subtitle.textContent = tools().length ? t('Search all {{count}} utilities', { count: tools().length }) : '';
+  }
 
   function toolUrl(slug) {
     return `${pagePrefix}tools/${slug}.html`;
@@ -76,7 +119,7 @@
   }
 
   function getRecentTools() {
-    const bySlug = new Map(TOOLS_DATA.map(tool => [tool.slug, tool]));
+    const bySlug = new Map(tools().map(tool => [tool.slug, tool]));
     return readRecentSlugs()
       .map(slug => bySlug.get(slug))
       .filter(Boolean)
@@ -84,26 +127,26 @@
   }
 
   function rememberTool(slug) {
-    if (!TOOLS_DATA.some(tool => tool.slug === slug)) return;
     const slugs = readRecentSlugs().filter(item => item !== slug);
     slugs.unshift(slug);
     saveRecentSlugs(slugs);
   }
 
+  // Tool pages are the only pages under tools/; the catalogue is not loaded
+  // yet, and getRecentTools() drops any slug it does not know.
   function rememberCurrentTool() {
-    const filename = location.pathname.split('/').pop() || '';
-    const slug = filename.replace(/\.html$/i, '');
-    if (slug && slug !== 'index' && slug !== '404') rememberTool(slug);
+    const match = location.pathname.match(/\/tools\/([a-z0-9-]+)\.html$/i);
+    if (match) rememberTool(match[1]);
   }
 
   function getMatches(query) {
     const normalized = foldCase(query.trim());
     if (!normalized) {
       const recent = getRecentTools();
-      return recent.length ? recent : TOOLS_DATA.slice(0, maxResults);
+      return recent.length ? recent : tools().slice(0, maxResults);
     }
 
-    return TOOLS_DATA.filter((tool) => {
+    return tools().filter((tool) => {
       const searchable = foldCase([tool.name, t(tool.name), tool.desc, t(tool.desc), tool.catLabel, t(tool.catLabel), ...(tool.tags || [])]
         .join(' '));
       return searchable.includes(normalized);
@@ -133,11 +176,16 @@
     clearButton.hidden = !showingRecent;
 
     if (!matches.length) {
+      const [message, status] = tools().length
+        ? ['No tools found. Try a different keyword.', 'No matching tools']
+        : palette.hasAttribute('data-loading')
+          ? ['Loading tools…', 'Loading tools…']
+          : ['The tool list could not be loaded. Check your connection and try again.', 'Tool list unavailable'];
       const empty = document.createElement('p');
       empty.className = 'command-palette__empty';
-      empty.textContent = t('No tools found. Try a different keyword.');
+      empty.textContent = t(message);
       resultsEl.appendChild(empty);
-      statusEl.textContent = t('No matching tools');
+      statusEl.textContent = t(status);
       return;
     }
 
@@ -182,8 +230,16 @@
     document.documentElement.classList.add('command-palette-open');
     input.value = '';
     activeIndex = 0;
+    palette.toggleAttribute('data-loading', typeof TOOLS_DATA === 'undefined' || !window.EXPANSION_TOOLS);
+    updateSubtitle();
     renderResults();
     requestAnimationFrame(() => input.focus());
+    loadCatalogue().then(() => {
+      if (!palette.hasAttribute('data-loading')) return;
+      palette.removeAttribute('data-loading');
+      updateSubtitle();
+      if (!palette.hidden) renderResults();
+    });
   }
 
   function closePalette() {
@@ -241,6 +297,10 @@
     shortcut.textContent = '⌘K';
     trigger.append(label, shortcut);
     trigger.addEventListener('click', openPalette);
+    // Start the fetch as soon as a click becomes likely.
+    ['pointerenter', 'focus', 'touchstart'].forEach((type) => {
+      trigger.addEventListener(type, loadCatalogue, { once: true, passive: true });
+    });
 
     if (toggle && toggle.parentElement === container) container.insertBefore(trigger, toggle);
     else {
@@ -261,8 +321,7 @@
       const label = trigger.querySelector('span');
       if (label) label.textContent = t('Find tools');
     }
-    const subtitle = palette.querySelector('.command-palette__header p');
-    if (subtitle) subtitle.textContent = t('Search all {{count}} utilities', { count: TOOLS_DATA.length });
+    updateSubtitle();
     if (!palette.hidden) renderResults();
   });
 

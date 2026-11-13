@@ -5,6 +5,7 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
+    "Decode": "Kodu Çöz",
     "HTML decoded!": "HTML kodu çözüldü!",
     "HTML encoded!": "HTML kodlandı!",
     "Input is empty": "Girdi boş",

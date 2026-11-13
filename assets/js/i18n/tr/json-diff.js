@@ -5,6 +5,7 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Please fill both JSON inputs.": "Her iki JSON alanını da doldurun.",
-    "JSON input": "JSON girdisi"
+    "JSON input": "JSON girdisi",
+    "raw": "ham"
   }))
 });

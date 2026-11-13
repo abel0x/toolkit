@@ -5,12 +5,13 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
-    "Error": "Hata",
+    "Decode": "Kodu Çöz",
     "Invalid": "Geçersiz",
     "Decoded from binary!": "İkili kod çözüldü!",
     "Input is empty": "Girdi boş",
     "Input is empty.": "Girdi boş.",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
+    "Binary": "İkili",
     "Invalid binary byte.": "Geçersiz ikili bayt.",
     "Decoded bytes are not valid UTF-8.": "Kodu çözülen baytlar geçerli UTF-8 değil.",
     "Binary string length must be a multiple of 8 (or use spaces between bytes).": "İkili dizgenin uzunluğu 8'in katı olmalıdır (veya baytlar arasında boşluk kullanın)."

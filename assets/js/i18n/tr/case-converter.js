@@ -5,8 +5,13 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Next": "İleri",
+    "Converter": "Dönüştürücü",
     "Title Case": "Başlık Düzeni",
     "Sentence case": "Cümle düzeni",
+    "camelCase": "camelCase",
+    "PascalCase": "PascalCase",
+    "snake_case": "snake_case",
+    "kebab-case": "kebab-case",
     "UPPERCASE": "BÜYÜK HARF",
     "NFC": "NFC"
   }))

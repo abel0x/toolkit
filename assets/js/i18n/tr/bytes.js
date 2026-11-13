@@ -4,7 +4,10 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Unit": "Birim",
+    "Converter": "Dönüştürücü",
     "Decimal": "Ondalık",
+    "Binary": "İkili",
     "Bytes (B)": "Bayt (B)",
     "Kilobytes (KB)": "Kilobayt (KB)",
     "Megabytes (MB)": "Megabayt (MB)",
@@ -14,6 +17,9 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Mebibytes (MiB)": "Mebibayt (MiB)",
     "Gibibytes (GiB)": "Gibibayt (GiB)",
     "Tebibytes (TiB)": "Tebibayt (TiB)",
+    "KiB": "KiB",
+    "MiB": "MiB",
+    "GiB": "GiB",
     "TiB": "TiB",
     ".bin": ".bin"
   }))

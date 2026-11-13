@@ -4,6 +4,7 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Validator": "Doğrulayıcı",
     "Enter at least one UUID.": "En az bir UUID girin.",
     "VALID": "GEÇERLİ",
     "INVALID": "GEÇERSİZ",

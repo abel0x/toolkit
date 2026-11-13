@@ -4,6 +4,7 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Password": "Parola",
     "Show password": "Parolayı göster",
     "Hide password": "Parolayı gizle",
     "This is a very common password.": "Bu parola çok yaygın kullanılıyor.",

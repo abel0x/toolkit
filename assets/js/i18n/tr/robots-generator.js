@@ -5,6 +5,12 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
+    "Remove": "Kaldır",
+    "Generator": "Oluşturucu",
+    "Age": "Yaş",
+    "raw": "ham",
+    "Robots": "Robotlar",
+    ".txt": ".txt",
     "Allow rule": "İzin kuralı",
     "Disallow rule": "Engelleme kuralı",
     "Remove rule": "Kuralı kaldır"

@@ -194,6 +194,30 @@ await withFirefox(async (page) => {
   });
   untranslated('index.html (tool finder)', await page.evaluate(collectStrings));
 
+  // Tool pages fetch the catalogue and its Turkish pack only when the finder opens.
+  await page.navigate('/tr/tools/base64.html');
+  const lazyFinder = await page.evaluate(async () => {
+    const before = typeof TOOLS_DATA;
+    document.querySelector('.nav-command-trigger').click();
+    for (let tries = 0; tries < 50 && typeof TOOLS_DATA === 'undefined'; tries += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    const input = document.querySelector('.command-palette__input');
+    input.value = 'e';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return {
+      before,
+      packs: performance.getEntriesByType('resource').map((entry) => entry.name).filter((name) => name.includes('/i18n/tr/catalogue.js')).length,
+      subtitle: document.querySelector('.command-palette__header p').textContent
+    };
+  });
+  assert.equal(lazyFinder.before, 'undefined', '/tr/tools/base64.html loads the tool catalogue before the finder opens.');
+  assert.equal(lazyFinder.packs, 1, '/tr/tools/base64.html did not fetch the Turkish catalogue pack for the finder.');
+  assert.match(lazyFinder.subtitle, /^\d+ aracın tümünde ara$/, `Unexpected finder subtitle: ${lazyFinder.subtitle}`);
+  untranslated('tools/base64.html (tool finder)', await page.evaluate(collectStrings));
+
   // Tool scripts must cope with a body that is Turkish from the first paint,
   // and everything they write must come out Turkish.
   for (const path of localized.filter((name) => name.startsWith('tools/'))) {

@@ -4,8 +4,17 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Dev Tools": "Geliştirici Araçları",
+    "Generators": "Oluşturucular",
+    "Preview": "Önizle",
+    "Generator": "Oluşturucu",
+    "Formatter": "Biçimlendirici",
+    "JSON Formatter": "JSON Biçimlendirici",
+    "UUID Generator": "UUID Oluşturucu",
+    "raw": "ham",
     "Paragraphs": "Paragraflar",
     "Welcome to Toolkit": "Araç Seti'ne hoş geldiniz",
+    "Markdown": "Markdown",
     "here and see the live preview in real time.": "burada ve canlı önizlemeyi gerçek zamanlı olarak görün.",
     "Features": "Özellikler",
     "Live rendering": "Canlı oluşturma",

@@ -4,8 +4,10 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Parser": "Ayrıştırıcı",
     "Invalid": "Geçersiz",
     "Invalid URL": "Geçersiz URL",
+    "raw": "ham",
     "Query Parameters": "Sorgu Parametreleri",
     "No query parameters.": "Sorgu parametresi yok."
   }))

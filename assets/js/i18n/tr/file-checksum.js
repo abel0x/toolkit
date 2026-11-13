@@ -4,12 +4,14 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Error": "Hata",
+    "Reader": "Okuyucu",
     "Reading file…": "Dosya okunuyor…",
     "Computing hashes…": "Hash değerleri hesaplanıyor…",
     "Checksums computed!": "Sağlama toplamları hesaplandı!",
     "Failed to read file.": "Dosya okunamadı.",
     "Select at least one algorithm.": "En az bir algoritma seçin.",
+    "File": "Dosya",
+    "Checksum": "Sağlama toplamı",
     "Progress": "İlerleme",
     "Core": "Temel"
   }))

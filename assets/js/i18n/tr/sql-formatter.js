@@ -4,8 +4,10 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Formatter": "Biçimlendirici",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter SQL.": "Lütfen SQL girin.",
-    "SQL formatted!": "SQL biçimlendirildi!"
+    "SQL formatted!": "SQL biçimlendirildi!",
+    "raw": "ham"
   }))
 });

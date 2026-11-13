@@ -4,15 +4,19 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Unit": "Birim",
     "From": "Başlangıç",
+    "Date": "Tarih",
     "Invalid": "Geçersiz",
     "Enter a valid Unix timestamp": "Geçerli bir Unix zaman damgası girin",
     "Invalid date": "Geçersiz tarih",
     "Invalid timestamp": "Geçersiz zaman damgası",
     "Select a date and time": "Bir tarih ve saat seçin",
+    "raw": "ham",
     "Now: {{seconds}} (s) · {{milliseconds}} (ms)": "Şimdi: {{seconds}} (sn) · {{milliseconds}} (ms)",
     "Second": "Saniye",
     "Seconds": "Saniye",
-    "Milliseconds": "Milisaniye"
+    "Milliseconds": "Milisaniye",
+    "Unix timestamp": "Unix zaman damgası"
   }))
 });

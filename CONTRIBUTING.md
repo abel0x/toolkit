@@ -76,11 +76,11 @@ Tool pages use the shared stylesheet modules and load shared scripts in this ord
 <script src="../assets/js/core/utils.js" defer></script>
 <script src="../assets/js/core/nav.js" defer></script>
 <script src="../assets/js/core/i18n.js" defer></script>
-<script src="../assets/js/core/tools-data.js" defer></script>
-<script src="../assets/js/core/extra-tools-data.js" defer></script>
 <script src="../assets/js/core/command-palette.js" defer></script>
 <script src="../assets/js/tools/your-tool.js" defer></script>
 ```
+
+Do not load `tools-data.js` or `extra-tools-data.js` on a tool page: only the home page needs the catalogue up front. `command-palette.js` fetches it, and its Turkish pack on `/tr/` pages, when the tool finder is about to open.
 
 Keep a conventional tool module isolated and strict:
 

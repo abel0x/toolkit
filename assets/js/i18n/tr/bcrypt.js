@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
     "Verify": "Doğrula",
+    "Password": "Parola",
     "Generate Hash": "Hash Oluştur",
     "Hashing…": "Hash oluşturuluyor…",
     "Verifying…": "Doğrulanıyor…",

@@ -4,10 +4,15 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Preview": "Önizle",
     "Width": "Genişlik",
     "Height": "Yükseklik",
+    "Date": "Tarih",
+    "Reader": "Okuyucu",
     "Please select an image file": "Lütfen bir görüntü dosyası seçin",
+    "File": "Dosya",
     "Filename": "Dosya adı",
+    "Aspect Ratio": "En Boy Oranı",
     "File Size": "Dosya Boyutu"
   }))
 });

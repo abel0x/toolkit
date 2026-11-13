@@ -1,10 +1,10 @@
 {
   "index.html": {
-    "title": "Toolkit",
+    "title": "Toolkit — {{count}} Ücretsiz Geliştirici Aracı",
     "description": "Toolkit — {{count}} ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü, metin araçları, dönüştürücüler, web araçları ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
     "ogDescription": "{{count}} ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
     "source": {
-      "title": "Toolkit",
+      "title": "Toolkit — {{count}} Free Developer Tools in Your Browser",
       "description": "Toolkit — {{count}} free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter, text tools, converters, web utilities and more. 100% client-side, zero tracking.",
       "ogDescription": "{{count}} free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter and more. 100% client-side, zero tracking."
     }

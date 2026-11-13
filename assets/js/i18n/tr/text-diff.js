@@ -5,7 +5,9 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Output": "Çıktı",
+    "Checker": "Denetleyici",
     "Both fields are empty": "Her iki alan da boş.",
+    "Lines": "Satırlar",
     "✓ Texts are identical — no differences found.": "✓ Metinler aynı — fark bulunamadı.",
     "Texts are identical — no differences found.": "Metinler aynı — fark bulunamadı."
   }))
