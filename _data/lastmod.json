@@ -261,7 +261,7 @@
   },
   "tools/qr-generator.html": {
     "date": "2026-11-14",
-    "sha256": "0c98dff16da7c22966d0a8f868e91269422ece35a14d2e693442c191241b7fbc"
+    "sha256": "9b03dda54e8a09de9ba017cfd2cdf4c02e9756ea8d4e18f7d0640abc7b808ee6"
   },
   "tools/qr-reader.html": {
     "date": "2026-11-13",
@@ -673,7 +673,7 @@
   },
   "tr/tools/qr-generator.html": {
     "date": "2026-11-14",
-    "sha256": "e78325dd229dd689fb70ba292099e4234df3d60f0b963468462fa910bb10d64b"
+    "sha256": "d79536330ffb4bee36fbcfd5c81b4a486691cc1959e7f0a6fa906fd3115f268f"
   },
   "tr/tools/qr-reader.html": {
     "date": "2026-11-13",

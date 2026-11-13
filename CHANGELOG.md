@@ -15,7 +15,7 @@ A much more capable QR Code Generator that checks its own output.
 - Downloads are named after their content, for example `qr-wifi-cafe-istanbul.png`, instead of `toolkit-qr.png`.
 - New content types: contact card (vCard 3.0), calendar event (iCalendar, timed or all-day) and location (`geo:`). Wi-Fi gains WPA3 (SAE), a show/hide password button, and leaves the password out of open networks.
 - Style options: round dots and rounded corner markers. Finder and alignment patterns stay solid, so decoders still lock on.
-- Optional logo in the middle, read in the browser and never uploaded. Choosing one switches error correction to H. Its size is limited to 14–20% of the code width, the range where jsQR, ZBar and ZXing all read every style.
+- Optional logo in the middle, read in the browser and never uploaded. Choosing one switches error correction to H. It covers 14% or 16% of the code width. Tests in Firefox and Chromium found that jsQR and ZXing read logos up to 30%, but ZBar fails from 18%, once the logo hides the middle alignment pattern of version 7–13 codes.
 
 ### Fixed
 

@@ -262,7 +262,9 @@ await withFirefox(async (page) => {
 
   /* ── 3. Styles, colours, logos and sizes through three decoders ── */
   await open('/tools/qr-generator.html');
-  // A drawn logo: a coloured tile with a letter, as a file through the real picker.
+  // A drawn logo, as a file through the real picker: a dark tile with a light
+  // bar, the hardest case for decoders. Shapes only, no text, so it is the
+  // same image on every machine whatever fonts are installed.
   const setLogo = (percent) => page.evaluate(async (percent) => {
     const canvas = document.createElement('canvas');
     canvas.width = 120;
@@ -270,9 +272,9 @@ await withFirefox(async (page) => {
     const context = canvas.getContext('2d');
     context.fillStyle = '#e63946';
     context.fillRect(0, 0, 120, 80);
-    context.fillStyle = '#fff';
-    context.font = 'bold 60px sans-serif';
-    context.fillText('T', 40, 62);
+    context.fillStyle = '#ffffff';
+    context.fillRect(20, 30, 80, 20);
+    context.fillRect(50, 10, 20, 60);
     const blob = await new Promise((done) => canvas.toBlob(done, 'image/png'));
     const transfer = new DataTransfer();
     transfer.items.add(new File([blob], 'Brand Logo.png', { type: 'image/png' }));
@@ -284,7 +286,7 @@ await withFirefox(async (page) => {
     }
     const size = document.getElementById('qrLogoSize');
     size.value = String(percent);
-    size.dispatchEvent(new Event('input', { bubbles: true }));
+    size.dispatchEvent(new Event('change', { bubbles: true }));
     return {
       level: document.getElementById('qrECC').value,
       note: !document.getElementById('qrLogoNote').hidden,
@@ -347,25 +349,26 @@ await withFirefox(async (page) => {
   }
   assert.equal(sweep, 64);
 
-  const logoLimit = await page.evaluate(() => {
-    const slider = document.getElementById('qrLogoSize');
-    return { min: slider.min, max: slider.max, value: slider.value };
+  const logoSizes = await page.evaluate(() => {
+    const select = document.getElementById('qrLogoSize');
+    return { options: [...select.options].map((option) => option.value), value: select.value };
   });
-  assert.deepEqual(logoLimit, { min: '14', max: '20', value: '16' },
-    'The logo must stay at 14–20% of the width, where all three decoders read it.');
-  const logoInfo = await setLogo(20);
+  assert.deepEqual(logoSizes, { options: ['14', '16'], value: '16' },
+    'The logo must stay at 14% or 16% of the width, where jsQR, ZXing and ZBar all read it.');
+  const logoInfo = await setLogo(16);
   assert.deepEqual(logoInfo, { level: 'H', note: true, sizeRow: true, name: 'Brand Logo.png' },
     'Choosing a logo must switch to level H, explain why and show the size control.');
   for (const [label, percent, options] of [
-    ['logo 20%', 20, {}],
-    ['logo 20% with round dots', 20, { qrDots: 'round', qrCorners: 'rounded' }],
+    ['logo 16%', 16, {}],
+    ['logo 16% with round dots', 16, { qrDots: 'round', qrCorners: 'rounded' }],
     ['logo 14% in brand colours', 14, { qrColorDark: '#1d3557', qrColorLight: '#f1faee' }],
-    ['logo 20% at 2048 px', 20, { qrSize: '2048', qrDots: 'round' }]
+    ['logo 14% with round dots, margin 2', 14, { qrDots: 'round', qrMargin: '2' }],
+    ['logo 16% at 2048 px', 16, { qrSize: '2048', qrDots: 'round' }]
   ]) {
     await page.evaluate((percent) => {
       const size = document.getElementById('qrLogoSize');
       size.value = String(percent);
-      size.dispatchEvent(new Event('input', { bubbles: true }));
+      size.dispatchEvent(new Event('change', { bubbles: true }));
     }, percent);
     const result = await scenario(page, { mode: 'text', options: { ...reset, qrECC: 'H', ...options }, fields: { qrText: link }, export: true });
     assert.equal(result.decoded, link, `${label}: jsQR read ${JSON.stringify(result.decoded)}.`);
@@ -376,7 +379,7 @@ await withFirefox(async (page) => {
   const lowered = await scenario(page, { mode: 'text', options: { ...reset, qrECC: 'L' }, fields: { qrText: link } });
   assert(lowered.notes.some((note) => note.includes('error correction H')), 'Lowering the level under a logo must warn.');
   assert.deepEqual(await removeLogo(), { level: 'L', sizeRow: false }, 'Removing the logo must keep a level the user chose and hide the size control.');
-  await setLogo(20);
+  await setLogo(14);
   assert.deepEqual(await removeLogo(), { level: 'L', sizeRow: false }, 'Removing the logo must restore the level from before the logo.');
 
   /* ── 4. Codes that should not scan well ───────────────────── */

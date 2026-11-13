@@ -23,7 +23,6 @@
   const logoName = $('qrLogoName');
   const logoRemove = $('qrLogoRemove');
   const logoSize = $('qrLogoSize');
-  const logoSizeValue = $('qrLogoSizeVal');
   const logoSizeRow = $('qrLogoSizeRow');
   const logoNote = $('qrLogoNote');
   const generateButton = $('qrGenBtn');
@@ -339,9 +338,11 @@
   }
 
   // The logo sits on a background-coloured pad in the middle of the code, at
-  // 14–20% of its width. Measured with jsQR, ZBar and ZXing over every style
-  // and 23 scales: ZXing and jsQR read all sizes, while ZBar fails from about
-  // 22% and mistakes a small dark logo (10–12%) for a finder pattern.
+  // 14% or 16% of its width. Measured in Firefox and Chromium with jsQR,
+  // ZXing and two ZBar versions over every style, margin and several sizes and
+  // scales: ZXing and jsQR read logos up to 30%, but ZBar fails from 18% once
+  // the logo covers the middle alignment pattern (version 7–13 codes), and can
+  // take a small dark logo (10–12%) for a finder pattern.
   function logoBox(count, design) {
     if (!design.logo) return null;
     const side = count * design.logoScale;
@@ -692,12 +693,8 @@
     marginValue.textContent = marginSlider.value;
     scheduleRender();
   });
-  logoSize.addEventListener('input', () => {
-    logoSizeValue.textContent = `${logoSize.value}%`;
-    scheduleRender();
-  });
   [darkColour, lightColour].forEach((control) => control.addEventListener('input', scheduleRender));
-  [correctionSelect, dotSelect, cornerSelect].forEach((control) => control.addEventListener('change', scheduleRender));
+  [correctionSelect, dotSelect, cornerSelect, logoSize].forEach((control) => control.addEventListener('change', scheduleRender));
 
   generateButton.addEventListener('click', () => {
     const { content, problem } = buildContent();
@@ -722,8 +719,7 @@
     correctionSelect.value = 'M';
     dotSelect.value = 'square';
     cornerSelect.value = 'square';
-    logoSize.value = logoSize.defaultValue;
-    logoSizeValue.textContent = `${logoSize.value}%`;
+    logoSize.value = '16';
     render();
     toast(t('Cleared'), 'success');
   });
