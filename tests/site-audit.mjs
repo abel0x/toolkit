@@ -63,7 +63,7 @@ for (const file of pages) {
 
   assert(html.includes('class="nav-actions"'), `${relativeName} misses the compact shared header.`);
   assert(!html.includes('class="nav-links"'), `${relativeName} still contains retired navigation markup.`);
-  assert(html.includes(`src="${prefix}assets/images/favicon-64.png"`),
+  assert(html.includes(`src="${prefix}assets/images/logo.png"`),
     `${relativeName} does not use the new navigation logo.`);
 
   // English pages ship no Turkish dictionary; only 404.html, which has no
@@ -231,7 +231,8 @@ for (const asset of [
   'assets/images/favicon-64.png',
   'assets/images/favicon-128.png',
   'assets/images/favicon-256.png',
-  'assets/images/favicon-512.png'
+  'assets/images/favicon-512.png',
+  'assets/images/logo.png'
 ]) {
   assert(existsSync(join(root, asset)), `Missing published logo asset: ${asset}`);
   assert(serviceWorker.includes(`'${asset}'`), `Service worker does not precache ${asset}.`);

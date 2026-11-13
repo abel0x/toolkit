@@ -35,22 +35,17 @@
       header.className = 'hub-card-header';
       const icon = document.createElement('div');
       icon.className = 'hub-card-icon';
+      icon.setAttribute('aria-hidden', 'true');
       icon.innerHTML = tool.icon || fallbackIcon;
-      const category = document.createElement('span');
-      category.className = 'hub-card-cat';
-      category.textContent = tool.catLabel;
-      header.append(icon, category);
-
       const title = document.createElement('h3');
       title.className = 'hub-card-title';
       title.textContent = tool.name;
+      header.append(icon, title);
+
       const description = document.createElement('p');
       description.className = 'hub-card-desc';
       description.textContent = tool.desc;
-      const footer = document.createElement('span');
-      footer.className = 'hub-card-footer';
-      footer.textContent = 'Open tool →';
-      card.append(header, title, description, footer);
+      card.append(header, description);
       hubGrid.appendChild(card);
     });
 
@@ -61,6 +56,18 @@
   }
 
   addMissingCards();
+
+  /* ── Tool count on every category tab ──────────────────── */
+  filterBtns.forEach((btn) => {
+    const filter = btn.dataset.filter || 'all';
+    const count = filter === 'all'
+      ? hubGrid.querySelectorAll('.hub-card[data-cat]').length
+      : hubGrid.querySelectorAll(`.hub-card[data-cat="${filter}"]`).length;
+    const badge = document.createElement('span');
+    badge.className = 'hub-filter-count';
+    badge.textContent = String(count);
+    btn.append(' ', badge);
+  });
 
   /* ── State ─────────────────────────────────────────────── */
   let activeFilter = 'all';
@@ -103,8 +110,12 @@
   /* ── Filter buttons ─────────────────────────────────────── */
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      filterBtns.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       activeFilter = btn.dataset.filter || 'all';
       applyFilters();
     });
@@ -134,44 +145,6 @@
 
   /* ── Initial run ────────────────────────────────────────── */
   applyFilters();
-})();
-
-
-/* ════════════════════════════════════════════════════════════
-   Tool count badge — syncs stat number with actual tool count
-   ════════════════════════════════════════════════════════════ */
-(function syncToolCount() {
-  'use strict';
-  if (typeof TOOLS_DATA === 'undefined') return;
-
-  const statEl = document.getElementById('toolCountStat');
-  if (statEl) {
-    statEl.textContent = TOOLS_DATA.length;
-  }
-})();
-
-
-/* ════════════════════════════════════════════════════════════
-   Hub card hover — subtle parallax tilt on mouse move
-   ════════════════════════════════════════════════════════════ */
-(function initCardTilt() {
-  'use strict';
-
-  const cards = document.querySelectorAll('.hub-card');
-  const MAX_TILT = 6; // degrees
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `perspective(600px) rotateY(${x * MAX_TILT}deg) rotateX(${-y * MAX_TILT}deg) translateY(-4px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
 })();
 
 

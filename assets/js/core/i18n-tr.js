@@ -57,6 +57,7 @@
     'Search tools': 'Araç ara',
     'Search 78 tools…': '78 araç ara…',
     'Developer Utilities Suite': 'Geliştirici Araçları Paketi',
+    'Everyday developer utilities, without the backend.': 'Günlük geliştirici araçları, sunucu olmadan.',
     'The Ultimate': 'En Kapsamlı',
     'A curated set of cryptographic & encoding utilities, built for precision. No tracking. No backend. Pure client-side.': 'Hassas kullanım için özenle seçilmiş kriptografi ve kodlama araçları. Takip yok. Sunucu yok. Tamamen tarayıcıda çalışır.',
     'Servers': 'Sunucu',
@@ -448,6 +449,8 @@
     if (match) return `${match[1]} yinelenen kayıt kaldırıldı`;
     match = key.match(/^(©\s*\d{4}\s+Toolkit\.\s*)No data leaves your device\.$/);
     if (match) return `${match[1]}Verileriniz cihazınızdan ayrılmaz.`;
+    match = key.match(/^(\d+) tools for encoding, security, JSON, text and the web\. Everything runs locally in your browser\.$/);
+    if (match) return `${match[1]} araç: kodlama, güvenlik, JSON, metin ve web. Hepsi tarayıcınızda, yerel olarak çalışır.`;
     match = key.match(/^(\d+) tools · HTML · CSS · Vanilla JS · Web Crypto API$/);
     if (match) return `${match[1]} araç · HTML · CSS · Vanilla JS · Web Crypto API`;
     match = key.match(/^(\d+) day(s)? • ([\d.]+) weeks • (\d+) whole average months$/);

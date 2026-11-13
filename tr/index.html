@@ -22,12 +22,12 @@
   <meta property="og:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Toolkit: tamamen tarayıcınızda çalışan günlük geliştirici araçları." />
+  <meta property="og:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Toolkit" />
   <meta name="twitter:description" content="101 ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü ve dahası. Tamamen tarayıcınızda çalışır, izleme yok." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
-  <meta name="twitter:image:alt" content="Toolkit: tamamen tarayıcınızda çalışan günlük geliştirici araçları." />
+  <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Toolkit</title>
   <!-- Non-blocking font load: does not stall first render -->
   <link rel="stylesheet" href="../assets/css/core.css" />
@@ -38,7 +38,7 @@
   <link rel="manifest" href="../manifest.json" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <meta name="theme-color" content="#0d1117" />
+  <meta name="theme-color" content="#0a0a0a" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/", "inLanguage": "tr", "description": "Toolkit — 101 ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü, metin araçları, dönüştürücüler, web araçları ve dahası. Tamamen tarayıcınızda çalışır, izleme yok."}</script>
 </head>
 <body>
@@ -47,9 +47,6 @@
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ░ Background FX ░ -->
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
 
   <!-- ░ Navigation ░ -->
   <header>
@@ -57,7 +54,7 @@
   <div class="nav-container">
     <a href="index.html" class="nav-brand" aria-label="Toolkit ana sayfası">
       <span class="brand-icon" aria-hidden="true">
-        <img src="../assets/images/favicon-64.png" width="44" height="44" alt="" />
+        <img src="../assets/images/logo.png" width="36" height="36" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
@@ -77,563 +74,370 @@
 
     <!-- ░░░░░░ HERO ░░░░░░ -->
     <section class="hero" id="home" aria-labelledby="heroHeading">
-      <div class="hero-inner">
-        <div class="hero-badge reveal" aria-hidden="true">
-          <span class="badge-dot"></span>
-          Geliştirici Araçları Paketi
-        </div>
-        <h1 class="hero-title reveal" id="heroHeading">
-          En Kapsamlı<br />
-          <span class="gradient-text">Toolkit</span>
-        </h1>
-        <p class="hero-sub reveal">
-          Şifreleme ve kodlama için özenle seçilmiş araçlar,<br class="br-hide" />
-          hassas kullanım için tasarlandı. Takip yok. Arka uç yok. Tamamen istemci tarafında çalışır.
-        </p>
-        <div class="hero-actions reveal">
-          <a href="#tools-hub" class="btn btn--primary">Araçları Keşfet</a>
-          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="btn btn--ghost">
+      <div class="container container--wide">
+        <h1 class="hero-title" id="heroHeading">Günlük geliştirici araçları, sunucu olmadan.</h1>
+        <p class="hero-sub">101 araç: kodlama, güvenlik, JSON, metin ve web. Hepsi tarayıcınızda, yerel olarak çalışır.</p>
+        <div class="hero-actions">
+          <div class="hub-search-wrap">
+            <svg class="hub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="hubSearch" class="hub-search" placeholder="101 araç ara…" aria-label="Araç ara" autocomplete="off" spellcheck="false" />
+            <kbd class="hub-search-key" aria-hidden="true">/</kbd>
+          </div>
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="btn btn--secondary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="btn btn--coffee">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-            Bana kahve ısmarla
-          </a>
-        </div>
-        <div class="hero-stats reveal">
-          <div class="stat">
-            <span class="stat-num" id="toolCountStat">101</span>
-            <span class="stat-label">Araçlar</span>
-          </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat">
-            <span class="stat-num">0</span>
-            <span class="stat-label">Sunucu</span>
-          </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Özel</span>
-          </div>
         </div>
       </div>
-
     </section>
 
     <!-- ░░░░░░ TOOLS HUB ░░░░░░ -->
     <section class="hub-section" id="tools-hub" aria-labelledby="hubHeading">
-      <div class="container">
-        <div class="hub-section-header reveal">
-          <h2 class="hub-title" id="hubHeading">Tümü <span class="gradient-text">101 Araç</span></h2>
-          <p class="hub-subtitle">Bir aracı kendi sayfasında açmak için herhangi bir karta tıklayın. Aramak için <kbd>/</kbd> tuşuna basın.</p>
-
-          <!-- Instant search -->
-          <div class="hub-search-wrap">
-            <svg class="hub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" id="hubSearch" class="hub-search" placeholder="101 araç ara…" aria-label="Araç ara" autocomplete="off" spellcheck="false" />
-          </div>
-
-          <div class="hub-filter" role="group" aria-label="Araçları kategoriye göre filtrele">
-            <div class="hub-filter-track">
-              <button class="hub-filter-btn active" data-filter="all">Tümü</button>
-              <button class="hub-filter-btn" data-filter="security">Güvenlik</button>
-              <button class="hub-filter-btn" data-filter="encoding">Kodlama</button>
-              <button class="hub-filter-btn" data-filter="devtools">Geliştirici Araçları</button>
-              <button class="hub-filter-btn" data-filter="text">Metin</button>
-              <button class="hub-filter-btn" data-filter="generators">Oluşturucular</button>
-              <button class="hub-filter-btn" data-filter="converters">Dönüştürücüler</button>
-              <button class="hub-filter-btn" data-filter="web">Web</button>
-              <button class="hub-filter-btn" data-filter="media">Medya</button>
-            </div>
+      <div class="container container--wide">
+        <h2 class="sr-only" id="hubHeading">Tümü <span class="gradient-text">101 Araç</span></h2>
+        <div class="hub-filter" role="group" aria-label="Araçları kategoriye göre filtrele">
+          <div class="hub-filter-track">
+            <button class="hub-filter-btn active" data-filter="all" aria-pressed="true">Tümü</button>
+            <button class="hub-filter-btn" data-filter="security" aria-pressed="false">Güvenlik</button>
+            <button class="hub-filter-btn" data-filter="encoding" aria-pressed="false">Kodlama</button>
+            <button class="hub-filter-btn" data-filter="devtools" aria-pressed="false">Geliştirici Araçları</button>
+            <button class="hub-filter-btn" data-filter="text" aria-pressed="false">Metin</button>
+            <button class="hub-filter-btn" data-filter="generators" aria-pressed="false">Oluşturucular</button>
+            <button class="hub-filter-btn" data-filter="converters" aria-pressed="false">Dönüştürücüler</button>
+            <button class="hub-filter-btn" data-filter="web" aria-pressed="false">Web</button>
+            <button class="hub-filter-btn" data-filter="media" aria-pressed="false">Medya</button>
           </div>
         </div>
         <div class="hub-grid" id="hubGrid">
           <a href="tools/password.html" class="hub-card" data-cat="security" data-tags="password random crypto security generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Parola Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="hub-card-title">Parola Oluşturucu</h3></div>
             <p class="hub-card-desc">Uzunluk ve karakter kümeleri üzerinde tam denetim sağlayan, kriptografik olarak güçlü parolalar oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hash.html" class="hub-card" data-cat="security" data-tags="hash sha sha256 md5 crypto checksum">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Hash Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Hash Oluşturucu</h3></div>
             <p class="hub-card-desc">Web Crypto API ile SHA-1, SHA-256, SHA-384 ve SHA-512 özetleri oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/jwt-decoder.html" class="hub-card" data-cat="security" data-tags="jwt token decode auth json web token">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">JWT Kod Çözücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><h3 class="hub-card-title">JWT Kod Çözücü</h3></div>
             <p class="hub-card-desc">JSON Web Token’ların kodunu çözün; başlığı, yükü, son kullanma zamanını ve talepleri inceleyin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/base64.html" class="hub-card" data-cat="encoding" data-tags="base64 encode decode encoding">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">Base64 Kodlama / Kod Çözme</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">Base64 Kodlama / Kod Çözme</h3></div>
             <p class="hub-card-desc">Unicode ve ikili veriyle uyumlu Base64 dizelerini kodlayın veya çözün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/url-codec.html" class="hub-card" data-cat="encoding" data-tags="url encode decode percent uri">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">URL Kodlayıcı / Kod Çözücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3 class="hub-card-title">URL Kodlayıcı / Kod Çözücü</h3></div>
             <p class="hub-card-desc">URL güvenliği için özel karakterleri kodlayın veya yüzde kodlu dizeleri çözün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/case-converter.html" class="hub-card" data-cat="encoding" data-tags="case camel pascal snake kebab text">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">Büyük/Küçük Harf Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div><h3 class="hub-card-title">Büyük/Küçük Harf Dönüştürücü</h3></div>
             <p class="hub-card-desc">Metni camelCase, PascalCase, snake_case, kebab-case ve diğer adlandırma biçimlerine dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-formatter.html" class="hub-card" data-cat="devtools" data-tags="json format beautify minify validate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON Biçimlendirici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3 class="hub-card-title">JSON Biçimlendirici</h3></div>
             <p class="hub-card-desc">JSON’u anlaşılır hata iletileriyle doğrulayın, biçimlendirin ve küçültün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/regex-tester.html" class="hub-card" data-cat="devtools" data-tags="regex regexp pattern match test">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">Regex Test Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 class="hub-card-title">Regex Test Aracı</h3></div>
             <p class="hub-card-desc">Düzenli ifadeleri canlı eşleşme vurguları ve yakalama grubu gösterimiyle test edin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/markdown.html" class="hub-card" data-cat="devtools" data-tags="markdown preview md render write">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">Markdown Önizleyici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><h3 class="hub-card-title">Markdown Önizleyici</h3></div>
             <p class="hub-card-desc">Markdown’ı gerçek zamanlı yazın ve önizleyin; oluşturma tamamen güvenli biçimde tarayıcıda yapılır.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-diff.html" class="hub-card" data-cat="devtools" data-tags="diff compare text difference changes">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">Metin Fark Denetleyicisi</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">Metin Fark Denetleyicisi</h3></div>
             <p class="hub-card-desc">İki metni satır satır karşılaştırın; eklenen, silinen ve değişmeyen satırları görün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/uuid.html" class="hub-card" data-cat="generators" data-tags="uuid guid unique id generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">UUID Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="hub-card-title">UUID Oluşturucu</h3></div>
             <p class="hub-card-desc">Tarayıcının güvenli rastgele kaynağıyla toplu RFC-4122 v4 UUID’leri oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/lorem-ipsum.html" class="hub-card" data-cat="generators" data-tags="lorem ipsum placeholder text dummy generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Lorem Ipsum</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><h3 class="hub-card-title">Lorem Ipsum</h3></div>
             <p class="hub-card-desc">Anında kelime, cümle veya paragraf bazında yer tutucu metin oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-generator.html" class="hub-card" data-cat="generators" data-tags="qr qr code generate barcode scan">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">QR Kod Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><h3 class="hub-card-title">QR Kod Oluşturucu</h3></div>
             <p class="hub-card-desc">Renk seçenekleriyle metin, URL, Wi‑Fi, e-posta ve SMS için QR kodları oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/gradient.html" class="hub-card" data-cat="generators" data-tags="gradient css color background design">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Gradyan Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"/></svg></div><h3 class="hub-card-title">Gradyan Oluşturucu</h3></div>
             <p class="hub-card-desc">Canlı önizleme ve tek tıkla kopyalama özellikli CSS doğrusal gradyanları oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/timestamp.html" class="hub-card" data-cat="converters" data-tags="timestamp unix date time convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Zaman Damgası Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 class="hub-card-title">Zaman Damgası Dönüştürücü</h3></div>
             <p class="hub-card-desc">Canlı saatle Unix zaman damgalarını okunabilir tarihlere dönüştürün ve geri çevirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/color-converter.html" class="hub-card" data-cat="converters" data-tags="color hex rgb hsl convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Renk Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3 class="hub-card-title">Renk Dönüştürücü</h3></div>
             <p class="hub-card-desc">Canlı renk örneği ve seçiciyle HEX, RGB ve HSL arasında dönüşüm yapın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-reader.html" class="hub-card" data-cat="media" data-tags="qr scan decode read image">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">QR Kod Okuyucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3 class="hub-card-title">QR Kod Okuyucu</h3></div>
             <p class="hub-card-desc">QR kod içeren bir görsel yükleyin ve içeriğini anında çözün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Security & Crypto ─────────────────────── -->
           <a href="tools/bcrypt.html" class="hub-card" data-cat="security" data-tags="bcrypt password hash security crypto">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1M12 15v2"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Bcrypt Hash Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1M12 15v2"/></svg></div><h3 class="hub-card-title">Bcrypt Hash Oluşturucu</h3></div>
             <p class="hub-card-desc">Parolaları endüstri standardı uyarlanabilir bcrypt algoritmasıyla hashleyin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hmac.html" class="hub-card" data-cat="security" data-tags="hmac mac signature crypto auth">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">HMAC Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="hub-card-title">HMAC Oluşturucu</h3></div>
             <p class="hub-card-desc">Güvenli imzalama için HMAC-SHA256/512 ileti kimlik doğrulama kodları oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/password-strength.html" class="hub-card" data-cat="security" data-tags="password strength entropy security check">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Parola Gücü Denetleyicisi</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><h3 class="hub-card-title">Parola Gücü Denetleyicisi</h3></div>
             <p class="hub-card-desc">Entropiyi inceleyin, yaygın parolaları tespit edin ve uygulanabilir iyileştirme önerileri alın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-token.html" class="hub-card" data-cat="security" data-tags="token random secret api key nonce session">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Rastgele Belirteç Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3 class="hub-card-title">Rastgele Belirteç Oluşturucu</h3></div>
             <p class="hub-card-desc">API anahtarları ve oturumlar için kriptografik olarak güvenli rastgele belirteçler oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/uuid-validator.html" class="hub-card" data-cat="security" data-tags="uuid guid validate version check">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">UUID Doğrulayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></div><h3 class="hub-card-title">UUID Doğrulayıcı</h3></div>
             <p class="hub-card-desc">UUID’leri doğrulayın, sürümlerini (v1–v8) ve varyantlarını belirleyin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/file-checksum.html" class="hub-card" data-cat="security" data-tags="checksum file sha256 verify integrity">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg></div><span class="hub-card-cat">Güvenlik</span></div>
-            <h3 class="hub-card-title">Dosya Sağlama Toplamı Hesaplayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg></div><h3 class="hub-card-title">Dosya Sağlama Toplamı Hesaplayıcı</h3></div>
             <p class="hub-card-desc">Dosyalar için SHA-256 ve SHA-512 sağlama toplamlarını tamamen tarayıcıda hesaplayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Encoding & Decoding ───────────────────── -->
           <a href="tools/base32.html" class="hub-card" data-cat="encoding" data-tags="base32 encode decode totp secret">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">Base32 Kodlayıcı / Kod Çözücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3 class="hub-card-title">Base32 Kodlayıcı / Kod Çözücü</h3></div>
             <p class="hub-card-desc">Metni Base32 alfabesiyle kodlayın veya çözün; TOTP gizli anahtarları için kullanışlıdır.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hex-codec.html" class="hub-card" data-cat="encoding" data-tags="hex hexadecimal encode decode binary">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">Hex Kodlayıcı / Kod Çözücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Hex Kodlayıcı / Kod Çözücü</h3></div>
             <p class="hub-card-desc">Metni onaltılık biçime ve geri dönüştürün; ikili veri incelemesi için kullanışlıdır.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/html-codec.html" class="hub-card" data-cat="encoding" data-tags="html entity escape encode decode">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">HTML Kodlama / Kod Çözme</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">HTML Kodlama / Kod Çözme</h3></div>
             <p class="hub-card-desc">&amp;amp; ve &amp;lt; gibi HTML varlıklarını kodlayın veya yeniden karakterlere dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/binary-text.html" class="hub-card" data-cat="encoding" data-tags="binary text convert bits encode">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">İkili Metin Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3 class="hub-card-title">İkili Metin Dönüştürücü</h3></div>
             <p class="hub-card-desc">Metni ikili biçime (0 ve 1) dönüştürün veya ikili metni yeniden okunabilir metne çevirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/ascii.html" class="hub-card" data-cat="encoding" data-tags="ascii char code decimal convert encoding">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l3-3 3 3M7 4v16M17 4l3 3-3 3M20 7H14M14 17h6"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">ASCII Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l3-3 3 3M7 4v16M17 4l3 3-3 3M20 7H14M14 17h6"/></svg></div><h3 class="hub-card-title">ASCII Dönüştürücü</h3></div>
             <p class="hub-card-desc">Karakterleri ASCII kodlarına dönüştürün: ondalık, onaltılık, sekizlik ve ikili.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/rot13.html" class="hub-card" data-cat="encoding" data-tags="rot13 cipher encode decode obfuscate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="hub-card-cat">Kodlama</span></div>
-            <h3 class="hub-card-title">ROT13 Kodlayıcı / Kod Çözücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3 class="hub-card-title">ROT13 Kodlayıcı / Kod Çözücü</h3></div>
             <p class="hub-card-desc">ROT13 şifresini uygulayın; aynı işlemle kodlayın ve çözün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: JSON & Data ───────────────────────────── -->
           <a href="tools/json-minifier.html" class="hub-card" data-cat="devtools" data-tags="json minify compress uglify optimize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 8 2 12 4 16"/><polyline points="20 8 22 12 20 16"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON Küçültücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 8 2 12 4 16"/><polyline points="20 8 22 12 20 16"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div><h3 class="hub-card-title">JSON Küçültücü</h3></div>
             <p class="hub-card-desc">Boşlukları kaldırın ve JSON’u geçerli en küçük biçimine sıkıştırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-validator.html" class="hub-card" data-cat="devtools" data-tags="json validate check lint syntax">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON Doğrulayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><h3 class="hub-card-title">JSON Doğrulayıcı</h3></div>
             <p class="hub-card-desc">JSON söz dizimini doğrulayın ve satıra özgü anlaşılır hata iletileri alın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-to-yaml.html" class="hub-card" data-cat="devtools" data-tags="json yaml convert transform">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON → YAML</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><h3 class="hub-card-title">JSON → YAML</h3></div>
             <p class="hub-card-desc">JSON’u insan tarafından okunabilir YAML biçimine dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/yaml-to-json.html" class="hub-card" data-cat="devtools" data-tags="yaml json convert parse">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">YAML → JSON</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div><h3 class="hub-card-title">YAML → JSON</h3></div>
             <p class="hub-card-desc">YAML’yi yapılandırılmış JSON’a dönüştürün; YAML dosyalarını anında ayrıştırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-to-csv.html" class="hub-card" data-cat="devtools" data-tags="json csv convert table export">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON → CSV</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><h3 class="hub-card-title">JSON → CSV</h3></div>
             <p class="hub-card-desc">JSON nesne dizisini otomatik algılanan sütunlara sahip bir CSV tablosuna dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/csv-to-json.html" class="hub-card" data-cat="devtools" data-tags="csv json parse convert table">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">CSV → JSON</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><h3 class="hub-card-title">CSV → JSON</h3></div>
             <p class="hub-card-desc">CSV verisini ayrıştırın ve başlık satırını anahtar olarak kullanarak JSON dizisine dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-diff.html" class="hub-card" data-cat="devtools" data-tags="json diff compare difference delta">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON Karşılaştırma Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">JSON Karşılaştırma Aracı</h3></div>
             <p class="hub-card-desc">İki JSON nesnesini karşılaştırın; farkları, eklemeleri ve silmeleri vurgulayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-sorter.html" class="hub-card" data-cat="devtools" data-tags="json sort order alphabetical keys">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JSON Sıralayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3 class="hub-card-title">JSON Sıralayıcı</h3></div>
             <p class="hub-card-desc">JSON nesne anahtarlarını alfabetik ya da değere göre artan veya azalan biçimde sıralayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Developer Tools ──────────────────────── -->
           <a href="tools/sql-formatter.html" class="hub-card" data-cat="devtools" data-tags="sql format query database beautify">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">SQL Biçimlendirici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3 class="hub-card-title">SQL Biçimlendirici</h3></div>
             <p class="hub-card-desc">SQL sorgularını anahtar sözcük vurgulamasıyla biçimlendirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/xml-formatter.html" class="hub-card" data-cat="devtools" data-tags="xml format beautify indent markup">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">XML Biçimlendirici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">XML Biçimlendirici</h3></div>
             <p class="hub-card-desc">XML belgelerini daha okunabilir hâle getirmek için girintileyin ve biçimlendirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/html-minifier.html" class="hub-card" data-cat="devtools" data-tags="html minify compress optimize size">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">HTML Küçültücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3 class="hub-card-title">HTML Küçültücü</h3></div>
             <p class="hub-card-desc">Yorumları, boşlukları ve kullanılmayan öznitelikleri kaldırarak HTML’yi küçültün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/css-minifier.html" class="hub-card" data-cat="devtools" data-tags="css minify compress optimize stylesheet">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">CSS Küçültücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><h3 class="hub-card-title">CSS Küçültücü</h3></div>
             <p class="hub-card-desc">Boşlukları, yorumları ve gereksiz bildirimleri kaldırarak CSS’yi küçültün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/js-minifier.html" class="hub-card" data-cat="devtools" data-tags="javascript js minify compress uglify">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="7" y1="17" x2="17" y2="7"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">JavaScript Küçültücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="7" y1="17" x2="17" y2="7"/></svg></div><h3 class="hub-card-title">JavaScript Küçültücü</h3></div>
             <p class="hub-card-desc">Yorumları ve gereksiz boşlukları kaldırarak JavaScript’i küçültün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/http-status.html" class="hub-card" data-cat="devtools" data-tags="http status 404 200 500 error codes">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">HTTP Durum Kodu Sorgulama</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="hub-card-title">HTTP Durum Kodu Sorgulama</h3></div>
             <p class="hub-card-desc">Herhangi bir HTTP durum kodunu aratın ve anlamının ayrıntılı açıklamasını alın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/mime-lookup.html" class="hub-card" data-cat="devtools" data-tags="mime content-type file type extension media type">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="12" cy="14" r="2"/></svg></div><span class="hub-card-cat">Geliştirici Araçları</span></div>
-            <h3 class="hub-card-title">MIME Türü Sorgulama</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="12" cy="14" r="2"/></svg></div><h3 class="hub-card-title">MIME Türü Sorgulama</h3></div>
             <p class="hub-card-desc">Dosya uzantısından MIME türünü ya da MIME türünden uzantıyı bulun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Text Tools ───────────────────────────── -->
           <a href="tools/word-counter.html" class="hub-card" data-cat="text" data-tags="word count characters text count statistics">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Kelime Sayacı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><h3 class="hub-card-title">Kelime Sayacı</h3></div>
             <p class="hub-card-desc">Kelime, karakter, cümle ve paragrafları okuma süresi tahminiyle sayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-sorter.html" class="hub-card" data-cat="text" data-tags="sort lines alphabetical order text">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><path d="M3 6l3-3 3 3"/><line x1="6" y1="3" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Metin Sıralama Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><path d="M3 6l3-3 3 3"/><line x1="6" y1="3" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">Metin Sıralama Aracı</h3></div>
             <p class="hub-card-desc">Satırları alfabetik, sayısal veya uzunluğa göre artan ya da azalan biçimde sıralayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/deduplicate-lines.html" class="hub-card" data-cat="text" data-tags="duplicate lines remove unique dedupe">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Yinelenen Satırları Kaldır</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><h3 class="hub-card-title">Yinelenen Satırları Kaldır</h3></div>
             <p class="hub-card-desc">Herhangi bir listedeki yinelenen satırları kırpma ve büyük/küçük harf duyarsız modu kullanarak kaldırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/line-numbers.html" class="hub-card" data-cat="text" data-tags="line numbers numbering text prefix lines">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Satır Numaralandırma Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/></svg></div><h3 class="hub-card-title">Satır Numaralandırma Aracı</h3></div>
             <p class="hub-card-desc">Herhangi bir metin bloğuna satır numarası ekleyin veya kaldırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-reverser.html" class="hub-card" data-cat="text" data-tags="reverse text flip mirror backwards">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Metin Ters Çevirme Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3 class="hub-card-title">Metin Ters Çevirme Aracı</h3></div>
             <p class="hub-card-desc">Metni anında karakter karakter ya da kelime kelime tersine çevirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/slug.html" class="hub-card" data-cat="text" data-tags="slug url kebab seo permalink">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Slug Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3 class="hub-card-title">Slug Oluşturucu</h3></div>
             <p class="hub-card-desc">Herhangi bir metni özel karakter içermeyen, küçük harfli URL dostu kısa ada dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-string.html" class="hub-card" data-cat="text" data-tags="random string generate text password">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Rastgele Dizge Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><h3 class="hub-card-title">Rastgele Dizge Oluşturucu</h3></div>
             <p class="hub-card-desc">Özel uzunluk, karakter ve biçim seçenekleriyle rastgele dizeler oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-cleaner.html" class="hub-card" data-cat="text" data-tags="clean text strip whitespace normalize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Metin Temizleyici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><h3 class="hub-card-title">Metin Temizleyici</h3></div>
             <p class="hub-card-desc">Fazla boşlukları kaldırın, satırları kırpın ve satır sonlarını normalleştirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/find-replace.html" class="hub-card" data-cat="text" data-tags="find replace text regex search">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></div><span class="hub-card-cat">Metin Araçları</span></div>
-            <h3 class="hub-card-title">Bul ve Değiştir Aracı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></div><h3 class="hub-card-title">Bul ve Değiştir Aracı</h3></div>
             <p class="hub-card-desc">Metni bulup değiştirin; düzenli ifadeleri, büyük/küçük harf duyarlılığını ve tümünü değiştirmeyi destekler.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Generators ────────────────────────────── -->
           <a href="tools/color-palette.html" class="hub-card" data-cat="generators" data-tags="color palette design scheme harmony">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Renk Paleti Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3 class="hub-card-title">Renk Paleti Oluşturucu</h3></div>
             <p class="hub-card-desc">Uyumlu renk paletleri oluşturun: tamamlayıcı, üçlü ve benzer.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-number.html" class="hub-card" data-cat="generators" data-tags="random number generate dice lottery">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Rastgele Sayı Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg></div><h3 class="hub-card-title">Rastgele Sayı Oluşturucu</h3></div>
             <p class="hub-card-desc">Özel en küçük/en büyük, adet ve ondalık seçenekleriyle rastgele sayılar oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-color.html" class="hub-card" data-cat="generators" data-tags="random color generate hex palette">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Rastgele Renk Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3 class="hub-card-title">Rastgele Renk Oluşturucu</h3></div>
             <p class="hub-card-desc">HEX, RGB ve HSL çıktılı tekli veya toplu rastgele renkler oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-name.html" class="hub-card" data-cat="generators" data-tags="random name generate fake person">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Rastgele Ad Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h3 class="hub-card-title">Rastgele Ad Oluşturucu</h3></div>
             <p class="hub-card-desc">Farklı veri kümelerinden rastgele ad, soyad ve tam ad oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/fake-data.html" class="hub-card" data-cat="generators" data-tags="fake data generate mock test data">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="hub-card-cat">Oluşturucular</span></div>
-            <h3 class="hub-card-title">Sahte Veri Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="hub-card-title">Sahte Veri Oluşturucu</h3></div>
             <p class="hub-card-desc">JSON veya CSV biçiminde gerçekçi sahte veriler; adlar, e-postalar ve adresler oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Converters ────────────────────────────── -->
           <a href="tools/unit-converter.html" class="hub-card" data-cat="converters" data-tags="px rem em css unit convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">CSS Birim Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3 class="hub-card-title">CSS Birim Dönüştürücü</h3></div>
             <p class="hub-card-desc">CSS birimleri arasında dönüştürün: px, rem, em, vw, vh ve yüzdeler.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/temperature.html" class="hub-card" data-cat="converters" data-tags="temperature celsius fahrenheit kelvin convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Sıcaklık Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><h3 class="hub-card-title">Sıcaklık Dönüştürücü</h3></div>
             <p class="hub-card-desc">Celsius, Fahrenheit ve Kelvin arasında anında dönüşüm yapın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/bytes.html" class="hub-card" data-cat="converters" data-tags="bytes kb mb gb storage convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Bayt Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3 class="hub-card-title">Bayt Dönüştürücü</h3></div>
             <p class="hub-card-desc">Bayt, KB, MB, GB, TB ve ikili birimler (KiB, MiB, GiB) arasında dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/number-base.html" class="hub-card" data-cat="converters" data-tags="binary hex octal decimal base convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Sayı Tabanı Dönüştürücü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Sayı Tabanı Dönüştürücü</h3></div>
             <p class="hub-card-desc">Sayıları ikili, sekizlik, ondalık ve onaltılık tabanlar arasında dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/percentage.html" class="hub-card" data-cat="converters" data-tags="percentage percent calculate math ratio">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">Yüzde Hesaplayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><h3 class="hub-card-title">Yüzde Hesaplayıcı</h3></div>
             <p class="hub-card-desc">Yüzdeleri, yüzde değişimini ve ters hesaplamaları hesaplayın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/aspect-ratio.html" class="hub-card" data-cat="converters" data-tags="aspect ratio resolution image video resize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><span class="hub-card-cat">Dönüştürücüler</span></div>
-            <h3 class="hub-card-title">En-Boy Oranı Hesaplayıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><h3 class="hub-card-title">En-Boy Oranı Hesaplayıcı</h3></div>
             <p class="hub-card-desc">En-boy oranlarını hesaplayın; oranı koruyarak görselleri ve videoları yeniden boyutlandırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Web Utilities ─────────────────────────── -->
           <a href="tools/url-parser.html" class="hub-card" data-cat="web" data-tags="url parse query string path protocol">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">URL Ayrıştırıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3 class="hub-card-title">URL Ayrıştırıcı</h3></div>
             <p class="hub-card-desc">Herhangi bir URL’yi protokol, ana makine, yol, sorgu parametreleri ve parça bileşenlerine ayrıştırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/meta-tags.html" class="hub-card" data-cat="web" data-tags="meta seo html tags head">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 9 9 9 8 9"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">Meta Etiket Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 9 9 9 8 9"/></svg></div><h3 class="hub-card-title">Meta Etiket Oluşturucu</h3></div>
             <p class="hub-card-desc">SEO için gerekli HTML meta etiketlerini oluşturun: başlık, açıklama ve robots yönergeleri.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/open-graph.html" class="hub-card" data-cat="web" data-tags="open graph og twitter card social meta">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">Open Graph Etiket Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><h3 class="hub-card-title">Open Graph Etiket Oluşturucu</h3></div>
             <p class="hub-card-desc">Daha iyi sosyal paylaşım önizlemeleri için OG ve Twitter Card meta etiketleri oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/query-string.html" class="hub-card" data-cat="web" data-tags="query string url params parse search params">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">Sorgu Dizgesi Ayrıştırıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 class="hub-card-title">Sorgu Dizgesi Ayrıştırıcı</h3></div>
             <p class="hub-card-desc">URL sorgu dizelerini anahtar-değer çiftlerine ve tersine dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/url-builder.html" class="hub-card" data-cat="web" data-tags="url build construct params query">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">URL Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><h3 class="hub-card-title">URL Oluşturucu</h3></div>
             <p class="hub-card-desc">Temel adresi, yolu ve sorgu parametrelerini adım adım ekleyerek URL oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/user-agent.html" class="hub-card" data-cat="web" data-tags="user agent browser os device parse">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">User-Agent Ayrıştırıcı</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><h3 class="hub-card-title">User-Agent Ayrıştırıcı</h3></div>
             <p class="hub-card-desc">Tarayıcı, işletim sistemi, cihaz ve motor bilgilerini çıkarmak için User-Agent dizelerini ayrıştırın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/robots-generator.html" class="hub-card" data-cat="web" data-tags="robots.txt seo crawler sitemap disallow">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><polyline points="9 15 12 18 15 15"/></svg></div><span class="hub-card-cat">Web Araçları</span></div>
-            <h3 class="hub-card-title">Robots.txt Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><polyline points="9 15 12 18 15 15"/></svg></div><h3 class="hub-card-title">Robots.txt Oluşturucu</h3></div>
             <p class="hub-card-desc">Arama motoru botlarının taraması için kurallar içeren robots.txt dosyaları oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Media & Files ─────────────────────────── -->
           <a href="tools/image-to-base64.html" class="hub-card" data-cat="media" data-tags="image base64 data uri encode convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Görüntü → Base64</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Görüntü → Base64</h3></div>
             <p class="hub-card-desc">CSS arka planları ve HTML gömmeleri için görselleri Base64 veri URI’sine dönüştürün.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/base64-to-image.html" class="hub-card" data-cat="media" data-tags="base64 image decode preview data uri">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Base64 → Görüntü</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Base64 → Görüntü</h3></div>
             <p class="hub-card-desc">Base64 veri URI’lerindeki görselleri anında önizleyin ve indirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/image-metadata.html" class="hub-card" data-cat="media" data-tags="image exif metadata dimensions gps">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Görüntü Meta Verisi Görüntüleyici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="hub-card-title">Görüntü Meta Verisi Görüntüleyici</h3></div>
             <p class="hub-card-desc">Görsellerin EXIF meta verilerini görüntüleyin: boyutlar, kamera bilgisi ve GPS koordinatları.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/svg-optimizer.html" class="hub-card" data-cat="media" data-tags="svg optimize compress clean vector">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">SVG İyileştirici</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3 class="hub-card-title">SVG İyileştirici</h3></div>
             <p class="hub-card-desc">Gereksiz öznitelikleri ve yorumları kaldırarak SVG dosyası boyutunu azaltın.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/favicon-generator.html" class="hub-card" data-cat="media" data-tags="favicon icon generate logo ico">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Favicon Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Favicon Oluşturucu</h3></div>
             <p class="hub-card-desc">Metinden, emojiden veya yüklenen görselden birden çok boyutta favicon oluşturun.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/image-dimensions.html" class="hub-card" data-cat="media" data-tags="image dimensions width height size">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Görüntü Boyut Denetleyicisi</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3 class="hub-card-title">Görüntü Boyut Denetleyicisi</h3></div>
             <p class="hub-card-desc">Görsel boyutlarını, dosya boyutunu ve en-boy oranını anında denetleyin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-batch.html" class="hub-card" data-cat="media" data-tags="qr batch multiple bulk generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><span class="hub-card-cat">Medya</span></div>
-            <h3 class="hub-card-title">Toplu QR Kod Oluşturucu</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><h3 class="hub-card-title">Toplu QR Kod Oluşturucu</h3></div>
             <p class="hub-card-desc">Bir listeden aynı anda birden çok QR kodu oluşturun ve PNG olarak indirin.</p>
-            <span class="hub-card-footer">Aracı aç <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- No-results message -->

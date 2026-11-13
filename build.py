@@ -235,12 +235,10 @@ def _expansion_page(tool):
   <link rel="stylesheet" href="../assets/css/inline-styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <meta name="theme-color" content="#0d1117" />
+  <meta name="theme-color" content="#0a0a0a" />
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
   <header>
 <!-- NAV:START -->
 <!-- NAV:END -->
@@ -485,6 +483,7 @@ def run_tool_count():
         revised = re.sub(r'Search \d+ tools…', f'Search {count} tools…', revised)
         revised = re.sub(r'Browse \d+ Tools', f'Browse {count} Tools', revised)
         revised = re.sub(r'\b\d+ free developer utilities', f'{count} free developer utilities', revised)
+        revised = re.sub(r'\b\d+ tools for encoding, security', f'{count} tools for encoding, security', revised)
         revised = re.sub(r'(All <span class="gradient-text">)\d+( Tools</span>)', rf'\g<1>{count}\2', revised)
         revised = re.sub(r'(<span class="stat-num" id="toolCountStat">)\d+(</span>)', rf'\g<1>{count}\2', revised)
         if revised != content:
@@ -555,12 +554,12 @@ def run_nav():
 _SOCIAL = {
     'en': {
         'locale': 'en_US', 'alternate': 'tr_TR', 'image': 'assets/images/og-en.png',
-        'alt': 'Toolkit: everyday developer tools that run entirely in your browser.',
+        'alt': 'Toolkit: everyday developer utilities, without the backend.',
         'browser': 'Requires a modern browser with JavaScript enabled.',
     },
     'tr': {
         'locale': 'tr_TR', 'alternate': 'en_US', 'image': 'assets/images/og-tr.png',
-        'alt': 'Toolkit: tamamen tarayıcınızda çalışan günlük geliştirici araçları.',
+        'alt': 'Toolkit: günlük geliştirici araçları, sunucu olmadan.',
         'browser': 'JavaScript etkin, güncel bir tarayıcı gerektirir.',
     },
 }

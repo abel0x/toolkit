@@ -4,7 +4,14 @@ All notable changes to Toolkit are documented here. The format follows [Keep a C
 
 ## [Unreleased]
 
+A calmer, monochrome look, and pages roughly half the size of 1.4.0 on a first visit. No tool is added or removed.
+
 ### Changed
+
+- New visual design on every page: near-black background, one light accent, flat surfaces and the system font. The cyan–purple gradients, background grid, glows, glass blur and neon badges are gone; colour is kept for meaning (success, warning, error, password strength). The colour tokens are renamed by role (`--accent`, `--accent-dim`, `--accent-ring`, `--accent-text`).
+- The home page opens with a left-aligned headline, the tool search and a GitHub link, followed straight away by category tabs with tool counts and the tool cards. The "The Ultimate Toolkit" hero, the badge and the statistics box are removed, and cards show an icon, the name and the description. The card tilt effect is gone. New Turkish copy for the headline and subline.
+- The logo keeps its shield but is drawn in flat light grey. The favicons and app icons put it on a dark rounded tile, and the social preview images (`og-en.png`, `og-tr.png`) and README screenshots are redrawn in the new style. The theme colour is `#0a0a0a`.
+- Space Grotesk and the italic JetBrains Mono are no longer shipped, and JetBrains Mono is subset to Latin (with Turkish), punctuation, arrows and box drawing (73 KB to 48 KB). A first visit transfers about 100 KB instead of 185 KB on English pages and 115 KB instead of 230 KB on Turkish tool pages.
 
 - The `/tr/` pages no longer load the whole Turkish catalogue. Their HTML is already translated, so at run time they only need the strings their scripts can produce. `build.py --turkish` now writes small packs to `assets/js/i18n/tr/`: one shared by every page for the core scripts (the tool finder, navigation, example starters) and one per page script, each holding the dictionary entries whose English text appears as a string in those scripts. A Turkish tool page now loads about 40 KB of Turkish strings instead of 140 KB (for Base64, 369 KB instead of 472 KB in all). `i18n-tr.js` and `i18n-expansion.js` remain the only place translations are written; `404.html` still loads them whole.
 - `tests/turkish-pages-e2e.mjs` opens the tool finder and runs every Turkish tool page, then fails if the page shows English that the complete dictionaries would translate. The static-copy comparison now runs on `404.html`, the one page with the complete dictionaries.

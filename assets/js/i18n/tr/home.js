@@ -5,8 +5,6 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Home": "Ana sayfa",
-    "Open tool": "Aracı aç",
-    ".ico": ".ico",
-    "Open tool →": "Aracı aç →"
+    ".ico": ".ico"
   }))
 });

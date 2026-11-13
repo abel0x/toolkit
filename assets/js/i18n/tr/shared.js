@@ -546,6 +546,8 @@
     if (match) return `${match[1]} yinelenen kayıt kaldırıldı`;
     match = key.match(/^(©\s*\d{4}\s+Toolkit\.\s*)No data leaves your device\.$/);
     if (match) return `${match[1]}Verileriniz cihazınızdan ayrılmaz.`;
+    match = key.match(/^(\d+) tools for encoding, security, JSON, text and the web\. Everything runs locally in your browser\.$/);
+    if (match) return `${match[1]} araç: kodlama, güvenlik, JSON, metin ve web. Hepsi tarayıcınızda, yerel olarak çalışır.`;
     match = key.match(/^(\d+) tools · HTML · CSS · Vanilla JS · Web Crypto API$/);
     if (match) return `${match[1]} araç · HTML · CSS · Vanilla JS · Web Crypto API`;
     match = key.match(/^(\d+) day(s)? • ([\d.]+) weeks • (\d+) whole average months$/);

@@ -73,7 +73,7 @@ for (const input of expansionScript.matchAll(/<input\b[^>]*\btype=["']file["'][^
 }
 
 const coreCss = readFileSync(join(root, 'assets', 'css', 'core.css'), 'utf8');
-assert(/:focus-visible\s*\{[\s\S]*outline:\s*2px solid var\(--cyan\) !important/.test(coreCss),
+assert(/:focus-visible\s*\{[\s\S]*outline:\s*2px solid var\(--accent\) !important/.test(coreCss),
   'Shared styles must provide a visible keyboard focus indicator.');
 assert(/--radius-full:\s*999px/.test(coreCss), 'Shared styles must define the full-radius token used by controls.');
 
@@ -83,7 +83,7 @@ assert(reducedMotionBlock.includes('animation: none !important; transition: none
   'Typing-test reduced-motion styles must fully disable caret and stream motion.');
 
 const background = token(coreCss, 'bg-base');
-for (const name of ['text-primary', 'text-secondary', 'text-muted', 'cyan', 'green', 'yellow', 'red']) {
+for (const name of ['text-primary', 'text-secondary', 'text-muted', 'accent', 'green', 'yellow', 'red']) {
   assert(contrast(token(coreCss, name), background) >= 4.5,
     `${name} does not meet the 4.5:1 text contrast baseline against the base background.`);
 }

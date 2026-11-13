@@ -658,7 +658,8 @@ async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
       const trackRect = track.getBoundingClientRect();
       return {
         singleRow: rows.size === 1,
-        centered: Math.abs((filterRect.width - trackRect.width) / 2 - (trackRect.left - filterRect.left)) <= 1
+        // Tabs start at the left edge of the content column, under the search box.
+        aligned: Math.abs(trackRect.left - filterRect.left) <= 1
       };
     };
     return {
@@ -681,9 +682,9 @@ async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
   assert.deepEqual([englishPage.language, turkishPage.language], ['en', 'tr'], 'Homepage: wrong page language.');
   assert.equal(desktop.noPageOverflow, true, 'Homepage: Turkish category filters cause page-level horizontal overflow.');
   assert.equal(desktop.english.singleRow, true, 'Homepage: English category filters wrap onto multiple rows.');
-  assert.equal(desktop.english.centered, true, 'Homepage: English category filters are not centered when they fit.');
+  assert.equal(desktop.english.aligned, true, 'Homepage: English category tabs are not left-aligned.');
   assert.equal(desktop.turkish.singleRow, true, 'Homepage: Turkish category filters wrap onto multiple rows.');
-  assert.equal(desktop.turkish.centered, true, 'Homepage: Turkish category filters are not centered when they fit.');
+  assert.equal(desktop.turkish.aligned, true, 'Homepage: Turkish category tabs are not left-aligned.');
   assert.equal(desktop.hasAllCategories, true, 'Homepage: a category filter is missing.');
 
   await bidi.call('browsingContext.setViewport', { context, viewport: { width: 390, height: 844 }, devicePixelRatio: 1 });

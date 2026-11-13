@@ -22,12 +22,12 @@
   <meta property="og:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Toolkit: everyday developer tools that run entirely in your browser." />
+  <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Toolkit" />
   <meta name="twitter:description" content="101 free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter and more. 100% client-side, zero tracking." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
-  <meta name="twitter:image:alt" content="Toolkit: everyday developer tools that run entirely in your browser." />
+  <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Toolkit</title>
   <!-- Non-blocking font load: does not stall first render -->
   <link rel="stylesheet" href="assets/css/core.css" />
@@ -38,7 +38,7 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/images/favicon-256.png" />
-  <meta name="theme-color" content="#0d1117" />
+  <meta name="theme-color" content="#0a0a0a" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/", "inLanguage": "en", "description": "Toolkit — 101 free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter, text tools, converters, web utilities and more. 100% client-side, zero tracking."}</script>
 </head>
 <body>
@@ -47,9 +47,6 @@
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ░ Background FX ░ -->
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
-  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
 
   <!-- ░ Navigation ░ -->
   <header>
@@ -57,7 +54,7 @@
   <div class="nav-container">
     <a href="index.html" class="nav-brand" aria-label="Toolkit home">
       <span class="brand-icon" aria-hidden="true">
-        <img src="assets/images/favicon-64.png" width="44" height="44" alt="" />
+        <img src="assets/images/logo.png" width="36" height="36" alt="" />
       </span>
       <span class="brand-name">Toolkit</span>
     </a>
@@ -77,563 +74,370 @@
 
     <!-- ░░░░░░ HERO ░░░░░░ -->
     <section class="hero" id="home" aria-labelledby="heroHeading">
-      <div class="hero-inner">
-        <div class="hero-badge reveal" aria-hidden="true">
-          <span class="badge-dot"></span>
-          Developer Utilities Suite
-        </div>
-        <h1 class="hero-title reveal" id="heroHeading">
-          The Ultimate<br />
-          <span class="gradient-text">Toolkit</span>
-        </h1>
-        <p class="hero-sub reveal">
-          A curated set of cryptographic &amp; encoding utilities,<br class="br-hide" />
-          built for precision. No tracking. No backend. Pure client-side.
-        </p>
-        <div class="hero-actions reveal">
-          <a href="#tools-hub" class="btn btn--primary">Explore Tools</a>
-          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="btn btn--ghost">
+      <div class="container container--wide">
+        <h1 class="hero-title" id="heroHeading">Everyday developer utilities, without the backend.</h1>
+        <p class="hero-sub">101 tools for encoding, security, JSON, text and the web. Everything runs locally in your browser.</p>
+        <div class="hero-actions">
+          <div class="hub-search-wrap">
+            <svg class="hub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="hubSearch" class="hub-search" placeholder="Search 101 tools…" aria-label="Search tools" autocomplete="off" spellcheck="false" />
+            <kbd class="hub-search-key" aria-hidden="true">/</kbd>
+          </div>
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="btn btn--secondary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
-          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="btn btn--coffee">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-            Buy me a coffee
-          </a>
-        </div>
-        <div class="hero-stats reveal">
-          <div class="stat">
-            <span class="stat-num" id="toolCountStat">101</span>
-            <span class="stat-label">Tools</span>
-          </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat">
-            <span class="stat-num">0</span>
-            <span class="stat-label">Servers</span>
-          </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Private</span>
-          </div>
         </div>
       </div>
-
     </section>
 
     <!-- ░░░░░░ TOOLS HUB ░░░░░░ -->
     <section class="hub-section" id="tools-hub" aria-labelledby="hubHeading">
-      <div class="container">
-        <div class="hub-section-header reveal">
-          <h2 class="hub-title" id="hubHeading">All <span class="gradient-text">101 Tools</span></h2>
-          <p class="hub-subtitle">Click any card to open the tool on its own dedicated page. Press <kbd>/</kbd> to search.</p>
-
-          <!-- Instant search -->
-          <div class="hub-search-wrap">
-            <svg class="hub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="search" id="hubSearch" class="hub-search" placeholder="Search 101 tools…" aria-label="Search tools" autocomplete="off" spellcheck="false" />
-          </div>
-
-          <div class="hub-filter" role="group" aria-label="Filter tools by category">
-            <div class="hub-filter-track">
-              <button class="hub-filter-btn active" data-filter="all">All</button>
-              <button class="hub-filter-btn" data-filter="security">Security</button>
-              <button class="hub-filter-btn" data-filter="encoding">Encoding</button>
-              <button class="hub-filter-btn" data-filter="devtools">Dev Tools</button>
-              <button class="hub-filter-btn" data-filter="text">Text</button>
-              <button class="hub-filter-btn" data-filter="generators">Generators</button>
-              <button class="hub-filter-btn" data-filter="converters">Converters</button>
-              <button class="hub-filter-btn" data-filter="web">Web</button>
-              <button class="hub-filter-btn" data-filter="media">Media</button>
-            </div>
+      <div class="container container--wide">
+        <h2 class="sr-only" id="hubHeading">All <span class="gradient-text">101 Tools</span></h2>
+        <div class="hub-filter" role="group" aria-label="Filter tools by category">
+          <div class="hub-filter-track">
+            <button class="hub-filter-btn active" data-filter="all" aria-pressed="true">All</button>
+            <button class="hub-filter-btn" data-filter="security" aria-pressed="false">Security</button>
+            <button class="hub-filter-btn" data-filter="encoding" aria-pressed="false">Encoding</button>
+            <button class="hub-filter-btn" data-filter="devtools" aria-pressed="false">Dev Tools</button>
+            <button class="hub-filter-btn" data-filter="text" aria-pressed="false">Text</button>
+            <button class="hub-filter-btn" data-filter="generators" aria-pressed="false">Generators</button>
+            <button class="hub-filter-btn" data-filter="converters" aria-pressed="false">Converters</button>
+            <button class="hub-filter-btn" data-filter="web" aria-pressed="false">Web</button>
+            <button class="hub-filter-btn" data-filter="media" aria-pressed="false">Media</button>
           </div>
         </div>
         <div class="hub-grid" id="hubGrid">
           <a href="tools/password.html" class="hub-card" data-cat="security" data-tags="password random crypto security generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">Password Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="hub-card-title">Password Generator</h3></div>
             <p class="hub-card-desc">Cryptographically strong passwords with full control over length and character sets.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hash.html" class="hub-card" data-cat="security" data-tags="hash sha sha256 md5 crypto checksum">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">Hash Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Hash Generator</h3></div>
             <p class="hub-card-desc">SHA-1, SHA-256, SHA-384 and SHA-512 digests via the Web Crypto API.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/jwt-decoder.html" class="hub-card" data-cat="security" data-tags="jwt token decode auth json web token">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">JWT Decoder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div><h3 class="hub-card-title">JWT Decoder</h3></div>
             <p class="hub-card-desc">Decode JSON Web Tokens — inspect header, payload, expiry and claims.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/base64.html" class="hub-card" data-cat="encoding" data-tags="base64 encode decode encoding">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">Base64 Encode / Decode</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">Base64 Encode / Decode</h3></div>
             <p class="hub-card-desc">Encode or decode Base64 strings — Unicode and binary-safe.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/url-codec.html" class="hub-card" data-cat="encoding" data-tags="url encode decode percent uri">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">URL Encoder / Decoder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3 class="hub-card-title">URL Encoder / Decoder</h3></div>
             <p class="hub-card-desc">Encode special characters for URL safety or decode percent-encoded strings.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/case-converter.html" class="hub-card" data-cat="encoding" data-tags="case camel pascal snake kebab text">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">Case Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div><h3 class="hub-card-title">Case Converter</h3></div>
             <p class="hub-card-desc">Transform text into camelCase, PascalCase, snake_case, kebab-case and more.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-formatter.html" class="hub-card" data-cat="devtools" data-tags="json format beautify minify validate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON Formatter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3 class="hub-card-title">JSON Formatter</h3></div>
             <p class="hub-card-desc">Validate, beautify and minify JSON with human-friendly error messages.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/regex-tester.html" class="hub-card" data-cat="devtools" data-tags="regex regexp pattern match test">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">Regex Tester</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 class="hub-card-title">Regex Tester</h3></div>
             <p class="hub-card-desc">Test regular expressions with live match highlighting and capture group display.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/markdown.html" class="hub-card" data-cat="devtools" data-tags="markdown preview md render write">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">Markdown Previewer</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><h3 class="hub-card-title">Markdown Previewer</h3></div>
             <p class="hub-card-desc">Write and preview Markdown in real time — safe, fully client-side rendering.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-diff.html" class="hub-card" data-cat="devtools" data-tags="diff compare text difference changes">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">Text Diff Checker</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">Text Diff Checker</h3></div>
             <p class="hub-card-desc">Compare two texts line-by-line — see additions, deletions and unchanged lines.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/uuid.html" class="hub-card" data-cat="generators" data-tags="uuid guid unique id generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">UUID Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="hub-card-title">UUID Generator</h3></div>
             <p class="hub-card-desc">Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/lorem-ipsum.html" class="hub-card" data-cat="generators" data-tags="lorem ipsum placeholder text dummy generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Lorem Ipsum</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><h3 class="hub-card-title">Lorem Ipsum</h3></div>
             <p class="hub-card-desc">Generate placeholder text by words, sentences, or paragraphs — instantly.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-generator.html" class="hub-card" data-cat="generators" data-tags="qr qr code generate barcode scan">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">QR Code Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><h3 class="hub-card-title">QR Code Generator</h3></div>
             <p class="hub-card-desc">Generate QR codes for text, URLs, Wi-Fi, email and SMS with colour options.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/gradient.html" class="hub-card" data-cat="generators" data-tags="gradient css color background design">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Gradient Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"/></svg></div><h3 class="hub-card-title">Gradient Generator</h3></div>
             <p class="hub-card-desc">Build beautiful CSS linear gradients with live preview and one-click copy.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/timestamp.html" class="hub-card" data-cat="converters" data-tags="timestamp unix date time convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Timestamp Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 class="hub-card-title">Timestamp Converter</h3></div>
             <p class="hub-card-desc">Convert Unix timestamps to human-readable dates and back — with live clock.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/color-converter.html" class="hub-card" data-cat="converters" data-tags="color hex rgb hsl convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Color Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3 class="hub-card-title">Color Converter</h3></div>
             <p class="hub-card-desc">Convert between HEX, RGB and HSL with a live color preview swatch and picker.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-reader.html" class="hub-card" data-cat="media" data-tags="qr scan decode read image">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">QR Code Reader</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3 class="hub-card-title">QR Code Reader</h3></div>
             <p class="hub-card-desc">Upload an image with a QR code and instantly decode its contents.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Security & Crypto ─────────────────────── -->
           <a href="tools/bcrypt.html" class="hub-card" data-cat="security" data-tags="bcrypt password hash security crypto">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1M12 15v2"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">Bcrypt Hash Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1M12 15v2"/></svg></div><h3 class="hub-card-title">Bcrypt Hash Generator</h3></div>
             <p class="hub-card-desc">Hash passwords with the industry-standard adaptive bcrypt algorithm.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hmac.html" class="hub-card" data-cat="security" data-tags="hmac mac signature crypto auth">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">HMAC Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="hub-card-title">HMAC Generator</h3></div>
             <p class="hub-card-desc">Generate HMAC-SHA256/512 message authentication codes for secure signing.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/password-strength.html" class="hub-card" data-cat="security" data-tags="password strength entropy security check">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">Password Strength Checker</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><h3 class="hub-card-title">Password Strength Checker</h3></div>
             <p class="hub-card-desc">Analyse entropy, flag common passwords and get actionable improvement tips.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-token.html" class="hub-card" data-cat="security" data-tags="token random secret api key nonce session">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">Random Token Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3 class="hub-card-title">Random Token Generator</h3></div>
             <p class="hub-card-desc">Generate cryptographically secure random tokens for API keys and sessions.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/uuid-validator.html" class="hub-card" data-cat="security" data-tags="uuid guid validate version check">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">UUID Validator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></div><h3 class="hub-card-title">UUID Validator</h3></div>
             <p class="hub-card-desc">Validate UUIDs and determine their version (v1–v8) and variant.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/file-checksum.html" class="hub-card" data-cat="security" data-tags="checksum file sha256 verify integrity">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg></div><span class="hub-card-cat">Security</span></div>
-            <h3 class="hub-card-title">File Checksum Tool</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg></div><h3 class="hub-card-title">File Checksum Tool</h3></div>
             <p class="hub-card-desc">Compute SHA-256, SHA-512 checksums for files — 100% client-side.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Encoding & Decoding ───────────────────── -->
           <a href="tools/base32.html" class="hub-card" data-cat="encoding" data-tags="base32 encode decode totp secret">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">Base32 Encoder / Decoder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3 class="hub-card-title">Base32 Encoder / Decoder</h3></div>
             <p class="hub-card-desc">Encode and decode text with the Base32 alphabet — useful for TOTP secrets.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/hex-codec.html" class="hub-card" data-cat="encoding" data-tags="hex hexadecimal encode decode binary">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">Hex Encoder / Decoder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Hex Encoder / Decoder</h3></div>
             <p class="hub-card-desc">Convert text to hexadecimal and back — useful for binary data inspection.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/html-codec.html" class="hub-card" data-cat="encoding" data-tags="html entity escape encode decode">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">HTML Encode / Decode</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">HTML Encode / Decode</h3></div>
             <p class="hub-card-desc">Escape HTML entities like &amp;amp; &amp;lt; or decode them back to characters.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/binary-text.html" class="hub-card" data-cat="encoding" data-tags="binary text convert bits encode">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">Binary Text Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3 class="hub-card-title">Binary Text Converter</h3></div>
             <p class="hub-card-desc">Convert text to binary (0s and 1s) and binary back to human-readable text.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/ascii.html" class="hub-card" data-cat="encoding" data-tags="ascii char code decimal convert encoding">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l3-3 3 3M7 4v16M17 4l3 3-3 3M20 7H14M14 17h6"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">ASCII Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l3-3 3 3M7 4v16M17 4l3 3-3 3M20 7H14M14 17h6"/></svg></div><h3 class="hub-card-title">ASCII Converter</h3></div>
             <p class="hub-card-desc">Convert characters to ASCII codes — decimal, hex, octal and binary.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/rot13.html" class="hub-card" data-cat="encoding" data-tags="rot13 cipher encode decode obfuscate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="hub-card-cat">Encoding</span></div>
-            <h3 class="hub-card-title">ROT13 Encoder / Decoder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3 class="hub-card-title">ROT13 Encoder / Decoder</h3></div>
             <p class="hub-card-desc">Apply the ROT13 cipher — encodes and decodes with the same operation.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: JSON & Data ───────────────────────────── -->
           <a href="tools/json-minifier.html" class="hub-card" data-cat="devtools" data-tags="json minify compress uglify optimize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 8 2 12 4 16"/><polyline points="20 8 22 12 20 16"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON Minifier</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 8 2 12 4 16"/><polyline points="20 8 22 12 20 16"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div><h3 class="hub-card-title">JSON Minifier</h3></div>
             <p class="hub-card-desc">Remove whitespace and compress JSON to its smallest valid form.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-validator.html" class="hub-card" data-cat="devtools" data-tags="json validate check lint syntax">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON Validator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg></div><h3 class="hub-card-title">JSON Validator</h3></div>
             <p class="hub-card-desc">Validate JSON syntax and get clear, line-specific error messages.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-to-yaml.html" class="hub-card" data-cat="devtools" data-tags="json yaml convert transform">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON to YAML</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div><h3 class="hub-card-title">JSON to YAML</h3></div>
             <p class="hub-card-desc">Convert JSON to human-readable YAML format.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/yaml-to-json.html" class="hub-card" data-cat="devtools" data-tags="yaml json convert parse">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">YAML to JSON</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div><h3 class="hub-card-title">YAML to JSON</h3></div>
             <p class="hub-card-desc">Convert YAML to structured JSON — parse YAML files instantly.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-to-csv.html" class="hub-card" data-cat="devtools" data-tags="json csv convert table export">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON to CSV</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><h3 class="hub-card-title">JSON to CSV</h3></div>
             <p class="hub-card-desc">Convert a JSON array of objects to a CSV table with auto-detected columns.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/csv-to-json.html" class="hub-card" data-cat="devtools" data-tags="csv json parse convert table">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">CSV to JSON</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div><h3 class="hub-card-title">CSV to JSON</h3></div>
             <p class="hub-card-desc">Parse CSV data and convert it to a JSON array using header row as keys.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-diff.html" class="hub-card" data-cat="devtools" data-tags="json diff compare difference delta">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON Diff Tool</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">JSON Diff Tool</h3></div>
             <p class="hub-card-desc">Compare two JSON objects and highlight differences, additions and deletions.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/json-sorter.html" class="hub-card" data-cat="devtools" data-tags="json sort order alphabetical keys">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JSON Sorter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3 class="hub-card-title">JSON Sorter</h3></div>
             <p class="hub-card-desc">Sort JSON object keys alphabetically or by value — ascending or descending.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Developer Tools ──────────────────────── -->
           <a href="tools/sql-formatter.html" class="hub-card" data-cat="devtools" data-tags="sql format query database beautify">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">SQL Formatter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3 class="hub-card-title">SQL Formatter</h3></div>
             <p class="hub-card-desc">Format and prettify SQL queries with keyword highlighting.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/xml-formatter.html" class="hub-card" data-cat="devtools" data-tags="xml format beautify indent markup">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">XML Formatter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3 class="hub-card-title">XML Formatter</h3></div>
             <p class="hub-card-desc">Indent and format XML documents for better readability.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/html-minifier.html" class="hub-card" data-cat="devtools" data-tags="html minify compress optimize size">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">HTML Minifier</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3 class="hub-card-title">HTML Minifier</h3></div>
             <p class="hub-card-desc">Minify HTML by removing comments, whitespace and unused attributes.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/css-minifier.html" class="hub-card" data-cat="devtools" data-tags="css minify compress optimize stylesheet">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">CSS Minifier</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><h3 class="hub-card-title">CSS Minifier</h3></div>
             <p class="hub-card-desc">Minify CSS by removing whitespace, comments and redundant declarations.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/js-minifier.html" class="hub-card" data-cat="devtools" data-tags="javascript js minify compress uglify">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="7" y1="17" x2="17" y2="7"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">JavaScript Minifier</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="7" y1="17" x2="17" y2="7"/></svg></div><h3 class="hub-card-title">JavaScript Minifier</h3></div>
             <p class="hub-card-desc">Minify JavaScript by removing comments and unnecessary whitespace.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/http-status.html" class="hub-card" data-cat="devtools" data-tags="http status 404 200 500 error codes">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">HTTP Status Code Lookup</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="hub-card-title">HTTP Status Code Lookup</h3></div>
             <p class="hub-card-desc">Look up any HTTP status code and get a full explanation of its meaning.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/mime-lookup.html" class="hub-card" data-cat="devtools" data-tags="mime content-type file type extension media type">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="12" cy="14" r="2"/></svg></div><span class="hub-card-cat">Dev Tools</span></div>
-            <h3 class="hub-card-title">MIME Type Lookup</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="12" cy="14" r="2"/></svg></div><h3 class="hub-card-title">MIME Type Lookup</h3></div>
             <p class="hub-card-desc">Find MIME types by file extension or extension from MIME type.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Text Tools ───────────────────────────── -->
           <a href="tools/word-counter.html" class="hub-card" data-cat="text" data-tags="word count characters text count statistics">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Word Counter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg></div><h3 class="hub-card-title">Word Counter</h3></div>
             <p class="hub-card-desc">Count words, characters, sentences and paragraphs with reading time estimate.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-sorter.html" class="hub-card" data-cat="text" data-tags="sort lines alphabetical order text">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><path d="M3 6l3-3 3 3"/><line x1="6" y1="3" x2="6" y2="14"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Text Sorter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><path d="M3 6l3-3 3 3"/><line x1="6" y1="3" x2="6" y2="14"/></svg></div><h3 class="hub-card-title">Text Sorter</h3></div>
             <p class="hub-card-desc">Sort lines alphabetically, numerically or by length — ascending or descending.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/deduplicate-lines.html" class="hub-card" data-cat="text" data-tags="duplicate lines remove unique dedupe">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Remove Duplicate Lines</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><h3 class="hub-card-title">Remove Duplicate Lines</h3></div>
             <p class="hub-card-desc">Remove duplicate lines from any list — with trim and case-insensitive mode.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/line-numbers.html" class="hub-card" data-cat="text" data-tags="line numbers numbering text prefix lines">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Line Numbering Tool</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/></svg></div><h3 class="hub-card-title">Line Numbering Tool</h3></div>
             <p class="hub-card-desc">Add or remove line numbers from any block of text.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-reverser.html" class="hub-card" data-cat="text" data-tags="reverse text flip mirror backwards">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Text Reverser</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><h3 class="hub-card-title">Text Reverser</h3></div>
             <p class="hub-card-desc">Reverse text character by character or word by word instantly.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/slug.html" class="hub-card" data-cat="text" data-tags="slug url kebab seo permalink">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Slug Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3 class="hub-card-title">Slug Generator</h3></div>
             <p class="hub-card-desc">Convert any text into a URL-friendly slug — no special chars, lowercase.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-string.html" class="hub-card" data-cat="text" data-tags="random string generate text password">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Random String Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><h3 class="hub-card-title">Random String Generator</h3></div>
             <p class="hub-card-desc">Generate random strings with custom length, characters and format options.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/text-cleaner.html" class="hub-card" data-cat="text" data-tags="clean text strip whitespace normalize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Text Cleaner</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div><h3 class="hub-card-title">Text Cleaner</h3></div>
             <p class="hub-card-desc">Strip extra whitespace, trim lines and normalize line endings.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/find-replace.html" class="hub-card" data-cat="text" data-tags="find replace text regex search">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></div><span class="hub-card-cat">Text Tools</span></div>
-            <h3 class="hub-card-title">Find and Replace Tool</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></div><h3 class="hub-card-title">Find and Replace Tool</h3></div>
             <p class="hub-card-desc">Find and replace text — supports regex, case sensitivity and global replace.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Generators ────────────────────────────── -->
           <a href="tools/color-palette.html" class="hub-card" data-cat="generators" data-tags="color palette design scheme harmony">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Color Palette Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3 class="hub-card-title">Color Palette Generator</h3></div>
             <p class="hub-card-desc">Generate harmonious color palettes — complementary, triadic, analogous.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-number.html" class="hub-card" data-cat="generators" data-tags="random number generate dice lottery">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Random Number Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/></svg></div><h3 class="hub-card-title">Random Number Generator</h3></div>
             <p class="hub-card-desc">Generate random numbers with custom min/max, count and decimal options.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-color.html" class="hub-card" data-cat="generators" data-tags="random color generate hex palette">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Random Color Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><h3 class="hub-card-title">Random Color Generator</h3></div>
             <p class="hub-card-desc">Generate random colors with HEX, RGB and HSL output — single or bulk.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/random-name.html" class="hub-card" data-cat="generators" data-tags="random name generate fake person">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Random Name Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h3 class="hub-card-title">Random Name Generator</h3></div>
             <p class="hub-card-desc">Generate random first, last and full names from diverse datasets.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/fake-data.html" class="hub-card" data-cat="generators" data-tags="fake data generate mock test data">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><span class="hub-card-cat">Generators</span></div>
-            <h3 class="hub-card-title">Fake Data Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="hub-card-title">Fake Data Generator</h3></div>
             <p class="hub-card-desc">Generate realistic fake data — names, emails, addresses — in JSON or CSV.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Converters ────────────────────────────── -->
           <a href="tools/unit-converter.html" class="hub-card" data-cat="converters" data-tags="px rem em css unit convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">CSS Unit Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3 class="hub-card-title">CSS Unit Converter</h3></div>
             <p class="hub-card-desc">Convert between CSS units — px, rem, em, vw, vh and percentages.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/temperature.html" class="hub-card" data-cat="converters" data-tags="temperature celsius fahrenheit kelvin convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Temperature Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div><h3 class="hub-card-title">Temperature Converter</h3></div>
             <p class="hub-card-desc">Convert between Celsius, Fahrenheit and Kelvin instantly.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/bytes.html" class="hub-card" data-cat="converters" data-tags="bytes kb mb gb storage convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Bytes Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3 class="hub-card-title">Bytes Converter</h3></div>
             <p class="hub-card-desc">Convert between bytes, KB, MB, GB, TB and binary units (KiB, MiB, GiB).</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/number-base.html" class="hub-card" data-cat="converters" data-tags="binary hex octal decimal base convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Number Base Converter</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h3 class="hub-card-title">Number Base Converter</h3></div>
             <p class="hub-card-desc">Convert numbers between binary, octal, decimal and hexadecimal.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/percentage.html" class="hub-card" data-cat="converters" data-tags="percentage percent calculate math ratio">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Percentage Calculator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><h3 class="hub-card-title">Percentage Calculator</h3></div>
             <p class="hub-card-desc">Calculate percentages, percentage change and reverse calculations.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/aspect-ratio.html" class="hub-card" data-cat="converters" data-tags="aspect ratio resolution image video resize">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><span class="hub-card-cat">Converters</span></div>
-            <h3 class="hub-card-title">Aspect Ratio Calculator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div><h3 class="hub-card-title">Aspect Ratio Calculator</h3></div>
             <p class="hub-card-desc">Calculate aspect ratios — resize images and videos while preserving proportions.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Web Utilities ─────────────────────────── -->
           <a href="tools/url-parser.html" class="hub-card" data-cat="web" data-tags="url parse query string path protocol">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">URL Parser</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3 class="hub-card-title">URL Parser</h3></div>
             <p class="hub-card-desc">Parse any URL into protocol, host, path, query params and hash components.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/meta-tags.html" class="hub-card" data-cat="web" data-tags="meta seo html tags head">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 9 9 9 8 9"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">Meta Tag Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 9 9 9 8 9"/></svg></div><h3 class="hub-card-title">Meta Tag Generator</h3></div>
             <p class="hub-card-desc">Generate essential HTML meta tags for SEO — title, description, robots.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/open-graph.html" class="hub-card" data-cat="web" data-tags="open graph og twitter card social meta">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">Open Graph Tag Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><h3 class="hub-card-title">Open Graph Tag Generator</h3></div>
             <p class="hub-card-desc">Generate OG and Twitter Card meta tags for better social sharing previews.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/query-string.html" class="hub-card" data-cat="web" data-tags="query string url params parse search params">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">Query String Parser</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3 class="hub-card-title">Query String Parser</h3></div>
             <p class="hub-card-desc">Parse URL query strings into key-value pairs and vice versa.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/url-builder.html" class="hub-card" data-cat="web" data-tags="url build construct params query">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">URL Builder</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><h3 class="hub-card-title">URL Builder</h3></div>
             <p class="hub-card-desc">Build URLs by adding base, path and query parameters step by step.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/user-agent.html" class="hub-card" data-cat="web" data-tags="user agent browser os device parse">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">User Agent Parser</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><h3 class="hub-card-title">User Agent Parser</h3></div>
             <p class="hub-card-desc">Parse User-Agent strings to extract browser, OS, device and engine info.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/robots-generator.html" class="hub-card" data-cat="web" data-tags="robots.txt seo crawler sitemap disallow">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><polyline points="9 15 12 18 15 15"/></svg></div><span class="hub-card-cat">Web Utils</span></div>
-            <h3 class="hub-card-title">Robots.txt Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="8.5" r="1.5"/><polyline points="9 15 12 18 15 15"/></svg></div><h3 class="hub-card-title">Robots.txt Generator</h3></div>
             <p class="hub-card-desc">Generate robots.txt files with rules for search engine bot crawling.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- ── NEW: Media & Files ─────────────────────────── -->
           <a href="tools/image-to-base64.html" class="hub-card" data-cat="media" data-tags="image base64 data uri encode convert">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">Image to Base64</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Image to Base64</h3></div>
             <p class="hub-card-desc">Convert any image to a Base64 data URI — for CSS backgrounds and HTML embeds.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/base64-to-image.html" class="hub-card" data-cat="media" data-tags="base64 image decode preview data uri">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">Base64 to Image</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Base64 to Image</h3></div>
             <p class="hub-card-desc">Preview and download images from Base64 data URIs instantly.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/image-metadata.html" class="hub-card" data-cat="media" data-tags="image exif metadata dimensions gps">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">Image Metadata Viewer</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3 class="hub-card-title">Image Metadata Viewer</h3></div>
             <p class="hub-card-desc">View EXIF metadata from images — dimensions, camera info, GPS coordinates.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/svg-optimizer.html" class="hub-card" data-cat="media" data-tags="svg optimize compress clean vector">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">SVG Optimizer</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3 class="hub-card-title">SVG Optimizer</h3></div>
             <p class="hub-card-desc">Reduce SVG file size by removing unnecessary attributes and comments.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/favicon-generator.html" class="hub-card" data-cat="media" data-tags="favicon icon generate logo ico">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">Favicon Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3 class="hub-card-title">Favicon Generator</h3></div>
             <p class="hub-card-desc">Generate favicons from text, emoji or uploaded image in multiple sizes.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/image-dimensions.html" class="hub-card" data-cat="media" data-tags="image dimensions width height size">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">Image Dimension Checker</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><h3 class="hub-card-title">Image Dimension Checker</h3></div>
             <p class="hub-card-desc">Instantly check image dimensions, file size and aspect ratio.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
           <a href="tools/qr-batch.html" class="hub-card" data-cat="media" data-tags="qr batch multiple bulk generate">
-            <div class="hub-card-header"><div class="hub-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><span class="hub-card-cat">Media</span></div>
-            <h3 class="hub-card-title">QR Batch Generator</h3>
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="4" height="4"/></svg></div><h3 class="hub-card-title">QR Batch Generator</h3></div>
             <p class="hub-card-desc">Generate multiple QR codes at once from a list — download as PNGs.</p>
-            <span class="hub-card-footer">Open tool <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </a>
 
           <!-- No-results message -->

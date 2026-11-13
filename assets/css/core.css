@@ -1,83 +1,75 @@
 /* ═══════════════════════════════════════════════════════════
    TOOLKIT — core.css
-   CSS Custom Properties · Reset · Base · Background FX
+   CSS Custom Properties · Reset · Base
    ═══════════════════════════════════════════════════════════ */
 
 /* ── 0. Self-hosted Fonts ──────────────────────────────────── */
-@font-face {
-  font-family: 'Space Grotesk';
-  src: url('../fonts/SpaceGrotesk.woff2') format('woff2');
-  font-weight: 300 700;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Interface text uses the system font. JetBrains Mono is only for code,
+   subset to Latin (with Turkish), punctuation, arrows and box drawing;
+   other characters fall back to the system monospace font. */
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('../fonts/JetBrainsMono.woff2') format('woff2');
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('../fonts/JetBrainsMono-Italic.woff2') format('woff2');
-  font-weight: 100 800;
-  font-style: italic;
-  font-display: swap;
+  unicode-range: U+0000-017F, U+0218-021B, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+20BA,
+    U+2122, U+2190-21FF, U+2212, U+2260-2265, U+2500-257F, U+25A0-25FF, U+2713, U+2715, U+2717, U+FFFD;
 }
 
 /* ── 1. CSS Custom Properties ─────────────────────────────── */
+/* Monochrome: one light accent on near-black. Colour is reserved for
+   meaning (success, warning, error). */
 :root {
-  /* Backgrounds */
-  --bg-base:     #05070f;
-  --bg-surface:  #0b0f1e;
-  --bg-elevated: #111829;
-  --bg-card:     rgba(15, 20, 40, 0.55);
+  color-scheme: dark;
 
-  /* Brand colours */
-  --cyan:       #00d4ff;
-  --cyan-dim:   rgba(0, 212, 255, 0.15);
-  --cyan-glow:  rgba(0, 212, 255, 0.35);
-  --purple:     #7c3aed;
-  --purple-dim: rgba(124, 58, 237, 0.15);
+  /* Backgrounds */
+  --bg-base:     #0a0a0a;
+  --bg-surface:  #111111;
+  --bg-elevated: #171717;
+  --bg-card:     #111111;
+
+  /* Accent */
+  --accent:      #ededed;
+  --accent-dim:  rgba(255, 255, 255, 0.08);
+  --accent-ring: rgba(255, 255, 255, 0.16);
+  --accent-text: #0a0a0a;
 
   /* Status */
-  --green:  #10d97e;
-  --yellow: #f5c542;
-  --red:    #ff4d6a;
+  --green:  #3ecf8e;
+  --yellow: #e3b341;
+  --red:    #f87171;
 
   /* Text */
-  --text-primary:   #e8efff;
-  --text-secondary: #8892a4;
-  --text-muted:     #718096;
-  --control-muted:  #4a5568;
-  --text-code:      #a5f3fc;
+  --text-primary:   #ededed;
+  --text-secondary: #a1a1a1;
+  --text-muted:     #8f8f8f;
+  --control-muted:  #6b6b6b;
+  --text-code:      #ededed;
 
   /* Borders */
-  --border:       rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.14);
+  --border:       #262626;
+  --border-hover: #3f3f3f;
 
   /* Typography */
-  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-ui:   var(--font-sans);
 
   /* Layout */
-  --nav-h:     68px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
+  --nav-h:     64px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
   --radius-full: 999px;
   --radius:    var(--radius-md);
 
   /* Motion */
-  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.15s ease;
 
   /* Shadows */
-  --shadow-card: 0 8px 40px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset;
+  --shadow-card: none;
 }
 
 /* ── 2. Reset & Base ──────────────────────────────────────── */
@@ -109,7 +101,7 @@ button   { font-family: inherit; }
 
 /* Keep keyboard focus visible even where a component removes its native outline. */
 :is(a[href], button, input, select, textarea, summary, [role="button"], [tabindex]):focus-visible {
-  outline: 2px solid var(--cyan) !important;
+  outline: 2px solid var(--accent) !important;
   outline-offset: 2px;
 }
 
@@ -124,48 +116,9 @@ button   { font-family: inherit; }
   border-width: 0;
 }
 
-/* ── 4. Background FX ─────────────────────────────────────── */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.bg-glow {
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  border-radius: 50%;
-  filter: blur(120px);
-  animation: glowPulse 8s ease-in-out infinite;
-}
-
-.bg-glow--1 {
-  width: 600px; height: 600px;
-  top: -200px; left: -200px;
-  background: rgba(124, 58, 237, 0.12);
-}
-
-.bg-glow--2 {
-  width: 500px; height: 500px;
-  bottom: -150px; right: -150px;
-  background: rgba(0, 212, 255, 0.08);
-  animation-delay: -4s;
-}
-
-@keyframes glowPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(1.1); }
-}
-
 /* ── 5. Selection ─────────────────────────────────────────── */
 ::selection {
-  background: rgba(0, 212, 255, 0.25);
+  background: rgba(255, 255, 255, 0.125);
   color: var(--text-primary);
 }
 
@@ -176,11 +129,11 @@ button   { font-family: inherit; }
   background: rgba(255,255,255,0.12);
   border-radius: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,212,255,0.3); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
 
 /* ── 7. Focus & Accessibility ─────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }

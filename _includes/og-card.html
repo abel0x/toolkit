@@ -12,85 +12,53 @@
 <meta charset="UTF-8" />
 <title>Toolkit social card</title>
 <style>
-  @font-face { font-family: 'Space Grotesk'; src: url('../assets/fonts/SpaceGrotesk.woff2') format('woff2'); font-weight: 300 700; }
   @font-face { font-family: 'JetBrains Mono'; src: url('../assets/fonts/JetBrainsMono.woff2') format('woff2'); font-weight: 100 800; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
     position: relative;
-    background: #05070f;
-    color: #e8efff;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: #0a0a0a;
+    color: #ededed;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
   }
-  .grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 90% at 40% 45%, #000 40%, transparent 100%);
-  }
-  .glow { position: absolute; border-radius: 50%; filter: blur(90px); }
-  .glow--cyan { width: 520px; height: 420px; left: -120px; top: -140px; background: rgba(0, 212, 255, 0.22); }
-  .glow--purple { width: 600px; height: 480px; right: -160px; bottom: -220px; background: rgba(124, 58, 237, 0.30); }
-  .card {
-    position: absolute; inset: 0;
-    display: grid; grid-template-columns: 1fr 300px; align-items: center;
-    padding: 72px 80px 64px 88px;
-  }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 16px; border-radius: 999px;
-    border: 1px solid rgba(0, 212, 255, 0.35); background: rgba(0, 212, 255, 0.08);
-    color: #00d4ff; font: 600 18px 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase;
-  }
-  .eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #00d4ff; }
+  .card { position: absolute; inset: 0; padding: 64px 88px 56px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 20px; font-size: 36px; font-weight: 650; }
+  .brand img { width: 76px; height: 76px; border-radius: 18px; border: 1px solid #262626; }
   h1 {
-    margin-top: 26px;
-    font-size: 132px; font-weight: 700; line-height: 0.95; letter-spacing: -0.035em;
-    background: linear-gradient(100deg, #00d4ff 0%, #6d8bff 55%, #a678ff 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-top: 48px; max-width: 980px;
+    font-size: 72px; font-weight: 650; line-height: 1.06; letter-spacing: -0.035em;
   }
-  .tagline { margin-top: 26px; max-width: 700px; font-size: 38px; font-weight: 500; line-height: 1.2; color: #e8efff; }
-  .facts { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .facts span {
-    padding: 9px 18px; border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.10); background: rgba(17, 24, 41, 0.75);
-    font-size: 22px; font-weight: 500; color: #b8c2d6;
+  .tagline { margin-top: 22px; max-width: 900px; font-size: 30px; line-height: 1.35; color: #a1a1a1; }
+  .footer {
+    margin-top: auto; padding-top: 26px; border-top: 1px solid #262626;
+    display: flex; justify-content: space-between; align-items: center;
+    font: 500 22px 'JetBrains Mono', monospace; color: #8f8f8f;
   }
-  .mark { justify-self: end; width: 280px; height: 280px; filter: drop-shadow(0 18px 60px rgba(124, 58, 237, 0.45)); }
-  .url {
-    position: absolute; left: 88px; bottom: 34px;
-    font: 500 20px 'JetBrains Mono', monospace; color: #718096;
-  }
+  .facts { display: flex; gap: 28px; }
 </style>
 </head>
 <body>
-  <div class="grid"></div>
-  <div class="glow glow--cyan"></div>
-  <div class="glow glow--purple"></div>
   <div class="card">
-    <div>
-      <span class="eyebrow" data-copy="eyebrow">Developer utilities</span>
-      <h1>Toolkit</h1>
-      <p class="tagline" data-copy="tagline">Everyday developer tools that run entirely in your browser.</p>
+    <div class="brand"><img src="../assets/images/favicon-512.png" alt="" />Toolkit</div>
+    <h1 data-copy="headline">Everyday developer utilities, without the backend.</h1>
+    <p class="tagline" data-copy="tagline">Encoding, security, JSON, text and web tools that run entirely in your browser.</p>
+    <div class="footer">
       <div class="facts">
         <span data-copy="fact1">No tracking</span>
-        <span data-copy="fact2">No backend</span>
-        <span data-copy="fact3">Works offline</span>
+        <span data-copy="fact2">Works offline</span>
+        <span data-copy="fact3">Open source</span>
       </div>
+      <span>abel0x.github.io/toolkit</span>
     </div>
-    <img class="mark" src="../assets/images/favicon-512.png" alt="" />
   </div>
-  <div class="url">abel0x.github.io/toolkit</div>
   <script>
     const copy = {
       tr: {
-        eyebrow: 'Geliştirici araçları',
-        tagline: 'Tamamen tarayıcınızda çalışan günlük geliştirici araçları.',
+        headline: 'Günlük geliştirici araçları, sunucu olmadan.',
+        tagline: 'Tamamen tarayıcınızda çalışan kodlama, güvenlik, JSON, metin ve web araçları.',
         fact1: 'İzleme yok',
-        fact2: 'Sunucu yok',
-        fact3: 'Çevrimdışı çalışır'
+        fact2: 'Çevrimdışı çalışır',
+        fact3: 'Açık kaynak'
       }
     };
     const language = location.hash.slice(1);

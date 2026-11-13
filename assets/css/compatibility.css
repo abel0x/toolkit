@@ -24,16 +24,16 @@
 
 .form-control::placeholder { color: var(--text-muted); }
 .form-control:focus {
-  border-color: rgba(0, 212, 255, 0.4);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
 }
 
 textarea.form-control { min-height: 120px; line-height: 1.65; }
 .form-control[readonly] {
   cursor: default;
-  border-color: rgba(0, 212, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.06);
   color: var(--text-code);
-  background: rgba(0, 212, 255, 0.03);
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .form-label {
@@ -61,28 +61,25 @@ textarea.form-control { min-height: 120px; line-height: 1.65; }
 /* Button aliases */
 .btn-primary,
 .btn.btn-primary {
-  color: #000;
-  background: linear-gradient(135deg, var(--cyan), #0099cc);
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+  color: var(--accent-text);
+  background: var(--accent);
+  border: 1px solid var(--accent);
 }
 
 .btn-primary:hover,
-.btn.btn-primary:hover {
-  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.45);
-  transform: translateY(-1px);
-}
+.btn.btn-primary:hover { background: #ffffff; }
 
 .btn-secondary,
 .btn.btn-secondary {
-  border: 1px solid rgba(124, 58, 237, 0.35);
-  color: #c4b5fd;
-  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  background: var(--bg-surface);
 }
 
 .btn-secondary:hover,
 .btn.btn-secondary:hover {
-  border-color: rgba(124, 58, 237, 0.55);
-  background: rgba(124, 58, 237, 0.28);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .btn-ghost,
@@ -127,7 +124,7 @@ textarea.form-control { min-height: 120px; line-height: 1.65; }
 
 .info-row:last-child { border-bottom: 0; }
 .info-label { color: var(--text-muted); font-weight: 500; }
-.info-value { color: var(--cyan); font-family: var(--font-mono); }
+.info-value { color: var(--accent); font-family: var(--font-mono); }
 
 .drop-zone {
   display: flex;
@@ -148,27 +145,27 @@ textarea.form-control { min-height: 120px; line-height: 1.65; }
 .drop-zone:hover,
 .drop-zone.drag-over,
 .drop-zone.dragover {
-  border-color: rgba(0, 212, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
-  background: rgba(0, 212, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   padding: 0.18rem 0.6rem;
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  color: var(--cyan);
-  background: rgba(0, 212, 255, 0.12);
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.06);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
 
-.badge-success { border-color: rgba(16, 217, 126, 0.2); color: var(--green); background: rgba(16, 217, 126, 0.12); }
-.badge-warning { border-color: rgba(245, 197, 66, 0.2); color: var(--yellow); background: rgba(245, 197, 66, 0.12); }
-.badge-danger { border-color: rgba(255, 77, 106, 0.2); color: var(--red); background: rgba(255, 77, 106, 0.12); }
+.badge-success { border-color: rgba(62, 207, 142, 0.2); color: var(--green); background: rgba(62, 207, 142, 0.12); }
+.badge-warning { border-color: rgba(227, 179, 65, 0.2); color: var(--yellow); background: rgba(227, 179, 65, 0.12); }
+.badge-danger { border-color: rgba(248, 113, 113, 0.2); color: var(--red); background: rgba(248, 113, 113, 0.12); }
 
 .alert {
   margin-bottom: 1rem;
@@ -181,10 +178,10 @@ textarea.form-control { min-height: 120px; line-height: 1.65; }
   line-height: 1.55;
 }
 
-.alert-warning { border-color: rgba(245, 197, 66, 0.25); color: var(--yellow); background: rgba(245, 197, 66, 0.07); }
-.alert-success { border-color: rgba(16, 217, 126, 0.25); color: var(--green); background: rgba(16, 217, 126, 0.07); }
-.alert-danger { border-color: rgba(255, 77, 106, 0.25); color: var(--red); background: rgba(255, 77, 106, 0.07); }
-.alert-info { border-color: rgba(0, 212, 255, 0.22); color: var(--cyan); background: rgba(0, 212, 255, 0.07); }
+.alert-warning { border-color: rgba(227, 179, 65, 0.25); color: var(--yellow); background: rgba(227, 179, 65, 0.07); }
+.alert-success { border-color: rgba(62, 207, 142, 0.25); color: var(--green); background: rgba(62, 207, 142, 0.07); }
+.alert-danger { border-color: rgba(248, 113, 113, 0.25); color: var(--red); background: rgba(248, 113, 113, 0.07); }
+.alert-info { border-color: rgba(255, 255, 255, 0.11); color: var(--accent); background: rgba(255, 255, 255, 0.035); }
 
 /* Defensive layout rules for the legacy pages.  Their markup predates the
    shared component system, so long values and paired inputs need an explicit
@@ -202,11 +199,11 @@ textarea.form-control { min-height: 120px; line-height: 1.65; }
   max-width: 100%;
   overscroll-behavior-inline: contain;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 212, 255, 0.35) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.175) transparent;
 }
 
 .table-scroll:focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }

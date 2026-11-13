@@ -1,13 +1,13 @@
 /* mime-lookup page styles (moved from an inline <style> block for the CSP). */
 .mime-result{margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
 .mime-result-item{display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.65rem 1rem;font-size:0.9rem;}
-.mime-ext{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent,#00d4ff);min-width:4rem;}
+.mime-ext{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent,var(--accent));min-width:4rem;}
 .mime-arrow{color:rgba(255,255,255,0.3);font-size:0.85rem;}
-.mime-type{font-family:'JetBrains Mono',monospace;color:#e2e8f0;flex:1;}
-.mime-exts{font-family:'JetBrains Mono',monospace;color:#e2e8f0;flex:1;font-size:0.83rem;}
+.mime-type{font-family:'JetBrains Mono',monospace;color:#ededed;flex:1;}
+.mime-exts{font-family:'JetBrains Mono',monospace;color:#ededed;flex:1;font-size:0.83rem;}
 .mime-table-wrap{margin-top:1.5rem;overflow-x:auto;}
 .mime-table{width:100%;border-collapse:collapse;font-size:0.85rem;table-layout:fixed;}
-.mime-table th{text-align:left;padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--text-muted,#8b949e);font-weight:500;}
+.mime-table th{text-align:left;padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--text-muted,#a1a1a1);font-weight:500;}
 .mime-table td{padding:0.55rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.05);font-family:'JetBrains Mono',monospace;font-size:0.82rem;overflow-wrap:anywhere;}
 .mime-table tr:last-child td{border-bottom:none;}
 .mime-table tr:hover td{background:rgba(255,255,255,0.03);}

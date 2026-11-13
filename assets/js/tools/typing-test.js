@@ -1593,7 +1593,7 @@
     const width = rect.width;
     const height = rect.height;
     const styles = getComputedStyle(document.documentElement);
-    const cyan = styles.getPropertyValue('--cyan').trim();
+    const cyan = styles.getPropertyValue('--accent').trim();
     const purple = styles.getPropertyValue('--purple').trim();
     const red = styles.getPropertyValue('--red').trim();
     const muted = styles.getPropertyValue('--text-muted').trim();

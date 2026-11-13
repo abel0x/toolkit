@@ -23,7 +23,7 @@
   });
   drop.addEventListener('dragover', function(e) {
     e.preventDefault();
-    drop.style.borderColor = '#00d4ff';
+    drop.style.borderColor = 'var(--accent)';
     drop.style.background  = 'rgba(0,212,255,.05)';
   });
   drop.addEventListener('dragleave', function() {

@@ -45,11 +45,11 @@
 
     const clampedScore = Math.min(score, 8);
     let strengthLabel, color;
-    if (clampedScore <= 2)      { strengthLabel = 'Very Weak';  color = '#ff4d6a'; }
-    else if (clampedScore <= 4) { strengthLabel = 'Weak';       color = '#ff8c42'; }
-    else if (clampedScore <= 5) { strengthLabel = 'Fair';       color = '#ffd166'; }
-    else if (clampedScore <= 6) { strengthLabel = 'Strong';     color = '#10d97e'; }
-    else                        { strengthLabel = 'Very Strong'; color = '#00d4ff'; }
+    if (clampedScore <= 2)      { strengthLabel = 'Very Weak';  color = '#f87171'; }
+    else if (clampedScore <= 4) { strengthLabel = 'Weak';       color = '#fb923c'; }
+    else if (clampedScore <= 5) { strengthLabel = 'Fair';       color = '#e3b341'; }
+    else if (clampedScore <= 6) { strengthLabel = 'Strong';     color = '#7fd48f'; }
+    else                        { strengthLabel = 'Very Strong'; color = '#3ecf8e'; }
 
     return { score: clampedScore, max: 8, label: strengthLabel, color, hints };
   }
