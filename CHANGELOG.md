@@ -2,6 +2,16 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.5.1] — 2026-11-13
+
+Lighter tool pages and a more descriptive home page title. No tool is added or changed.
+
+### Changed
+
+- The home page title names what the site is: "Toolkit — 101 Free Developer Tools in Your Browser", and "Toolkit — 101 Ücretsiz Geliştirici Aracı" on `/tr/`. `og:title` and `twitter:title` follow it, and `build.py --tool-count` keeps the number in step with the catalogue.
+- Only the home page loads the tool catalogue (`tools-data.js` and `extra-tools-data.js`) up front. On every other page `command-palette.js` fetches it the first time the tool finder is about to open (hovering or focusing the "Find tools" button, or Ctrl/Cmd + K), shows "Loading tools…" meanwhile, and says so if the list cannot be loaded. The tool names and descriptions move out of the shared Turkish pack into their own `assets/js/i18n/tr/catalogue.js`, which `/tr/` pages fetch together with the catalogue. An English tool page loads about 46 KB less JavaScript (10 KB compressed), and a Turkish one about 71 KB less (18 KB compressed).
+- New browser tests check that tool pages leave the catalogue out until the finder opens, that the finder then lists and searches every tool and remembers the current one, and that a Turkish tool page fetches the Turkish catalogue pack and shows the finder in Turkish.
+
 ## [1.5.0] — 2026-11-13
 
 A calmer, monochrome look, and pages roughly half the size of 1.4.0 on a first visit. No tool is added or removed.
@@ -207,6 +217,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.5.1]: https://github.com/abel0x/toolkit/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/abel0x/toolkit/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/abel0x/toolkit/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/abel0x/toolkit/compare/v1.3.0...v1.3.1
