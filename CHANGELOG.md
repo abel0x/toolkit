@@ -2,6 +2,16 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.2] — 2026-11-14
+
+Every tool page now has the same column, so the header stays put when you move between tools.
+
+### Fixed
+
+- Markdown Previewer, QR Code Generator and Text Diff Checker used a wider column than the other 98 tools, and their breadcrumb stayed in the narrow one, about 100 px to the right of the title. They now use the same 900 px column as every other tool; their two-column layouts still fit. `build.py --tool-headers` also gives the breadcrumb the header's container, so the two cannot drift apart again.
+- Random Name Generator, Random Number Generator and Slug Generator drew their tool in a narrower, centred box under a full-width header; they now use the full column like every other tool.
+- `tests/tool-pages-e2e.mjs` checks on every tool page, on desktop and mobile, that the breadcrumb, the icon, the "Try a sample" button and the tool share the header's left and right edges, and the site audit fails if a tool page uses the wide container.
+
 ## [1.6.1] — 2026-11-13
 
 ### Fixed
@@ -237,6 +247,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.2]: https://github.com/abel0x/toolkit/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/abel0x/toolkit/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/abel0x/toolkit/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/abel0x/toolkit/compare/v1.5.0...v1.5.1

@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.1
+### Latest release — 1.6.2
+
+Every tool page lines up: all 101 tools share one column, so the breadcrumb, the title and the tool start at the same edge on every page and nothing jumps when you move between tools.
+
+### 1.6.1
 
 Returning visitors no longer see a half-updated page right after a release. Before, the first visit after an update could pair the new page with the previous version's styles until the next reload; now every release loads its own stylesheets and scripts straight away.
 
