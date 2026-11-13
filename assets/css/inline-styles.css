@@ -146,7 +146,6 @@
 .ix-9d249d { opacity: .5; }
 .ix-9ecc74 { flex: 1; font-size: .78rem; word-break: break-all; padding: .5rem .75rem; background: var(--surface-2,rgba(255,255,255,.03)); border-radius: .4rem; }
 .ix-9f50d4 { margin-bottom: 1.2rem; }
-.ix-a04348 { max-width: 600px; margin: 0 auto; }
 .ix-a174d9 { font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: clamp(5rem, 20vw, 10rem); font-weight: 700; line-height: 1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--accent) 0%, var(--accent, var(--accent)) 60%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.04em; user-select: none; }
 .ix-a1e144 { font-weight: 700; font-size: .95rem; margin-bottom: .25rem; }
 .ix-a20b88 { max-width: 480px; display: flex; gap: .75rem; align-items: flex-end; }
@@ -198,7 +197,6 @@
 .ix-d590ad { margin-top: .9rem; }
 .ix-d6f1a2 { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: .5rem; }
 .ix-d87841 { display: inline-flex; }
-.ix-da5926 { max-width: 680px; margin: 0 auto; }
 .ix-dab43f { margin-top: 1rem; }
 .ix-dacec5 { background: rgba(0,0,0,.25); border-radius: .5rem; padding: 1rem; margin-bottom: 2rem; font-size: .85rem; color: rgba(255,255,255,.7); line-height: 1.8; }
 .ix-ded517 { font-size: .78rem; word-break: break-all; }

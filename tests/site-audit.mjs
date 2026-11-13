@@ -165,6 +165,8 @@ for (const tool of catalogue) {
   assert(html.includes(`<a href="../index.html#category-${tool.cat}">${categories[tool.cat]}</a>`),
     `tools/${tool.slug}.html does not link its category in the breadcrumb.`);
   assert(!/class="(?:section-tag|example-starter)\b/.test(html), `tools/${tool.slug}.html still has the old header parts.`);
+  // Every tool uses the same 900px column, so the header never moves between tools.
+  assert(!html.includes('container--wide'), `tools/${tool.slug}.html uses the wide container; tool pages share one width.`);
 }
 
 const registrySource = [

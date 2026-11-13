@@ -130,8 +130,37 @@ async function navigate(bidi, context, url) {
   await bidi.call('browsingContext.navigate', { context, url, wait: 'complete' });
 }
 
+// The breadcrumb, the header (icon, title, sample button) and the tool's
+// first block must share the same left and right edges on every page.
+async function inspectHeaderAlignment(bidi, context, slug, layout) {
+  const edges = await evaluate(bidi, context, `(() => {
+    const box = (element) => element?.getBoundingClientRect();
+    const header = document.querySelector('.tool-header');
+    let content = header?.nextElementSibling;
+    while (content && !content.getBoundingClientRect().width) content = content.nextElementSibling;
+    const stacked = getComputedStyle(header).flexDirection === 'column';
+    const parts = {
+      breadcrumb: box(document.querySelector('.tool-breadcrumb')),
+      icon: box(document.querySelector('.tool-header__icon')),
+      content: box(content)
+    };
+    const button = box(document.querySelector('.tool-header__sample'));
+    const reference = box(header);
+    const offsets = [];
+    for (const [name, rect] of Object.entries(parts)) {
+      if (!rect) offsets.push(name + ' missing');
+      else if (Math.abs(rect.left - reference.left) > 1) offsets.push(name + ' left ' + Math.round(rect.left - reference.left) + 'px');
+    }
+    if (parts.content && Math.abs(parts.content.right - reference.right) > 1) offsets.push('content right ' + Math.round(parts.content.right - reference.right) + 'px');
+    if (button && !stacked && Math.abs(button.right - reference.right) > 1) offsets.push('sample button right ' + Math.round(button.right - reference.right) + 'px');
+    return offsets;
+  })()`);
+  return edges.length ? [`${slug}: ${layout} header is out of line with its page: ${edges.join(', ')}`] : [];
+}
+
 async function inspectDesktopPage(bidi, context, url, slug) {
   await navigate(bidi, context, url);
+  const alignment = await inspectHeaderAlignment(bidi, context, slug, 'desktop');
   const page = await evaluate(bidi, context, `(async () => {
     for (let attempt = 0; attempt < 50 && !window.ToolkitI18n; attempt += 1) {
       await new Promise((resolve) => setTimeout(resolve, 20));
@@ -245,7 +274,7 @@ async function inspectDesktopPage(bidi, context, url, slug) {
       controls: controls.length
     };
   })()`);
-  const issues = [];
+  const issues = [...alignment];
   if (!page.title) issues.push(`${slug}: missing document title.`);
   if (!page.hasLanguageRuntime) issues.push(`${slug}: i18n runtime did not initialise.`);
   if (!page.englishOnly) issues.push(`${slug}: the English page loaded the Turkish dictionaries.`);
@@ -275,7 +304,7 @@ async function inspectMobilePage(bidi, context, url, slug) {
     noOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
     hasFooter: Boolean(document.querySelector('.footer-inner, .footer'))
   }))()`);
-  const issues = [];
+  const issues = await inspectHeaderAlignment(bidi, context, slug, 'mobile');
   if (!page.noOverflow) issues.push(`${slug}: mobile page has horizontal overflow.`);
   if (!page.hasFooter) issues.push(`${slug}: mobile footer is missing.`);
   return issues;
@@ -326,7 +355,7 @@ async function main() {
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts, and English pages free of Turkish dictionaries.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers, and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();

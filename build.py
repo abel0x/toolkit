@@ -558,6 +558,8 @@ _EXAMPLE_STARTER = re.compile(r'[ \t]*<div class="example-starter reveal">.*?</d
 _SAMPLE_GROUP = re.compile(r'data-example-group="([^"]+)"')
 _BREADCRUMB = re.compile(r'<nav class="tool-breadcrumb" aria-label="Breadcrumb">(.*?)</nav>', re.DOTALL)
 _BREADCRUMB_PAGE = re.compile(r'<span(?: aria-current="page")?>([^<]*)</span>\s*$')
+_CONTAINER = re.compile(r'<div class="(container(?: [^"]*)?)">')
+_BREADCRUMB_CONTAINER = re.compile(r'<div class="(container(?: [^"]*)?)">\s*<nav class="tool-breadcrumb"')
 
 
 def _tool_breadcrumb(tool, page_name):
@@ -616,7 +618,16 @@ def _with_tool_header(html, tool, filename):
     page = _BREADCRUMB_PAGE.search(breadcrumb.group(1)) if breadcrumb else None
     if not page:
         fail('has no breadcrumb ending in the page name.')
-    return html[:breadcrumb.start()] + _tool_breadcrumb(tool, page.group(1)) + html[breadcrumb.end():]
+    html = html[:breadcrumb.start()] + _tool_breadcrumb(tool, page.group(1)) + html[breadcrumb.end():]
+
+    # The breadcrumb sits in its own container; give it the header's classes
+    # so the two can never start at different edges.
+    header_at = html.index(_TOOL_HEADER_START)
+    containers = _CONTAINER.findall(html, 0, header_at)
+    wrapper = _BREADCRUMB_CONTAINER.search(html)
+    if not containers or not wrapper:
+        fail('needs its breadcrumb and header inside .container elements.')
+    return html[:wrapper.start(1)] + containers[-1] + html[wrapper.end(1):]
 
 
 def run_tool_headers():
