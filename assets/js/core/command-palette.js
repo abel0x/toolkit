@@ -10,6 +10,8 @@
   'use strict';
 
   const scriptBase = new URL('../', document.currentScript.src);
+  // The release version build.py puts on every asset link (see sw.js).
+  const assetVersion = new URL(document.currentScript.src).searchParams.get('v');
   // The document base differs from the location on the 404 page served at nested URLs.
   const pagePrefix = new URL(document.baseURI).pathname.includes('/tools/') ? '../' : '';
   const maxResults = 8;
@@ -26,7 +28,9 @@
   function loadScript(path) {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = new URL(path, scriptBase).href;
+      const url = new URL(path, scriptBase);
+      if (assetVersion) url.searchParams.set('v', assetVersion);
+      script.src = url.href;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Could not load ${path}`));
       document.head.appendChild(script);

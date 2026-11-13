@@ -206,7 +206,7 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--offline` | Rebuild the service-worker precache entries for tool pages and modules. |
 | `--sitemap` | Generate `sitemap.xml`, with `lastmod` dates from `_data/lastmod.json` and hreflang alternates. |
 
-Any task also recomputes `CACHE_VERSION` in `sw.js`. Repository-only files (tests, documentation, `build.py`, `_scripts/`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
+Any task also recomputes `CACHE_VERSION` in `sw.js` and writes it into every page's stylesheet and script links as `?v=<CACHE_VERSION>`. A new release therefore changes every asset URL: the previous service worker, which still controls the first page load after a deploy, has never cached those URLs and fetches them from the network, so new HTML never meets old CSS or JavaScript. The current worker answers its own version from the precache. Write plain asset links (`../assets/css/pages/tool.css`); never add `?v=` by hand. Repository-only files (tests, documentation, `build.py`, `_scripts/`, `_includes/`, editor settings) are never published; add a new top-level published file or directory to `PUBLISHED_FILES` / `PUBLISHED_DIRS` in `build.py`.
 
 ## Images
 

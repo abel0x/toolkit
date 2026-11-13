@@ -25,6 +25,19 @@ const expansionSlugs = new Set(catalogue.filter((tool) => tool.shell === 'expans
 assert.equal(toolPages.length, catalogue.length,
   `Expected ${catalogue.length} tool pages (one per _data/tools.json entry), found ${toolPages.length}.`);
 
+// build.py links every local stylesheet and script as file?v=<CACHE_VERSION>
+// so the previous service worker cannot pair new HTML with old assets. The
+// checks below look at the links without that query.
+const cacheVersion = readFileSync(join(root, 'sw.js'), 'utf8').match(/const CACHE_VERSION = '([0-9a-f]{12})';/)[1];
+const assetLink = /(\b(?:href|src)=")((?:\.\.\/)*assets\/[^"?#]+\.(?:css|js))(\?[^"]*)?"/g;
+function readPage(file) {
+  const html = readFileSync(file, 'utf8');
+  for (const [, , asset, query] of html.matchAll(assetLink)) {
+    assert.equal(query, `?v=${cacheVersion}`, `${file.slice(root.length + 1)} links ${asset} without ?v=${cacheVersion}.`);
+  }
+  return html.replace(assetLink, '$1$2"');
+}
+
 const sharedStyles = [
   'assets/css/core.css',
   'assets/css/components.css',
@@ -32,7 +45,7 @@ const sharedStyles = [
 ];
 
 for (const file of pages) {
-  const html = readFileSync(file, 'utf8');
+  const html = readPage(file);
   const relativeName = file.slice(root.length + 1);
   const prefix = '../'.repeat(relativeName.split('/').length - 1);
 
@@ -334,7 +347,7 @@ for (const scriptName of firstPartyScripts) {
     `${scriptName} uses a forbidden network API.`);
 }
 for (const file of pages) {
-  const html = readFileSync(file, 'utf8');
+  const html = readPage(file);
   const relativeName = file.slice(root.length + 1);
   assert(!/<script\b[^>]*\bsrc=["']https?:\/\//i.test(html), `${relativeName} loads a remote script.`);
   assert(!/<img\b[^>]*\bsrc=["']https?:\/\//i.test(html), `${relativeName} loads a remote image.`);
@@ -405,7 +418,7 @@ const exampleStarterPages = {
   'csv-viewer.html': 'csv-viewer'
 };
 for (const [pageName, group] of Object.entries(exampleStarterPages)) {
-  const html = readFileSync(join(toolsDirectory, pageName), 'utf8');
+  const html = readPage(join(toolsDirectory, pageName));
   assert(html.includes(`class="btn btn--ghost btn--sm tool-header__sample" data-example-group="${group}"`),
     `${pageName} misses its "Try a sample" button.`);
   assert(html.includes('src="../assets/js/core/example-starters.js"'), `${pageName} misses the example starter runtime.`);
@@ -425,11 +438,11 @@ for (const source of exampleNames) {
 
 const typingPage = join(root, 'tools', 'typing-test.html');
 assert(existsSync(typingPage), 'Typing Speed Test page is missing.');
-const typingHtml = readFileSync(typingPage, 'utf8');
-assert(typingHtml.includes('href="../assets/css/features/typing-test.css?v=43"'),
+const typingHtml = readPage(typingPage);
+assert(typingHtml.includes('href="../assets/css/features/typing-test.css"'),
   'Typing Speed Test does not load its feature stylesheet.');
 assert(!typingHtml.includes('id="toolApp"'), 'Typing Speed Test must use the conventional tool shell.');
-assert(typingHtml.includes('src="../assets/js/tools/typing-test.js?v=42"'),
+assert(typingHtml.includes('src="../assets/js/tools/typing-test.js"'),
   'Typing Speed Test does not load its module.');
 assert(existsSync(join(root, 'words', 'manifest.json')), 'Word-list manifest is missing.');
 assert.doesNotThrow(() => JSON.parse(readFileSync(join(root, 'words', 'manifest.json'), 'utf8')),

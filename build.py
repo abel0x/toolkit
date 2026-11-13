@@ -398,7 +398,8 @@ def run_sitemap():
         except FileNotFoundError:
             raise SystemExit(f'{relative} is listed in _data/tools.json but does not exist; '
                              'create the page (expansion shells are created automatically).')
-        digest = hashlib.sha256(page).hexdigest()
+        # Asset versions change on every release; only real content moves lastmod.
+        digest = hashlib.sha256(_without_asset_versions(page.decode('utf-8')).encode('utf-8')).hexdigest()
         record = ledger.get(relative)
         if not record or record['sha256'] != digest:
             record = {'date': today, 'sha256': digest}
@@ -743,9 +744,9 @@ def run_page_metadata():
 
 _ALTERNATE_LINKS = re.compile(r'\n[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*" />')
 # English pages send a visitor who chose Turkish to the twin before painting.
-_REDIRECT_SCRIPT = re.compile(r'\n[ \t]*<script src="[./]*assets/js/core/language-redirect\.js"></script>')
+_REDIRECT_SCRIPT = re.compile(r'\n[ \t]*<script src="[./]*assets/js/core/language-redirect\.js(?:\?v=[^"]*)?"></script>')
 # The Turkish packs load on tr/ pages only, right before the runtime.
-_I18N_RUNTIME = re.compile(r'([ \t]*)<script src="([./]*)assets/js/core/i18n\.js" defer></script>')
+_I18N_RUNTIME = re.compile(r'([ \t]*)<script src="([./]*)assets/js/core/i18n\.js(?:\?v=[^"]*)?" defer></script>')
 _PAGE_SCRIPT = re.compile(r'<script src="[./]*(assets/js/[^"?]+\.js)(?:\?[^"]*)?"')
 _PACK_DIR = os.path.join(ROOT, 'assets', 'js', 'i18n', 'tr')
 _PACK_URL = 'assets/js/i18n/tr/'
@@ -1192,6 +1193,12 @@ def _published_files():
 
 
 _CACHE_VERSION_PATTERN = r"const CACHE_VERSION = '[^']*';"
+# Local stylesheets and scripts a page links to, with their ?v= version.
+_ASSET_REFERENCE = re.compile(r'(\b(?:href|src)=")((?:\.\./)*assets/[^"?#]+\.(?:css|js))(?:\?v=[^"]*)?(")')
+
+
+def _without_asset_versions(html):
+    return _ASSET_REFERENCE.sub(r'\1\2\3', html)
 
 
 def run_cache_version():
@@ -1201,6 +1208,14 @@ def run_cache_version():
     must produce a new cache name or returning visitors keep stale assets.
     The version line itself is excluded from the digest so the result is
     stable when the task runs again.
+
+    Every page also links its stylesheets and scripts as `file.css?v=<version>`.
+    After a release the previous service worker still controls the page for
+    one load: it fetches the new HTML from the network, but would answer the
+    old asset URLs from its cache. A new version is a URL it has never
+    cached, so it goes to the network and the new HTML always gets the new
+    CSS and JavaScript. sw.js answers a matching version from its precache.
+    The versions are left out of the digest, which keeps it stable.
     """
     sw_path = os.path.join(ROOT, 'sw.js')
     service_worker = _read(sw_path)
@@ -1211,6 +1226,8 @@ def run_cache_version():
         path = os.path.join(ROOT, *relative.split('/'))
         if relative == 'sw.js':
             data = re.sub(_CACHE_VERSION_PATTERN, "const CACHE_VERSION = '';", service_worker).encode('utf-8')
+        elif relative.endswith('.html'):
+            data = _without_asset_versions(_read(path)).encode('utf-8')
         else:
             data = _read_bytes(path)
         digest.update(relative.encode('utf-8') + b'\0' + data + b'\0')
@@ -1218,6 +1235,13 @@ def run_cache_version():
     revised = re.sub(_CACHE_VERSION_PATTERN, f"const CACHE_VERSION = '{version}';", service_worker)
     if revised != service_worker:
         _write(sw_path, revised)
+    for relative in _published_files():
+        if relative.endswith('.html'):
+            path = os.path.join(ROOT, *relative.split('/'))
+            html = _read(path)
+            versioned = _ASSET_REFERENCE.sub(rf'\g<1>\g<2>?v={version}\g<3>', html)
+            if versioned != html:
+                _write(path, versioned)
     print(f'\n[cache] CACHE_VERSION = {version}')
 
 

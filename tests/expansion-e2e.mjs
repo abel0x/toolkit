@@ -146,7 +146,7 @@ async function navigate(bidi, context, baseUrl, slug) {
       controls: document.querySelectorAll('#toolApp button, #toolApp input, #toolApp textarea, #toolApp select').length,
       footer: Boolean(footer?.querySelector('.footer-inner') && footer.querySelector('.footer-social') && footer.querySelector('.footer-bottom')),
       footerStyled: footer ? Number.parseFloat(getComputedStyle(footer).paddingTop) > 0 : false,
-      styles: requiredStyles.every((name) => [...document.styleSheets].some((sheet) => sheet.href?.endsWith(name))),
+      styles: requiredStyles.every((name) => [...document.styleSheets].some((sheet) => (sheet.href && new URL(sheet.href).pathname.endsWith(name)))),
       overflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
       languageReady: Boolean(window.ToolkitI18n && document.querySelector('.nav-language'))
     };

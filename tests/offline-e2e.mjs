@@ -277,6 +277,26 @@ async function main() {
     // Opening a /tr/ page saves Turkish; restore English for the checks below.
     await evaluate(bidi, tab.context, `(() => { localStorage.setItem('toolkit-language', 'en'); return true; })()`);
 
+    // Pages link assets as file?v=<CACHE_VERSION>. This worker's version is
+    // served from the precache (stored without the query); another version
+    // belongs to a newer release and must come from the network uncached.
+    const versioning = await evaluate(bidi, tab.context, `(async () => {
+      const current = ${JSON.stringify(expectedCache.slice('toolkit-'.length))};
+      const linked = [...document.querySelectorAll('link[rel="stylesheet"], script[src]')]
+        .map((element) => element.href || element.src).filter((url) => url.includes('/assets/'));
+      const newer = await fetch('../../assets/css/core.css?v=ffffffffffff');
+      const cache = await caches.open(${JSON.stringify(expectedCache)});
+      const keys = (await cache.keys()).map((request) => request.url);
+      return {
+        unversioned: linked.filter((url) => new URL(url).searchParams.get('v') !== current),
+        newerStatus: newer.status,
+        versionedKeys: keys.filter((url) => new URL(url).searchParams.has('v'))
+      };
+    })()`);
+    assert.deepEqual(versioning.unversioned, [], `Assets linked without the current version: ${versioning.unversioned.join(', ')}`);
+    assert.equal(versioning.newerStatus, 200, 'A newer-release asset did not load from the network.');
+    assert.deepEqual(versioning.versionedKeys, [], `Versioned asset URLs were cached instead of their plain path: ${versioning.versionedKeys.join(', ')}`);
+
     await closeServer(server);
 
     await navigate(bidi, tab.context, `${baseUrl}/tools/typing-test.html`);
@@ -287,6 +307,7 @@ async function main() {
       }
       const wordList = await fetch('../words/tr/common-1000.json');
       const qrLibrary = await fetch('../assets/js/vendor/qrcode-generator.js');
+      const versionedStyle = await fetch(document.querySelector('link[href*="tool.css?v="]').href);
       const unavailable = await fetch('../__offline-test-missing.json');
       return {
         controlled: Boolean(navigator.serviceWorker.controller),
@@ -295,6 +316,8 @@ async function main() {
         categoryCount: document.querySelectorAll('[data-category]').length,
         wordListStatus: wordList.status,
         qrLibraryStatus: qrLibrary.status,
+        versionedStyleStatus: versionedStyle.status,
+        background: getComputedStyle(document.body).backgroundColor,
         unavailableStatus: unavailable.status
       };
     })()`);
@@ -304,6 +327,8 @@ async function main() {
     assert(typingOffline.categoryCount >= 9, 'The complete English category catalogue did not render offline.');
     assert.equal(typingOffline.wordListStatus, 200, 'A precached Turkish word list was unavailable offline.');
     assert.equal(typingOffline.qrLibraryStatus, 200, 'A precached vendor library was unavailable offline.');
+    assert.equal(typingOffline.versionedStyleStatus, 200, 'A versioned stylesheet link was not served from the precache offline.');
+    assert.notEqual(typingOffline.background, 'rgba(0, 0, 0, 0)', 'The offline typing page rendered without its stylesheets.');
     assert.equal(typingOffline.unavailableStatus, 503, 'An uncached non-HTML request did not return the offline 503 response.');
 
     await navigate(bidi, tab.context, `${baseUrl}/license/`);
