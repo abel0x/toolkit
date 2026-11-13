@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.5.1
+### Latest release — 1.6.0
+
+Tool pages now match the home page: a left-aligned header with the tool's icon beside its name, the category in the breadcrumb (one click back to that category's tools), and a "Try a sample" button next to the title instead of the "Need a spark?" box, so each tool starts higher on the page.
+
+### 1.5.1
 
 Tool pages are lighter: the list of all tools now loads only when you open the tool finder (Ctrl/Cmd + K), so an English tool page downloads about 10 KB less compressed JavaScript and a Turkish one about 18 KB less. The home page title now says what Toolkit is: "101 Free Developer Tools in Your Browser".
 

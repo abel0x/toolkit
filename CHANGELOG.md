@@ -2,6 +2,18 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.0] — 2026-11-13
+
+Tool pages get the same left-aligned look as the home page. No tool is added or changed.
+
+### Changed
+
+- New header on all 101 tool pages, in English and Turkish: left-aligned, with the tool's catalogue icon beside the title and the description below. The category pill above the title is gone; the category now sits in the breadcrumb ("All Tools / Security / Hash Generator") and links to that tab on the home page.
+- The "Need a spark?" box is replaced by a "Try a sample" button beside the header, on the 40 tools that have examples. Tools start higher on the page.
+- The home page opens on a category tab when its address ends in `#category-<name>`, for example `index.html#category-security`.
+- The new `build.py --tool-headers` step (part of `--all`) generates the breadcrumb and header of every tool page from `_data/tools.json`, so the icon and category always match the catalogue, and the expansion-tool template uses it too. The site audit checks every page's header, icon and category link, and a browser test follows the category link to the home page.
+- README screenshots of the password generator, the Turkish JSON formatter and the phone layout show the new header.
+
 ## [1.5.1] — 2026-11-13
 
 Lighter tool pages and a more descriptive home page title. No tool is added or changed.
@@ -217,6 +229,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.0]: https://github.com/abel0x/toolkit/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/abel0x/toolkit/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/abel0x/toolkit/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/abel0x/toolkit/compare/v1.3.1...v1.4.0
