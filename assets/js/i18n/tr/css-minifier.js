@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "CSS minified!": "CSS küçültüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter CSS.": "Lütfen CSS girin."
+    "Please enter CSS.": "Lütfen CSS girin.",
+    "Token": "Belirteç"
   }))
 });

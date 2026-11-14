@@ -4,12 +4,18 @@
 
   const input = document.getElementById('caseInput');
   const grid = document.getElementById('caseGrid');
+  const languageSelect = document.getElementById('caseLang');
   if (!input || !grid) return;
 
-  function uiLanguage() {
-    if (!window.ToolkitI18n) return 'en';
-    return window.ToolkitI18n.getLanguage() === 'tr' ? 'tr' : 'en';
+  // The text's language decides İ/i and I/ı, not the interface language:
+  // automatic mode picks Turkish when the text has a Turkish letter.
+  let textLanguage = 'en';
+  function detectLanguage(text) {
+    const chosen = languageSelect ? languageSelect.value : 'auto';
+    if (chosen !== 'auto') return chosen;
+    return /[çğıİöşüÇĞÖŞÜ]/.test(text) ? 'tr' : 'en';
   }
+  const uiLanguage = () => textLanguage;
 
   function t(key) {
     return window.ToolkitI18n ? window.ToolkitI18n.t(key) : key;
@@ -29,8 +35,11 @@
     return upper(characters[0]) + characters.slice(1).join('');
   }
 
+  // Words split at spaces and punctuation, and inside camelCase:
+  // "XMLHttpRequest" → XML, Http, Request; "userID" → user, ID.
   function words(value) {
-    return value.normalize('NFC').trim().split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean);
+    return value.normalize('NFC').trim().split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean)
+      .flatMap((word) => word.split(/(?<=[\p{Ll}\p{N}])(?=\p{Lu})|(?<=\p{Lu})(?=\p{Lu}\p{Ll})/u));
   }
 
   function titleCase(value) {
@@ -65,7 +74,8 @@
     { label: 'camelCase', convert: (value) => camelCase(value, false) },
     { label: 'PascalCase', convert: (value) => camelCase(value, true) },
     { label: 'snake_case', convert: (value) => words(value).map(lower).join('_') },
-    { label: 'kebab-case', convert: (value) => words(value).map(lower).join('-') }
+    { label: 'kebab-case', convert: (value) => words(value).map(lower).join('-') },
+    { label: 'CONSTANT_CASE', convert: (value) => words(value).map(upper).join('_') }
   ];
 
   function copyIcon() {
@@ -95,6 +105,7 @@
   function buildGrid(text) {
     grid.replaceChildren();
     if (!text.trim()) return;
+    textLanguage = detectLanguage(text);
 
     cases.forEach(({ label, convert }) => {
       const result = convert(text);
@@ -128,4 +139,5 @@
 
   input.addEventListener('input', () => buildGrid(input.value));
   window.addEventListener('toolkit:languagechange', () => buildGrid(input.value));
+  if (languageSelect) languageSelect.addEventListener('change', () => buildGrid(input.value));
 }());

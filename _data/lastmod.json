@@ -33,7 +33,7 @@
   },
   "tools/base64.html": {
     "date": "2026-11-14",
-    "sha256": "820f6c62e621c115487af6d72f4f4ea96750739341165b0034ee633b2655e411"
+    "sha256": "06b9255e9a6d0800c6d492e28cafd40b2ee42dee30924fd0339a7f794f8e62ad"
   },
   "tools/bcrypt.html": {
     "date": "2026-11-14",
@@ -49,7 +49,7 @@
   },
   "tools/case-converter.html": {
     "date": "2026-11-14",
-    "sha256": "01e1b15b705e0b06076b53cc2691860d01f1fd94d7fecb952a83013c968e60b8"
+    "sha256": "d3c268133f1bb67eb1096e49ad294665400aeec1f7e9d1903a72ad718670eeca"
   },
   "tools/certificate-inspector.html": {
     "date": "2026-11-14",
@@ -61,7 +61,7 @@
   },
   "tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "fbf5f97d01491a49a177f32ebfd559733af2915c8c8cbfdd8e9964cc789559d4"
+    "sha256": "094c861c7204d0032e655f17133fd4b22f2a643945a42492e1f55060e2432a4a"
   },
   "tools/color-palette.html": {
     "date": "2026-11-14",
@@ -89,7 +89,7 @@
   },
   "tools/csv-to-json.html": {
     "date": "2026-11-14",
-    "sha256": "7cb62675e12436457d51c3fb88fdbf9734a6f7e0514d803ae021699a5dd1a42a"
+    "sha256": "07fb37319861650d60d87e343d69be773ec9295f1f27e321973ccb1445ba61cc"
   },
   "tools/csv-viewer.html": {
     "date": "2026-11-14",
@@ -145,7 +145,7 @@
   },
   "tools/html-minifier.html": {
     "date": "2026-11-14",
-    "sha256": "767f1792ce5ddcc54a05baefa7a265272d21285d72a30efa4c8bf99c1f566320"
+    "sha256": "d32e7edee9ce76922d4db1207013bad2c2694fc98e9be6f13c27a21abd27608f"
   },
   "tools/http-header-analyzer.html": {
     "date": "2026-11-14",
@@ -237,7 +237,7 @@
   },
   "tools/number-base.html": {
     "date": "2026-11-14",
-    "sha256": "fd47bb8df43e5f1980ffde7f65ff7034cb4920a0eb909455248bc48063821661"
+    "sha256": "715d5de44f39a37d2b3be8078f179aec8df272aa64d6e8ab961333f158e0457c"
   },
   "tools/open-graph.html": {
     "date": "2026-11-14",
@@ -345,7 +345,7 @@
   },
   "tools/text-sorter.html": {
     "date": "2026-11-14",
-    "sha256": "f79721f6e33a1174e1f30eab49fca0a5b7a5854d1e88fd3f3ae5c8076453931c"
+    "sha256": "4845c0e922d436bb4731e447d5f1aecb500522278e18724e05b830dd84863dd2"
   },
   "tools/time-zone-converter.html": {
     "date": "2026-11-14",
@@ -449,7 +449,7 @@
   },
   "tr/tools/base64.html": {
     "date": "2026-11-14",
-    "sha256": "ccd48a77614736a761120e2ebc1ae382d82ea498a28dcdc437a43e4ab1cfc123"
+    "sha256": "9edd172ca7a4680b09eaca19e1fdcb91b8b1d3631d577104d171cb64a21c0394"
   },
   "tr/tools/bcrypt.html": {
     "date": "2026-11-14",
@@ -465,7 +465,7 @@
   },
   "tr/tools/case-converter.html": {
     "date": "2026-11-14",
-    "sha256": "84cc56c29c3c941908a72e9cf47f0c7fd5fe2f0552e54aba989c7ee6b3b1dca5"
+    "sha256": "d652f8fd01e2d7dafe409d9c94421bce8ba5a85811b13b40a625ebefcd704917"
   },
   "tr/tools/certificate-inspector.html": {
     "date": "2026-11-14",
@@ -477,7 +477,7 @@
   },
   "tr/tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "dae5868491f00ca53ad60c10860cb5d76ca56a82397ffe214206052593691dea"
+    "sha256": "ffd0cf48fc6ebcf7523984ab19c341f6d691fce7b618ef5fa7e52f33f1c14a27"
   },
   "tr/tools/color-palette.html": {
     "date": "2026-11-14",
@@ -505,7 +505,7 @@
   },
   "tr/tools/csv-to-json.html": {
     "date": "2026-11-14",
-    "sha256": "848034c202d963d7ab9ce4b4e0ccf0f239e59ee7fe81d1db0a06a6bb010c1f89"
+    "sha256": "67d9d6e99ea88ced6321e26360359457765dd62fd2718ea12a0362a71574c681"
   },
   "tr/tools/csv-viewer.html": {
     "date": "2026-11-14",
@@ -561,7 +561,7 @@
   },
   "tr/tools/html-minifier.html": {
     "date": "2026-11-14",
-    "sha256": "63fcf79d86d4e7791a9ee29e5e1b0e5ca56817ea909b0b94424dfaa902edc271"
+    "sha256": "adb261a12687b54379b0281f263cd191dd9973350238db8fd711eedb53312d84"
   },
   "tr/tools/http-header-analyzer.html": {
     "date": "2026-11-14",
@@ -653,7 +653,7 @@
   },
   "tr/tools/number-base.html": {
     "date": "2026-11-14",
-    "sha256": "4a19db3e3080658b869a66359c5ae3feaf9446042cec200b25258cc80075db21"
+    "sha256": "80a77f684cc9b5a9e6bec9c89facfb169cdfc2bda855c1fd6a4d679ed0d3cd69"
   },
   "tr/tools/open-graph.html": {
     "date": "2026-11-14",
@@ -761,7 +761,7 @@
   },
   "tr/tools/text-sorter.html": {
     "date": "2026-11-14",
-    "sha256": "f71739fbbf60e87e27217a2cc6a94b74ba48cde59e086fba0f7a1b1a30a627b6"
+    "sha256": "26c94a07e97ed27306f84014c3e5c3e2040e200a3ecd0435dfbad73a4b1cc646"
   },
   "tr/tools/time-zone-converter.html": {
     "date": "2026-11-14",

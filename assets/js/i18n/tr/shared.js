@@ -364,6 +364,18 @@
     if (match) return `${match[2]} öğeden ${match[1]} tanesini daha göster`;
     match = key.match(/^Opened the first (\d+) levels\.$/);
     if (match) return `İlk ${match[1]} düzey açıldı.`;
+    match = key.match(/^Line (\d+): (.+)$/);
+    if (match) return `${match[1]}. satır: ${t(match[2])}`;
+    match = key.match(/^Duplicate key "(.*)"\.$/);
+    if (match) return `"${match[1]}" anahtarı iki kez yazılmış.`;
+    match = key.match(/^Unknown alias \*(.+)\.$/);
+    if (match) return `Bilinmeyen takma ad *${match[1]}.`;
+    match = key.match(/^(.+) has no JSON equivalent\.$/);
+    if (match) return `${match[1]} değerinin JSON karşılığı yok.`;
+    match = key.match(/^(.+) is too large to convert exactly\.$/);
+    if (match) return `${match[1]} tam olarak dönüştürülemeyecek kadar büyük.`;
+    match = key.match(/^Unknown escape \\(.) in a double-quoted string\.$/);
+    if (match) return `Çift tırnaklı dizede bilinmeyen kaçış: \\${match[1]}.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

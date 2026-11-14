@@ -4,9 +4,31 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Invalid": "Geçersiz",
     "Converted to JSON!": "JSON’a dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter YAML.": "Lütfen YAML girin.",
-    "Unsupported or invalid YAML. Use nested mappings, lists, quoted strings, booleans, numbers or null; flow collections must use JSON syntax.": "Desteklenmeyen veya geçersiz YAML. İç içe anahtar-değer çiftleri, listeler, tırnaklı metinler, mantıksal değerler, sayılar veya null kullanın; satır içi koleksiyonlar JSON sözdiziminde olmalıdır."
+    "Tabs cannot be used for indentation.": "Girintide sekme karakteri kullanılamaz.",
+    "Invalid escape in a double-quoted string.": "Çift tırnaklı dizede geçersiz kaçış dizisi.",
+    "A quoted string is not closed.": "Tırnaklı bir dize kapatılmamış.",
+    "A [ list is not closed.": "Bir [ listesi kapatılmamış.",
+    "Expected , or ] in a [ list.": "[ listesinde , ya da ] bekleniyordu.",
+    "A { mapping is not closed.": "Bir { eşlemesi kapatılmamış.",
+    "Expected , or } in a { mapping.": "{ eşlemesinde , ya da } bekleniyordu.",
+    "Unexpected text after a value.": "Bir değerden sonra beklenmeyen metin.",
+    "A [ or { collection is not closed.": "Bir [ ya da { koleksiyonu kapatılmamış.",
+    "Unexpected text after a quoted string.": "Tırnaklı bir dizeden sonra beklenmeyen metin.",
+    "A value continues on a line that looks like a key or list item.": "Bir değer, anahtar ya da liste öğesine benzeyen bir satırda devam ediyor.",
+    "Unsupported block scalar header.": "Desteklenmeyen çok satırlı metin başlığı.",
+    "The document is nested too deeply.": "Belge çok derin iç içe geçmiş.",
+    "Complex keys (?) are not supported.": "Karmaşık anahtarlar (?) desteklenmiyor.",
+    "Unexpected indentation.": "Beklenmeyen girinti.",
+    "Expected \"key: value\".": "\"anahtar: değer\" bekleniyordu.",
+    "Anchors, aliases and tags on keys are not supported.": "Anahtarlarda çapa, takma ad ve etiket desteklenmiyor.",
+    "<< must merge a mapping or a list of mappings.": "<< bir eşlemeyi ya da eşleme listesini birleştirmelidir.",
+    "Unexpected content; check the indentation.": "Beklenmeyen içerik; girintiyi kontrol edin.",
+    "Tab": "Sekme",
+    "Lines": "Satırlar",
+    "Quote": "Alıntı"
   }))
 });

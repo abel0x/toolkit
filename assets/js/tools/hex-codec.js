@@ -36,9 +36,10 @@
 
   // ─── Decode ────────────────────────────────────────────────────────────────
   function hexToText(hex) {
-    hex = hex.replace(/\s+/g, '');
-    if (hex.length % 2 !== 0) throw new Error('Hex string length must be even.');
+    // "48 65", "48:65", "0x48, 0x65" and "\x48\x65" are all read as bytes.
+    hex = hex.replace(/0x|\\x/gi, '').replace(/[\s,:;-]+/g, '');
     if (!/^[0-9a-fA-F]+$/.test(hex)) throw new Error('Invalid hex characters found.');
+    if (hex.length % 2 !== 0) throw new Error('Hex string length must be even.');
     var bytes = [];
     for (var i = 0; i < hex.length; i += 2) {
       bytes.push(parseInt(hex.slice(i, i + 2), 16));
@@ -61,6 +62,8 @@
       outputEl.value = hexToText(val);
       showToast('Decoded from hex!', 'success');
     } catch (e) {
+      // The previous result does not belong to this input.
+      outputEl.value = '';
       showToast(e.message, 'error');
     }
   });

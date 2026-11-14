@@ -50,10 +50,24 @@
   toDateBtn.addEventListener('click', () => {
     const raw = unixInput.value.trim();
     if (!raw || isNaN(raw)) { showToast('Enter a valid Unix timestamp', 'error'); return; }
-    const ms  = unit === 's' ? Number(raw) * 1000 : Number(raw);
+    // A value too long for the chosen unit is read in the unit its length
+    // suggests: 13 digits are milliseconds, 16 microseconds, 19 nanoseconds.
+    const value = Number(raw);
+    const size = Math.abs(value);
+    let ms = unit === 's' ? value * 1000 : value;
+    let readAs = '';
+    if (size >= 1e17) { ms = value / 1e6; readAs = 'Read as nanoseconds'; }
+    else if (size >= 1e14) { ms = value / 1e3; readAs = 'Read as microseconds'; }
+    else if (unit === 's' && size >= 1e11) { ms = value; readAs = 'Read as milliseconds'; }
     const d   = new Date(ms);
     if (isNaN(d.getTime())) { showToast('Invalid timestamp', 'error'); return; }
     unixResult.innerHTML = '';
+    if (readAs) {
+      const note = document.createElement('p');
+      note.className = 'ts-read-as';
+      note.textContent = window.ToolkitI18n ? window.ToolkitI18n.t(readAs) : readAs;
+      unixResult.appendChild(note);
+    }
     unixResult.appendChild(resultRow('Local', d.toLocaleString(), d.toLocaleString()));
     unixResult.appendChild(resultRow('UTC', d.toUTCString(), d.toUTCString()));
     unixResult.appendChild(resultRow('ISO 8601', d.toISOString(), d.toISOString()));

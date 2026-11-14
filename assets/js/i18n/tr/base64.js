@@ -5,11 +5,12 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Encoding": "Kodlama",
-    "Validate": "Doğrula",
     "Invalid": "Geçersiz",
     "Input is empty": "Girdi boş",
     "Input is empty.": "Girdi boş.",
     "Decoded bytes are not valid UTF-8.": "Kodu çözülen baytlar geçerli UTF-8 değil.",
+    "alpha": "alfa",
+    "Invalid Base64 string — its length cannot be right.": "Geçersiz Base64 dizesi — uzunluğu doğru olamaz.",
     "Base64 input": "Base64 girdisi"
   }))
 });

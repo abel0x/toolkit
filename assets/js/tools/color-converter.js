@@ -14,12 +14,68 @@
   const copyHWB   = document.getElementById('copyHWB');
   if (!swatch) return;
 
-  function hexToRGB(hex) {
-    hex = hex.replace('#', '');
-    if (hex.length === 3) hex = hex.split('').map(c => c+c).join('');
-    const n = parseInt(hex, 16);
-    return isNaN(n) ? null : { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  const errorEl = document.getElementById('colorError');
+  const t = (key) => (window.ToolkitI18n ? window.ToolkitI18n.t(key) : key);
+  const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+
+  // A number, or a percentage of `full`.
+  function amount(text, full) {
+    const match = String(text).trim().match(/^([-+]?(?:\d+\.?\d*|\.\d+))(%?)$/);
+    if (!match) return NaN;
+    return match[2] ? (Number(match[1]) / 100) * full : Number(match[1]);
   }
+
+  function hslToRGB(h, s, l) {
+    s /= 100; l /= 100;
+    const k = (n) => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+    return { r: Math.round(f(0) * 255), g: Math.round(f(8) * 255), b: Math.round(f(4) * 255) };
+  }
+
+  /* #rgb, #rgba, #rrggbb, #rrggbbaa (with or without #), rgb()/rgba() and
+     hsl()/hsla() in comma or space syntax, and anything else the browser
+     knows as a colour (names such as rebeccapurple). Returns {r, g, b, a}. */
+  function parseColor(input) {
+    const text = input.trim().toLowerCase();
+    const hex = text.match(/^#?([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/);
+    if (hex) {
+      let digits = hex[1];
+      if (digits.length <= 4) digits = digits.split('').map((c) => c + c).join('');
+      const value = (index) => parseInt(digits.slice(index, index + 2), 16);
+      return { r: value(0), g: value(2), b: value(4), a: digits.length === 8 ? Math.round((value(6) / 255) * 1000) / 1000 : 1 };
+    }
+    const fn = text.match(/^(rgba?|hsla?)\(\s*([^)]*)\)$/);
+    if (fn) {
+      const parts = fn[2].split(/\s*[,/]\s*|\s+/).filter(Boolean);
+      if (parts.length < 3 || parts.length > 4) return null;
+      const alpha = parts[3] === undefined ? 1 : amount(parts[3], 1);
+      if (!(alpha >= 0 && alpha <= 1)) return null;
+      if (fn[1].startsWith('rgb')) {
+        const [r, g, b] = parts.slice(0, 3).map((part) => amount(part, 255));
+        if ([r, g, b].some((value) => !Number.isFinite(value))) return null;
+        return { r: Math.round(clamp(r, 0, 255)), g: Math.round(clamp(g, 0, 255)), b: Math.round(clamp(b, 0, 255)), a: alpha };
+      }
+      const hue = Number(parts[0].replace(/deg$/, ''));
+      const sat = amount(parts[1], 100);
+      const light = amount(parts[2], 100);
+      if (![hue, sat, light].every(Number.isFinite)) return null;
+      return { ...hslToRGB(((hue % 360) + 360) % 360, clamp(sat, 0, 100), clamp(light, 0, 100)), a: alpha };
+    }
+    // Colour names and other syntaxes: let the browser read them.
+    if (/^[a-z]+$/.test(text) || /^[a-z]+\(/.test(text)) {
+      const context = document.createElement('canvas').getContext('2d');
+      if (!context) return null;
+      context.fillStyle = '#010203';
+      context.fillStyle = text;
+      const normalised = context.fillStyle;
+      if (normalised === '#010203' && text !== '#010203') return null;
+      if (normalised !== text) return parseColor(normalised);
+    }
+    return null;
+  }
+
+  const hexByte = (value) => Math.round(value).toString(16).padStart(2, '0');
 
   function rgbToHSL(r, g, b) {
     r /= 255; g /= 255; b /= 255;
@@ -66,31 +122,49 @@
 
   const trim = (value, digits) => String(Number(value.toFixed(digits)));
 
-  function update(hex) {
-    const rgb = hexToRGB(hex);
-    if (!rgb) return;
-    const { r, g, b } = rgb;
+  function update(color) {
+    const { r, g, b, a } = color;
     const hsl = rgbToHSL(r, g, b);
-    swatch.style.background = hex;
+    const opaque = a >= 1;
+    const hex = `#${hexByte(r)}${hexByte(g)}${hexByte(b)}`;
+    const alpha = trim(a, 3);
+    swatch.style.background = opaque ? hex : `rgba(${r}, ${g}, ${b}, ${alpha})`;
     picker.value = hex;
-    rgbOut.value = `rgb(${r}, ${g}, ${b})`;
-    hslOut.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+    rgbOut.value = opaque ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    hslOut.value = opaque ? `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)` : `hsla(${hsl.h}, ${hsl.s}%, ${hsl.l}%, ${alpha})`;
     const oklch = rgbToOKLCH(r, g, b);
-    oklchOut.value = `oklch(${trim(oklch.l * 100, 1)}% ${trim(oklch.c, 3)} ${trim(oklch.h, 1)})`;
+    oklchOut.value = `oklch(${trim(oklch.l * 100, 1)}% ${trim(oklch.c, 3)} ${trim(oklch.h, 1)}${opaque ? '' : ` / ${alpha}`})`;
     const hwb = rgbToHWB(r, g, b);
-    hwbOut.value = `hwb(${hwb.h} ${hwb.w}% ${hwb.b}%)`;
+    hwbOut.value = `hwb(${hwb.h} ${hwb.w}% ${hwb.b}%${opaque ? '' : ` / ${alpha}`})`;
+    return opaque ? hex : hex + hexByte(a * 255);
   }
 
-  update('#6366f1');
+  update(parseColor('#6366f1'));
 
-  hexIn.addEventListener('input', () => {
-    const v = hexIn.value.trim();
-    if (/^#[0-9a-fA-F]{6}$/.test(v)) update(v);
-  });
+  function readInput(normalise) {
+    const value = hexIn.value.trim();
+    if (!value) { errorEl.hidden = true; return; }
+    const color = parseColor(value);
+    if (!color) {
+      errorEl.textContent = t('Not a colour Toolkit can read. Try #rrggbb, #rgb, rgb(), hsl() or a CSS colour name.');
+      errorEl.hidden = false;
+      hexIn.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    errorEl.hidden = true;
+    hexIn.removeAttribute('aria-invalid');
+    const hex = update(color);
+    // On leaving the field, show what was typed as HEX.
+    if (normalise) hexIn.value = hex;
+  }
+
+  hexIn.addEventListener('input', () => readInput(false));
+  hexIn.addEventListener('change', () => readInput(true));
 
   picker.addEventListener('input', () => {
     hexIn.value = picker.value;
-    update(picker.value);
+    errorEl.hidden = true;
+    update(parseColor(picker.value));
   });
 
   copyHex.addEventListener('click', () => copyToClipboard(hexIn.value, 'HEX'));

@@ -28,20 +28,26 @@
       ctx.fillRect(0, 0, size, size);
       ctx.fillStyle = fg;
       const fontSize = Math.round(size * baseFontPct);
-      ctx.font = `bold ${fontSize}px "Space Grotesk", Arial, sans-serif`;
+      ctx.font = `bold ${fontSize}px system-ui, -apple-system, "Segoe UI", Arial, sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text.slice(0, 2), size / 2, size / 2 + 1);
+      ctx.fillText(firstCharacters(text, 2), size / 2, size / 2 + 1);
     });
 
     updateSnippet();
   }
 
+  // Whole characters: an emoji such as 🇹🇷 or 👍🏽 is never cut in half.
+  function firstCharacters(text, count) {
+    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+      return Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text), (part) => part.segment).slice(0, count).join('');
+    }
+    return Array.from(text).slice(0, count).join('');
+  }
+
+  // Links for the three files the Download buttons save, in the site root.
   function updateSnippet() {
-    const canvas32 = document.getElementById('fgCanvas32');
-    if (!canvas32) return;
-    const dataUrl = canvas32.toDataURL('image/png');
-    snippetEl.value = `<link rel="icon" type="image/png" href="${dataUrl.substring(0,40)}..." />\n<link rel="apple-touch-icon" href="favicon-192.png" />`;
+    snippetEl.value = SIZES.map((size) => `<link rel="icon" type="image/png" sizes="${size}x${size}" href="/favicon-${size}.png" />`).join('\n');
   }
 
   SIZES.forEach(size => {
@@ -54,7 +60,7 @@
           a.href = URL.createObjectURL(blob);
           a.download = `favicon-${size}.png`;
           a.click();
-          URL.revokeObjectURL(a.href);
+          setTimeout(() => URL.revokeObjectURL(a.href), 1000);
         });
       });
     }

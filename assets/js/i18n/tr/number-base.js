@@ -5,6 +5,11 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "From": "Başlangıç",
-    "Invalid": "Geçersiz"
+    "Invalid": "Geçersiz",
+    "Decimal": "Ondalık",
+    "Binary accepts the digits 0 and 1 only.": "İkilik tabanda yalnızca 0 ve 1 rakamları kullanılabilir.",
+    "Octal accepts the digits 0 to 7 only.": "Sekizlik tabanda yalnızca 0–7 arası rakamlar kullanılabilir.",
+    "Decimal accepts whole numbers only, without a decimal point.": "Onluk tabanda yalnızca ondalık noktası olmayan tam sayılar kullanılabilir.",
+    "Hexadecimal accepts the digits 0 to 9 and A to F only.": "Onaltılık tabanda yalnızca 0–9 rakamları ve A–F harfleri kullanılabilir."
   }))
 });

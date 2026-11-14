@@ -9,6 +9,16 @@
   const customFrom = document.getElementById('custFrom');
   const customTo = document.getElementById('custTo');
   const customResult = document.getElementById('custResult');
+  const errorEl = document.getElementById('numError');
+  const t = (key) => (window.ToolkitI18n ? window.ToolkitI18n.t(key) : key);
+  const RULES = {
+    2: 'Binary accepts the digits 0 and 1 only.',
+    8: 'Octal accepts the digits 0 to 7 only.',
+    10: 'Decimal accepts whole numbers only, without a decimal point.',
+    16: 'Hexadecimal accepts the digits 0 to 9 and A to F only.'
+  };
+  // 0x, 0o and 0b prefixes are accepted in their own field.
+  const PREFIX = { 2: /^0b/i, 8: /^0o/i, 16: /^0x/i };
 
   if (!binaryInput) return;
 
@@ -21,12 +31,15 @@
       throw new Error('Invalid base.');
     }
 
-    let source = value.trim().toLocaleUpperCase('en-US');
+    // Spaces and underscores group digits ("1111 0000", "1_000_000").
+    let source = value.trim().replace(/[\s_]+/g, '');
     let negative = false;
     if (source.startsWith('-') || source.startsWith('+')) {
       negative = source[0] === '-';
       source = source.slice(1);
     }
+    if (PREFIX[base]) source = source.replace(PREFIX[base], '');
+    source = source.toLocaleUpperCase('en-US');
     if (!source) throw new Error('Invalid number.');
 
     let result = 0n;
@@ -73,12 +86,20 @@
       updating = true;
       clearStandardValues();
       updating = false;
+      errorEl.hidden = true;
       return;
     }
     try {
       updateAll(parseInteger(source, base));
+      errorEl.hidden = true;
     } catch {
+      // Never leave the previous number's conversions on screen.
+      updating = true;
+      standardInputs.forEach((other) => { if (other !== element) { other.value = ''; markInvalid(other, false); } });
+      updating = false;
       markInvalid(element, true);
+      errorEl.textContent = t(RULES[base]);
+      errorEl.hidden = false;
     }
   }
 

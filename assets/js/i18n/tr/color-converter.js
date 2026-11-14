@@ -4,6 +4,8 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Converter": "Dönüştürücü"
+    "Converter": "Dönüştürücü",
+    "alpha": "alfa",
+    "Not a colour Toolkit can read. Try #rrggbb, #rgb, rgb(), hsl() or a CSS colour name.": "Toolkit bu rengi okuyamıyor. #rrggbb, #rgb, rgb(), hsl() ya da bir CSS renk adı deneyin."
   }))
 });

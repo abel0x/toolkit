@@ -12,6 +12,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "PascalCase": "PascalCase",
     "snake_case": "snake_case",
     "kebab-case": "kebab-case",
+    "Words": "Kelimeler",
     "UPPERCASE": "BÜYÜK HARF",
     "NFC": "NFC"
   }))

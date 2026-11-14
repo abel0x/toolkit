@@ -21,7 +21,9 @@
 
       lines.forEach(function (line) {
         var key = trimLines ? line.trim() : line;
-        if (caseInsensitive) key = foldCase(key);
+        // A line with a Turkish letter folds by Turkish rules (IŞIK = ışık);
+        // other lines fold the usual way (I = i, İ = i).
+        if (caseInsensitive) key = /[çğıİöşüÇĞÖŞÜ]/.test(key) ? key.toLocaleLowerCase('tr') : foldCase(key);
         if (seen.has(key)) {
           removedCount++;
         } else {

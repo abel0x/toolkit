@@ -8,6 +8,7 @@
   const decodeBtn   = document.getElementById('b64DecodeBtn');
   const copyBtn     = document.getElementById('b64CopyBtn');
   const errorEl     = document.getElementById('b64Error');
+  const urlSafeEl   = document.getElementById('b64UrlSafe');
 
   if (!b64Input) return;
 
@@ -45,7 +46,10 @@
     if (!text) { showError('Input is empty.'); return; }
 
     try {
-      b64Output.value = btoa(bytesToBinary(encoder.encode(text)));
+      const encoded = btoa(bytesToBinary(encoder.encode(text)));
+      b64Output.value = urlSafeEl && urlSafeEl.checked
+        ? encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        : encoded;
     } catch (err) {
       showError('Encoding failed: ' + err.message);
     }
@@ -57,11 +61,15 @@
     if (!text) { showError('Input is empty.'); return; }
 
     try {
-      // Validate Base64 format
-      if (!/^[A-Za-z0-9+/]*={0,2}$/.test(text)) {
+      // Line breaks (MIME, PEM) are ignored; the URL-safe alphabet (- and _)
+      // and missing = padding are accepted.
+      const compact = text.replace(/\s+/g, '');
+      if (!/^[A-Za-z0-9+/\-_]*={0,2}$/.test(compact) || (/[-_]/.test(compact) && /[+/]/.test(compact))) {
         throw new Error('Invalid Base64 string — found unexpected characters.');
       }
-      const binary = atob(text);
+      const standard = compact.replace(/-/g, '+').replace(/_/g, '/').replace(/=+$/, '');
+      if (standard.length % 4 === 1) throw new Error('Invalid Base64 string — its length cannot be right.');
+      const binary = atob(standard + '='.repeat((4 - (standard.length % 4)) % 4));
       const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
       b64Output.value = decodeUtf8(bytes);
     } catch (err) {

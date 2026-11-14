@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/color-converter.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/color-converter.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/color-converter.html" />
-  <script src="../assets/js/core/language-redirect.js?v=5645cc749271"></script>
+  <script src="../assets/js/core/language-redirect.js?v=35c7f0646fc5"></script>
   <meta property="og:title" content="Color Converter — Toolkit" />
   <meta property="og:description" content="Convert a color between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/color-converter.html" />
@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Color Converter — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=5645cc749271" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=5645cc749271" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=5645cc749271" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=5645cc749271" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=5645cc749271" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=35c7f0646fc5" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Color Converter", "url": "https://abel0x.github.io/toolkit/tools/color-converter.html", "description": "Convert a color between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Color Converter", "item": "https://abel0x.github.io/toolkit/tools/color-converter.html"}]}]}</script>
@@ -88,12 +88,13 @@
               <div class="color-input-group">
                 <label for="colorHex" class="color-fmt-label">HEX</label>
                 <div class="color-input-row">
-                  <input type="text" id="colorHex" class="input-field" value="#6366f1" placeholder="#rrggbb" maxlength="7" aria-label="HEX color value" spellcheck="false" />
+                  <input type="text" id="colorHex" class="input-field" value="#6366f1" placeholder="#rrggbb, rgb(), hsl() or a name" aria-label="HEX color value" aria-describedby="colorError" spellcheck="false" autocomplete="off" />
                   <button class="icon-btn" id="copyHex" aria-label="Copy HEX" title="Copy HEX">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   </button>
                 </div>
               </div>
+              <p class="error-msg" id="colorError" role="alert" hidden></p>
               <div class="color-input-group">
                 <label class="color-fmt-label">RGB</label>
                 <div class="color-input-row">
@@ -172,11 +173,11 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=5645cc749271" defer></script>
-  <script src="../assets/js/core/nav.js?v=5645cc749271" defer></script>
-  <script src="../assets/js/core/i18n.js?v=5645cc749271" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=5645cc749271" defer></script>
-  <script src="../assets/js/tools/color-converter.js?v=5645cc749271" defer></script>
-  <script src="../assets/js/core/example-starters.js?v=5645cc749271" defer></script>
+  <script src="../assets/js/core/utils.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/core/nav.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/core/i18n.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/tools/color-converter.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=35c7f0646fc5" defer></script>
 </body>
 </html>

@@ -919,6 +919,8 @@
   margin-top: 2.5rem;
 }
 
+.ts-read-as { margin: 0 0 0.5rem; font-size: 0.82rem; color: var(--yellow); }
+
 .ts-panel-title {
   font-size: 0.82rem;
   font-weight: 700;
@@ -1178,6 +1180,12 @@
 .diff-stat--add { color: var(--green); }
 .diff-stat--del { color: var(--red); }
 .diff-stat--same { color: var(--text-muted); }
+.b64-option { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; }
+.case-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 0.5rem; }
+.case-head .control-label { margin-bottom: 0; }
+.case-lang { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-secondary); }
+.case-lang .form-select { width: auto; }
+.ts-lang { width: auto; margin-left: 0.5rem; }
 .diff-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1rem; }
 .diff-option { display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
 .diff-options .view-switch { margin-left: auto; }

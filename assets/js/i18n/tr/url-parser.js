@@ -4,9 +4,13 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Password": "Parola",
     "Parser": "Ayrıştırıcı",
     "Invalid": "Geçersiz",
     "Invalid URL": "Geçersiz URL",
+    "Username": "Kullanıcı adı",
+    "Host (Unicode)": "Sunucu (Unicode)",
+    "Pathname (decoded)": "Yol (çözülmüş)",
     "Query Parameters": "Sorgu Parametreleri",
     "No query parameters.": "Sorgu parametresi yok."
   }))

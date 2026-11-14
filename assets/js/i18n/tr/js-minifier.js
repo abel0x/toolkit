@@ -4,8 +4,14 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "JS minified (basic)!": "JS küçültüldü (temel)!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter JavaScript.": "Lütfen JavaScript girin."
+    "Please enter JavaScript.": "Lütfen JavaScript girin.",
+    "Continue": "Devam",
+    "JS minified!": "JS küçültüldü!",
+    "A template literal is not closed.": "Bir şablon dizesi kapatılmamış.",
+    "A /* comment is not closed.": "Bir /* yorumu kapatılmamış.",
+    "A string is not closed on its line.": "Bir dize kendi satırında kapatılmamış.",
+    "A string is not closed.": "Bir dize kapatılmamış.",
+    "A regular expression is not closed on its line.": "Bir düzenli ifade kendi satırında kapatılmamış."
   }))
 });

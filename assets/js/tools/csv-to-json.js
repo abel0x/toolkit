@@ -4,9 +4,23 @@
   const convertBtn = document.getElementById('csv2j-btn');
   const copyBtn = document.getElementById('csv2j-copy');
   const indentSel = document.getElementById('csv2j-indent');
+  const delimiterSel = document.getElementById('csv2j-delimiter');
   if (!inputEl) return;
 
-  function parseCsv(text) {
+  // The delimiter that appears most often in the first line, outside quotes.
+  // Excel in Turkish (and many European locales) writes ";".
+  function detectDelimiter(text) {
+    const counts = { ',': 0, ';': 0, '\t': 0, '|': 0 };
+    let inQuotes = false;
+    for (const c of text) {
+      if (c === '"') inQuotes = !inQuotes;
+      else if (!inQuotes && (c === '\n' || c === '\r')) break;
+      else if (!inQuotes && c in counts) counts[c] += 1;
+    }
+    return Object.keys(counts).reduce((best, key) => (counts[key] > counts[best] ? key : best), ',');
+  }
+
+  function parseCsv(text, delimiter) {
     const rows = [];
     let row = [], field = '', inQuotes = false;
     for (let i = 0; i < text.length; i++) {
@@ -18,7 +32,7 @@
         else { field += c; }
       } else {
         if (c === '"') { inQuotes = true; }
-        else if (c === ',') { row.push(field); field = ''; }
+        else if (c === delimiter) { row.push(field); field = ''; }
         else if (c === '\r' && next === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; }
         else if (c === '\n' || c === '\r') { row.push(field); rows.push(row); row = []; field = ''; }
         else { field += c; }
@@ -30,14 +44,16 @@
   }
 
   function convert() {
-    const raw = inputEl.value.trim();
+    const raw = inputEl.value.replace(/^\uFEFF/, '').trim();
     if (!raw) { showToast('Please enter CSV.', 'error'); return; }
     try {
-      const rows = parseCsv(raw);
+      const chosen = delimiterSel ? delimiterSel.value : 'auto';
+      const delimiter = chosen === 'auto' ? detectDelimiter(raw) : chosen === 'tab' ? '\t' : chosen;
+      const rows = parseCsv(raw, delimiter);
       if (rows.length < 2) { showToast('CSV needs at least a header and one data row.', 'error'); return; }
       const headers = rows[0];
       const result = rows.slice(1).map(row => {
-        const obj = {};
+        const obj = Object.create(null);
         headers.forEach((h, i) => { obj[h] = row[i] !== undefined ? row[i] : ''; });
         return obj;
       });

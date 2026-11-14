@@ -50,12 +50,14 @@ const QR_MODULES = Array.from({ length: qrCode.getModuleCount() }, (_, row) => A
 
 const failures = [];
 let checked = 0;
+const toolsChecked = new Set();
 
 await withFirefox(async (page) => {
   await page.viewport(1280, 900);
 
   // Each body runs in the page and returns [description, actual, expected] triples.
   async function check(slug, body) {
+    toolsChecked.add(slug);
     await page.navigate(`/tools/${slug}.html`);
     const results = await page.evaluate(async (source) => {
       const $ = (selector) => document.querySelector(selector);
@@ -264,6 +266,95 @@ await withFirefox(async (page) => {
       ['body is the preview', page.includes('<p>Some <strong>bold</strong> <a href="https://example.com"'), true],
       ['nothing to download when empty', files.length, 2]
     ];`);
+
+  // 1.8.1: the bugs found by the tool review.
+  await check('sql-formatter', `
+    set('#sql-input', "select a from t where b = 'it''s  two' -- note\\nand c in (select d from e)"); set('#sql-upper', true, 'change'); click('#sql-btn');
+    return [['escaped quote, spaces in a string, comment and subquery kept', value('#sql-output'),
+      "SELECT a\\nFROM t\\nWHERE b = 'it''s  two' -- note\\n  AND c IN (\\n    SELECT d\\n    FROM e\\n  )"]];`);
+
+  await check('yaml-to-json', `
+    set('#y2j-input', 'services:\\n  web:\\n    image: "nginx:1.25"  # pinned\\n    ports: [80, "443:443"]\\n    command: |\\n      run\\n      serve\\nbase: &b {x: 1}\\nchild:\\n  <<: *b\\n  y: 0o17'); click('#y2j-btn');
+    return [['flow lists, block text, anchors, merges', JSON.parse(value('#y2j-output')),
+      { services: { web: { image: 'nginx:1.25', ports: [80, '443:443'], command: 'run\\nserve\\n' } }, base: { x: 1 }, child: { x: 1, y: 15 } }]];`);
+
+  await check('base64', `
+    set('#b64Input', '8J-Ri0hp'); click('#b64DecodeBtn');
+    const urlSafe = value('#b64Output');
+    set('#b64Input', 'SGVs\\nbG8'); click('#b64DecodeBtn');
+    const wrapped = value('#b64Output');
+    set('#b64UrlSafe', true, 'change'); set('#b64Input', '👋Hi??'); click('#b64EncodeBtn');
+    return [['URL-safe alphabet', urlSafe, '👋Hi'], ['line breaks and no padding', wrapped, 'Hello'], ['URL-safe output', value('#b64Output'), '8J-Ri0hpPz8']];`);
+
+  await check('number-base', `
+    set('#numDec', '255'); set('#numDec', '12.5');
+    const stale = [value('#numBin'), value('#numHex'), $('#numError').hidden];
+    set('#numHex', '0xFF'); const prefixed = value('#numDec');
+    set('#numBin', '1111 0000'); const grouped = value('#numDec');
+    return [['invalid input clears the others and explains', stale, ['', '', false]], ['0x prefix', prefixed, '255'], ['grouped binary', grouped, '240'], ['error gone', $('#numError').hidden, true]];`);
+
+  await check('color-converter', `
+    const read = (input) => { set('#colorHex', input); return [value('#colorRGB'), $('#colorError').hidden]; };
+    return [['8-digit hex keeps alpha', read('#ff000080'), ['rgba(255, 0, 0, 0.502)', true]], ['short hex', read('abc'), ['rgb(170, 187, 204)', true]],
+      ['colour name', read('rebeccapurple'), ['rgb(102, 51, 153)', true]], ['hsl with alpha', read('hsl(120 100% 25% / 50%)'), ['rgba(0, 128, 0, 0.5)', true]],
+      ['unknown colour', read('not a colour')[1], false], ['alpha in OKLCH', (read('#ff000080'), value('#colorOKLCH')), 'oklch(62.8% 0.258 29.2 / 0.502)']];`);
+
+  await check('hex-codec', `
+    set('#hexInput', '0x48, 0x69'); click('#hexDecodeBtn');
+    const prefixed = value('#hexOutput');
+    set('#hexInput', 'zz'); click('#hexDecodeBtn');
+    return [['0x and commas', prefixed, 'Hi'], ['an error clears the old result', value('#hexOutput'), '']];`);
+
+  await check('timestamp', `
+    set('#tsUnixInput', '1700000000000'); click('#tsSecBtn'); click('#tsToDateBtn'); await wait(30);
+    const result = text('#tsUnixResult');
+    return [['13 digits read as milliseconds', result, { includes: '2023-11-14T22:13:20.000Z' }], ['and says so', result, { includes: 'Read as milliseconds' }]];`);
+
+  await check('case-converter', `
+    const card = (label) => [...document.querySelectorAll('#caseGrid .case-card')].find((node) => node.querySelector('.case-type-label').textContent === label).querySelector('.case-value').textContent;
+    set('#caseInput', 'İSTANBUL IŞIK'); await wait(20);
+    const turkish = card('lowercase');
+    set('#caseInput', 'XMLHttpRequest userID'); await wait(20);
+    return [['Turkish text lowers by Turkish rules', turkish, 'istanbul ışık'], ['English text keeps I → i', card('lowercase'), 'xmlhttprequest userid'],
+      ['camelCase words are split', card('snake_case'), 'xml_http_request_user_id'], ['CONSTANT_CASE', card('CONSTANT_CASE'), 'XML_HTTP_REQUEST_USER_ID']];`);
+
+  await check('deduplicate-lines', `
+    set('#dd-case-insensitive', true, 'change'); set('#dd-input', 'IŞIK\\nışık\\nİstanbul\\nistanbul\\nIstanbul'); click('#dd-dedup-btn');
+    return [['Turkish and English case folding', value('#dd-output'), 'IŞIK\\nİstanbul']];`);
+
+  await check('text-sorter', `
+    set('#ts-input', 'şeker\\nsu\\nırmak\\nİnci\\nfile10\\nfile2\\nçay\\ncam'); click('#ts-sort-btn');
+    return [['Turkish alphabet and natural numbers', value('#ts-output'), 'cam\\nçay\\nfile2\\nfile10\\nırmak\\nİnci\\nsu\\nşeker']];`);
+
+  await check('csv-to-json', `
+    set('#csv2j-input', 'ad;yaş;şehir\\nAli;30;"İzmir; Karşıyaka"'); click('#csv2j-btn');
+    return [['semicolon CSV is detected', JSON.parse(value('#csv2j-output')), [{ ad: 'Ali', 'yaş': '30', 'şehir': 'İzmir; Karşıyaka' }]]];`);
+
+  await check('password-strength', `
+    const rate = (password) => { set('#psInput', password); return [text('#psLabel'), text('#psFeedback')]; };
+    const [team, teamHints] = rate('Galatasaray1905'); const [leet, leetHints] = rate('P@ssw0rd!'); const [row] = rate('qwerty123'); const [random] = rate('Xk9#vR2!pLq7$wE4');
+    return [['word + year is weak', /weak/i.test(team), true], ['says why', teamHints, { includes: 'common word' }], ['and about the year', teamHints, { includes: 'year' }],
+      ['letter swaps do not hide a word', /weak/i.test(leet) && leetHints.includes('common word'), true], ['common password', row, 'Very Weak'], ['random stays strong', random, 'Very Strong']];`);
+
+  await check('favicon-generator', `
+    return [['snippet links the downloaded files', value('#fgSnippet'), '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />\\n<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />\\n<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />']];`);
+
+  await check('url-parser', `
+    set('#urlInput', 'https://user:pw@xn--trkiye-3ya.example/a%20b'); click('#parseBtn'); await wait(30);
+    const result = text('#urlResult');
+    return [['username', result, { includes: 'user' }], ['password', result, { includes: 'pw' }], ['Unicode host', result, { includes: 'türkiye.example' }], ['decoded path', result, { includes: '/a b' }]];`);
+
+  await check('js-minifier', `
+    set('#jsmin-input', 'function  add ( a , b ) {\\n  // sum\\n  return a + b ;\\n}\\nconst r = /\\\\/\\\\//g; const t = \`a  \${ b }\`;'); click('#jsmin-btn');
+    return [['whitespace and comments go, regex and template stay', value('#jsmin-output'), 'function add(a,b){return a+b;}\\nconst r=/\\\\/\\\\//g;const t=\`a  \${b}\`;']];`);
+
+  await check('css-minifier', `
+    set('#cssmin-input', '.a {\\n  color : red ;\\n}\\n:root { --x: 1px; }\\n.b > .c { margin : 0 auto ; }'); click('#cssmin-btn');
+    return [['spaces around punctuation go, custom properties do not stop it', value('#cssmin-output'), '.a{color:red}:root{--x:1px}.b>.c{margin:0 auto}']];`);
+
+  await check('html-minifier', `
+    set('#hmin-input', '<!DOCTYPE html>\\n<html>\\n  <body>\\n    <p class = "x">a   b</p>\\n  </body>\\n</html>'); click('#hmin-btn');
+    return [['doctype no longer stops it', value('#hmin-output'), '<!DOCTYPE html><html><body><p class="x">a b</p></body></html>']];`);
 
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
@@ -506,4 +597,4 @@ await withFirefox(async (page) => {
 
 if (failures.length) console.log(`\n${failures.length} known-answer failure(s):\n  ${failures.join('\n  ')}`);
 assert.equal(failures.length, 0, 'Tool output did not match the known answers above.');
-console.log(`Tool vectors passed: ${checked} known-answer checks across 44 tools.`);
+console.log(`Tool vectors passed: ${checked} known-answer checks across ${toolsChecked.size} tools.`);

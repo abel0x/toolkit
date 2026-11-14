@@ -503,8 +503,11 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
     const binary = document.querySelector('#numBin');
     binary.value = '102';
     binary.dispatchEvent(new Event('input', { bubbles: true }));
+    // An invalid digit marks the field, clears the other bases (they no
+    // longer match) and says which digits the base accepts.
     const invalidRejected = binary.getAttribute('aria-invalid') === 'true'
-      && document.querySelector('#numDec').value === '9007199254740993';
+      && document.querySelector('#numDec').value === '' && document.querySelector('#numHex').value === ''
+      && !document.querySelector('#numError').hidden;
     document.querySelector('#custInput').value = 'ZZ';
     document.querySelector('#custFrom').value = '36';
     document.querySelector('#custTo').value = '10';
