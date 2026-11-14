@@ -2,6 +2,20 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.10] — 2026-11-15
+
+A new tool, Port Reference, brings the catalogue to 104 tools.
+
+### Added
+
+- **Port Reference** (Dev Tools): about 130 common ports and the services behind them (SSH, DNS, mail, databases, VPNs, Docker and Kubernetes, dev servers such as Vite, Angular and Jupyter, games), searchable by number or name and filtered by kind; ranges such as IRC 6665–6669 match any port inside them.
+- Typing a port number explains it: its IANA range (system, user or dynamic), whether Linux and BSD need root to listen on it, whether Linux, Windows or macOS use it for outgoing connections, and whether browsers refuse it (the Fetch standard's 83 bad ports).
+- A web page cannot see which ports are open on the computer, so the page says so and gives the Linux, macOS and Windows commands to check that port.
+
+### Tests
+
+- Known answers for PostgreSQL on 5432, root and browser blocking on 22, a port inside the IRC range, the dynamic range and outgoing-connection ranges, an out-of-range number, search by name, the category filter and the bad-port list.
+
 ## [1.8.9] — 2026-11-15
 
 The Image Metadata Viewer signs images and checks their signatures.
@@ -649,6 +663,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.10]: https://github.com/abel0x/toolkit/compare/v1.8.9...v1.8.10
 [1.8.9]: https://github.com/abel0x/toolkit/compare/v1.8.8...v1.8.9
 [1.8.8]: https://github.com/abel0x/toolkit/compare/v1.8.7...v1.8.8
 [1.8.7]: https://github.com/abel0x/toolkit/compare/v1.8.6...v1.8.7

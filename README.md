@@ -4,10 +4,10 @@
 
 # Toolkit
 
-### 103 developer utilities that run entirely in your browser.
+### 104 developer utilities that run entirely in your browser.
 
 [![Live site](https://img.shields.io/badge/Live%20site-abel0x.github.io%2Ftoolkit-262626?style=flat-square&logo=github)](https://abel0x.github.io/toolkit/)
-[![Tools](https://img.shields.io/badge/Tools-103-262626?style=flat-square)](https://abel0x.github.io/toolkit/#tools-hub)
+[![Tools](https://img.shields.io/badge/Tools-104-262626?style=flat-square)](https://abel0x.github.io/toolkit/#tools-hub)
 [![License](https://img.shields.io/badge/License-Apache--2.0-262626?style=flat-square)](LICENSE)
 [![Runtime](https://img.shields.io/badge/Runtime-Static%20%2B%20offline-262626?style=flat-square)](#privacy-and-offline)
 
@@ -33,30 +33,30 @@ Toolkit is a static collection of developer utilities for the everyday work that
 
 ## Tool catalogue
 
-The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable catalogue of all 103 tools. The current distribution is:
+The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable catalogue of all 104 tools. The current distribution is:
 
 | Area | Tools | Examples |
 | --- | ---: | --- |
 | Security | 15 | Passwords, SHA/HMAC, AES-GCM, RSA, TOTP, certificates, card numbers |
 | Encoding | 9 | Base64, Base32, URL, HTML, Hex, Binary |
-| Dev Tools | 28 | JSON, CSV, XML, regex, cron, CSS, HTTP, WCAG contrast |
+| Dev Tools | 29 | JSON, CSV, XML, regex, cron, CSS, HTTP, ports, WCAG contrast |
 | Text Tools | 11 | Word count, typing speed, diff, Unicode, slug, find and replace |
 | Generators | 9 | UUID, QR, gradients, colours, fake data |
 | Converters | 11 | Timestamp, time zones by country, date duration, units, bytes |
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.8.9
+### Latest release — 1.8.10
+
+New **Port Reference**: find the service behind about 130 common ports, and see what any port number means: its IANA range, whether Linux needs root for it, whether it is used for outgoing connections, and whether browsers block it.
+
+### 1.8.9
 
 The **Image Metadata Viewer** can sign a JPEG or PNG with a key made in your browser, and checks signatures when an image is opened: who signed it, when, and whether the picture changed since.
 
 ### 1.8.8
 
 The **Image Metadata Viewer** now writes metadata as well: a description, author, copyright, date or location into a JPEG or PNG, keeping the camera details. It can also remove metadata from many images at once into a ZIP, losslessly.
-
-### 1.8.7
-
-The **Image Compressor** now takes several images at once, can aim for a target file size, shows a before and after slider, and downloads the results as a ZIP. Nothing is uploaded.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
@@ -209,7 +209,7 @@ node tests/accessibility-audit.mjs
 npm install --no-save --no-package-lock axe-core@4.14.0
 node tests/axe-audit.mjs
 
-# Smoke-test all 103 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
+# Smoke-test all 104 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
 # Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
@@ -236,7 +236,7 @@ The browser checks start and stop their own local server and require a current F
 toolkit/
 ├── index.html                    # Hub, filters, and tool catalogue
 ├── 404.html                      # Page-not-found page (English and Turkish)
-├── tools/                        # 103 individual static tool pages
+├── tools/                        # 104 individual static tool pages
 ├── license/ · privacy/           # Licence and privacy pages
 ├── tr/                           # Turkish copies of every page (generated)
 ├── words/                        # Reusable bilingual word-list data
