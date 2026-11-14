@@ -565,6 +565,37 @@ await withFirefox(async (page) => {
       ['camera kept', [edited.tags['ifd0:271'], edited.tags['exif:33434'], edited.tags['ifd0:274']], ['Canon', 0.004, 6]],
       ['batch ZIP', names, ['a-clean.jpg', 'b-clean.jpg', 'c-clean.png']], ['batch note', text('#imBatchNote'), { includes: '3 cleaned, 0 skipped' }]];`.replace('JPEG_PLACEHOLDER', `'${JPEG}'`));
 
+  await check('image-metadata', `
+    const api = window.ToolkitImageMetadata;
+    const bytes = Uint8Array.from(atob(JPEG_PLACEHOLDER), (c) => c.charCodeAt(0));
+    const load = async (data, name) => { const files = new DataTransfer(); files.items.add(new File([data], name, { type: 'image/jpeg' })); $('#imFile').files = files.files; $('#imFile').dispatchEvent(new Event('change')); await wait(400); };
+    await load(bytes, 'photo.jpg');
+    const unsignedHidden = $('#imVerify').hidden;
+    const saved = []; const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#imKeyNew'); await wait(300);
+    const keyText = await saved[0].text(); const keyName = saved[1]; const keyInfo = text('#imKeyInfo');
+    set('#imSigner', 'Ayşe Yılmaz'); click('#imSign'); await wait(300);
+    const signed = new Uint8Array(await saved[2].arrayBuffer()); const signedName = saved[3];
+    // Editing the metadata keeps the signature: it covers the picture only.
+    await load(signed, 'photo-signed.jpg');
+    const shown = [$('#imVerify').hidden, text('#imVerify')];
+    set('#imEditArtist', 'Başkası'); click('#imWrite'); await wait(100);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const edited = new Uint8Array(await saved.filter((item) => item instanceof Blob).pop().arrayBuffer()); const editedName = saved[saved.length - 1];
+    const state = async (data) => (await api.verifyFile(data, api.inspect(data))).state;
+    const tampered = signed.slice(); tampered[tampered.length - 20] ^= 1;
+    const cleaned = api.strip(signed, api.inspect(signed));
+    // The saved key file signs again with the same fingerprint.
+    const reloaded = await api.loadKey(JSON.parse(keyText));
+    return [['no signature, no box', unsignedHidden, true], ['key file', [keyName, JSON.parse(keyText).type], ['toolkit-signing-key.json', 'toolkit-signing-key']],
+      ['fingerprint shown', keyInfo, { includes: 'Fingerprint: ' + reloaded.fingerprint }], ['signed file name', signedName, 'photo-signed.jpg'],
+      ['verified on load', shown[0], false], ['signer shown', shown[1], { includes: 'Signed and unchanged since. Signer: Ayşe Yılmaz' }],
+      ['signed copy still has its camera data', api.inspect(signed).tags['ifd0:271'], 'Canon'],
+      ['edited metadata keeps a valid signature', [editedName, await state(edited), api.inspect(edited).tags['ifd0:315']], ['photo-signed-edited.jpg', 'valid', 'Başkası']],
+      ['changed picture detected', await state(tampered), 'changed'], ['stripped file has no signature', await state(cleaned), 'none']];`.replace('JPEG_PLACEHOLDER', `'${JPEG}'`));
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

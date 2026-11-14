@@ -347,10 +347,10 @@
   },
   "tools/image-metadata.html": {
     "title": "Görüntü Meta Verisi Görüntüleyici — Toolkit",
-    "description": "Bir görselin EXIF meta verisini okuyun — kamera, lens, pozlama, tarih ve GPS konumu — JPEG ya da PNG'ye yeni açıklama, yazar, telif, tarih ya da konum yazın ve meta veriyi tek görselden ya da birden çoğundan, yeniden sıkıştırmadan kaldırın. Tarayıcınızda.",
+    "description": "Bir görselin EXIF meta verisini okuyun — kamera, pozlama, tarih ve GPS konumu — yeni açıklama, yazar, tarih ya da konum yazın, değişmediğini kanıtlamak için JPEG ya da PNG'yi imzalayın ve birçok görselin meta verisini yeniden sıkıştırmadan kaldırın. Tarayıcınızda.",
     "source": {
       "title": "Image Metadata Viewer — Toolkit",
-      "description": "Read an image's EXIF metadata — camera, lens, exposure, date and GPS location — write a new description, author, copyright, date or location into a JPEG or PNG, and remove metadata from one image or many at once, without re-compressing. In your browser."
+      "description": "Read an image's EXIF metadata — camera, exposure, date and GPS location — write a new description, author, date or location, sign a JPEG or PNG to prove it is unchanged, and remove metadata from many images at once, without re-compressing. In your browser."
     }
   },
   "tools/image-to-base64.html": {

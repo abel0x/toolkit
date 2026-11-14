@@ -216,7 +216,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Optimize": "İyileştir",
     "Convert between Celsius, Fahrenheit, Kelvin, Rankine and Réaumur.": "Celsius, Fahrenheit, Kelvin, Rankine ve Réaumur arasında dönüştürme yapın.",
     "Reference": "Referans",
-    "Read, edit and remove an image’s EXIF data — camera, date, author and GPS location — losslessly, one image or many.": "Bir görselin EXIF verisini okuyun, düzenleyin ve kaldırın — kamera, tarih, yazar ve GPS konumu — kayıpsız, tek görselde ya da toplu olarak.",
+    "Read, edit, sign and remove an image’s EXIF data — camera, date, author and GPS location — losslessly, one image or many.": "Bir görselin EXIF verisini — kamera, tarih, yazar ve GPS konumu — kayıpsız okuyun, düzenleyin, imzalayın ve kaldırın; tek görselde ya da birçoğunda.",
     "Resize and recompress images locally — several at once, to a target size, with a before and after view.": "Görselleri cihazınızda yeniden boyutlandırıp sıkıştırın — birden çoğunu birden, bir hedef boyuta, önce ve sonra görünümüyle.",
     "Create a full favicon set from a letter, an emoji or an image: PNGs from 16 to 512 px, favicon.ico, site.webmanifest and the HTML.": "Bir harf, emoji ya da görselden eksiksiz bir favicon seti oluşturun: 16’dan 512 piksele PNG’ler, favicon.ico, site.webmanifest ve HTML kodu.",
     "Country Time Zones": "Ülke Saat Dilimleri",

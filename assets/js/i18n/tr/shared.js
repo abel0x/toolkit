@@ -153,6 +153,7 @@
     "base64": "base64",
     "base64url": "base64url",
     "custom": "özel",
+    "Key:": "Anahtar:",
     "digits": "hane",
     "Visa test card": "Visa test kartı",
     "Troy example": "Troy örneği",

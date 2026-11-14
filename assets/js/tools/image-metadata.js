@@ -53,6 +53,8 @@
         return undefined;
       };
       if (!TYPE_SIZE[type]) return undefined;
+      // Long UNDEFINED values (a UserComment, a signature) are kept whole.
+      if (type === 7 && count > 64) return new Uint8Array(view.buffer, view.byteOffset + offset, Math.min(count, 65535)).slice();
       if (count === 1) return one(0);
       return Array.from({ length: Math.min(count, 64) }, (_, index) => one(index));
     }
@@ -483,6 +485,93 @@
     return null;
   }
 
+  /* ── Signing ─────────────────────────────────────────────────
+     An ECDSA P-256 signature over the picture data (the file without its
+     metadata blocks) and a header naming the signer, the time and the
+     public key. It lives in the EXIF UserComment, so it survives metadata
+     edits by this tool but not re-saving or editing the picture. */
+
+  const SIGNATURE_PREFIX = 'toolkit-sig:v1;';
+  const b64url = (bytes) => btoa(String.fromCharCode(...new Uint8Array(bytes))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const fromB64url = (text) => Uint8Array.from(atob(text.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (text.length % 4)) % 4)), (c) => c.charCodeAt(0));
+
+  // The bytes a signature covers: everything but metadata.
+  function pictureData(bytes, found) {
+    if (found.kind === 'jpeg') {
+      const parts = [bytes.slice(0, 2)];
+      for (const segment of jpegSegments(bytes)) {
+        if (segment.marker === 0xda) { parts.push(bytes.slice(segment.start)); return concat(parts); }
+        if ((segment.marker >= 0xe0 && segment.marker <= 0xef) || segment.marker === 0xfe) continue;
+        parts.push(bytes.slice(segment.start, segment.end));
+      }
+      return null;
+    }
+    if (found.kind === 'png') {
+      // Critical chunks (upper-case first letter): IHDR, PLTE, IDAT, IEND.
+      return concat([bytes.slice(0, 8), ...pngChunks(bytes).filter((chunk) => /^[A-Z]/.test(chunk.type)).map((chunk) => bytes.slice(chunk.start, chunk.end))]);
+    }
+    return null;
+  }
+
+  async function fingerprint(spki) {
+    const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', spki));
+    return [...digest.slice(0, 16)].map((byte) => byte.toString(16).padStart(2, '0')).join('').match(/.{4}/g).join(' ');
+  }
+
+  async function newKey() {
+    const pair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+    return loadKey({ type: 'toolkit-signing-key', version: 1,
+      privateJwk: await crypto.subtle.exportKey('jwk', pair.privateKey), publicJwk: await crypto.subtle.exportKey('jwk', pair.publicKey) });
+  }
+
+  async function loadKey(file) {
+    if (!file || file.type !== 'toolkit-signing-key' || !file.privateJwk || !file.publicJwk) throw new Error('This is not a Toolkit signing key file.');
+    const privateKey = await crypto.subtle.importKey('jwk', file.privateJwk, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
+    const publicKey = await crypto.subtle.importKey('jwk', file.publicJwk, { name: 'ECDSA', namedCurve: 'P-256' }, true, ['verify']);
+    const spki = new Uint8Array(await crypto.subtle.exportKey('spki', publicKey));
+    return { file, privateKey, spki, fingerprint: await fingerprint(spki) };
+  }
+
+  const signedFields = (tags) => {
+    const taken = tags['exif:36867'] || tags['ifd0:306'] || '';
+    return { description: tags['ifd0:270'] || '', artist: tags['ifd0:315'] || '', copyright: tags['ifd0:33432'] || '', date: taken, gps: gps(tags) };
+  };
+
+  async function signFile(bytes, found, key, signer) {
+    const data = pictureData(bytes, found);
+    if (!data) throw new Error('Signing works for JPEG and PNG files.');
+    const header = `${SIGNATURE_PREFIX}alg=ES256;signer=${b64url(utf8(signer))};time=${new Date().toISOString()};key=${b64url(key.spki)}`;
+    const signature = await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, key.privateKey, concat([data, utf8(header)]));
+    const fields = { ...signedFields(found.tags || {}), comment: `${header};sig=${b64url(signature)}` };
+    return writeExif(bytes, found, buildTiff(fields, found.tags));
+  }
+
+  // The signature text in the EXIF UserComment, or ''.
+  function signatureText(tags) {
+    const raw = tags && tags['exif:37510'];
+    if (!(raw instanceof Uint8Array)) return '';
+    const text = new TextDecoder().decode(raw.slice(8)).replace(/\0+$/, '');
+    return text.startsWith(SIGNATURE_PREFIX) ? text : '';
+  }
+
+  // { state: 'none' | 'valid' | 'changed' | 'broken', signer, time, fingerprint }
+  async function verifyFile(bytes, found) {
+    const text = signatureText(found.tags);
+    if (!text) return { state: 'none' };
+    const at = text.lastIndexOf(';sig=');
+    const header = text.slice(0, at);
+    const fields = Object.fromEntries(header.slice(SIGNATURE_PREFIX.length).split(';').map((part) => part.split('=')));
+    try {
+      const spki = fromB64url(fields.key);
+      const key = await crypto.subtle.importKey('spki', spki, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+      const data = pictureData(bytes, found);
+      const ok = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, fromB64url(text.slice(at + 5)), concat([data, utf8(header)]));
+      return { state: ok ? 'valid' : 'changed', signer: new TextDecoder().decode(fromB64url(fields.signer)), time: fields.time, fingerprint: await fingerprint(spki) };
+    } catch {
+      return { state: 'broken' };
+    }
+  }
+
   /* ── Page ────────────────────────────────────────────────────── */
 
   function handleFile(file) {
@@ -530,6 +619,7 @@
       img.src = previewUrl;
       showMeta(found);
       fillEditor(found);
+      showSignature(bytes, found);
       const removable = found.kind !== 'other' && (found.blocks.some((block) => block !== 'ICC colour profile') || found.texts.length);
       actionsEl.hidden = found.kind === 'other' ? false : !removable;
       stripBtn.hidden = found.kind === 'other';
@@ -614,7 +704,8 @@
   field('imWrite').addEventListener('click', () => {
     if (!current) return;
     try {
-      const tiff = buildTiff(editorFields(current.found), current.found.tags);
+      // A signature covers the picture, not these fields, so it is kept.
+      const tiff = buildTiff({ ...editorFields(current.found), comment: signatureText(current.found.tags) }, current.found.tags);
       const written = writeExif(current.bytes, current.found, tiff);
       if (!written) throw new Error('This file could not be written.');
       saveBytes(written, current.file.type, renamed(current.file.name, 'edited'));
@@ -644,8 +735,63 @@
     if (out.length) saveBytes(window.ToolkitZip.zip(out), 'application/zip', 'clean-images.zip');
   });
 
+  /* Signing on the page: the key lives only in this tab's memory. */
+  let signingKey = null;
+  const verifyEl = field('imVerify');
+  verifyEl.dataset.i18nSkip = '';
+
+  async function showSignature(bytes, found) {
+    const result = await verifyFile(bytes, found);
+    verifyEl.hidden = result.state === 'none';
+    verifyEl.className = `im-verify im-verify--${result.state}`;
+    if (result.state === 'valid') {
+      verifyEl.textContent = `✓ ${t('Signed and unchanged since.')} ${t('Signer:')} ${result.signer} · ${new Date(result.time).toLocaleString()} · ${t('Key:')} ${result.fingerprint}`;
+    } else if (result.state === 'changed') {
+      verifyEl.textContent = `✕ ${t('The picture changed after it was signed, or the signature is not valid.')} ${t('Signer:')} ${result.signer} · ${t('Key:')} ${result.fingerprint}`;
+    } else if (result.state === 'broken') {
+      verifyEl.textContent = `✕ ${t('The file has a signature that cannot be read.')}`;
+    }
+  }
+
+  function showKey() {
+    if (signingKey) field('imKeyInfo').dataset.i18nSkip = '';
+    field('imKeyInfo').textContent = signingKey ? `${t('Key loaded. Fingerprint:')} ${signingKey.fingerprint}` : t('No key loaded. A new key is saved as a file; keep it private, like a password.');
+  }
+
+  field('imKeyNew').addEventListener('click', async () => {
+    signingKey = await newKey();
+    saveBytes(utf8(JSON.stringify(signingKey.file, null, 2) + '\n'), 'application/json', 'toolkit-signing-key.json');
+    showKey();
+    showToast(t('Saved your new signing key. Keep the file private.'), 'success');
+  });
+
+  field('imKeyFile').addEventListener('change', async () => {
+    const file = field('imKeyFile').files[0];
+    if (!file) return;
+    try {
+      signingKey = await loadKey(JSON.parse(await file.text()));
+      showKey();
+    } catch (error) {
+      showToast(t(error instanceof SyntaxError ? 'This is not a Toolkit signing key file.' : error.message), 'error');
+    }
+    field('imKeyFile').value = '';
+  });
+
+  field('imSign').addEventListener('click', async () => {
+    if (!current) return showToast(t('Choose an image first.'), 'error');
+    if (!signingKey) return showToast(t('Create or load a signing key first.'), 'error');
+    try {
+      const signed = await signFile(current.bytes, current.found, signingKey, field('imSigner').value.trim() || t('Unnamed'));
+      if (!signed) throw new Error('Signing works for JPEG and PNG files.');
+      saveBytes(signed, current.file.type, renamed(current.file.name, 'signed'));
+      showToast(t('Saved a signed copy.'), 'success');
+    } catch (error) {
+      showToast(t(error.message), 'error');
+    }
+  });
+
   // Exposed for the tests: inspect, strip and write without a file dialog.
-  window.ToolkitImageMetadata = Object.freeze({ inspect, strip, buildTiff, writeExif });
+  window.ToolkitImageMetadata = Object.freeze({ inspect, strip, buildTiff, writeExif, pictureData, newKey, loadKey, signFile, verifyFile });
 
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });

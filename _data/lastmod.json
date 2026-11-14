@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-15",
-    "sha256": "456f54784d2384dd9a2045d9023c688f2818cf5a35666cebcf76c77ffa65ab9d"
+    "sha256": "81ce330ea442269dd8798ac7cb4978e1eb365fadb5aaaaa08ae31f39bc51f7b3"
   },
   "license/index.html": {
     "date": "2026-11-15",
@@ -173,7 +173,7 @@
   },
   "tools/image-metadata.html": {
     "date": "2026-11-15",
-    "sha256": "f32baa27921bc602dd0cd7a7efa55b005f50a099b8311c1afe1024300a883386"
+    "sha256": "b63a65d1facac68b497f867a92e320ce2d7eebf4ebcb542e25c945fe9653e419"
   },
   "tools/image-to-base64.html": {
     "date": "2026-11-15",
@@ -425,7 +425,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-15",
-    "sha256": "8b52cb132a6be24df92c652d6fd44cc4ac45a680ad80fe7aa1cc65a24167bb7c"
+    "sha256": "7b06e54e849fbdf22bdb8eeb300a14afba8c707e311d37f2f0fa212920fb6527"
   },
   "tr/license/index.html": {
     "date": "2026-11-15",
@@ -597,7 +597,7 @@
   },
   "tr/tools/image-metadata.html": {
     "date": "2026-11-15",
-    "sha256": "697193d8b623dd9d3f0c60aec26edeeb128d28af56bd7bffa8f5ea043d483f5b"
+    "sha256": "426e9c186a9021cc044833e4cbadb67e0d78bda6fccbc572ff2013d353dbaa0a"
   },
   "tr/tools/image-to-base64.html": {
     "date": "2026-11-15",
