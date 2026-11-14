@@ -2,6 +2,22 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.5] — 2026-11-15
+
+A new Country Time Zones tool.
+
+### Added
+
+- **Country Time Zones** (tool 103): pick any of 247 countries and territories (names in English or Turkish, from the browser) and see each of its time zones with the region it covers, the local time now, the UTC offset and abbreviation, whether daylight saving is used and in effect, and the date and new offset of the next clock change. It lists the other countries that share the offset right now, and converts a date and time in any time zone into the country's zones, UTC and this device's zone. Zones come from the IANA tz database 2026f (public domain); offsets and daylight saving rules come from the browser.
+
+### Changed
+
+- The offline copy also stores tool data under `assets/js/data/`.
+
+### Tests
+
+- Known answers for offsets (Istanbul, New York in winter and summer, India, Nepal, Newfoundland), the 2026 US clock change on 8 March at 07:00 UTC, Istanbul noon in UTC, and the tool's tables for the United States and Türkiye.
+
 ## [1.8.4] — 2026-11-15
 
 A new Credit Card Validator.
@@ -579,6 +595,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.5]: https://github.com/abel0x/toolkit/compare/v1.8.4...v1.8.5
 [1.8.4]: https://github.com/abel0x/toolkit/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/abel0x/toolkit/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/abel0x/toolkit/compare/v1.8.1...v1.8.2

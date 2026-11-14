@@ -4,10 +4,10 @@
 
 # Toolkit
 
-### 102 developer utilities that run entirely in your browser.
+### 103 developer utilities that run entirely in your browser.
 
 [![Live site](https://img.shields.io/badge/Live%20site-abel0x.github.io%2Ftoolkit-262626?style=flat-square&logo=github)](https://abel0x.github.io/toolkit/)
-[![Tools](https://img.shields.io/badge/Tools-102-262626?style=flat-square)](https://abel0x.github.io/toolkit/#tools-hub)
+[![Tools](https://img.shields.io/badge/Tools-103-262626?style=flat-square)](https://abel0x.github.io/toolkit/#tools-hub)
 [![License](https://img.shields.io/badge/License-Apache--2.0-262626?style=flat-square)](LICENSE)
 [![Runtime](https://img.shields.io/badge/Runtime-Static%20%2B%20offline-262626?style=flat-square)](#privacy-and-offline)
 
@@ -33,7 +33,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 
 ## Tool catalogue
 
-The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable catalogue of all 102 tools. The current distribution is:
+The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable catalogue of all 103 tools. The current distribution is:
 
 | Area | Tools | Examples |
 | --- | ---: | --- |
@@ -42,21 +42,21 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Dev Tools | 28 | JSON, CSV, XML, regex, cron, CSS, HTTP, WCAG contrast |
 | Text Tools | 11 | Word count, typing speed, diff, Unicode, slug, find and replace |
 | Generators | 9 | UUID, QR, gradients, colours, fake data |
-| Converters | 10 | Timestamp, time zone, date duration, units, bytes |
+| Converters | 11 | Timestamp, time zones by country, date duration, units, bytes |
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.8.4
+### Latest release — 1.8.5
+
+A new **Country Time Zones** tool lists every country's time zones with the local time, UTC offset, daylight saving and next clock change, shows which countries share the offset, and converts a time between zones.
+
+### 1.8.4
 
 A new **Credit Card Validator** checks Visa, Mastercard, American Express, Troy and other card numbers on your device: network, length, the Luhn check digit, expiry date and security code length. It also says plainly what a number cannot tell, such as whether the card exists or works.
 
 ### 1.8.3
 
 Tools that overlapped now each do something of their own: the JSON Validator checks against a JSON Schema, the JSON Minifier takes JSON with comments, the Open Graph generator previews the link on Facebook, X, LinkedIn and WhatsApp, Find and Replace runs a list of rules, the Image Metadata Viewer reads EXIF and GPS and saves a copy without them, and the QR Batch Generator downloads everything as a ZIP.
-
-### 1.8.2
-
-Every tool is named and described in one place now, so the home page, the tool finder, the page itself and search results say the same thing, and no description promises a feature the tool does not have. Twelve tools that had two or three names now have one.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
@@ -209,7 +209,7 @@ node tests/accessibility-audit.mjs
 npm install --no-save --no-package-lock axe-core@4.14.0
 node tests/axe-audit.mjs
 
-# Smoke-test all 102 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
+# Smoke-test all 103 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
 # Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
@@ -236,7 +236,7 @@ The browser checks start and stop their own local server and require a current F
 toolkit/
 ├── index.html                    # Hub, filters, and tool catalogue
 ├── 404.html                      # Page-not-found page (English and Turkish)
-├── tools/                        # 102 individual static tool pages
+├── tools/                        # 103 individual static tool pages
 ├── license/ · privacy/           # Licence and privacy pages
 ├── tr/                           # Turkish copies of every page (generated)
 ├── words/                        # Reusable bilingual word-list data
