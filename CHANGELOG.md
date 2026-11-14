@@ -2,6 +2,18 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.5] — 2026-11-14
+
+The licence page now matches the tool pages.
+
+### Changed
+
+- The licence page, in English and Turkish, uses the tool-page header: an icon tile with the title, the description under it, and the same left edge as the breadcrumb and the licence card. The centred "Open Source" label and the old section heading are gone. The breadcrumb marks the current page for screen readers and the section is named by its heading.
+
+### Tests
+
+- `tests/tool-pages-e2e.mjs` checks the header alignment of `license/` and `tr/license/` at 1280 px and 390 px along with the tool pages, and clears the stored language after a Turkish page so the English pages checked next are not redirected.
+
 ## [1.6.4] — 2026-11-14
 
 The QR Code Generator's live preview is now in view on phones.
@@ -291,6 +303,8 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.5]: https://github.com/abel0x/toolkit/compare/v1.6.4...v1.6.5
+[1.6.4]: https://github.com/abel0x/toolkit/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/abel0x/toolkit/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/abel0x/toolkit/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/abel0x/toolkit/compare/v1.6.0...v1.6.1

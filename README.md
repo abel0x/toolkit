@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.4
+### Latest release — 1.6.5
+
+The licence page now opens with the same left-aligned header as the tool pages, in English and Turkish, so every page below the home page lines up the same way.
+
+### 1.6.4
 
 On phones the QR Code Generator's preview now sits right under the content picker, beside its capacity line and above the scan check, so you can watch the code change as you type. Larger screens are unchanged.
 
@@ -251,7 +255,7 @@ node tests/turkish-pages-e2e.mjs
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
-# Smoke-test all 101 tool pages in Firefox across desktop and mobile layouts, including the language menu, English pages free of Turkish dictionaries, accessible control names, and example starters.
+# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, including aligned headers, the language menu, English pages free of Turkish dictionaries, accessible control names, and example starters.
 node tests/tool-pages-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
