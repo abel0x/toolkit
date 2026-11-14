@@ -520,12 +520,12 @@
 
   async function newKey() {
     const pair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
-    return loadKey({ type: 'toolkit-signing-key', version: 1,
+    return loadKey({ type: 'toolkit:signing-key', version: 1,
       privateJwk: await crypto.subtle.exportKey('jwk', pair.privateKey), publicJwk: await crypto.subtle.exportKey('jwk', pair.publicKey) });
   }
 
   async function loadKey(file) {
-    if (!file || file.type !== 'toolkit-signing-key' || !file.privateJwk || !file.publicJwk) throw new Error('This is not a Toolkit signing key file.');
+    if (!file || file.type !== 'toolkit:signing-key' || !file.privateJwk || !file.publicJwk) throw new Error('This is not a Toolkit signing key file.');
     const privateKey = await crypto.subtle.importKey('jwk', file.privateJwk, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
     const publicKey = await crypto.subtle.importKey('jwk', file.publicJwk, { name: 'ECDSA', namedCurve: 'P-256' }, true, ['verify']);
     const spki = new Uint8Array(await crypto.subtle.exportKey('spki', publicKey));

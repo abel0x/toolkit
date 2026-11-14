@@ -589,7 +589,7 @@ await withFirefox(async (page) => {
     const cleaned = api.strip(signed, api.inspect(signed));
     // The saved key file signs again with the same fingerprint.
     const reloaded = await api.loadKey(JSON.parse(keyText));
-    return [['no signature, no box', unsignedHidden, true], ['key file', [keyName, JSON.parse(keyText).type], ['toolkit-signing-key.json', 'toolkit-signing-key']],
+    return [['no signature, no box', unsignedHidden, true], ['key file', [keyName, JSON.parse(keyText).type], ['toolkit-signing-key.json', 'toolkit:signing-key']],
       ['fingerprint shown', keyInfo, { includes: 'Fingerprint: ' + reloaded.fingerprint }], ['signed file name', signedName, 'photo-signed.jpg'],
       ['verified on load', shown[0], false], ['signer shown', shown[1], { includes: 'Signed and unchanged since. Signer: Ayşe Yılmaz' }],
       ['signed copy still has its camera data', api.inspect(signed).tags['ifd0:271'], 'Canon'],
