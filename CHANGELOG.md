@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.9] — 2026-11-15
+
+The Image Metadata Viewer signs images and checks their signatures.
+
+### Added
+
+- **Sign and verify** in the Image Metadata Viewer: create a signing key (ECDSA P-256, made in the browser and saved as a file you keep), or load a saved one, then download a signed copy of a JPEG or PNG. The signature covers the picture data, the signer's name, the time and the public key, and is stored in the EXIF user comment.
+- Opening a signed image checks it at once: it shows the signer, the time and the key fingerprint, or says that the picture changed after it was signed. Editing the metadata with the tool keeps the signature valid; re-saving or editing the picture breaks it, and removing the metadata removes it.
+
+### Tests
+
+- Known answers for the key file, the fingerprint shown, the signed copy's name, the check on opening it, a signature that stays valid after a metadata edit, a changed byte in the picture reported as changed, and a cleaned file with no signature.
+
 ## [1.8.8] — 2026-11-15
 
 The Image Metadata Viewer writes metadata too, and cleans many images at once.
@@ -636,6 +649,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.9]: https://github.com/abel0x/toolkit/compare/v1.8.8...v1.8.9
 [1.8.8]: https://github.com/abel0x/toolkit/compare/v1.8.7...v1.8.8
 [1.8.7]: https://github.com/abel0x/toolkit/compare/v1.8.6...v1.8.7
 [1.8.6]: https://github.com/abel0x/toolkit/compare/v1.8.5...v1.8.6
