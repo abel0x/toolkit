@@ -32,6 +32,7 @@ An acknowledgement is targeted within **72 hours** and an initial status update 
 - Insecure randomness or misuse of `crypto.getRandomValues()` and `crypto.subtle`.
 - Incorrect cryptographic behaviour, including HMAC, AES-GCM, RSA, TOTP, certificate, encoding, or verification errors that create a security risk.
 - Service-worker cache poisoning, unsafe cache handling, or offline content substitution.
+- Input reaching a server or a third party through a share link, a downloaded file (for example the Markdown Previewer's HTML export), or the camera scanner.
 - Tool input, generated output, uploaded files, language settings, or recent-tool data persisting or being exposed unexpectedly.
 - Sensitive data leaking through an external request, referrer, console output, or browser storage outside the documented local UI state.
 
@@ -52,7 +53,9 @@ An acknowledgement is targeted within **72 hours** and an initial status update 
 | Content-Security-Policy | Every page allows only same-origin scripts and stylesheets, with no inline scripts or styles (the 404 page's one inline script is allowed by hash). |
 | Careful DOM output | Prefer `textContent` and explicit escaping over rendering untrusted values as HTML. |
 | Same-origin service worker | Cache scope is limited to Toolkit's own origin and path. |
-| Minimal local state | The selected language, optional recent-tool slugs, and tool preferences may be stored locally; the language redirect keeps one page path in `sessionStorage` for the current tab. Typing-test personal bests are opt-in, aggregate-only, off by default, and user-clearable. Typed input, generated sequences, error text, uploaded files, and full run history are never persisted. |
+| Minimal local state | The selected language, optional recent-tool slugs, and tool preferences may be stored locally; the language redirect keeps one page path in `sessionStorage` for the current tab. Typing-test personal bests are opt-in, aggregate-only, off by default, and user-clearable. Typed input, generated sequences, error text, uploaded files, and full run history are never persisted. The [privacy page](https://abel0x.github.io/toolkit/privacy/) names every storage key, and the site audit fails if a script uses one it does not list. |
+| Share links in the fragment | "Copy link" puts a tool's input after `#`, which browsers never send to a server; tools whose input is usually a secret have no share link, and the privacy page warns not to share secrets this way. |
+| Explicit updates | A newer release taking over an open page shows a notice with Reload; it never reloads by itself, so nothing typed is lost. |
 | External-link isolation | External links use `rel="noopener"` to avoid opener access. |
 
 ## Acknowledgements

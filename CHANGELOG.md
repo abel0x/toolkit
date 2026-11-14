@@ -2,6 +2,36 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.0] — 2026-11-14
+
+Four tools grow up (Text Diff, JSON Formatter, Regex Tester, Markdown Previewer), and every page now passes an automated accessibility audit.
+
+### Added
+
+- **Text Diff:** "Ignore whitespace" and "Ignore case", a Unified / Side by side switch, line numbers on both sides, and the changed words marked inside each changed line. Large texts no longer freeze the tab: the common start and end are set aside first, and a comparison that is still too big says so.
+- **JSON Formatter:** indent of 2 spaces, 4 spaces or a tab, and a Text / Tree switch. The tree opens two levels, draws deeper levels and long arrays (200 items at a time) when you open them, works with the keyboard, and has Expand all and Collapse all.
+- **Regex Tester:** "Replace with" and a live result, with `$1`, `$<name>` and `$&`; without the `g` flag only the first match is replaced, as in JavaScript. The result can be copied or downloaded. The `d` and `v` flags are accepted.
+- **Markdown Previewer:** "Download HTML" saves the preview as a standalone page, titled and named after the first heading.
+- **Accessibility audit:** CI runs axe-core 4.14 on all 209 English and Turkish pages, on desktop and a phone, and with the tool finder and keyboard shortcuts open, and fails on any WCAG 2.2 A/AA or best-practice violation.
+
+### Fixed
+
+- The Markdown editor and preview sit side by side again; since 1.7.4 the "Open file" button had pushed the editor to the right and the preview below it.
+- The JSON Formatter did nothing with `0`, `false`, `null` or `""`, which are valid JSON.
+- The QR Code Reader's drop zone opens the file picker with Enter and Space.
+- Text that was too faint is easier to read: Meta Tags counters, the Open Graph preview address, User Agent and URL Parser labels and the 404 footnote. Random Color and Color Palette write each colour's code in black or white, whichever reads better on it.
+- Screen readers hear the visible text in every button name (the Esc buttons, the timestamp's ms button, the file drop zones), the copy columns in Bytes and Unit Converter have a header, and six tools no longer skip a heading level.
+- The password show/hide button is easier to tap, the licence text can be scrolled with the keyboard, and the Turkish Regex Tester no longer has two regions with the same name.
+- Random Color's hue and saturation fields show 360 and 100 in full.
+
+### Tests
+
+- `tests/axe-audit.mjs` (316 page states). `tests/tool-vectors.mjs` checks 44 tools with 173 known answers, including both diff views, the JSON tree, regex replacement and the Markdown HTML file. The tool-page suite fails when a file or copy button row lands inside a side-by-side layout, and the audit regressions press Enter and Space on the QR drop zone.
+
+### Documentation
+
+- The README keeps only the last three releases and links to this changelog. README, CONTRIBUTING and SECURITY describe the privacy page, the update notice, the axe audit and the `.field-actions[data-for]` hook.
+
 ## [1.7.6] — 2026-11-14
 
 A privacy page that says exactly what stays in your browser, and a notice when a new version is ready.
@@ -464,6 +494,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.0]: https://github.com/abel0x/toolkit/compare/v1.7.6...v1.8.0
 [1.7.6]: https://github.com/abel0x/toolkit/compare/v1.7.5...v1.7.6
 [1.7.5]: https://github.com/abel0x/toolkit/compare/v1.7.4...v1.7.5
 [1.7.4]: https://github.com/abel0x/toolkit/compare/v1.7.3...v1.7.4

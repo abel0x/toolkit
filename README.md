@@ -29,7 +29,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 - The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser: a visitor who chose Turkish and opens an English address is sent to its Turkish page. English pages do not download the Turkish dictionaries.
 - There are no accounts, no backend, no analytics, and no stored tool input.
 
-> A small amount of interface state can be stored locally: the selected language, optional recent-tool slugs, and typing-test preferences. Typing-test personal bests are opt-in, aggregate-only, and user-clearable; tool input, typed text, generated results, and uploaded files are not persisted by Toolkit.
+> A small amount of interface state is stored locally: the selected language, the recently opened tools, and Typing Speed Test preferences (personal bests only if you opt in). The [privacy page](https://abel0x.github.io/toolkit/privacy/) lists every item by name; tool input, typed text, generated results, and opened files are never persisted.
 
 ## Tool catalogue
 
@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.6
+### Latest release — 1.8.0
+
+Text Diff can ignore whitespace and case, shows a side-by-side view with line numbers, and marks the changed words. The JSON Formatter lets you choose the indent and browse the result as a collapsible tree, the Regex Tester replaces matches with groups such as `$1`, and the Markdown Previewer downloads your document as an HTML page. Every page now passes an automated accessibility audit (axe-core, WCAG 2.2 AA), which led to clearer contrast, a keyboard-friendly QR drop zone and better button names, and the Markdown editor sits beside its preview again.
+
+### 1.7.6
 
 A [privacy page](https://abel0x.github.io/toolkit/privacy/) in English and Turkish lists everything Toolkit keeps in your browser and what the host can see, and an open page now tells you when a new version is ready, with a Reload button instead of reloading on its own.
 
@@ -54,102 +58,7 @@ A [privacy page](https://abel0x.github.io/toolkit/privacy/) in English and Turki
 
 The JWT Decoder can check a token's signature with a secret or public key, the QR Code Reader scans with your camera, the Hash Generator and File Checksum add MD5, the UUID Generator makes time-ordered v7 UUIDs, the Password Generator makes passphrases in English or Turkish, and the Color Converter shows OKLCH and HWB. All of it runs in your browser.
 
-### 1.7.4
-
-Open a file in 31 tools or drop it onto the field, and copy or download the result: 18 results that could not be copied now can, and 22 can be saved as files such as `formatted.json`, `data.yaml` or `minified.css`. Files are read in your browser and never leave it.
-
-### 1.7.3
-
-The home page loads less and does about a fifth less work on a phone, the QR generator no longer jumps as it loads, buttons carry their visible text in their accessible names, and the bcrypt tool uses bcryptjs 3.0.3 and warns when a password is longer than the 72 bytes bcrypt reads.
-
-### 1.7.2
-
-Every one of the 101 tools now has an icon of its own; 30 tools that shared or looked alike got new ones, from “0x” for Hex to tally marks for the Word Counter.
-
-### 1.7.1
-
-Every tool now has its own icon, <kbd>?</kbd> shows the keyboard shortcuts of the page you are on, and ten tools (among them Regex, Cron, JSON Diff and cURL) have “Copy link”: the link carries your input in its `#` fragment, which never reaches a server, and opens the tool with it.
-
-### 1.7.0
-
-Every tool page now ends with four related tools and a link to the rest of its category, in English and Turkish, so you can move on to the next tool without going back to the home page. On phones the breadcrumb no longer breaks names in two.
-
-### 1.6.7
-
-Twenty-four more tools have a "Try a sample" button, among them the JWT decoder, HMAC, timestamps, colour contrast, CSS clamp and AES encryption, and every sample now really runs its tool. <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> in a tool's field runs that tool on every page. A missing address under `/tr/` shows the "page not found" page in Turkish with links back to the Turkish pages, and on phones long lines of the licence wrap under their own text.
-
-### 1.6.6
-
-On phones the licence text keeps its three-line title instead of breaking each line in two.
-
-### 1.6.5
-
-The licence page now opens with the same left-aligned header as the tool pages, in English and Turkish, so every page below the home page lines up the same way.
-
-### 1.6.4
-
-On phones the QR Code Generator's preview now sits right under the content picker, beside its capacity line and above the scan check, so you can watch the code change as you type. Larger screens are unchanged.
-
-### 1.6.3
-
-The QR Code Generator now updates as you type and checks that every code really scans before you download it, with a note when colours, margin, size or a logo might stop a phone. It adds contact cards, calendar events and locations, WPA3 Wi-Fi, round dots and rounded corners, an optional logo, SVG and print-size PNG downloads, and file names that match the content. Email codes no longer turn spaces into "+".
-
-### 1.6.2
-
-Every tool page lines up: all 101 tools share one column, so the breadcrumb, the title and the tool start at the same edge on every page and nothing jumps when you move between tools.
-
-### 1.6.1
-
-Returning visitors no longer see a half-updated page right after a release. Before, the first visit after an update could pair the new page with the previous version's styles until the next reload; now every release loads its own stylesheets and scripts straight away.
-
-### 1.6.0
-
-Tool pages now match the home page: a left-aligned header with the tool's icon beside its name, the category in the breadcrumb (one click back to that category's tools), and a "Try a sample" button next to the title instead of the "Need a spark?" box, so each tool starts higher on the page.
-
-### 1.5.1
-
-Tool pages are lighter: the list of all tools now loads only when you open the tool finder (Ctrl/Cmd + K), so an English tool page downloads about 10 KB less compressed JavaScript and a Turkish one about 18 KB less. The home page title now says what Toolkit is: "101 Free Developer Tools in Your Browser".
-
-### 1.5.0
-
-A new, calmer look: near-black surfaces, one light accent and the system font replace the cyan–purple gradients, background grid and glows, and colour is kept for meaning (success, warning, error). The home page now opens with the search box and goes straight into category tabs and the tool cards. The logo, favicons and link previews follow the new style. Pages are about half the size on a first visit (about 100 KB instead of 185 KB in English), because the display font is gone, the code font is trimmed, the home page lost an unused template, and Turkish pages load only the strings their scripts still need.
-
-### 1.4.0
-
-The [`/tr/`](https://abel0x.github.io/toolkit/tr/) pages now arrive in Turkish, so search engines that do not run JavaScript, link previews and the first paint see Turkish instead of English that was translated after loading. English pages no longer download the Turkish dictionaries, about 142 KB of JavaScript (45 KB compressed) less per page. A visitor who chose Turkish and opens an English address goes straight to its Turkish page.
-
-### 1.3.1
-
-Links to Toolkit now show a large preview card (English or Turkish, by page language) when shared on social networks and messaging apps, and every page describes itself to search engines with JSON-LD structured data: the site, each tool as a free web application with a breadcrumb, and the license page.
-
-### 1.3.0
-
-Every page now also has a Turkish address under [`/tr/`](https://abel0x.github.io/toolkit/tr/), with a Turkish title, description, social preview text and canonical URL, so search engines can index and show the Turkish interface. Both versions point at each other with `hreflang` links, the sitemap lists all 206 URLs, and the language menu switches between them. The pages are generated by `build.py` from the English ones and the Turkish metadata in `_data/seo-tr.json`; no tool is added or changed.
-
-### 1.2.1 and 1.2.2
-
-A two-part maintenance pass. 1.2.1 made the release pipeline correct: returning visitors always receive the current CSS and JavaScript, `build.py` is safe to re-run, pull requests run the full test pipeline, and only the site itself is published. 1.2.2 makes it hard to get wrong: the tool list lives in one file, `_data/tools.json`, from which the registries, expansion pages, and sitemap are generated; an optional pre-commit hook catches stale generated files before CI does; and the sitemap now carries accurate `lastmod` dates.
-
-### 1.2.0
-
-- **Typing Speed Test:** bilingual English/Turkish typing practice with time, word, quote, and zen modes; themed lists; Turkish diacritic support; accessibility controls; charts; and a keyboard error heat map.
-- **Reusable word data:** `words/` provides 20 categories and 9,246 local entries for typing practice and future tools, with structural audits and reproducible primary-source checks for medical descriptors and literary excerpts.
-- **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
-- **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
-- **Related tools:** every tool page ends with four related tools and a link to the rest of its category.
-- **Files in, results out:** 33 text fields across the JSON, YAML, CSV, XML, SQL, CSS/JS/HTML, Markdown, diff and text tools open a file or take one dropped onto them (read in the browser, up to 5 MB), and their results can be copied or downloaded, for example as `formatted.json`, `data.yaml` or `minified.css`.
-- **Share links:** ten tools (Regex, Cron, JSON and text diff, cURL, CSP, JSON and SQL formatters, CSS specificity, JSON to TypeScript) have “Copy link”, which puts the current input into the link's `#share=` fragment. Browsers never send a fragment to a server, so the input travels only with the link; opening it fills the tool and runs it.
-- **Example starters:** 64 tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
-- **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
-
-### Previous catalogue expansion — 1.1.0
-
-The expansion from the original 78 tools added fully browser-based utilities for:
-
-- **Security:** AES-GCM Encryptor, RSA Key Pair Generator, PEM / JWK Converter, Certificate Inspector, and TOTP Generator.
-- **Web:** CSP Generator, cURL Builder, HTTP Header Analyzer, and Sitemap Generator.
-- **Development:** Cron Expression Assistant, Unix Permissions, CSS Specificity and Clamp calculators, JSON to TypeScript, JSON to Markdown, XML to JSON, CSV Viewer, and Color Contrast Checker.
-- **Everyday work:** Unicode Inspector, Time Zone Converter, Date Duration Calculator, and Image Compressor.
+Earlier releases are described in the [changelog](CHANGELOG.md).
 
 ## Screenshots
 
@@ -238,7 +147,7 @@ Then open [http://127.0.0.1:8000/toolkit/](http://127.0.0.1:8000/toolkit/); any 
 The repository includes a GitHub Actions deployment workflow at `.github/workflows/deploy-pages.yml`. Pull requests run the same build and tests without deploying. Every push to `main` and every manual workflow dispatch will:
 
 1. fail if any generated file (registries, navigation, tool counts, Turkish pages, precache lists, sitemap, cache version) is out of date;
-2. run the static, localisation, accessibility, browser-function, and installed-offline audits; and
+2. run the static, localisation and accessibility audits, axe-core on every page, the browser-function suites, and the installed-offline test; and
 3. assemble only the published files in `_site/`, then upload and deploy that verified artifact to GitHub Pages.
 
 To enable it once in GitHub, open **Settings → Pages**, choose **GitHub Actions** as the publishing source, then push or run **Deploy Toolkit to GitHub Pages** from the Actions tab. The deployment environment reports the resulting site URL; for this repository it is `https://abel0x.github.io/toolkit/`.
@@ -274,7 +183,7 @@ TYPING_TIMING=1 node tests/typing-regressions.mjs
 # Optional: use a locally installed Chromium/headless-shell binary instead.
 CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 
-# Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, and CSP-safe copy buttons.
+# Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, CSP-safe copy buttons, and keyboard access to the QR Reader drop zone.
 node tests/audit-regressions.mjs
 
 # Check the output of 44 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, text diffs, JSON trees, regex replacement, Markdown as HTML, encodings, conversions, XML, SQL …).
@@ -300,7 +209,7 @@ node tests/accessibility-audit.mjs
 npm install --no-save --no-package-lock axe-core@4.14.0
 node tests/axe-audit.mjs
 
-# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
+# Smoke-test all 101 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
 # Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
@@ -319,14 +228,16 @@ node tests/qr-generator-e2e.mjs
 node tests/offline-e2e.mjs
 ```
 
-The browser checks start and stop their own local server and require a current Firefox installation. The QR suite also needs `zbarimg` and `rsvg-convert` (Debian/Ubuntu: `zbar-tools` and `librsvg2-bin`); set `TOOLKIT_SKIP_EXTERNAL_DECODERS=1` to run it without them. The offline suite installs the real service worker under `/toolkit/`, takes its server down, then verifies cached tools, Turkish pages (an unvisited one falls back to its English twin), word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
+The browser checks start and stop their own local server and require a current Firefox installation; the axe audit also needs the pinned `axe-core` package installed as shown above. The QR suite also needs `zbarimg` and `rsvg-convert` (Debian/Ubuntu: `zbar-tools` and `librsvg2-bin`); set `TOOLKIT_SKIP_EXTERNAL_DECODERS=1` to run it without them. The offline suite installs the real service worker under `/toolkit/`, serves a pretend next release to check the "new version is ready" notice, takes its server down, then verifies cached tools, Turkish pages (an unvisited one falls back to its English twin), word lists, vendor assets, the licence page, cache isolation, and the 404 fallback. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow.
 
 ## Project layout
 
 ```text
 toolkit/
 ├── index.html                    # Hub, filters, and tool catalogue
+├── 404.html                      # Page-not-found page (English and Turkish)
 ├── tools/                        # 101 individual static tool pages
+├── license/ · privacy/           # Licence and privacy pages
 ├── tr/                           # Turkish copies of every page (generated)
 ├── words/                        # Reusable bilingual word-list data
 ├── _includes/_nav.html           # Shared navigation source
@@ -338,15 +249,18 @@ toolkit/
 ├── _scripts/serve.py             # Local preview of _site/ as GitHub Pages serves it
 ├── .github/social-preview.png    # Repository social preview (upload in Settings)
 ├── .githooks/pre-commit          # Optional generated-file check
+├── .github/workflows/            # Build, test and deploy; WebKit smoke test
 ├── assets/
 │   ├── css/
 │   │   ├── core.css              # Tokens, reset, base rules
 │   │   ├── components.css        # Shared controls and components
 │   │   ├── compatibility.css     # Legacy tool compatibility rules
+│   │   ├── inline-styles.css     # Former inline styles, as classes (CSP)
 │   │   ├── pages/                # Home and tool page layouts
-│   │   └── features/             # Feature-specific styles
+│   │   ├── features/             # Expansion tools and typing test styles
+│   │   └── tools/                # Rules for a single tool page
 │   ├── js/
-│   │   ├── core/                 # Navigation, i18n, metadata, finder
+│   │   ├── core/                 # Navigation, i18n, finder, file I/O, share links
 │   │   ├── i18n/tr/              # Turkish string packs for tr/ (generated)
 │   │   ├── pages/                # Page-specific controllers
 │   │   ├── tools/                # Tool implementations
