@@ -2,6 +2,18 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.7] — 2026-11-15
+
+The Image Compressor handles several images at once and can aim for a file size.
+
+### Added
+
+- **Image Compressor** takes several images at once (chosen or dropped), with a maximum width and height, quality, JPEG, WebP or PNG output (and AVIF where the browser can encode it), and an optional target size in KB: it finds the highest quality that fits and shrinks the image when even the lowest does not, saying when the target cannot be reached. Each result shows the old and new size and dimensions with the saving, has its own download and a before and after slider, and several results download together as a ZIP. Images are read on the device; the copies carry no EXIF metadata or location.
+
+### Tests
+
+- Two 800 × 600 images under a 300 px height limit and a 20 KB target, their file names, the ZIP button and the before and after slider.
+
 ## [1.8.6] — 2026-11-15
 
 The Favicon Generator makes a complete favicon set.
@@ -611,6 +623,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.7]: https://github.com/abel0x/toolkit/compare/v1.8.6...v1.8.7
 [1.8.6]: https://github.com/abel0x/toolkit/compare/v1.8.5...v1.8.6
 [1.8.5]: https://github.com/abel0x/toolkit/compare/v1.8.4...v1.8.5
 [1.8.4]: https://github.com/abel0x/toolkit/compare/v1.8.3...v1.8.4
