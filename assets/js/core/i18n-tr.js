@@ -34,7 +34,6 @@
     'GitHub profile of abel0x': 'abel0x GitHub profili',
     'Breadcrumb': 'Gezinti yolu',
     'License': 'Lisans',
-    'Open Source': 'Açık kaynak',
     'Project license': 'Proje lisansı',
     'Toolkit is made available under the Apache License 2.0.': 'Toolkit, Apache License 2.0 kapsamında sunulmaktadır.',
     'Apache License 2.0': 'Apache Lisansı 2.0',

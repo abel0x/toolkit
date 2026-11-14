@@ -4,8 +4,8 @@
     "sha256": "fbc118bb16470964222d53941ce2da16b3fd18c669ab4a46de1817aa2758c1be"
   },
   "license/index.html": {
-    "date": "2026-11-13",
-    "sha256": "373a8fea4f537ac0e7a0d7b97dd3a88a6e7b87e8074aa401094dbcf8e68219ed"
+    "date": "2026-11-14",
+    "sha256": "16905275b681a6f566b65dc036714e659d943c87cca29da6a72304452f74203e"
   },
   "tools/aes-gcm.html": {
     "date": "2026-11-13",
@@ -416,8 +416,8 @@
     "sha256": "5e07a477fbe7212008709b944b3773a8d9f2c34a1bc42375257a2c97e3babd98"
   },
   "tr/license/index.html": {
-    "date": "2026-11-13",
-    "sha256": "4252c7a2cc849fc3f6e8bc26edab57b519b06301f3f1fb68259c320817f86b28"
+    "date": "2026-11-14",
+    "sha256": "5e5bc4d2570675cf9f8352603e75293f7fd4051136b88d35a3f67bd69e46cbed"
   },
   "tr/tools/aes-gcm.html": {
     "date": "2026-11-13",

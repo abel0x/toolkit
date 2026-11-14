@@ -131,11 +131,13 @@ async function navigate(bidi, context, url) {
 }
 
 // The breadcrumb, the header (icon, title, sample button) and the tool's
-// first block must share the same left and right edges on every page.
+// first block must share the same left and right edges on every page,
+// the licence pages included.
 async function inspectHeaderAlignment(bidi, context, slug, layout) {
   const edges = await evaluate(bidi, context, `(() => {
     const box = (element) => element?.getBoundingClientRect();
     const header = document.querySelector('.tool-header');
+    if (!header) return ['tool header missing'];
     let content = header?.nextElementSibling;
     while (content && !content.getBoundingClientRect().width) content = content.nextElementSibling;
     const stacked = getComputedStyle(header).flexDirection === 'column';
@@ -310,6 +312,15 @@ async function inspectMobilePage(bidi, context, url, slug) {
   return issues;
 }
 
+// The licence page uses the tool header too, in both languages.
+const licensePages = ['license/index.html', 'tr/license/index.html'];
+
+// Opening a /tr/ page stores the Turkish preference, which would send the
+// English tool pages checked after it to their Turkish twins.
+async function forgetLanguage(bidi, context) {
+  await evaluate(bidi, context, `(() => { localStorage.removeItem('toolkit-language'); sessionStorage.clear(); return true; })()`);
+}
+
 async function main() {
   const toolFiles = (await readdir(toolsDirectory))
     .filter((file) => file.endsWith('.html'))
@@ -344,10 +355,19 @@ async function main() {
       actionCount += result.actions;
       issues.push(...result.issues);
     }
+    for (const page of licensePages) {
+      await navigate(bidi, tab.context, `${baseUrl}/${page}`);
+      issues.push(...await inspectHeaderAlignment(bidi, tab.context, page, 'desktop'));
+      await forgetLanguage(bidi, tab.context);
+    }
 
     await bidi.call('browsingContext.setViewport', { context: tab.context, viewport: { width: 390, height: 844 }, devicePixelRatio: 1 });
     for (const file of toolFiles) {
       issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/tools/${file}`, file));
+    }
+    for (const page of licensePages) {
+      issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/${page}`, page));
+      await forgetLanguage(bidi, tab.context);
     }
 
     assert.deepEqual(issues, [], `Tool-page browser audit failed:\n${issues.join('\n')}`);
@@ -355,7 +375,7 @@ async function main() {
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers, and English pages free of Turkish dictionaries.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers (licence pages included), and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();
