@@ -50,7 +50,7 @@
   // ─── Core ──────────────────────────────────────────────────────────────────
   function getSelectedAlgos() {
     var algos = [];
-    ['SHA-1', 'SHA-256', 'SHA-512'].forEach(function(algo) {
+    ['MD5', 'SHA-1', 'SHA-256', 'SHA-512'].forEach(function(algo) {
       var id = 'algo' + algo.replace('-', '');
       var cb = document.getElementById(id);
       if (cb && cb.checked) algos.push(algo);
@@ -87,9 +87,13 @@
       var hashes = {};
 
       algos.forEach(function(algo) {
-        crypto.subtle.digest(algo, buffer).then(function(hashBuf) {
+        // Web Crypto has no MD5; md5.js computes it (to compare checksums only).
+        var digest = algo === 'MD5'
+          ? Promise.resolve(window.ToolkitMD5.hex(new Uint8Array(buffer)))
+          : crypto.subtle.digest(algo, buffer).then(bufferToHex);
+        digest.then(function(hex) {
           if (run !== latestRun) return;
-          hashes[algo] = bufferToHex(hashBuf);
+          hashes[algo] = hex;
           done++;
           progressBar.style.width = (40 + Math.round((done / total) * 60)) + '%';
           if (done === total) renderResults(file, hashes, algos);

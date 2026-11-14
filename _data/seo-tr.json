@@ -115,10 +115,10 @@
   },
   "tools/color-converter.html": {
     "title": "Renk Dönüştürücü — Toolkit",
-    "description": "HEX, RGB ve HSL renk biçimleri arasında canlı renk önizlemesi ve seçiciyle dönüştürme yapın. Tamamen tarayıcınızda çalışır.",
+    "description": "Bir rengi HEX, RGB, HSL, OKLCH ve HWB arasında canlı önizleme ve seçiciyle dönüştürün. Tamamen tarayıcınızda çalışır.",
     "source": {
       "title": "Color Converter — Toolkit",
-      "description": "Convert between HEX, RGB and HSL color formats with a live color preview swatch and picker. 100% client-side."
+      "description": "Convert a color between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side."
     }
   },
   "tools/color-palette.html": {
@@ -227,10 +227,10 @@
   },
   "tools/file-checksum.html": {
     "title": "Dosya Sağlama Toplamı Hesaplayıcı — Toolkit",
-    "description": "Herhangi bir dosya için SHA-256, SHA-512 sağlama toplamlarını hesaplayın. Tamamen istemci tarafı; dosyanız asla cihazınızdan ayrılmaz.",
+    "description": "Herhangi bir dosya için MD5, SHA-1, SHA-256 ve SHA-512 sağlama toplamlarını hesaplayın. Tamamen istemci tarafı; dosyanız asla cihazınızdan ayrılmaz.",
     "source": {
       "title": "File Checksum Tool — Toolkit",
-      "description": "Calculate SHA-256, SHA-512 checksums for any file. Fully client-side — your file never leaves your device."
+      "description": "Calculate MD5, SHA-1, SHA-256 and SHA-512 checksums for any file. Fully client-side — your file never leaves your device."
     }
   },
   "tools/find-replace.html": {
@@ -251,10 +251,10 @@
   },
   "tools/hash.html": {
     "title": "Hash Oluşturucu — Toolkit",
-    "description": "Web Crypto API ile herhangi bir metinden SHA-1, SHA-256, SHA-384 ve SHA-512 kriptografik hash'leri oluşturun. Tamamen tarayıcınızda çalışır.",
+    "description": "Herhangi bir metinden tarayıcınızda MD5, SHA-1, SHA-256, SHA-384 ve SHA-512 hash'leri oluşturun. MD5 ve SHA-1 yalnızca sağlama toplamı karşılaştırmak içindir.",
     "source": {
       "title": "Hash Generator — Toolkit",
-      "description": "Generate SHA-1, SHA-256, SHA-384 and SHA-512 cryptographic hashes from any text using the Web Crypto API. 100% client-side."
+      "description": "Generate MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from any text, in your browser. MD5 and SHA-1 only to compare checksums."
     }
   },
   "tools/hex-codec.html": {
@@ -531,10 +531,10 @@
   },
   "tools/qr-reader.html": {
     "title": "QR Kod Okuyucu — Toolkit",
-    "description": "QR kod içeren bir görüntü yükleyin ve içeriğini anında çözün. PNG, JPG ve WebP desteklenir. Tamamen tarayıcınızda çalışır.",
+    "description": "Bir QR kodu görüntüden ya da doğrudan kameranızdan çözün. PNG, JPG ve WebP desteklenir. Tamamen tarayıcınızda çalışır.",
     "source": {
       "title": "QR Code Reader — Toolkit",
-      "description": "Upload an image containing a QR code and instantly decode its contents. Supports PNG, JPG, WebP. 100% client-side."
+      "description": "Decode a QR code from an image or straight from your camera. Supports PNG, JPG, WebP. 100% client-side."
     }
   },
   "tools/query-string.html": {
@@ -787,12 +787,10 @@
   },
   "tools/uuid.html": {
     "title": "UUID Oluşturucu — Toolkit",
-    "description": "Tarayıcının güvenli rastgele kaynağıyla toplu RFC-4122 v4 UUID'ler oluşturun. Tamamen tarayıcınızda çalışır.",
-    "ogDescription": "Generate RFC-4122 v4 UUIDs in bulk using the browser",
+    "description": "Tarayıcının güvenli rastgele kaynağıyla toplu RFC 9562 UUID'ler oluşturun: rastgele v4 ya da zamana göre sıralı v7. Tamamen tarayıcınızda çalışır.",
     "source": {
       "title": "UUID Generator — Toolkit",
-      "description": "Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source. 100% client-side.",
-      "ogDescription": "Generate RFC-4122 v4 UUIDs in bulk using the browser"
+      "description": "Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source. 100% client-side."
     }
   },
   "tools/word-counter.html": {

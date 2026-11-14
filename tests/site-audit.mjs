@@ -431,6 +431,11 @@ for (const scriptName of firstPartyScripts) {
   const fetchCalls = [...source.matchAll(/\bfetch\s*\(/g)];
   if (scriptName === 'assets/js/tools/typing-test.js') {
     assert.equal(fetchCalls.length, 2, 'Typing Speed Test should fetch only its manifest and selected word list.');
+  } else if (scriptName === 'assets/js/tools/password.js') {
+    // Passphrases come from the site's own precached common-1000 word lists.
+    assert.equal(fetchCalls.length, 1, 'Password Generator should fetch only a word list.');
+    assert(/fetch\(new URL\(`\$\{language\}\/common-1000\.json`, wordsRoot\)\)/.test(source),
+      'Password Generator may only fetch words/<language>/common-1000.json from this site.');
   } else {
     assert.equal(fetchCalls.length, 0, `${scriptName} makes an unexpected network request.`);
   }

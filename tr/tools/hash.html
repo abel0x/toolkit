@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Web Crypto API ile herhangi bir metinden SHA-1, SHA-256, SHA-384 ve SHA-512 kriptografik hash&#x27;leri oluşturun. Tamamen tarayıcınızda çalışır." />
+  <meta name="description" content="Herhangi bir metinden tarayıcınızda MD5, SHA-1, SHA-256, SHA-384 ve SHA-512 hash&#x27;leri oluşturun. MD5 ve SHA-1 yalnızca sağlama toplamı karşılaştırmak içindir." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tr/tools/hash.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/hash.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/hash.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/hash.html" />
   <meta property="og:title" content="Hash Oluşturucu — Toolkit" />
-  <meta property="og:description" content="Web Crypto API ile herhangi bir metinden SHA-1, SHA-256, SHA-384 ve SHA-512 kriptografik hash&#x27;leri oluşturun. Tamamen tarayıcınızda çalışır." />
+  <meta property="og:description" content="Herhangi bir metinden tarayıcınızda MD5, SHA-1, SHA-256, SHA-384 ve SHA-512 hash&#x27;leri oluşturun. MD5 ve SHA-1 yalnızca sağlama toplamı karşılaştırmak içindir." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tr/tools/hash.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Hash Oluşturucu — Toolkit" />
-  <meta name="twitter:description" content="Web Crypto API ile herhangi bir metinden SHA-1, SHA-256, SHA-384 ve SHA-512 kriptografik hash&#x27;leri oluşturun. Tamamen tarayıcınızda çalışır." />
+  <meta name="twitter:description" content="Herhangi bir metinden tarayıcınızda MD5, SHA-1, SHA-256, SHA-384 ve SHA-512 hash&#x27;leri oluşturun. MD5 ve SHA-1 yalnızca sağlama toplamı karşılaştırmak içindir." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Hash Oluşturucu — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=232da09363e2" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=7aadd23c7c86" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Hash Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/hash.html", "description": "Web Crypto API ile herhangi bir metinden SHA-1, SHA-256, SHA-384 ve SHA-512 kriptografik hash'leri oluşturun. Tamamen tarayıcınızda çalışır.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Hash Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/hash.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Hash Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/hash.html", "description": "Herhangi bir metinden tarayıcınızda MD5, SHA-1, SHA-256, SHA-384 ve SHA-512 hash'leri oluşturun. MD5 ve SHA-1 yalnızca sağlama toplamı karşılaştırmak içindir.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Hash Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/hash.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -71,7 +71,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></span><h1 class="section-title" id="hashHeading">Hash Oluşturucu</h1></div>
-            <p class="section-desc">Web Crypto API ile herhangi bir metin girdisinden SHA ailesi özetleri oluşturun.</p>
+            <p class="section-desc">Herhangi bir metinden MD5 ve SHA ailesi özetleri oluşturun.</p>
           </div>
           <div class="tool-header__actions">
             <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="hash"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Örneği dene</button>
@@ -123,13 +123,14 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/nav.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/hash.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/tools/hash.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/example-starters.js?v=232da09363e2" defer></script>
+  <script src="../../assets/js/core/utils.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/nav.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/hash.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/md5.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/tools/hash.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/example-starters.js?v=7aadd23c7c86" defer></script>
 </body>
 </html>

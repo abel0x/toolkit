@@ -1,7 +1,52 @@
 #!/usr/bin/env node
 /* Known-answer checks for tools without vectors in the other suites, run against the real pages in Firefox. */
 import assert from 'node:assert/strict';
+import { createHash, createHmac, generateKeyPairSync, sign, constants } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 import { withFirefox } from './browser-session.mjs';
+
+// JWTs signed here with Node's own crypto, so the decoder's verification is
+// checked against an independent implementation.
+const b64url = (data) => Buffer.from(data).toString('base64url');
+function jwt(alg, signer, extraHeader = {}) {
+  const head = b64url(JSON.stringify({ alg, typ: 'JWT', ...extraHeader }));
+  const body = b64url(JSON.stringify({ sub: 'mira', name: 'Çağrı Öz', iat: 1767225600 }));
+  return `${head}.${body}.${b64url(signer(Buffer.from(`${head}.${body}`)))}`;
+}
+const rsa = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const otherRsa = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const ec = { 'P-256': generateKeyPairSync('ec', { namedCurve: 'P-256' }), 'P-384': generateKeyPairSync('ec', { namedCurve: 'P-384' }), 'P-521': generateKeyPairSync('ec', { namedCurve: 'P-521' }) };
+const ed = generateKeyPairSync('ed25519');
+const pem = (pair) => pair.publicKey.export({ type: 'spki', format: 'pem' });
+const jwk = (pair) => pair.publicKey.export({ format: 'jwk' });
+const secret = 'toolkit-demo-secret-with-enough-length';
+const secret64 = Buffer.from('binary\u0000secret\u00ffbytes').toString('base64');
+const JWT_CASES = [
+  ['HS256 secret', jwt('HS256', (d) => createHmac('sha256', secret).update(d).digest()), secret, false, 'valid'],
+  ['HS512 base64 secret', jwt('HS512', (d) => createHmac('sha512', Buffer.from(secret64, 'base64')).update(d).digest()), secret64, true, 'valid'],
+  ['RS256 PEM', jwt('RS256', (d) => sign('sha256', d, rsa.privateKey)), pem(rsa), false, 'valid'],
+  ['RS384 JWK', jwt('RS384', (d) => sign('sha384', d, rsa.privateKey)), JSON.stringify(jwk(rsa)), false, 'valid'],
+  ['PS256 PEM', jwt('PS256', (d) => sign('sha256', d, { key: rsa.privateKey, padding: constants.RSA_PKCS1_PSS_PADDING, saltLength: 32 })), pem(rsa), false, 'valid'],
+  ['ES256 PEM', jwt('ES256', (d) => sign('sha256', d, { key: ec['P-256'].privateKey, dsaEncoding: 'ieee-p1363' })), pem(ec['P-256']), false, 'valid'],
+  ['ES384 JWK', jwt('ES384', (d) => sign('sha384', d, { key: ec['P-384'].privateKey, dsaEncoding: 'ieee-p1363' })), JSON.stringify(jwk(ec['P-384'])), false, 'valid'],
+  ['ES512 PEM', jwt('ES512', (d) => sign('sha512', d, { key: ec['P-521'].privateKey, dsaEncoding: 'ieee-p1363' })), pem(ec['P-521']), false, 'valid'],
+  ['EdDSA PEM', jwt('EdDSA', (d) => sign(null, d, ed.privateKey)), pem(ed), false, 'valid'],
+  ['JWKS by kid', jwt('RS256', (d) => sign('sha256', d, rsa.privateKey), { kid: 'b' }), JSON.stringify({ keys: [{ ...jwk(otherRsa), kid: 'a' }, { ...jwk(rsa), kid: 'b' }] }), false, 'valid'],
+  ['wrong secret', jwt('HS256', (d) => createHmac('sha256', secret).update(d).digest()), 'not-the-secret', false, 'invalid'],
+  ['wrong RSA key', jwt('RS256', (d) => sign('sha256', d, rsa.privateKey)), pem(otherRsa), false, 'invalid'],
+  ['tampered payload', (() => { const [h, , sig] = jwt('RS256', (d) => sign('sha256', d, rsa.privateKey)).split('.'); return `${h}.${b64url(JSON.stringify({ sub: 'admin' }))}.${sig}`; })(), pem(rsa), false, 'invalid'],
+  ['alg none', `${b64url(JSON.stringify({ alg: 'none' }))}.${b64url(JSON.stringify({ sub: 'x' }))}.`, secret, false, 'invalid'],
+  ['algorithm confusion', jwt('HS256', (d) => createHmac('sha256', pem(rsa)).update(d).digest()), pem(rsa), false, 'error']
+];
+
+// A QR code drawn from the vendored generator, for the camera test.
+const qrSandbox = {};
+vm.runInNewContext(readFileSync(new URL('../assets/js/vendor/qrcode-generator.js', import.meta.url), 'utf8'), qrSandbox);
+const qrCode = qrSandbox.qrcode(0, 'M');
+qrCode.addData('https://example.com/from-the-camera');
+qrCode.make();
+const QR_MODULES = Array.from({ length: qrCode.getModuleCount() }, (_, row) => Array.from({ length: qrCode.getModuleCount() }, (_, col) => qrCode.isDark(row, col) ? 1 : 0));
 
 const failures = [];
 let checked = 0;
@@ -272,6 +317,91 @@ await withFirefox(async (page) => {
     results.push(['the verify field warns too', $('#bcryptVerifyLengthNote').hidden, false]);
     return results;`);
 
+  // MD5 (md5.js) in the Hash Generator: RFC 1321 vectors.
+  await check('hash', `
+    const md5 = async (input) => { set('#hashInput', input); click('#hashGenBtn'); await wait(150);
+      const card = [...document.querySelectorAll('.hash-card')].find((node) => node.querySelector('.hash-algo-badge').textContent === 'MD5');
+      return card ? card.querySelector('.hash-value').textContent : 'no MD5 card'; };
+    return [
+      ['md5("abc")', await md5('abc'), '900150983cd24fb0d6963f7d28e17f72'],
+      ['md5("message digest")', await md5('message digest'), 'f96b697d7cb7938d525a2f31aaf161d0'],
+      ['md5(UTF-8)', await md5('çay'), ${JSON.stringify(createHash('md5').update('çay').digest('hex'))}],
+      ['MD5 is marked legacy', !!document.querySelector('.hash-legacy-note[title^="MD5"]'), true]];`);
+
+  await check('file-checksum', `
+    document.getElementById('algoMD5').checked = true;
+    const transfer = new DataTransfer();
+    transfer.items.add(new File(['The quick brown fox jumps over the lazy dog'], 'fox.txt'));
+    const input = document.getElementById('checksumFileInput');
+    input.files = transfer.files; input.dispatchEvent(new Event('change'));
+    await wait(400);
+    return [['file MD5', document.querySelector('main').innerText.includes('9e107d9d372bb6826bd81d3542a419d6'), true]];`);
+
+  await check('uuid', `
+    set('#uuidVersion', '7', 'change'); set('#uuidCount', '20');
+    click('#uuidGenBtn'); await wait(150);
+    const values = [...document.querySelectorAll('.uuid-value')].map((node) => node.textContent.trim());
+    const times = values.map((uuid) => parseInt(uuid.replace(/-/g, '').slice(0, 12), 16));
+    return [['20 v7 UUIDs', values.length, 20],
+      ['all RFC 9562 v7', values.every((uuid) => /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(uuid)), true],
+      ['in ascending order', values.every((uuid, index) => index === 0 || uuid > values[index - 1]), true],
+      ['unique', new Set(values).size, 20],
+      ['timestamp is now', times.every((ms) => Math.abs(ms - Date.now()) < 60000), true]];`);
+
+  await check('uuid-validator', `
+    set('#uuidInput', '017F22E2-79B0-7CC3-98C4-DC0C0C07398F'); click('#validateBtn'); await wait(50);
+    return [['RFC 9562 v7 example dated', document.querySelector('main').innerText, { includes: 'Created 2022-02-22 19:22:22 UTC' }]];`);
+
+  await check('color-converter', `
+    const convert = (hex) => { set('#colorHex', hex); return [value('#colorOKLCH'), value('#colorHWB')]; };
+    const [redL, redH] = convert('#ff0000'); const [indigoL, indigoH] = convert('#6366f1'); const [greyL] = convert('#808080');
+    return [['red OKLCH (CSS Color 4)', redL, 'oklch(62.8% 0.258 29.2)'], ['red HWB', redH, 'hwb(0 0% 0%)'],
+      ['#6366f1 OKLCH', indigoL, 'oklch(58.5% 0.204 277.1)'], ['#6366f1 HWB', indigoH, 'hwb(239 39% 5%)'], ['grey has no chroma', greyL, 'oklch(60% 0 0)']];`);
+
+  await check('password', `
+    document.getElementById('pwdModeWords').click(); await wait(400);
+    set('#pwdSeparator', '-', 'change'); set('#pwdWordLanguage', 'en', 'change'); await wait(300);
+    const words = document.getElementById('pwdOutput').textContent.split('-');
+    const label = text('#strengthLabel');
+    document.getElementById('pwdCapitalize').click(); document.getElementById('pwdAddNumber').click(); await wait(300);
+    const fancy = document.getElementById('pwdOutput').textContent.split('-');
+    set('#pwdWordLanguage', 'tr', 'change'); await wait(400);
+    const turkish = document.getElementById('pwdOutput').textContent;
+    return [['six words by default', words.length, 6], ['3–10 lower-case letters each', words.every((word) => /^[a-z]{3,10}$/.test(word)), true],
+      ['bits shown', label, { includes: 'bits' }],
+      ['capitalized', fancy.every((word) => /^[A-Z]/.test(word)), true], ['one digit added', fancy.join('').replace(/[^0-9]/g, '').length, 1],
+      ['Turkish word list', /^(\\p{Lu}\\p{Ll}{2,9}\\d?-){5}\\p{Lu}\\p{Ll}{2,9}\\d?$/u.test(turkish), true]];`);
+
+  // JWT signatures, checked against tokens Node signed above.
+  for (const [name, token, key, base64, verdict] of JWT_CASES) {
+    await check('jwt-decoder', `
+      set('#jwtInput', ${JSON.stringify(token)}); set('#jwtKey', ${JSON.stringify(key)});
+      document.getElementById('jwtKeyBase64').checked = ${base64};
+      click('#jwtDecodeBtn'); click('#jwtVerifyBtn');
+      for (let i = 0; i < 100 && $('#jwtVerifyResult').hidden; i += 1) await wait(20);
+      await wait(50);
+      return [[${JSON.stringify(`JWT ${name}`)}, $('#jwtVerifyResult').className.replace('jwt-verify__result jwt-verify__result--', ''), ${JSON.stringify(verdict)}],
+        [${JSON.stringify(`JWT ${name} decodes UTF-8 claims`)}, text('#jwtResults').includes('Çağrı Öz'), ${Buffer.from(token.split('.')[1], 'base64url').toString('utf8').includes('Çağrı Öz')}]];`);
+  }
+
+  // The QR reader's camera: a canvas stream showing a QR code stands in for it.
+  await check('qr-reader', `
+    const modules = ${JSON.stringify(QR_MODULES)};
+    const size = 8, quiet = 4, canvas = document.createElement('canvas');
+    canvas.width = canvas.height = (modules.length + quiet * 2) * size;
+    const ctx = canvas.getContext('2d');
+    const draw = () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#000';
+      modules.forEach((row, y) => row.forEach((dark, x) => { if (dark) ctx.fillRect((x + quiet) * size, (y + quiet) * size, size, size); })); };
+    draw(); const keepDrawing = setInterval(draw, 100);
+    const stream = canvas.captureStream(10);
+    navigator.mediaDevices.getUserMedia = async () => stream;
+    click('#qrCameraBtn');
+    for (let i = 0; i < 100 && !document.querySelector('.qr-read-text'); i += 1) await wait(50);
+    clearInterval(keepDrawing);
+    return [['camera reads the code', document.querySelector('.qr-read-text')?.textContent, 'https://example.com/from-the-camera'],
+      ['camera stops after reading', stream.getTracks().every((track) => track.readyState === 'ended'), true],
+      ['preview hidden again', $('#qrCamera').hidden, true]];`);
+
   // Generators: verify invariants rather than exact values.
   await check('uuid', `
     const button = [...document.querySelectorAll('main button')].find((node) => /generate/i.test(node.textContent));
@@ -282,4 +412,4 @@ await withFirefox(async (page) => {
 
 if (failures.length) console.log(`\n${failures.length} known-answer failure(s):\n  ${failures.join('\n  ')}`);
 assert.equal(failures.length, 0, 'Tool output did not match the known answers above.');
-console.log(`Tool vectors passed: ${checked} known-answer checks across 34 tools.`);
+console.log(`Tool vectors passed: ${checked} known-answer checks across 41 tools.`);

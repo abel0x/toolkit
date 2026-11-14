@@ -23,7 +23,7 @@
       "slug": "hash",
       "name": "Hash Generator",
       "cat": "security",
-      "desc": "SHA-1, SHA-256, SHA-384 and SHA-512 digests via the Web Crypto API.",
+      "desc": "MD5, SHA-1, SHA-256, SHA-384 and SHA-512 digests of any text, in your browser.",
       "tags": ["hash", "sha", "sha256", "md5", "crypto", "checksum"],
       "related": ["file-checksum", "hmac", "bcrypt", "aes-gcm"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><line x1=\"4\" y1=\"9\" x2=\"20\" y2=\"9\"/><line x1=\"4\" y1=\"15\" x2=\"20\" y2=\"15\"/><line x1=\"10\" y1=\"3\" x2=\"8\" y2=\"21\"/><line x1=\"16\" y1=\"3\" x2=\"14\" y2=\"21\"/></svg>"
@@ -86,7 +86,7 @@
       "slug": "file-checksum",
       "name": "File Checksum Tool",
       "cat": "security",
-      "desc": "Compute SHA-1, SHA-256 and SHA-512 checksums for files — fully client-side, never leaves your browser.",
+      "desc": "Compute MD5, SHA-1, SHA-256 and SHA-512 checksums for files — fully client-side, never leaves your browser.",
       "tags": ["checksum", "file", "sha256", "verify", "integrity"],
       "related": ["hash", "hmac", "image-metadata", "bytes"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><polyline points=\"9 12 11 14 15 10\"/></svg>"
@@ -464,7 +464,7 @@
       "slug": "uuid",
       "name": "UUID Generator",
       "cat": "generators",
-      "desc": "Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source.",
+      "desc": "Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source.",
       "tags": ["uuid", "guid", "unique", "id", "generate"],
       "related": ["uuid-validator", "random-token", "random-string", "fake-data"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"8.5\" cy=\"11\" r=\"2\"/><path d=\"M5.8 16c.5-1.3 1.5-2 2.7-2s2.2.7 2.7 2\"/><path d=\"M14 10h4M14 13.5h4\"/></svg>"
@@ -554,7 +554,7 @@
       "slug": "color-converter",
       "name": "Color Converter",
       "cat": "converters",
-      "desc": "Convert between HEX, RGB and HSL with a live color preview swatch and picker.",
+      "desc": "Convert between HEX, RGB, HSL, OKLCH and HWB with a live color preview swatch and picker.",
       "tags": ["color", "hex", "rgb", "hsl", "convert"],
       "related": ["color-contrast", "color-palette", "gradient", "random-color"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z\"/></svg>"
@@ -680,7 +680,7 @@
       "slug": "qr-reader",
       "name": "QR Code Reader",
       "cat": "media",
-      "desc": "Upload an image with a QR code and instantly decode its contents.",
+      "desc": "Decode a QR code from an image or scan it with your camera.",
       "tags": ["qr", "scan", "decode", "read", "image"],
       "related": ["qr-generator", "qr-batch", "image-metadata", "base64-to-image"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"/><circle cx=\"12\" cy=\"13\" r=\"4\"/></svg>"

@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>JWT Kod Çözücü — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=232da09363e2" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=7aadd23c7c86" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "JWT Kod Çözücü", "url": "https://abel0x.github.io/toolkit/tr/tools/jwt-decoder.html", "description": "JSON Web Token'ları çözün; header, payload ve son kullanma bilgilerini inceleyin. Tamamen tarayıcınızda çalışır, sunucuya veri gönderilmez.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "JWT Kod Çözücü", "item": "https://abel0x.github.io/toolkit/tr/tools/jwt-decoder.html"}]}]}</script>
@@ -81,12 +81,24 @@
         <div class="card glass reveal" role="region" aria-label="JWT Kod Çözücü Aracı">
           <div role="note" class="warning-banner" aria-label="Güvenlik bildirimi">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span>İmza: <strong>doğrulanmadı</strong> — bu araç yalnızca belirteç yapısının kodunu çözer. Sunucu tarafı doğrulaması olmadan bir JWT'ye asla güvenmeyin.</span>
+            <span><strong>Kod çözmek imzayı doğrulamaz.</strong> İmzayı aşağıda sır ya da açık anahtarla kontrol edin; sunucu tarafında doğrulanmamış bir JWT'ye asla güvenmeyin.</span>
           </div>
           <label for="jwtInput" class="control-label ix-33fe78">JWT Belirteci</label>
           <textarea id="jwtInput" class="textarea" rows="4" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFscGhhIFRvb2xraXQiLCJpYXQiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" spellcheck="false" aria-label="JWT belirteci girdisi"></textarea>
           <button class="btn btn--primary ix-d590ad" id="jwtDecodeBtn">Belirtecin Kodunu Çöz</button>
           <div id="jwtResults" aria-live="polite"></div>
+
+          <div class="jwt-verify">
+            <h2 class="jwt-verify__title">İmzayı doğrulayın</h2>
+            <p class="jwt-verify__hint">Algoritma token'ın başlığından okunur. HS256, HS384, HS512: paylaşılan sır. RS, PS ve ES (256, 384, 512) ile EdDSA: açık anahtar; PEM (BEGIN PUBLIC KEY), JWK ya da JWKS olarak. JWKS'de anahtarı başlıktaki kid seçer. Hiçbir şey bu tarayıcıdan çıkmaz.</p>
+            <label for="jwtKey" class="control-label">Sır ya da açık anahtar</label>
+            <textarea id="jwtKey" class="textarea" rows="4" spellcheck="false" autocomplete="off" placeholder="your-256-bit-secret  ·  -----BEGIN PUBLIC KEY-----  ·  {&quot;kty&quot;:&quot;RSA&quot;, …}"></textarea>
+            <div class="jwt-verify__row">
+              <label class="jwt-verify__check" for="jwtKeyBase64"><input type="checkbox" id="jwtKeyBase64" /> Sır Base64 ile kodlanmış</label>
+              <button class="btn btn--secondary" id="jwtVerifyBtn">İmzayı doğrula</button>
+            </div>
+            <p id="jwtVerifyResult" class="jwt-verify__result" role="status" hidden></p>
+          </div>
         </div>
         <!-- RELATED:START -->
         <nav class="related-tools" aria-label="İlgili araçlar">
@@ -127,13 +139,13 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/nav.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/jwt-decoder.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/tools/jwt-decoder.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/example-starters.js?v=232da09363e2" defer></script>
+  <script src="../../assets/js/core/utils.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/nav.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/jwt-decoder.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/tools/jwt-decoder.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/example-starters.js?v=7aadd23c7c86" defer></script>
 </body>
 </html>

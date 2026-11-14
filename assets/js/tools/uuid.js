@@ -5,6 +5,7 @@
   const genBtn       = document.getElementById('uuidGenBtn');
   const clearBtn     = document.getElementById('uuidClearBtn');
   const uuidList     = document.getElementById('uuidList');
+  const versionSelect = document.getElementById('uuidVersion');
 
   if (!uuidCount) return;
 
@@ -44,11 +45,44 @@
     ].join('-');
   }
 
+  function format(bytes) {
+    const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  }
+
+  // RFC 9562 version 7: 48-bit Unix time in milliseconds, then random bits.
+  // Within one millisecond the 12-bit rand_a field counts up (method 1 of
+  // RFC 9562 §6.2), so a batch is always in ascending order.
+  let lastMs = -1;
+  let counter = 0;
+  function generateUUIDv7() {
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    let ms = Date.now();
+    if (ms <= lastMs) {
+      ms = lastMs;
+      counter += 1;
+      if (counter > 0xfff) { ms += 1; counter = bytes[7] & 0x7ff; }
+    } else {
+      counter = ((bytes[6] & 0x07) << 8) | bytes[7]; // start in the lower half to leave room
+    }
+    lastMs = ms;
+    for (let index = 5; index >= 0; index -= 1) {
+      bytes[index] = ms % 256;
+      ms = Math.floor(ms / 256);
+    }
+    bytes[6] = 0x70 | (counter >> 8);
+    bytes[7] = counter & 0xff;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    return format(bytes);
+  }
+
   function generateAll() {
     const count = parseInt(uuidCount.value, 10);
+    const generate = versionSelect?.value === '7' ? generateUUIDv7 : generateUUIDv4;
 
     for (let i = 0; i < count; i++) {
-      const uuid = generateUUIDv4();
+      const uuid = generate();
       const totalItems = uuidList.children.length;
 
       const li = document.createElement('li');

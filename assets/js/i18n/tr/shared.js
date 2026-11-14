@@ -290,6 +290,8 @@
     "Punctuation": "Noktalama işaretleri",
     "correct": "doğru",
     "extra": "fazladan",
+    "Space": "Boşluk",
+    "Version": "Sürüm",
     "Pass": "Geçti",
     "English": "İngilizce",
     "year": "yıl",

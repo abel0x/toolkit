@@ -95,6 +95,12 @@
         var meta = document.createElement('span');
         meta.style.cssText = 'font-size:.8rem;opacity:.7;white-space:nowrap;';
         meta.textContent = variant ? verDesc + ' · ' + variant : verDesc;
+        // A version 7 UUID starts with its creation time in Unix milliseconds.
+        if (ver === 7) {
+          var created = new Date(parseInt(line.replace(/-/g, '').slice(0, 12), 16));
+          var stamp = created.toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
+          meta.textContent += ' · ' + (window.ToolkitI18n ? window.ToolkitI18n.t('Created {{time}}', { time: stamp }) : 'Created ' + stamp);
+        }
         row.appendChild(meta);
       }
 

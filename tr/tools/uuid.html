@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Tarayıcının güvenli rastgele kaynağıyla toplu RFC-4122 v4 UUID&#x27;ler oluşturun. Tamamen tarayıcınızda çalışır." />
+  <meta name="description" content="Tarayıcının güvenli rastgele kaynağıyla toplu RFC 9562 UUID&#x27;ler oluşturun: rastgele v4 ya da zamana göre sıralı v7. Tamamen tarayıcınızda çalışır." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tr/tools/uuid.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/uuid.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/uuid.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/uuid.html" />
   <meta property="og:title" content="UUID Oluşturucu — Toolkit" />
-  <meta property="og:description" content="Generate RFC-4122 v4 UUIDs in bulk using the browser" />
+  <meta property="og:description" content="Tarayıcının güvenli rastgele kaynağıyla toplu RFC 9562 UUID&#x27;ler oluşturun: rastgele v4 ya da zamana göre sıralı v7. Tamamen tarayıcınızda çalışır." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tr/tools/uuid.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="UUID Oluşturucu — Toolkit" />
-  <meta name="twitter:description" content="Generate RFC-4122 v4 UUIDs in bulk using the browser" />
+  <meta name="twitter:description" content="Tarayıcının güvenli rastgele kaynağıyla toplu RFC 9562 UUID&#x27;ler oluşturun: rastgele v4 ya da zamana göre sıralı v7. Tamamen tarayıcınızda çalışır." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>UUID Oluşturucu — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=232da09363e2" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=7aadd23c7c86" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "UUID Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/uuid.html", "description": "Tarayıcının güvenli rastgele kaynağıyla toplu RFC-4122 v4 UUID'ler oluşturun. Tamamen tarayıcınızda çalışır.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "UUID Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/uuid.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "UUID Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/uuid.html", "description": "Tarayıcının güvenli rastgele kaynağıyla toplu RFC 9562 UUID'ler oluşturun: rastgele v4 ya da zamana göre sıralı v7. Tamamen tarayıcınızda çalışır.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "UUID Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/uuid.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -71,12 +71,19 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.8 16c.5-1.3 1.5-2 2.7-2s2.2.7 2.7 2"/><path d="M14 10h4M14 13.5h4"/></svg></span><h1 class="section-title" id="uuidHeading">UUID Oluşturucu</h1></div>
-            <p class="section-desc">Tarayıcının güvenli rastgele kaynağını kullanarak RFC-4122 uyumlu sürüm 4 UUID'ler oluşturun.</p>
+            <p class="section-desc">Tarayıcının güvenli rastgele kaynağıyla rastgele sürüm 4 ya da zamana göre sıralı sürüm 7 UUID'ler (RFC 9562) oluşturun.</p>
           </div>
         </div>
         <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="UUID Oluşturucu Aracı">
           <div class="uuid-controls">
+            <div class="control-row">
+              <label for="uuidVersion" class="control-label">Sürüm</label>
+              <select id="uuidVersion" class="form-control form-select">
+                <option value="4">v4 — rastgele</option>
+                <option value="7">v7 — zamana göre sıralı</option>
+              </select>
+            </div>
             <div class="control-row">
               <label for="uuidCount" class="control-label">
                 Miktar
@@ -130,12 +137,12 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/nav.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/i18n/tr/uuid.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=232da09363e2" defer></script>
-  <script src="../../assets/js/tools/uuid.js?v=232da09363e2" defer></script>
+  <script src="../../assets/js/core/utils.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/nav.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/i18n/tr/uuid.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=7aadd23c7c86" defer></script>
+  <script src="../../assets/js/tools/uuid.js?v=7aadd23c7c86" defer></script>
 </body>
 </html>

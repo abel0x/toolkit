@@ -4,11 +4,31 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Verify": "Doğrula",
+    "Length": "Uzunluk",
+    "Converter": "Dönüştürücü",
     "Invalid": "Geçersiz",
     "Please enter a JWT token": "Lütfen bir JWT belirteci girin",
+    "PEM / JWK Converter": "PEM / JWK Dönüştürücü",
+    "Algorithm": "Algoritma",
     "Copy Header": "Başlığı Kopyala",
     "Copy Payload": "Yükü Kopyala",
     "Copy Signature": "İmzayı Kopyala",
-    "not verified": "doğrulanmadı"
+    "not verified": "doğrulanmadı",
+    "Length:": "Uzunluk:",
+    "No key in this JWKS has the kid \"{{kid}}\".": "Bu JWKS'de kid değeri \"{{kid}}\" olan anahtar yok.",
+    "This JWKS has several keys and the token names no kid.": "Bu JWKS'de birden fazla anahtar var ve token bir kid belirtmiyor.",
+    "The token asks for {{alg}}, an HMAC algorithm, but this looks like a public key. Refused: that mix-up is a known attack.": "Token bir HMAC algoritması olan {{alg}} istiyor ama bu bir açık anahtara benziyor. Reddedildi: bu karışıklık bilinen bir saldırıdır.",
+    "This is a certificate. Paste its public key (BEGIN PUBLIC KEY) instead.": "Bu bir sertifika. Yerine açık anahtarını (BEGIN PUBLIC KEY) yapıştırın.",
+    "This is a PKCS #1 key. Convert it to BEGIN PUBLIC KEY (SPKI) or a JWK first, for example with the PEM / JWK Converter.": "Bu bir PKCS #1 anahtarı. Önce BEGIN PUBLIC KEY (SPKI) ya da JWK biçimine dönüştürün; örneğin PEM / JWK Dönüştürücü ile.",
+    "Paste the public key as a PEM (BEGIN PUBLIC KEY), a JWK or a JWKS.": "Açık anahtarı PEM (BEGIN PUBLIC KEY), JWK ya da JWKS olarak yapıştırın.",
+    "Enter a JWT with three dot-separated parts first.": "Önce noktayla ayrılmış üç parçalı bir JWT girin.",
+    "The token header is not valid JSON.": "Token başlığı geçerli bir JSON değil.",
+    "This token is unsigned (alg: none): there is no signature to check, so treat it as untrusted.": "Bu token imzasız (alg: none): kontrol edilecek bir imza yok, bu yüzden güvenilmez kabul edin.",
+    "{{alg}} is not an algorithm this tool can check.": "{{alg}} bu aracın kontrol edebildiği bir algoritma değil.",
+    "Enter the secret or public key to check the signature with.": "İmzayı kontrol etmek için sırrı ya da açık anahtarı girin.",
+    "Signature valid ({{alg}})": "İmza geçerli ({{alg}})",
+    "Signature does not match this key ({{alg}})": "İmza bu anahtarla eşleşmiyor ({{alg}})",
+    "This key could not be used for {{alg}}.": "Bu anahtar {{alg}} için kullanılamadı."
   }))
 });

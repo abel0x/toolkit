@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source. 100% client-side." />
+  <meta name="description" content="Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/uuid.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/uuid.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/uuid.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/uuid.html" />
-  <script src="../assets/js/core/language-redirect.js?v=232da09363e2"></script>
+  <script src="../assets/js/core/language-redirect.js?v=7aadd23c7c86"></script>
   <meta property="og:title" content="UUID Generator — Toolkit" />
-  <meta property="og:description" content="Generate RFC-4122 v4 UUIDs in bulk using the browser" />
+  <meta property="og:description" content="Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source. 100% client-side." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/uuid.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="UUID Generator — Toolkit" />
-  <meta name="twitter:description" content="Generate RFC-4122 v4 UUIDs in bulk using the browser" />
+  <meta name="twitter:description" content="Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source. 100% client-side." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>UUID Generator — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=232da09363e2" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=232da09363e2" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=7aadd23c7c86" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=7aadd23c7c86" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "UUID Generator", "url": "https://abel0x.github.io/toolkit/tools/uuid.html", "description": "Generate RFC-4122 v4 UUIDs in bulk using the browser's secure random source. 100% client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "UUID Generator", "item": "https://abel0x.github.io/toolkit/tools/uuid.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "UUID Generator", "url": "https://abel0x.github.io/toolkit/tools/uuid.html", "description": "Generate RFC 9562 UUIDs in bulk, random v4 or time-ordered v7, from the browser's secure random source. 100% client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "UUID Generator", "item": "https://abel0x.github.io/toolkit/tools/uuid.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -71,12 +71,19 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.8 16c.5-1.3 1.5-2 2.7-2s2.2.7 2.7 2"/><path d="M14 10h4M14 13.5h4"/></svg></span><h1 class="section-title" id="uuidHeading">UUID Generator</h1></div>
-            <p class="section-desc">Generate RFC-4122 compliant version 4 UUIDs using the browser's secure random source.</p>
+            <p class="section-desc">Generate random version 4 or time-ordered version 7 UUIDs (RFC 9562) from the browser's secure random source.</p>
           </div>
         </div>
         <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="UUID Generator Tool">
           <div class="uuid-controls">
+            <div class="control-row">
+              <label for="uuidVersion" class="control-label">Version</label>
+              <select id="uuidVersion" class="form-control form-select">
+                <option value="4">v4 — random</option>
+                <option value="7">v7 — time-ordered</option>
+              </select>
+            </div>
             <div class="control-row">
               <label for="uuidCount" class="control-label">
                 Quantity
@@ -130,10 +137,10 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=232da09363e2" defer></script>
-  <script src="../assets/js/core/nav.js?v=232da09363e2" defer></script>
-  <script src="../assets/js/core/i18n.js?v=232da09363e2" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=232da09363e2" defer></script>
-  <script src="../assets/js/tools/uuid.js?v=232da09363e2" defer></script>
+  <script src="../assets/js/core/utils.js?v=7aadd23c7c86" defer></script>
+  <script src="../assets/js/core/nav.js?v=7aadd23c7c86" defer></script>
+  <script src="../assets/js/core/i18n.js?v=7aadd23c7c86" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=7aadd23c7c86" defer></script>
+  <script src="../assets/js/tools/uuid.js?v=7aadd23c7c86" defer></script>
 </body>
 </html>

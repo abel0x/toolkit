@@ -6,6 +6,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Generator": "Oluşturucu",
     "Please enter some text to hash": "Hash oluşturmak için metin girin",
+    "SHA-1 is cryptographically broken. Use for legacy compatibility only.": "SHA-1 kriptografik olarak kırılmıştır. Yalnızca eski sistemlerle uyumluluk için kullanın.",
+    "MD5 is broken for security. Use it only to compare checksums.": "MD5 güvenlik açısından kırılmıştır. Yalnızca sağlama toplamlarını karşılaştırmak için kullanın.",
     "Generating…": "Oluşturuluyor…"
   }))
 });

@@ -10,7 +10,13 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Symbols": "Semboller",
     "Generator": "Oluşturucu",
     "Select at least one character type": "En az bir karakter türü seçin",
+    "Passphrase": "Parola",
+    "Mode": "Mod",
+    "Separator": "Ayırıcı",
+    "Words": "Kelimeler",
     "Fair": "Orta",
-    "Strong": "Güçlü"
+    "Strong": "Güçlü",
+    "The word list could not be loaded.": "Kelime listesi yüklenemedi.",
+    "≈{{bits}} bits": "≈{{bits}} bit"
   }))
 });

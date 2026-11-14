@@ -267,7 +267,7 @@ CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 # Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, and CSP-safe copy buttons.
 node tests/audit-regressions.mjs
 
-# Check the output of 34 tools against independently computed known answers (hashes, bcrypt under every prefix, encodings, conversions, UUIDs, XML, SQL …).
+# Check the output of 41 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, encodings, conversions, XML, SQL …).
 node tests/tool-vectors.mjs
 
 # Optional: smoke-test every page in WebKit (Safari's engine). Needs Playwright, which is test-only and never a site dependency; CI runs it in .github/workflows/webkit.yml.

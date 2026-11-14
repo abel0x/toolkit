@@ -6,8 +6,11 @@
 
   if (!hashGenBtn) return;
 
+  // MD5 is not in Web Crypto; md5.js computes it. MD5 and SHA-1 are broken
+  // for security and are offered only to match existing checksums.
   const ALGORITHMS = [
-    { label: 'SHA-1',   algo: 'SHA-1',   legacy: true },
+    { label: 'MD5',     algo: 'MD5',     legacy: true, warning: 'MD5 is broken for security. Use it only to compare checksums.' },
+    { label: 'SHA-1',   algo: 'SHA-1',   legacy: true, warning: 'SHA-1 is cryptographically broken. Use for legacy compatibility only.' },
     { label: 'SHA-256', algo: 'SHA-256',  legacy: false },
     { label: 'SHA-384', algo: 'SHA-384',  legacy: false },
     { label: 'SHA-512', algo: 'SHA-512',  legacy: false },
@@ -27,25 +30,25 @@
     const data = encoder.encode(text);
 
     const results = await Promise.all(
-      ALGORITHMS.map(async ({ label, algo, legacy }) => {
+      ALGORITHMS.map(async ({ label, algo, legacy, warning }) => {
         try {
-          const hashBuffer = await crypto.subtle.digest(algo, data);
-          return { label, hash: bufferToHex(hashBuffer), legacy, error: null };
+          const hash = algo === 'MD5' ? window.ToolkitMD5.hex(data) : bufferToHex(await crypto.subtle.digest(algo, data));
+          return { label, hash, legacy, warning, error: null };
         } catch (err) {
-          return { label, hash: null, legacy, error: err.message };
+          return { label, hash: null, legacy, warning, error: err.message };
         }
       })
     );
 
     hashResults.innerHTML = '';
-    results.forEach(({ label, hash, legacy, error }) => {
+    results.forEach(({ label, hash, legacy, warning, error }) => {
       const card = document.createElement('div');
       card.className = 'hash-card';
       card.innerHTML = `
         <div class="hash-card-header">
           <span class="hash-algo">
             <span class="hash-algo-badge">${label}</span>
-            ${legacy ? '<span class="hash-legacy-note" title="SHA-1 is cryptographically broken. Use for legacy compatibility only.">⚠ Legacy</span>' : ''}
+            ${legacy ? `<span class="hash-legacy-note" title="${warning}">⚠ Legacy</span>` : ''}
           </span>
           <button class="icon-btn hash-copy-btn" aria-label="Copy ${label} hash" title="Copy hash">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

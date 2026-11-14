@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-14",
-    "sha256": "15197980e7aeba53e77f29ac76b4d4b165f3aa1e3125beeb27f7bb68027c727e"
+    "sha256": "3fd2824f8c855e2f3258d61d6adda2ea6e2557fbfdaa04c852cd4dee13044f31"
   },
   "license/index.html": {
     "date": "2026-11-14",
@@ -57,7 +57,7 @@
   },
   "tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "3599c03e7fab53fb3eba7d85ab6ea3a5e8d1860a1198de28ab70e688ed5b9dd3"
+    "sha256": "4fb5472ff7451607c8357c07529a39ddadebaaa9a5ce7f271e4d9848a1007dca"
   },
   "tools/color-palette.html": {
     "date": "2026-11-14",
@@ -113,7 +113,7 @@
   },
   "tools/file-checksum.html": {
     "date": "2026-11-14",
-    "sha256": "d9239497ae5a53ae5dbb00d0151f2f8e93fb974725343dd764030e3ff73a2bbb"
+    "sha256": "5cca51e0956417d6a431aca43301bfb528e09f8cd3f40502dc99d33938cb0505"
   },
   "tools/find-replace.html": {
     "date": "2026-11-14",
@@ -125,7 +125,7 @@
   },
   "tools/hash.html": {
     "date": "2026-11-14",
-    "sha256": "f0dc9b5430532f4e8aabd36d2e88d493d40387e6752342581ab7c9df73aa7c6d"
+    "sha256": "5bb00f1f83033b6f4df4423adbab0c44bddc990dc8bbb2d0e422fac4098c1d92"
   },
   "tools/hex-codec.html": {
     "date": "2026-11-14",
@@ -209,7 +209,7 @@
   },
   "tools/jwt-decoder.html": {
     "date": "2026-11-14",
-    "sha256": "c47b1f2a7334443a1201770d7313a41718973f7166158ee11a1f562da54c9a7c"
+    "sha256": "04733f7db26b1ae8061fffa5a2b7b458b0b8c3a553e2339cd646b0e1a499ea56"
   },
   "tools/line-numbers.html": {
     "date": "2026-11-14",
@@ -245,7 +245,7 @@
   },
   "tools/password.html": {
     "date": "2026-11-14",
-    "sha256": "94e7ed4a6d23ee10330da41f9c860424d9751868883dd7896e8ed24b838c8bf3"
+    "sha256": "b0bff4bc8398a85bf5a5ad8a6496d70597f692aeef5867177c7beb0172d066e7"
   },
   "tools/pem-jwk.html": {
     "date": "2026-11-14",
@@ -265,7 +265,7 @@
   },
   "tools/qr-reader.html": {
     "date": "2026-11-14",
-    "sha256": "9f7c03845990f857fb75263b31313c05036f0c8e3f69368d15a57bf63aada0b0"
+    "sha256": "e5c8cc083fd6110d50d5896b4f742da6689d664588c01dd68f845fd6dacd05aa"
   },
   "tools/query-string.html": {
     "date": "2026-11-14",
@@ -393,7 +393,7 @@
   },
   "tools/uuid.html": {
     "date": "2026-11-14",
-    "sha256": "3a911034d790ca1819e5ebade7fc85ff5a02c56b91c3cfc86abb9568f2ac8eb5"
+    "sha256": "b48f81f229601ae57bfc4dad2c2f7a6952b1c9a1e2224cbed6b15b7630810df0"
   },
   "tools/word-counter.html": {
     "date": "2026-11-14",
@@ -413,7 +413,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-14",
-    "sha256": "3906c5b541a4151ad1b98192a825a4fccbde09bd5423b8886657fa869a0d7395"
+    "sha256": "9976a6223c3e08915beb1b3e63e9b8f583cf578f643959ea0511fa629965a727"
   },
   "tr/license/index.html": {
     "date": "2026-11-14",
@@ -469,7 +469,7 @@
   },
   "tr/tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "1c861c475f8b1dec4220f342c5b89d1e6966199a702a286adb164bee8dd1c2bb"
+    "sha256": "97042a02127e7ff7dd3868b6da28476f7eb80477c6ec5386fe8bd415b0f384c8"
   },
   "tr/tools/color-palette.html": {
     "date": "2026-11-14",
@@ -525,7 +525,7 @@
   },
   "tr/tools/file-checksum.html": {
     "date": "2026-11-14",
-    "sha256": "9be4289f486d4fb8fc051d156147a173002dac14c2db5db12fe14e250637e125"
+    "sha256": "ff578e5f8e44369b058aa993cd9148b9b38e68cee56bfe5fbdcde76735618ecf"
   },
   "tr/tools/find-replace.html": {
     "date": "2026-11-14",
@@ -537,7 +537,7 @@
   },
   "tr/tools/hash.html": {
     "date": "2026-11-14",
-    "sha256": "dbf8039d7f3e0a0799ff7c5078d5587c740215e2e8dbcb48e1bf8e76954ef69f"
+    "sha256": "0f89f8cb6e222dcd21854e52b19b8e26187af855121f4c64bf3d3a4ff858ff5e"
   },
   "tr/tools/hex-codec.html": {
     "date": "2026-11-14",
@@ -621,7 +621,7 @@
   },
   "tr/tools/jwt-decoder.html": {
     "date": "2026-11-14",
-    "sha256": "7b898da0d49f6358211ba9ba1f3e433d697b58de27f57188865d2458a9f77229"
+    "sha256": "6c44fc6d140cbd26e61458b2ebf97f7f937d05967a80141965195997a323cb28"
   },
   "tr/tools/line-numbers.html": {
     "date": "2026-11-14",
@@ -657,7 +657,7 @@
   },
   "tr/tools/password.html": {
     "date": "2026-11-14",
-    "sha256": "e1db1478e8a387478beeee57a2a220e0bdf1d98c7bb3ee1cb4320297531f2829"
+    "sha256": "5eefed853368ee7f409c9ab1ee04d9037d862204570d0b9e4302c229928ef71b"
   },
   "tr/tools/pem-jwk.html": {
     "date": "2026-11-14",
@@ -677,7 +677,7 @@
   },
   "tr/tools/qr-reader.html": {
     "date": "2026-11-14",
-    "sha256": "bf13b89359a20b7c532e2aec799d39505ff85f47c635cd918e68eed2ecb11040"
+    "sha256": "3d56475a247973cbcdb223c541bc01dfb8b8f92863df41aaa9a2f1e705f98065"
   },
   "tr/tools/query-string.html": {
     "date": "2026-11-14",
@@ -805,7 +805,7 @@
   },
   "tr/tools/uuid.html": {
     "date": "2026-11-14",
-    "sha256": "0ed17fbc8bfe7797845af399c3a19085ad1d377fe6edd814cf8b1bebb0cff1b4"
+    "sha256": "62413ef9a787e92fc8adcc26f6b198452e0241673cea7612b63a1802efa68510"
   },
   "tr/tools/word-counter.html": {
     "date": "2026-11-14",
