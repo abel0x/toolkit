@@ -215,11 +215,18 @@ for (const tool of catalogue) {
 }
 assert.equal(catalogue.filter((tool) => tool.share).length, 10, 'Expected ten tools with a share link.');
 
-// Expansion tools used to share one placeholder icon; each now has its own,
-// shared with no other tool, and the registry carries it to the home page.
-for (const tool of catalogue.filter((entry) => entry.shell === 'expansion')) {
+// Every tool has an icon of its own: no two tools share one. The home page's
+// static cards show the same icons (build.py run_home_icons), and the
+// registry carries the expansion tools' icons to the cards home.js adds.
+for (const tool of catalogue) {
   const twins = catalogue.filter((other) => other.slug !== tool.slug && other.icon === tool.icon).map((other) => other.slug);
   assert.deepEqual(twins, [], `${tool.slug} shares its icon with ${twins.join(', ')}.`);
+}
+const homeHtml = readFileSync(join(root, 'index.html'), 'utf8');
+const homeCards = [...homeHtml.matchAll(/<a href="tools\/([a-z0-9-]+)\.html" class="hub-card"[^>]*>\s*<div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true">(<svg\b[\s\S]*?<\/svg>)/g)];
+assert(homeCards.length > 70, 'The home page lost its static tool cards.');
+for (const [, slug, icon] of homeCards) {
+  assert.equal(icon, catalogue.find((tool) => tool.slug === slug)?.icon, `The home card for ${slug} shows a different icon than _data/tools.json.`);
 }
 assert(!catalogue.some((tool) => tool.icon.includes('M12 3v18M3 12h18')), 'A tool still uses the old shared placeholder icon.');
 

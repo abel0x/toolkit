@@ -374,7 +374,7 @@ async function inspectIcons(bidi, context, baseUrl, issues, catalogue) {
   if (drawn.length !== expansion.size) issues.push(`home: ${drawn.length} of ${expansion.size} expansion tools have cards.`);
   if (cards.some((card) => !card.icon)) issues.push(`home: cards without an icon: ${cards.filter((card) => !card.icon).map((card) => card.slug).join(', ')}.`);
   if (cards.some((card) => card.icon.includes('M12 3v18M3 12h18'))) issues.push('home: a card still shows the old shared icon.');
-  if (new Set(drawn.map((card) => card.icon)).size !== drawn.length) issues.push('home: two expansion tools show the same icon.');
+  if (new Set(cards.map((card) => card.icon)).size !== cards.length) issues.push('home: two tools show the same icon.');
 }
 
 async function main() {

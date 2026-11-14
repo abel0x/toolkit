@@ -389,6 +389,31 @@ def run_registry():
         if revised != content:
             _write(path, revised)
     print(f'  OK    {len(base)} page tools and {len(expansion)} expansion tools.')
+    run_home_icons()
+
+
+# The home page lists most tools as static cards (home.js adds the rest from
+# the registry). Their icons come from _data/tools.json like every other icon.
+_HOME_CARD_ICON = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-card"[^>]*>\s*'
+                             r'<div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true">)'
+                             r'(<svg\b.*?</svg>)', re.DOTALL)
+
+
+def run_home_icons():
+    """Give the home page's static tool cards their catalogue icons."""
+    tools = {tool['slug']: tool for tool in _registry()}
+    path = os.path.join(ROOT, 'index.html')
+    html = _read(path)
+
+    def icon(match):
+        if match.group(2) not in tools:
+            raise SystemExit(f'index.html has a card for unknown tool {match.group(2)}.')
+        return match.group(1) + tools[match.group(2)]['icon']
+
+    revised, cards = _HOME_CARD_ICON.subn(icon, html)
+    if revised != html:
+        _write(path, revised)
+    print(f'  OK    {cards} home page cards carry their catalogue icons.')
 
 
 def _sitemap_pages():
