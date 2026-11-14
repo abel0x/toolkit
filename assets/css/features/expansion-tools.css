@@ -66,3 +66,17 @@
 @media (max-width: 520px) {
   .expansion-permissions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Image compressor */
+.ic-hint { margin: 0.5rem 0 1rem; font-size: 0.82rem; color: var(--text-muted); }
+.ic-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem 1rem; }
+.ic-row { display: grid; gap: 0.3rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+.ic-row:last-child { border-bottom: 0; }
+.ic-row__name { color: var(--text-primary); font-weight: 600; overflow-wrap: anywhere; }
+.ic-row__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ic-row__error { color: var(--red); }
+.ic-summary { margin-bottom: 0.5rem; color: var(--text-secondary); }
+.ic-compare { margin-top: 1rem; }
+.ic-compare__stage { position: relative; display: grid; max-width: 100%; margin-bottom: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--bg-surface); }
+.ic-compare__stage img { grid-area: 1 / 1; width: 100%; height: auto; display: block; }
+.ic-compare__slider { width: 100%; }

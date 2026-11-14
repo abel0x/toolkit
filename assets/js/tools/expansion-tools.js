@@ -550,33 +550,204 @@
   }
 
   function initImageCompressor() {
-    render(`<label class="form-label" for="imageCompressInput">Image file</label><div class="file-picker-row"><div class="file-picker"><input id="imageCompressInput" type="file" class="sr-only file-picker__input" accept="image/*" aria-describedby="imageCompressFileName" /><label class="btn btn-secondary file-picker__trigger" for="imageCompressInput"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Choose image file</span></label><span class="file-picker__name" id="imageCompressFileName" data-i18n-skip aria-live="polite">No file selected</span></div></div><div class="tool-split"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div></div><button class="btn btn-primary ix-dab43f" id="imageCompressRun">Compress image</button><div id="imageCompressResult" class="expansion-results ix-dab43f" hidden></div>`, () => {
+    render(`<label class="form-label" for="imageCompressInput">Image files</label><div class="file-picker-row"><div class="file-picker"><input id="imageCompressInput" type="file" class="sr-only file-picker__input" accept="image/*" multiple aria-describedby="imageCompressFileName" /><label class="btn btn-secondary file-picker__trigger" for="imageCompressInput"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Choose image files</span></label><span class="file-picker__name" id="imageCompressFileName" data-i18n-skip aria-live="polite">No file selected</span></div></div><p class="ic-hint">Drop images here too. Each is read and re-encoded on this device; the copies carry no EXIF metadata or location.</p><div class="ic-options"><div><label class="form-label" for="imageMaxWidth">Maximum width</label><input id="imageMaxWidth" type="number" class="form-control" value="1920" min="1" /></div><div><label class="form-label" for="imageMaxHeight">Maximum height</label><input id="imageMaxHeight" type="number" class="form-control" min="1" placeholder="No limit" /></div><div><label class="form-label" for="imageQuality">Quality (1–100)</label><input id="imageQuality" type="number" class="form-control" value="82" min="1" max="100" /></div><div><label class="form-label" for="imageFormat">Output format</label><select id="imageFormat" class="form-control form-select"><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/png">PNG</option></select></div><div><label class="form-label" for="imageTargetKb">Target size (KB, optional)</label><input id="imageTargetKb" type="number" class="form-control" min="5" placeholder="e.g. 200" /></div></div><button class="btn btn-primary ix-dab43f" id="imageCompressRun">Compress images</button><div id="imageCompressResult" class="expansion-results ix-dab43f" hidden></div><div id="imageCompare" class="ic-compare" hidden><div class="ic-compare__stage" id="imageCompareStage"><img id="imageCompareAfter" alt="" /><img id="imageCompareBefore" alt="" class="ic-compare__before" /></div><label class="form-label" for="imageCompareSlider">Original ← → Compressed</label><input id="imageCompareSlider" type="range" min="0" max="100" value="50" class="ic-compare__slider" /></div>`, () => {
       const input = $('#imageCompressInput');
       const fileName = $('#imageCompressFileName');
+      const result = $('#imageCompressResult');
+      const compare = $('#imageCompare');
+      const before = $('#imageCompareBefore');
+      const after = $('#imageCompareAfter');
+      const slider = $('#imageCompareSlider');
+      let files = [];
+      // Object URLs of the current results; the previous run's are revoked.
+      let live = [];
+
       function updateFileName() {
-        const file = input.files[0];
-        fileName.textContent = file ? file.name : t('No file selected');
-        fileName.title = file ? file.name : '';
+        fileName.textContent = !files.length ? t('No file selected')
+          : files.length === 1 ? files[0].name : t('{{count}} files selected', { count: files.length });
+        fileName.title = files.map((file) => file.name).join(', ');
+      }
+      function take(list) {
+        files = [...list].filter((file) => file.type.startsWith('image/'));
+        updateFileName();
       }
       updateFileName();
-      input.addEventListener('change', updateFileName);
-      window.addEventListener('toolkit:languagechange', () => {
-        if (!input.files[0]) updateFileName();
+      input.addEventListener('change', () => take(input.files));
+      window.addEventListener('toolkit:languagechange', updateFileName);
+      app.addEventListener('dragover', (event) => { if ([...(event.dataTransfer?.types || [])].includes('Files')) event.preventDefault(); });
+      app.addEventListener('drop', (event) => {
+        if (!event.dataTransfer?.files.length) return;
+        event.preventDefault();
+        take(event.dataTransfer.files);
       });
-      $('#imageCompressRun').addEventListener('click', () => {
-        const file = input.files[0]; if (!file) return toast('Choose an image file.', 'error');
-        const image = new Image(); const url = URL.createObjectURL(file);
-        image.onload = () => {
-          const maxWidth = Math.max(1, Number($('#imageMaxWidth').value) || image.width); const ratio = Math.min(1, maxWidth / image.width);
-          const canvas = document.createElement('canvas'); canvas.width = Math.round(image.width * ratio); canvas.height = Math.round(image.height * ratio); canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
-          const type = $('#imageFormat').value; canvas.toBlob((blob) => {
-            URL.revokeObjectURL(url); if (!blob) return toast('This format is not supported by your browser.', 'error');
-            const href = URL.createObjectURL(blob); const result = $('#imageCompressResult'); const previous = result.querySelector('a[href^="blob:"]'); if (previous) URL.revokeObjectURL(previous.href); result.textContent = ''; result.hidden = false;
-            const info = document.createElement('p'); info.textContent = `${image.width}×${image.height} → ${canvas.width}×${canvas.height}; ${Math.round(file.size / 1024)} KB → ${Math.round(blob.size / 1024)} KB.`;
-            const link = document.createElement('a'); link.className = 'btn btn-secondary'; link.href = href; link.download = `compressed.${type.split('/')[1]}`; link.textContent = 'Download compressed image'; result.append(info, link);
-          }, type, Math.min(1, Math.max(0.01, Number($('#imageQuality').value) / 100)));
+
+      // AVIF only where this browser can encode it.
+      const probe = document.createElement('canvas');
+      probe.width = probe.height = 1;
+      probe.toBlob((blob) => {
+        if (blob && blob.type === 'image/avif') {
+          const option = document.createElement('option');
+          option.value = 'image/avif';
+          option.textContent = 'AVIF';
+          $('#imageFormat').append(option);
+        }
+      }, 'image/avif');
+
+      const encode = (canvas, type, quality) => new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+      const kb = (bytes) => `${Math.round(bytes / 1024)} KB`;
+
+      function draw(bitmap, scale) {
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+        canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+        const context = canvas.getContext('2d');
+        context.imageSmoothingQuality = 'high';
+        context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        return canvas;
+      }
+
+      /* One image: scale to the limits, encode; with a target size, find the
+         highest quality that fits (binary search), and shrink the image when
+         even the lowest quality does not. */
+      async function compress(file, options) {
+        const bitmap = await createImageBitmap(file);
+        let scale = Math.min(1, options.maxWidth / bitmap.width, options.maxHeight / bitmap.height);
+        let canvas = draw(bitmap, scale);
+        const lossy = options.type !== 'image/png';
+        let blob = await encode(canvas, options.type, options.quality);
+        if (!blob || blob.type !== options.type) throw new Error('This format is not supported by your browser.');
+        let reached = null;
+        if (options.target && lossy) {
+          for (let attempt = 0; attempt < 6 && blob.size > options.target; attempt += 1) {
+            let low = 0.05;
+            let high = options.quality;
+            let best = await encode(canvas, options.type, low);
+            if (best.size <= options.target) {
+              for (let step = 0; step < 7; step += 1) {
+                const middle = (low + high) / 2;
+                const candidate = await encode(canvas, options.type, middle);
+                if (candidate.size <= options.target) { best = candidate; low = middle; } else high = middle;
+              }
+              blob = best;
+              break;
+            }
+            scale *= 0.85;
+            canvas = draw(bitmap, scale);
+            blob = await encode(canvas, options.type, options.quality);
+          }
+          reached = blob.size <= options.target;
+        }
+        const out = { width: bitmap.width, height: bitmap.height, newWidth: canvas.width, newHeight: canvas.height, blob, reached };
+        bitmap.close();
+        return out;
+      }
+
+      $('#imageCompressRun').addEventListener('click', async () => {
+        if (!files.length) return toast('Choose an image file.', 'error');
+        const type = $('#imageFormat').value;
+        const options = {
+          type,
+          maxWidth: Math.max(1, Number($('#imageMaxWidth').value) || Infinity),
+          maxHeight: Math.max(1, Number($('#imageMaxHeight').value) || Infinity),
+          quality: Math.min(1, Math.max(0.01, Number($('#imageQuality').value) / 100)),
+          target: Number($('#imageTargetKb').value) > 0 ? Number($('#imageTargetKb').value) * 1024 : 0
         };
-        image.onerror = () => { URL.revokeObjectURL(url); toast('The selected file could not be read as an image.', 'error'); }; image.src = url;
+        live.forEach((url) => URL.revokeObjectURL(url));
+        live = [];
+        result.textContent = '';
+        result.hidden = false;
+        compare.hidden = true;
+        const extension = type.split('/')[1];
+        const outputs = [];
+        let total = 0;
+        let saved = 0;
+        for (const file of files) {
+          const row = document.createElement('div');
+          row.className = 'ic-row';
+          const name = document.createElement('p');
+          name.className = 'ic-row__name';
+          name.dataset.i18nSkip = '';
+          name.textContent = file.name;
+          row.append(name);
+          try {
+            const done = await compress(file, options);
+            const info = document.createElement('p');
+            const change = Math.round((1 - done.blob.size / file.size) * 100);
+            info.textContent = `${done.width}×${done.height} → ${done.newWidth}×${done.newHeight}; ${kb(file.size)} → ${kb(done.blob.size)} (${change >= 0 ? '−' : '+'}${Math.abs(change)}%)`;
+            if (done.reached === false) info.textContent += ` ${t('Target size not reached.')}`;
+            const href = URL.createObjectURL(done.blob);
+            live.push(href);
+            const base = file.name.replace(/\.[^.]+$/, '');
+            const download = files.length === 1 ? `compressed.${extension}` : `${base}-compressed.${extension}`;
+            const link = document.createElement('a');
+            link.className = 'btn btn-secondary btn--sm';
+            link.href = href;
+            link.download = download;
+            link.textContent = t('Download');
+            const look = document.createElement('button');
+            look.type = 'button';
+            look.className = 'btn btn--ghost btn--sm';
+            look.textContent = t('Compare');
+            look.addEventListener('click', () => {
+              const original = URL.createObjectURL(file);
+              live.push(original);
+              before.src = original;
+              after.src = href;
+              compare.hidden = false;
+              slider.value = '50';
+              slider.dispatchEvent(new Event('input'));
+              compare.scrollIntoView({ block: 'nearest' });
+            });
+            const actions = document.createElement('div');
+            actions.className = 'ic-row__actions';
+            actions.append(link, look);
+            row.append(info, actions);
+            outputs.push({ name: download, blob: done.blob });
+            total += file.size;
+            saved += file.size - done.blob.size;
+          } catch (error) {
+            const info = document.createElement('p');
+            info.className = 'ic-row__error';
+            info.textContent = t(error.message === 'This format is not supported by your browser.' ? error.message : 'The selected file could not be read as an image.');
+            row.append(info);
+          }
+          result.append(row);
+        }
+        if (outputs.length > 1) {
+          const summary = document.createElement('p');
+          summary.className = 'ic-summary';
+          summary.textContent = t('{{count}} images: {{before}} → {{after}}', { count: outputs.length, before: kb(total), after: kb(total - saved) });
+          const all = document.createElement('button');
+          all.type = 'button';
+          all.className = 'btn btn-primary btn--sm';
+          all.textContent = t('Download all (ZIP)');
+          all.addEventListener('click', async () => {
+            if (!window.ToolkitZip) {
+              await new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                // Beside utils.js, with the same release version, on English and Turkish pages.
+                script.src = document.querySelector('script[src*="assets/js/core/utils.js"]').src.replace('utils.js', 'zip.js');
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.append(script);
+              });
+            }
+            const entries = await Promise.all(outputs.map(async (item) => ({ name: item.name, data: new Uint8Array(await item.blob.arrayBuffer()) })));
+            const url = URL.createObjectURL(window.ToolkitZip.zip(entries));
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = 'compressed-images.zip';
+            document.body.append(anchor);
+            anchor.click();
+            anchor.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+          });
+          result.prepend(summary, all);
+        }
+      });
+
+      slider.addEventListener('input', () => {
+        before.style.setProperty('clip-path', `inset(0 ${100 - Number(slider.value)}% 0 0)`);
       });
     });
   }

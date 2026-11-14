@@ -331,10 +331,10 @@
   },
   "tools/image-compressor.html": {
     "title": "Görsel Sıkıştırıcı — Toolkit",
-    "description": "Görselleri Canvas ile yerel olarak yeniden boyutlandırın ve sıkıştırın; hiçbir şey yüklenmez.",
+    "description": "JPEG, PNG ya da WebP görselleri tarayıcınızda yeniden boyutlandırıp sıkıştırın: birden çoğunu birden, en fazla genişlik ve yüksekliğe ya da bir hedef dosya boyutuna göre, önce-sonra kaydırıcısı ve sonuçların ZIP'iyle. Hiçbir şey yüklenmez; kopyalarda EXIF ya da konum bulunmaz.",
     "source": {
       "title": "Image Compressor — Toolkit",
-      "description": "Resize and recompress images locally with Canvas; nothing is uploaded."
+      "description": "Resize and recompress JPEG, PNG or WebP images in your browser: several at once, to a maximum width and height or a target file size, with a before and after slider and a ZIP of the results. Nothing is uploaded, and the copies carry no EXIF or location."
     }
   },
   "tools/image-dimensions.html": {

@@ -509,6 +509,35 @@ await withFirefox(async (page) => {
       ['Türkiye has one zone', turkey[0], 1], ['zone row', turkey[1], { includes: 'Europe/Istanbul' }], ['shares UTC+03:00', turkey[2], { includes: 'UTC+03:00' }],
       ['converted to UTC', text('#ctzConverted'), { includes: '09:00' }]];`);
 
+  await check('image-compressor', `
+    await wait(200);
+    // Two noisy 800×600 photos-to-be: noise does not compress for free.
+    const make = async (name, seed) => {
+      const canvas = document.createElement('canvas'); canvas.width = 800; canvas.height = 600;
+      const ctx = canvas.getContext('2d'); const data = ctx.createImageData(800, 600); let x = seed;
+      for (let i = 0; i < data.data.length; i += 4) { x = (x * 1103515245 + 12345) >>> 0; data.data[i] = x & 255; data.data[i + 1] = (x >> 8) & 255; data.data[i + 2] = (x >> 16) & 255; data.data[i + 3] = 255; }
+      ctx.putImageData(data, 0, 0);
+      return new File([await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))], name, { type: 'image/png' });
+    };
+    const files = new DataTransfer(); files.items.add(await make('a.png', 1)); files.items.add(await make('b.png', 2));
+    $('#imageCompressInput').files = files.files; $('#imageCompressInput').dispatchEvent(new Event('change', { bubbles: true }));
+    const picked = text('#imageCompressFileName');
+    set('#imageMaxWidth', '1920'); set('#imageMaxHeight', '300'); set('#imageFormat', 'image/jpeg', 'change'); set('#imageQuality', '90'); set('#imageTargetKb', '20');
+    const made = new Map(); const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { const url = createObjectURL.call(URL, blob); made.set(url, blob); return url; };
+    click('#imageCompressRun');
+    for (let i = 0; i < 200 && document.querySelectorAll('#imageCompressResult .ic-row a').length < 2; i += 1) await wait(50);
+    URL.createObjectURL = createObjectURL;
+    const rows = [...document.querySelectorAll('#imageCompressResult .ic-row')].map((row) => row.textContent);
+    const sizes = [...document.querySelectorAll('#imageCompressResult .ic-row a')].map((link) => link.download);
+    const blobs = [...document.querySelectorAll('#imageCompressResult .ic-row a')].map((link) => made.get(link.href));
+    document.querySelector('#imageCompressResult .ic-row button').click(); await wait(50);
+    set('#imageCompareSlider', '30');
+    return [['two files chosen', picked, '2 files selected'], ['height limit', rows[0], { includes: '800×600 → 400×300' }],
+      ['names', sizes, ['a-compressed.jpeg', 'b-compressed.jpeg']], ['target size reached', blobs.every((blob) => blob.size <= 20 * 1024 && blob.type === 'image/jpeg'), true],
+      ['summary and ZIP', text('#imageCompressResult'), { includes: 'Download all (ZIP)' }],
+      ['before/after view', [$('#imageCompare').hidden, $('#imageCompareBefore').style.clipPath], [false, 'inset(0px 70% 0px 0px)']]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');
