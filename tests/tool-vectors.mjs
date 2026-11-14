@@ -49,6 +49,8 @@ qrCode.make();
 const QR_MODULES = Array.from({ length: qrCode.getModuleCount() }, (_, row) => Array.from({ length: qrCode.getModuleCount() }, (_, col) => qrCode.isDark(row, col) ? 1 : 0));
 
 const failures = [];
+// A 64×48 JPEG with EXIF (camera, exposure, GPS, orientation 6) and a comment, made with Pillow.
+const JPEG = '/9j/4AAQSkZJRgABAQAAAQABAAD/4QG0RXhpZgAATU0AKgAAAAgACAEPAAIAAAAGAAAAbgEQAAIAAAAHAAAAdAESAAMAAAABAAYAAAExAAIAAAANAAAAfAE7AAIAAAAFAAAAioKYAAIAAAAHAAAAkIdpAAQAAAABAAAAmIglAAQAAAABAAABJgAAAABDYW5vbgBFT1MgUjYAAFRvb2xraXQgdGVzdAAAQXk/ZQAAPyAyMDI2AAAAB4KaAAUAAAABAAAA8oKdAAUAAAABAAAA+ognAAMAAAABAZAAAJADAAIAAAAUAAABApIJAAMAAAABAAEAAJIKAAUAAAABAAABFqQ0AAIAAAAIAAABHgAAAAAAAAABAAAA+gAAAA4AAAAFMjAyNjoxMToxNCAxMDoyMDozMAAAAAAyAAAAAVJGIDUwbW0AAAYAAQACAAAAAk4AAAAAAgAFAAAAAwAAAXQAAwACAAAAAkUAAAAABAAFAAAAAwAAAYwABQABAAAAAQAAAAAABgAFAAAAAQAAAaQAAAAAAAAAJgAAAAEAAAAZAAAAAQAAAmkAAAAyAAAAGwAAAAEAAAAIAAAAAQAAAB4AAAABAAAAeAAAAAH//gAHaGVsbG//2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAwAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDOooor5s+4CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9k=';
 let checked = 0;
 const toolsChecked = new Set();
 
@@ -355,6 +357,93 @@ await withFirefox(async (page) => {
   await check('html-minifier', `
     set('#hmin-input', '<!DOCTYPE html>\\n<html>\\n  <body>\\n    <p class = "x">a   b</p>\\n  </body>\\n</html>'); click('#hmin-btn');
     return [['doctype no longer stops it', value('#hmin-output'), '<!DOCTYPE html><html><body><p class="x">a b</p></body></html>']];`);
+
+  // 1.8.3: overlapping tools grow their own features.
+  await check('json-validator', `
+    const schema = JSON.stringify({ type: 'object', required: ['name', 'age'], additionalProperties: false,
+      properties: { name: { type: 'string', minLength: 2 }, age: { type: 'integer', minimum: 0 }, tags: { type: 'array', items: { type: 'string' }, uniqueItems: true }, home: { $ref: '#/$defs/home' } },
+      $defs: { home: { type: 'object', required: ['city'] } } });
+    set('#jval-input', '{"name":"A","age":-1.5,"tags":["x","x"],"home":{},"extra":true}'); set('#jval-schema', schema); click('#jval-btn');
+    const problems = [...document.querySelectorAll('#jval-errors li')].map((item) => item.textContent);
+    const badge = text('#jval-badge');
+    set('#jval-input', '{"name":"Ada","age":36}'); click('#jval-btn');
+    return [['schema problems with JSON paths', problems, ['/name Must be at least 2 characters long.', '/age Expected integer, found number.', '/age Must be at least 0.',
+        '/tags Item 1 repeats an earlier item.', '/home Missing required property "city".', '/ Property "extra" is not allowed.']],
+      ['badge', badge, 'Valid JSON, does not match the schema ✗'], ['matching data', text('#jval-badge'), 'Valid JSON, matches the schema ✓']];`);
+
+  await check('json-minifier', `
+    set('#jmin-input', '{\\n  // compiler options\\n  "compilerOptions": { "strict": true, /* on */ "lib": ["es2022",], },\\n  "url": "http://a//b",\\n}'); click('#jmin-btn');
+    const jsonc = value('#jmin-output');
+    set('#jmin-ascii', true, 'change'); set('#jmin-input', '{"ad":"Çağrı"}'); click('#jmin-btn');
+    return [['comments and trailing commas', jsonc, '{"compilerOptions":{"strict":true,"lib":["es2022"]},"url":"http://a//b"}'], ['ASCII escapes', value('#jmin-output'), '{"ad":"\\\\u00c7a\\\\u011fr\\\\u0131"}']];`);
+
+  await check('find-replace', `
+    set('#fr-case', false, 'change'); set('#fr-regex', true, 'change'); set('#fr-global', false, 'change');
+    set('#fr-input', 'ab ab'); set('#fr-find', '(a)(b)'); set('#fr-replace', '$2$1'); click('#fr-replace-btn');
+    const groups = [value('#fr-output'), text('#fr-stats')];
+    set('#fr-global', true, 'change'); set('#fr-regex', false, 'change');
+    set('#fr-input', 'Merhaba dünya. Merhaba!'); set('#fr-find', 'Merhaba'); set('#fr-replace', 'Selam');
+    click('#fr-add-rule'); const second = document.querySelector('.fr-rule--extra');
+    second.querySelector('.fr-find').value = 'dünya'; second.querySelector('.fr-replace').value = 'herkes';
+    click('#fr-replace-btn');
+    return [['groups count once, not three times', groups, ['ba ab', '1 match(es) replaced.']],
+      ['two rules in order', value('#fr-output'), 'Selam herkes. Selam!'], ['per-rule counts', text('#fr-stats'), '3 match(es) replaced. (Rule 1: 2, Rule 2: 1)']];`);
+
+  await check('open-graph', `
+    set('#ogTitle', 'Toolkit'); set('#ogDesc', 'Tools'); set('#ogUrl', 'https://www.example.com/x'); set('#ogImage', 'http://example.com/a.png');
+    set('input[name="ogPlatform"][value="whatsapp"]', true, 'change'); await wait(20);
+    const whatsapp = [$('#ogPreview').className, text('#prevUrl')];
+    const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 630;
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const files = new DataTransfer(); files.items.add(new File([blob], 'card.png', { type: 'image/png' }));
+    $('#ogImageFile').files = files.files; $('#ogImageFile').dispatchEvent(new Event('change')); await wait(300);
+    const checks = text('#ogChecks');
+    return [['WhatsApp card', whatsapp, ['og-card og-card--whatsapp og-card--small', 'example.com']], ['title length', checks, { includes: 'Title: 7 characters' }],
+      ['plain HTTP image flagged', checks, { includes: '! Image URL should use HTTPS.' }], ['local image size', checks, { includes: '✓ Chosen image: 1200 × 630 px' }],
+      ['remote image never loaded', performance.getEntriesByType('resource').some((entry) => entry.name.includes('example.com')), false]];`);
+
+  await check('image-metadata', `
+    const bytes = Uint8Array.from(atob(JPEG_PLACEHOLDER), (c) => c.charCodeAt(0));
+    const files = new DataTransfer(); files.items.add(new File([bytes], 'photo.jpg', { type: 'image/jpeg' }));
+    $('#imFile').files = files.files; $('#imFile').dispatchEvent(new Event('change')); await wait(400);
+    const shown = text('#imMeta');
+    const saved = [];
+    const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#imStrip'); await wait(50);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const blob = saved.find((item) => item instanceof Blob);
+    const clean = window.ToolkitImageMetadata.inspect(new Uint8Array(await blob.arrayBuffer()));
+    return [['camera', shown, { includes: 'EOS R6' }], ['exposure', shown, { includes: '1/250 s' }], ['aperture', shown, { includes: 'f/2.8' }],
+      ['GPS in decimal', shown, { includes: '38.420094' }], ['location warning', shown, { includes: 'says where it was taken' }],
+      ['file name', saved.find((item) => typeof item === 'string'), 'photo-clean.jpg'],
+      ['cleaned: no GPS, camera or comment, orientation kept', [clean.tags['gps:2'], clean.tags['ifd0:271'], clean.texts.length, clean.tags['ifd0:274']], [undefined, undefined, 0, 6]]];`.replace('JPEG_PLACEHOLDER', `'${JPEG}'`));
+
+  await check('qr-batch', `
+    await wait(300);
+    set('#qrbNamed', true, 'change'); set('#qrbValues', 'Masa 1, https://example.com/1\\n"Bahçe, sol"; https://example.com/2\\nMasa 1, https://example.com/3'); click('#qrbGenerate'); await wait(100);
+    const zipShown = !$('#qrbZip').hidden;
+    let zip;
+    const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { zip = blob; return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function () {};
+    click('#qrbZip'); await wait(400);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const bytes = new Uint8Array(await zip.arrayBuffer());
+    const names = []; const view = new DataView(bytes.buffer);
+    for (let at = 0; at + 46 < bytes.length; at += 1) {
+      if (view.getUint32(at, true) === 0x02014b50) { const length = view.getUint16(at + 28, true); names.push(new TextDecoder().decode(bytes.slice(at + 46, at + 46 + length))); }
+    }
+    return [['ZIP button', zipShown, true], ['local file header', [...bytes.slice(0, 4)], [80, 75, 3, 4]], ['names from the first column, made unique', names, ['Masa 1.png', 'Bahçe, sol.png', 'Masa 1-2.png']]];`);
+
+  await check('image-to-base64', `
+    let opened = 0; $('#i2bFile').click = () => { opened += 1; };
+    const zone = $('#i2bDrop');
+    for (const key of ['Enter', ' ', 'a']) zone.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+    return [['drop zone opens with Enter and Space', opened, 2]];`);
 
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);

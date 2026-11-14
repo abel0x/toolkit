@@ -6,6 +6,10 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Preview": "Önizle",
     "Description": "Açıklama",
-    "Description goes here...": "Açıklama buraya gelecek..."
+    "Description goes here...": "Açıklama buraya gelecek...",
+    "Image URL should use HTTPS.": "Görsel adresi HTTPS kullanmalı.",
+    "That file is not an image this browser can show.": "Bu dosya, tarayıcının gösterebildiği bir görsel değil.",
+    "Image URL uses HTTPS.": "Görsel adresi HTTPS kullanıyor.",
+    "No og:image: most platforms show a plain link.": "og:image yok: çoğu platform düz bir bağlantı gösterir."
   }))
 });

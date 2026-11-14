@@ -16,6 +16,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Copy Signature": "İmzayı Kopyala",
     "not verified": "doğrulanmadı",
     "Length:": "Uzunluk:",
+    "Normal": "Normal",
     "No key in this JWKS has the kid \"{{kid}}\".": "Bu JWKS'de kid değeri \"{{kid}}\" olan anahtar yok.",
     "This JWKS has several keys and the token names no kid.": "Bu JWKS'de birden fazla anahtar var ve token bir kid belirtmiyor.",
     "The token asks for {{alg}}, an HMAC algorithm, but this looks like a public key. Refused: that mix-up is a known attack.": "Token bir HMAC algoritması olan {{alg}} istiyor ama bu bir açık anahtara benziyor. Reddedildi: bu karışıklık bilinen bir saldırıdır.",

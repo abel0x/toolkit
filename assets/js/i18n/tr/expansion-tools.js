@@ -124,6 +124,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "weekly": "haftalık",
     "monthly": "aylık",
     "daily": "günlük",
+    "ISO": "ISO",
+    "Normal": "Normal",
     "30 seconds": "30 saniye",
     "60 seconds": "60 saniye",
     "NFC": "NFC",

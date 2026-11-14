@@ -9,6 +9,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Company": "Şirket",
     "Male": "Erkek",
     "Female": "Kadın",
-    "male": "erkek"
+    "male": "erkek",
+    "Software": "Yazılım"
   }))
 });

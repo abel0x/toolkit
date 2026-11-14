@@ -88,6 +88,13 @@ await withFirefox(async (page) => {
   for (const [path, width, height, action, shown, label] of [
     ['index.html', 1280, 900, () => { document.querySelector('.nav-command-trigger').click(); return true; }, 'dialog[open], [role="dialog"]:not([hidden])', 'tool finder open'],
     ['tools/hash.html', 1280, 900, () => { document.dispatchEvent(new KeyboardEvent('keydown', { key: '?', bubbles: true })); return true; }, 'dialog[open], [role="dialog"]:not([hidden])', 'shortcut help open'],
+    ['tools/json-validator.html', 1280, 900, () => {
+      document.querySelector('#jval-input').value = '{"a":"x"}';
+      document.querySelector('#jval-schema').value = '{"properties":{"a":{"type":"number"}},"required":["b"]}';
+      document.querySelector('#jval-btn').click();
+      return true;
+    }, '#jval-errors li', 'schema problems listed'],
+    ['tools/find-replace.html', 390, 844, () => { document.querySelector('#fr-add-rule').click(); return true; }, '.fr-rule--extra', 'a second replace rule'],
     ...['success', 'error'].map((type) => ['tools/random-token.html', 390, 844, new Function(`
       // On a long page a toast can float over a light button; put it there.
       const button = document.querySelector('main .btn--primary, main .btn-primary');
@@ -113,5 +120,5 @@ await withFirefox(async (page) => {
       + (process.env.AXE_DETAIL ? `\n    ${violation.detail.join('\n    ')}` : ''));
     throw new Error(`axe-core found ${violations.length} violations:\n${lines.join('\n')}`);
   }
-  console.log(`axe audit passed: ${audits} page states (${englishPages.length} English and ${turkishPages.length} Turkish pages on desktop, the English pages on a phone, the tool finder, the shortcut help and both kinds of toast) with no WCAG 2.2 A/AA or best-practice violations.`);
+  console.log(`axe audit passed: ${audits} page states (${englishPages.length} English and ${turkishPages.length} Turkish pages on desktop, the English pages on a phone, the tool finder, the shortcut help, both kinds of toast and two tool results) with no WCAG 2.2 A/AA or best-practice violations.`);
 });

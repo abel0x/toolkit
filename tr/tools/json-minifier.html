@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="JSON&#x27;daki tüm boşlukları kaldırın ve en kompakt geçerli çıktıyı üretin." />
+  <meta name="description" content="JSON’u en küçük geçerli biçimine küçültün; yorumlu ve sonda virgüllü JSON (JSONC) dahil, isteğe bağlı ASCII kaçışı ve kazanılan baytlarla." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tr/tools/json-minifier.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/json-minifier.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/json-minifier.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/json-minifier.html" />
   <meta property="og:title" content="JSON Küçültücü — Toolkit" />
-  <meta property="og:description" content="JSON&#x27;daki tüm boşlukları kaldırın ve en kompakt geçerli çıktıyı üretin." />
+  <meta property="og:description" content="JSON’u en küçük geçerli biçimine küçültün; yorumlu ve sonda virgüllü JSON (JSONC) dahil, isteğe bağlı ASCII kaçışı ve kazanılan baytlarla." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tr/tools/json-minifier.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="JSON Küçültücü — Toolkit" />
-  <meta name="twitter:description" content="JSON&#x27;daki tüm boşlukları kaldırın ve en kompakt geçerli çıktıyı üretin." />
+  <meta name="twitter:description" content="JSON’u en küçük geçerli biçimine küçültün; yorumlu ve sonda virgüllü JSON (JSONC) dahil, isteğe bağlı ASCII kaçışı ve kazanılan baytlarla." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>JSON Küçültücü — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=3086c2a81dbf" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "JSON Küçültücü", "url": "https://abel0x.github.io/toolkit/tr/tools/json-minifier.html", "description": "JSON'daki tüm boşlukları kaldırın ve en kompakt geçerli çıktıyı üretin.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "JSON Küçültücü", "item": "https://abel0x.github.io/toolkit/tr/tools/json-minifier.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "JSON Küçültücü", "url": "https://abel0x.github.io/toolkit/tr/tools/json-minifier.html", "description": "JSON’u en küçük geçerli biçimine küçültün; yorumlu ve sonda virgüllü JSON (JSONC) dahil, isteğe bağlı ASCII kaçışı ve kazanılan baytlarla.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "JSON Küçültücü", "item": "https://abel0x.github.io/toolkit/tr/tools/json-minifier.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -71,7 +71,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="4 8 2 12 4 16"/><polyline points="20 8 22 12 20 16"/><line x1="12" y1="8" x2="12" y2="16"/></svg></span><h1 class="section-title">JSON Küçültücü</h1></div>
-            <p class="section-desc">Boşlukları kaldırın ve JSON’u geçerli en küçük biçimine sıkıştırın.</p>
+            <p class="section-desc">JSON’u en küçük geçerli biçimine küçültün — tsconfig.json gibi yorumlu JSON dahil.</p>
           </div>
           <div class="tool-header__actions">
             <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="json-minifier"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Örneği dene</button>
@@ -93,6 +93,10 @@
                 <textarea id="jmin-output" class="form-control font-mono" rows="14" readonly placeholder="Küçültülmüş JSON burada görünecek…"></textarea>
               </div>
             </div>
+          </div>
+          <div class="jmin-options">
+            <label class="jmin-option"><input type="checkbox" id="jmin-comments" checked /> Yorumları ve sondaki virgülleri kabul et (tsconfig.json’daki gibi JSONC)</label>
+            <label class="jmin-option"><input type="checkbox" id="jmin-ascii" /> ASCII dışı karakterleri kaçışla yaz (\u00e7)</label>
           </div>
           <div class="form-group ix-0dc8cc">
             <span class="ix-5f7440" id="jmin-savings"></span>
@@ -141,14 +145,14 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/nav.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/i18n/tr/json-minifier.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/tools/json-minifier.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/example-starters.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/tool-io.js?v=74653962c61a" data-io="{&quot;inputs&quot;:{&quot;#jmin-input&quot;:&quot;.json,application/json,text/plain&quot;},&quot;outputs&quot;:{&quot;#jmin-output&quot;:{&quot;save&quot;:&quot;minified.json&quot;,&quot;beside&quot;:&quot;#jmin-copy&quot;}}}" defer></script>
+  <script src="../../assets/js/core/utils.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/nav.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/i18n/tr/json-minifier.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/tools/json-minifier.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/example-starters.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/tool-io.js?v=3086c2a81dbf" data-io="{&quot;inputs&quot;:{&quot;#jmin-input&quot;:&quot;.json,application/json,text/plain&quot;},&quot;outputs&quot;:{&quot;#jmin-output&quot;:{&quot;save&quot;:&quot;minified.json&quot;,&quot;beside&quot;:&quot;#jmin-copy&quot;}}}" defer></script>
 </body>
 </html>

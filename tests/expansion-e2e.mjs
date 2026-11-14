@@ -311,8 +311,9 @@ async function assertGeneratedContentI18nIsolation(bidi, context, baseUrl) {
     return {
       ok: document.querySelector('#prevTitle').textContent === 'Home'
         && document.querySelector('#prevDesc').textContent === 'Copy'
-        && document.querySelector('#prevUrl').textContent === 'https://example.test/value'
+        && document.querySelector('#prevUrl').textContent === 'EXAMPLE.TEST'
         && !document.querySelector('#ogPreview img')
+        && !document.querySelector('#prevImage').style.backgroundImage
         && !document.querySelector('#prevImgNotice').hidden,
       message: 'preview content was translated or a remote preview image was loaded.'
     };`);

@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser." />
+  <meta name="description" content="View an image’s EXIF metadata — camera, lens, exposure, date and GPS location — and download a copy with the metadata removed, without re-compressing. JPEG, PNG and WebP, in your browser." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/image-metadata.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/image-metadata.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/image-metadata.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/image-metadata.html" />
-  <script src="../assets/js/core/language-redirect.js?v=74653962c61a"></script>
+  <script src="../assets/js/core/language-redirect.js?v=3086c2a81dbf"></script>
   <meta property="og:title" content="Image Metadata Viewer — Toolkit" />
-  <meta property="og:description" content="View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser." />
+  <meta property="og:description" content="View an image’s EXIF metadata — camera, lens, exposure, date and GPS location — and download a copy with the metadata removed, without re-compressing. JPEG, PNG and WebP, in your browser." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/image-metadata.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Image Metadata Viewer — Toolkit" />
-  <meta name="twitter:description" content="View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser." />
+  <meta name="twitter:description" content="View an image’s EXIF metadata — camera, lens, exposure, date and GPS location — and download a copy with the metadata removed, without re-compressing. JPEG, PNG and WebP, in your browser." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Image Metadata Viewer — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=3086c2a81dbf" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Image Metadata Viewer", "url": "https://abel0x.github.io/toolkit/tools/image-metadata.html", "description": "View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Image Metadata Viewer", "item": "https://abel0x.github.io/toolkit/tools/image-metadata.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Image Metadata Viewer", "url": "https://abel0x.github.io/toolkit/tools/image-metadata.html", "description": "View an image’s EXIF metadata — camera, lens, exposure, date and GPS location — and download a copy with the metadata removed, without re-compressing. JPEG, PNG and WebP, in your browser.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Image Metadata Viewer", "item": "https://abel0x.github.io/toolkit/tools/image-metadata.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -69,7 +69,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg></span><h1 class="section-title gradient-text">Image Metadata Viewer</h1></div>
-            <p class="section-desc">View an image’s dimensions, file type, size and aspect ratio.</p>
+            <p class="section-desc">Read an image’s EXIF data — camera, settings, date and GPS location — and download a copy without it.</p>
           </div>
         </div>
         <!-- TOOL-HEADER:END -->
@@ -94,6 +94,11 @@
                 <tbody></tbody>
               </table>
             </div>
+          </div>
+          <div class="im-meta" id="imMeta" aria-live="polite" hidden></div>
+          <div class="im-actions" id="imActions" hidden>
+            <button type="button" class="btn btn-primary" id="imStrip">Download without metadata</button>
+            <p class="im-strip-note" id="imStripNote"></p>
           </div>
         </div>
         <!-- RELATED:START -->
@@ -135,10 +140,10 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/nav.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/i18n.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/tools/image-metadata.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/utils.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/nav.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/i18n.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/tools/image-metadata.js?v=3086c2a81dbf" defer></script>
 </body>
 </html>

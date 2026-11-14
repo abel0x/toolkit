@@ -7,6 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Validator": "Doğrulayıcı",
     "Enter at least one UUID.": "En az bir UUID girin.",
     "Created": "Oluşturuldu",
+    "ISO": "ISO",
     "Created {{time}}": "Oluşturulma: {{time}}",
     "VALID": "GEÇERLİ",
     "INVALID": "GEÇERSİZ",

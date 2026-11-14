@@ -201,3 +201,15 @@ function randomHexColor() {
     if (event.target instanceof Element && event.target.matches(fieldSelector)) annotate(runButtonFor(event.target));
   });
 }());
+
+/* Elements given role="button" (drop zones, mostly) answer Enter and Space
+   the way a real button does. A tool's own handler that calls
+   preventDefault() keeps the key to itself. */
+document.addEventListener('keydown', (event) => {
+  if (event.defaultPrevented || (event.key !== 'Enter' && event.key !== ' ')) return;
+  const target = event.target;
+  if (!(target instanceof HTMLElement) || target.getAttribute('role') !== 'button') return;
+  if (target.matches('button, a, input, select, textarea, summary')) return;
+  event.preventDefault();
+  target.click();
+});

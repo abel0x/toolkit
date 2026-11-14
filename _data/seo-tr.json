@@ -243,10 +243,10 @@
   },
   "tools/find-replace.html": {
     "title": "Bul ve Değiştir Aracı — Toolkit",
-    "description": "Regex desteği, büyük/küçük harf duyarlılığı ve genel değiştirme seçenekleriyle metni bulun ve değiştirin.",
+    "description": "Metni sırayla uygulanan bir kural listesi, düzenli ifadeler, büyük/küçük harf duyarlılığı ve tümünü değiştirme seçeneğiyle bulup değiştirin — tarayıcınızda.",
     "source": {
       "title": "Find and Replace Tool — Toolkit",
-      "description": "Find and replace text with regex support, case sensitivity and global replace options."
+      "description": "Find and replace text with a list of rules applied in order, regular expressions, case sensitivity and global replace — in your browser."
     }
   },
   "tools/gradient.html": {
@@ -331,10 +331,10 @@
   },
   "tools/image-metadata.html": {
     "title": "Görüntü Meta Verisi Görüntüleyici — Toolkit",
-    "description": "Görüntü meta verilerini görüntüleyin: boyutlar, dosya boyutu, en-boy oranı ve dahası — tamamen tarayıcınızda.",
+    "description": "Bir görselin EXIF meta verisini görün — kamera, lens, pozlama, tarih ve GPS konumu — ve meta verisi kaldırılmış bir kopyasını yeniden sıkıştırmadan indirin. JPEG, PNG ve WebP, tarayıcınızda.",
     "source": {
       "title": "Image Metadata Viewer — Toolkit",
-      "description": "View image metadata: dimensions, file size, aspect ratio and more — entirely in your browser."
+      "description": "View an image’s EXIF metadata — camera, lens, exposure, date and GPS location — and download a copy with the metadata removed, without re-compressing. JPEG, PNG and WebP, in your browser."
     }
   },
   "tools/image-to-base64.html": {
@@ -371,10 +371,10 @@
   },
   "tools/json-minifier.html": {
     "title": "JSON Küçültücü — Toolkit",
-    "description": "JSON'daki tüm boşlukları kaldırın ve en kompakt geçerli çıktıyı üretin.",
+    "description": "JSON’u en küçük geçerli biçimine küçültün; yorumlu ve sonda virgüllü JSON (JSONC) dahil, isteğe bağlı ASCII kaçışı ve kazanılan baytlarla.",
     "source": {
       "title": "JSON Minifier — Toolkit",
-      "description": "Remove all whitespace from JSON and produce the most compact valid output."
+      "description": "Minify JSON to its smallest valid form, including JSON with comments and trailing commas (JSONC), with optional ASCII escaping and the bytes saved."
     }
   },
   "tools/json-sorter.html": {
@@ -419,10 +419,10 @@
   },
   "tools/json-validator.html": {
     "title": "JSON Doğrulayıcı — Toolkit",
-    "description": "JSON sözdizimini doğrulayın ve satır numaralarıyla birlikte net hata mesajları alın.",
+    "description": "JSON sözdizimini satır numaralı açık hatalarla doğrulayın ve veriyi bir JSON Schema’ya (draft 2020-12 ve 07) göre denetleyin — tarayıcınızda.",
     "source": {
       "title": "JSON Validator — Toolkit",
-      "description": "Validate JSON syntax and get clear error messages with line numbers."
+      "description": "Validate JSON syntax with clear, line-numbered errors and check data against a JSON Schema (draft 2020-12 and 07) — locally in your browser."
     }
   },
   "tools/jwt-decoder.html": {
@@ -483,10 +483,10 @@
   },
   "tools/open-graph.html": {
     "title": "Open Graph Etiket Oluşturucu — Toolkit",
-    "description": "Zengin sosyal medya önizlemeleri için Açık Grafik ve Twitter Kartı meta etiketleri oluşturun.",
+    "description": "Open Graph ve Twitter Card meta etiketleri oluşturun, bağlantının Facebook, X, LinkedIn ve WhatsApp’ta nasıl görüneceğini önizleyin; başlık, açıklama ve görsel boyutunu denetleyin.",
     "source": {
       "title": "Open Graph Tag Generator — Toolkit",
-      "description": "Generate Open Graph and Twitter Card meta tags for rich social media previews."
+      "description": "Generate Open Graph and Twitter Card meta tags, preview how a link looks on Facebook, X, LinkedIn and WhatsApp, and check the title, description and image size."
     }
   },
   "tools/password-strength.html": {
@@ -523,10 +523,10 @@
   },
   "tools/qr-batch.html": {
     "title": "Toplu QR Kod Oluşturucu — Toolkit",
-    "description": "Bir değer listesinden tek seferde birden çok QR kod oluşturun — parti başına en fazla 50 kod.",
+    "description": "Bir değer listesinden ya da “ad, değer” satırlarından tek seferde 50’ye kadar QR kod üretin; 1000 piksele kadar boyutlarda, tek tek ya da ZIP olarak indirin.",
     "source": {
       "title": "QR Batch Generator — Toolkit",
-      "description": "Generate multiple QR codes at once from a list of values — up to 50 codes per batch."
+      "description": "Generate up to 50 QR codes at once from a list of values or name, value lines, in sizes up to 1000 px, and download them one by one or as a ZIP."
     }
   },
   "tools/qr-generator.html": {

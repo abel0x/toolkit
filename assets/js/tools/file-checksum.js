@@ -19,7 +19,7 @@
   // ─── Drag & drop ──────────────────────────────────────────────────────────
   drop.addEventListener('click', function() { fileInput.click(); });
   drop.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') fileInput.click();
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
   });
   drop.addEventListener('dragover', function(e) {
     e.preventDefault();

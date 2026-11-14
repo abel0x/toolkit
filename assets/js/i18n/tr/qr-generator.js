@@ -89,6 +89,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "sms": "SMS",
     "wifi": "Wi-Fi",
     "Token": "Belirteç",
+    "ISO": "ISO",
     "NFKD": "NFKD"
   }))
 });

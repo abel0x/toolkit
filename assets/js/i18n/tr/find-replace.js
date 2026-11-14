@@ -5,7 +5,11 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Replace": "Değiştir",
+    "Remove": "Kaldır",
     "Invalid": "Geçersiz",
-    "Enter a search term": "Bir arama terimi girin"
+    "Enter a search term": "Bir arama terimi girin",
+    "Replace with": "Şununla değiştir:",
+    "Rule": "Kural",
+    "Remove rule": "Kuralı kaldır"
   }))
 });

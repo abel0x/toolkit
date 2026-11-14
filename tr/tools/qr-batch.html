@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bir değer listesinden tek seferde birden çok QR kod oluşturun — parti başına en fazla 50 kod." />
+  <meta name="description" content="Bir değer listesinden ya da “ad, değer” satırlarından tek seferde 50’ye kadar QR kod üretin; 1000 piksele kadar boyutlarda, tek tek ya da ZIP olarak indirin." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tr/tools/qr-batch.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/qr-batch.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/qr-batch.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/qr-batch.html" />
   <meta property="og:title" content="Toplu QR Kod Oluşturucu — Toolkit" />
-  <meta property="og:description" content="Bir değer listesinden tek seferde birden çok QR kod oluşturun — parti başına en fazla 50 kod." />
+  <meta property="og:description" content="Bir değer listesinden ya da “ad, değer” satırlarından tek seferde 50’ye kadar QR kod üretin; 1000 piksele kadar boyutlarda, tek tek ya da ZIP olarak indirin." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tr/tools/qr-batch.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Toplu QR Kod Oluşturucu — Toolkit" />
-  <meta name="twitter:description" content="Bir değer listesinden tek seferde birden çok QR kod oluşturun — parti başına en fazla 50 kod." />
+  <meta name="twitter:description" content="Bir değer listesinden ya da “ad, değer” satırlarından tek seferde 50’ye kadar QR kod üretin; 1000 piksele kadar boyutlarda, tek tek ya da ZIP olarak indirin." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Toplu QR Kod Oluşturucu — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=3086c2a81dbf" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Toplu QR Kod Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/qr-batch.html", "description": "Bir değer listesinden tek seferde birden çok QR kod oluşturun — parti başına en fazla 50 kod.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Toplu QR Kod Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/qr-batch.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Toplu QR Kod Oluşturucu", "url": "https://abel0x.github.io/toolkit/tr/tools/qr-batch.html", "description": "Bir değer listesinden ya da “ad, değer” satırlarından tek seferde 50’ye kadar QR kod üretin; 1000 piksele kadar boyutlarda, tek tek ya da ZIP olarak indirin.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Toplu QR Kod Oluşturucu", "item": "https://abel0x.github.io/toolkit/tr/tools/qr-batch.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -69,7 +69,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 16V5a2 2 0 0 1 2-2h11"/><rect x="7" y="7" width="14" height="14" rx="2"/><path d="M10.5 10.5h2.5v2.5h-2.5zM15 15h2.5v2.5H15zM15 10.5h2.5M10.5 15.5v2"/></svg></span><h1 class="section-title gradient-text">Toplu QR Kod Oluşturucu</h1></div>
-            <p class="section-desc">Bir listeden aynı anda birden çok QR kodu oluşturun ve PNG olarak indirin.</p>
+            <p class="section-desc">Bir listeden 50’ye kadar QR kod üretin, dosyaları adlandırın ve hepsini ZIP olarak indirin.</p>
           </div>
         </div>
         <!-- TOOL-HEADER:END -->
@@ -87,13 +87,18 @@
                   <option value="150" selected>150 × 150</option>
                   <option value="200">200 × 200</option>
                   <option value="250">250 × 250</option>
+                  <option value="300">300 × 300</option>
+                  <option value="500">500 × 500</option>
+                  <option value="1000">1000 × 1000 (baskı)</option>
                 </select>
               </div>
+              <label class="qrb-option"><input type="checkbox" id="qrbNamed" /> Her satır “ad, değer”; ad, dosya adı olur</label>
               <button class="btn btn-primary ix-69d66e" id="qrbGenerate">QR Kodları Oluştur</button>
             </div>
             <div class="tool-split-right">
               <div class="ix-96bc2b">
                 <span class="ix-905e3a" id="qrbCount"></span>
+                <button type="button" class="btn btn-secondary btn--sm" id="qrbZip" hidden>Tümünü indir (ZIP)</button>
               </div>
               <div class="ix-01b674" id="qrbGrid"></div>
             </div>
@@ -139,14 +144,14 @@
   </footer>
 
   <!-- The QR generator and its UTF-8 adapter must load in this order. -->
-  <script src="../../assets/js/vendor/qrcode-generator.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/vendor/qrcode-generator-utf8.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/utils.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/nav.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/i18n/tr/qr-batch.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
-  <script src="../../assets/js/tools/qr-batch.js?v=74653962c61a" defer></script>
+  <script src="../../assets/js/vendor/qrcode-generator.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/vendor/qrcode-generator-utf8.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/utils.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/nav.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/i18n/tr/qr-batch.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=3086c2a81dbf" defer></script>
+  <script src="../../assets/js/tools/qr-batch.js?v=3086c2a81dbf" defer></script>
 </body>
 </html>

@@ -4,10 +4,25 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Length": "Uzunluk",
     "Validator": "Doğrulayıcı",
     "Valid JSON ✓": "Geçerli JSON ✓",
     "Invalid JSON ✗": "Geçersiz JSON ✗",
     "Invalid": "Geçersiz",
-    "Please enter JSON to validate.": "Doğrulamak için JSON girin."
+    "Please enter JSON to validate.": "Doğrulamak için JSON girin.",
+    "Keywords": "Anahtar Kelimeler",
+    "Minimum": "Asgari",
+    "Maximum": "Maksimum",
+    "Valid JSON, matches the schema ✓": "Geçerli JSON, şemaya uyuyor ✓",
+    "Valid JSON, does not match the schema ✗": "Geçerli JSON, şemaya uymuyor ✗",
+    "The schema is not valid JSON ✗": "Şema geçerli bir JSON değil ✗",
+    "The schema cannot be used ✗": "Şema kullanılamıyor ✗",
+    "No value is allowed here.": "Burada hiçbir değere izin verilmiyor.",
+    "Matches none of the allowed schemas (anyOf).": "İzin verilen şemaların hiçbirine uymuyor (anyOf).",
+    "Matches none of the allowed schemas (oneOf).": "İzin verilen şemaların hiçbirine uymuyor (oneOf).",
+    "Matches a schema it must not match (not).": "Uymaması gereken bir şemaya uyuyor (not).",
+    "The schema refers to itself too deeply.": "Şema kendine çok derin başvuruyor.",
+    "Errors": "Hatalar",
+    "errors": "hata"
   }))
 });

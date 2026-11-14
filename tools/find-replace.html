@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Find and replace text with regex support, case sensitivity and global replace options." />
+  <meta name="description" content="Find and replace text with a list of rules applied in order, regular expressions, case sensitivity and global replace — in your browser." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/find-replace.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/find-replace.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/find-replace.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/find-replace.html" />
-  <script src="../assets/js/core/language-redirect.js?v=74653962c61a"></script>
+  <script src="../assets/js/core/language-redirect.js?v=3086c2a81dbf"></script>
   <meta property="og:title" content="Find and Replace Tool — Toolkit" />
-  <meta property="og:description" content="Find and replace text with regex support, case sensitivity and global replace options." />
+  <meta property="og:description" content="Find and replace text with a list of rules applied in order, regular expressions, case sensitivity and global replace — in your browser." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/find-replace.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Find and Replace Tool — Toolkit" />
-  <meta name="twitter:description" content="Find and replace text with regex support, case sensitivity and global replace options." />
+  <meta name="twitter:description" content="Find and replace text with a list of rules applied in order, regular expressions, case sensitivity and global replace — in your browser." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Find and Replace Tool — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=74653962c61a" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=3086c2a81dbf" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=3086c2a81dbf" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Find and Replace Tool", "url": "https://abel0x.github.io/toolkit/tools/find-replace.html", "description": "Find and replace text with regex support, case sensitivity and global replace options.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Find and Replace Tool", "item": "https://abel0x.github.io/toolkit/tools/find-replace.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Find and Replace Tool", "url": "https://abel0x.github.io/toolkit/tools/find-replace.html", "description": "Find and replace text with a list of rules applied in order, regular expressions, case sensitivity and global replace — in your browser.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Find and Replace Tool", "item": "https://abel0x.github.io/toolkit/tools/find-replace.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -70,7 +70,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg></span><h1 class="section-title gradient-text">Find and Replace Tool</h1></div>
-            <p class="section-desc">Find and replace text with support for regex, case sensitivity and global replace.</p>
+            <p class="section-desc">Find and replace text with several rules in a row, regex, case sensitivity and global replace.</p>
           </div>
           <div class="tool-header__actions">
             <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="find-replace"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
@@ -79,16 +79,22 @@
         <!-- TOOL-HEADER:END -->
 
         <div class="card glass reveal">
-          <div class="ix-e1bb00">
-            <div class="form-group ix-ff227d">
-              <label class="form-label" for="fr-find">Find</label>
-              <input type="text" id="fr-find" class="form-control font-mono" placeholder="Search pattern..." />
-            </div>
-            <div class="form-group ix-ff227d">
-              <label class="form-label" for="fr-replace">Replace with</label>
-              <input type="text" id="fr-replace" class="form-control font-mono" placeholder="Replacement text..." />
+          <div class="fr-rules" id="fr-rules">
+            <div class="ix-e1bb00 fr-rule">
+              <div class="form-group ix-ff227d">
+                <label class="form-label" for="fr-find">Find</label>
+                <input type="text" id="fr-find" class="form-control font-mono" placeholder="Search pattern..." />
+              </div>
+              <div class="form-group ix-ff227d">
+                <label class="form-label" for="fr-replace">Replace with</label>
+                <input type="text" id="fr-replace" class="form-control font-mono" placeholder="Replacement text..." />
+              </div>
             </div>
           </div>
+          <p class="fr-rules-help">
+            <button type="button" class="btn btn--ghost btn--sm" id="fr-add-rule">+ Add rule</button>
+            <span>Rules run from top to bottom, each on the result of the one before.</span>
+          </p>
 
           <div class="form-group ix-26d944">
             <label class="ix-fae94d">
@@ -115,7 +121,7 @@
           <div class="ix-1b19e6">
             <button class="btn btn-primary" id="fr-replace-btn">Replace</button>
             <button class="btn btn-secondary" id="fr-copy-btn">Copy Output</button>
-            <span class="ix-1e564e" id="fr-stats"></span>
+            <span class="fr-stats" id="fr-stats" aria-live="polite"></span>
           </div>
         </div>
         <!-- RELATED:START -->
@@ -157,12 +163,12 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/nav.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/i18n.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/tools/find-replace.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/example-starters.js?v=74653962c61a" defer></script>
-  <script src="../assets/js/core/tool-io.js?v=74653962c61a" data-io="{&quot;inputs&quot;:{&quot;#fr-input&quot;:&quot;.txt,.csv,.tsv,.log,.md,text/plain&quot;},&quot;outputs&quot;:{&quot;#fr-output&quot;:{&quot;save&quot;:&quot;replaced.txt&quot;,&quot;beside&quot;:&quot;#fr-copy-btn&quot;}}}" defer></script>
+  <script src="../assets/js/core/utils.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/nav.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/i18n.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/tools/find-replace.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=3086c2a81dbf" defer></script>
+  <script src="../assets/js/core/tool-io.js?v=3086c2a81dbf" data-io="{&quot;inputs&quot;:{&quot;#fr-input&quot;:&quot;.txt,.csv,.tsv,.log,.md,text/plain&quot;},&quot;outputs&quot;:{&quot;#fr-output&quot;:{&quot;save&quot;:&quot;replaced.txt&quot;,&quot;beside&quot;:&quot;#fr-copy-btn&quot;}}}" defer></script>
 </body>
 </html>

@@ -11,6 +11,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid date": "Geçersiz tarih",
     "Invalid timestamp": "Geçersiz zaman damgası",
     "Select a date and time": "Bir tarih ve saat seçin",
+    "ISO": "ISO",
     "Read as milliseconds": "Milisaniye olarak okundu",
     "Read as microseconds": "Mikrosaniye olarak okundu",
     "Read as nanoseconds": "Nanosaniye olarak okundu",

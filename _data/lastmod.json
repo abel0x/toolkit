@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-14",
-    "sha256": "856fdec67e474825cc111d69be9d7695446e8ef35c70911a1fddeb2165d2a296"
+    "sha256": "70f3265c5d3d20234621c871d77aac59b7d69d943d670a7acdaf5578054bd394"
   },
   "license/index.html": {
     "date": "2026-11-14",
@@ -121,7 +121,7 @@
   },
   "tools/find-replace.html": {
     "date": "2026-11-14",
-    "sha256": "516bcf314c0979fc1670de43adc827c118615846db91f638145b87157901e228"
+    "sha256": "fe4833dcd42298f962130a1a572b3a45bc306bf13e2bf7b6f8b4532a5a7698c5"
   },
   "tools/gradient.html": {
     "date": "2026-11-14",
@@ -165,7 +165,7 @@
   },
   "tools/image-metadata.html": {
     "date": "2026-11-14",
-    "sha256": "44b24c3f97c440dc41bdf0bbfecd0ff07ab8311808b360da7a01e75548373195"
+    "sha256": "14c71d67229772950b9a3ab46da4b3ff419c0d4b504da17289f04f1fa8b63858"
   },
   "tools/image-to-base64.html": {
     "date": "2026-11-14",
@@ -185,7 +185,7 @@
   },
   "tools/json-minifier.html": {
     "date": "2026-11-14",
-    "sha256": "334ca82b8dc736f1fb37e81886c9b7939a11af4179305be777e287bab1578eed"
+    "sha256": "857ac66afc9964f092cecb9ac34b296cd812df20c69e42f8708352262c27f249"
   },
   "tools/json-sorter.html": {
     "date": "2026-11-14",
@@ -209,7 +209,7 @@
   },
   "tools/json-validator.html": {
     "date": "2026-11-14",
-    "sha256": "875e98b2922cb520f290ed90dd2951e904dc489e8769771643064800fc942152"
+    "sha256": "5ce45f9811659ee16b6854adb6e4c2a1a8a254526069a05f966e446eb0ec1946"
   },
   "tools/jwt-decoder.html": {
     "date": "2026-11-14",
@@ -241,7 +241,7 @@
   },
   "tools/open-graph.html": {
     "date": "2026-11-14",
-    "sha256": "6b4f6aef9fca40c51afd2fac70f106bb8b5f60c6a4fcd97ab21cb5ba3bb5f2a5"
+    "sha256": "840d1b51de0790a9b0664ffb6be6594ad32bacdd2c09d034a1b2f6a262f25bc7"
   },
   "tools/password-strength.html": {
     "date": "2026-11-14",
@@ -261,7 +261,7 @@
   },
   "tools/qr-batch.html": {
     "date": "2026-11-14",
-    "sha256": "f73aa8b9e9fcfb0a266636d90eeb70130c1a8459679bd1e2265bf6c3ef80ad3f"
+    "sha256": "283bac5d9856faf8f064e8206c7e1edb91e70f12658d15e67c38414b6fd5d7f3"
   },
   "tools/qr-generator.html": {
     "date": "2026-11-14",
@@ -417,7 +417,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-14",
-    "sha256": "65d5299d6ea2af1416734d9d1ac5d59a0b313f00392c3bda623e91ce8b045508"
+    "sha256": "ccb1a0a706627dd163a54f5c71e986d427ecbc6b9a5f6c89db511e424c22e025"
   },
   "tr/license/index.html": {
     "date": "2026-11-14",
@@ -537,7 +537,7 @@
   },
   "tr/tools/find-replace.html": {
     "date": "2026-11-14",
-    "sha256": "29542095a355f06c39f8159257be0c91d500384c2b43fdf70991cdd3b42d01db"
+    "sha256": "1af9526fdafc5245f32a52b55a62540f5830a8ef9dcdbbd1da582598f32d127c"
   },
   "tr/tools/gradient.html": {
     "date": "2026-11-14",
@@ -581,7 +581,7 @@
   },
   "tr/tools/image-metadata.html": {
     "date": "2026-11-14",
-    "sha256": "27337ca46fa900f70871f5d17219fdc48511b99c0b4c0c32339e46263142cb39"
+    "sha256": "c9246282d9b9119a28121266003a3251ae187edfacc797f44361c39f8a2c0521"
   },
   "tr/tools/image-to-base64.html": {
     "date": "2026-11-14",
@@ -601,7 +601,7 @@
   },
   "tr/tools/json-minifier.html": {
     "date": "2026-11-14",
-    "sha256": "f7da8e96a894d18ede404ec29f49d9acdc0730989d0f8c0fe662cf3cfb29c379"
+    "sha256": "5ece86891840ee724e66f4829788ffa23ca062542bb1ed7c31d7c9de79524666"
   },
   "tr/tools/json-sorter.html": {
     "date": "2026-11-14",
@@ -625,7 +625,7 @@
   },
   "tr/tools/json-validator.html": {
     "date": "2026-11-14",
-    "sha256": "0189c4e229a504109a0b97e396f6a550427a56b0e49a715de3fe653336c60760"
+    "sha256": "4ea938dcbefd6ea92cdd7e9a6d1125b06ae074503ee8706e65caaf1195280c7f"
   },
   "tr/tools/jwt-decoder.html": {
     "date": "2026-11-14",
@@ -657,7 +657,7 @@
   },
   "tr/tools/open-graph.html": {
     "date": "2026-11-14",
-    "sha256": "aba636df8b130ba19119be61727cd43a2b891944353a31972dedde51a79efaba"
+    "sha256": "f874009c378e0d2e22f566ddb0bd820a6425f78deed5333d05be923cb171f0f8"
   },
   "tr/tools/password-strength.html": {
     "date": "2026-11-14",
@@ -677,7 +677,7 @@
   },
   "tr/tools/qr-batch.html": {
     "date": "2026-11-14",
-    "sha256": "09bafb15f20fdc40e7eac5dd44a057610509d2dccbec6c3fa643d380506da8f2"
+    "sha256": "14319bfef1df43ea3e05b98f4a320bf718d33baadea851f1d754a80ea2694981"
   },
   "tr/tools/qr-generator.html": {
     "date": "2026-11-14",
