@@ -17,7 +17,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Digits": "Basamak sayısı",
     "Records": "Kayıtlar",
     "Words": "Kelimeler",
-    ".json": ".json",
     ".mov": ".mov",
     ".conf": ".conf",
     "Hide": "Gizle",

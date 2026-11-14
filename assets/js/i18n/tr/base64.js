@@ -5,7 +5,6 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Encoding": "Kodlama",
-    "Output": "Çıktı",
     "Validate": "Doğrula",
     "Invalid": "Geçersiz",
     "Input is empty": "Girdi boş",

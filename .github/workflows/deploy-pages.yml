@@ -68,6 +68,9 @@ jobs:
       - name: Test keyboard shortcut help and share links in Firefox
         run: node tests/shortcuts-share-e2e.mjs
 
+      - name: Test opening files and copying and downloading output in Firefox
+        run: node tests/tool-io-e2e.mjs
+
       - name: Exercise browser tool flows in Firefox
         run: node tests/expansion-e2e.mjs
 

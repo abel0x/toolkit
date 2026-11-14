@@ -215,6 +215,19 @@ for (const tool of catalogue) {
 }
 assert.equal(catalogue.filter((tool) => tool.share).length, 10, 'Expected ten tools with a share link.');
 
+// tool-io.js (Open file, Copy, Download) loads exactly on the tools with "io",
+// carrying that entry, in English and Turkish.
+for (const tool of catalogue) {
+  for (const prefix of ['', 'tr/']) {
+    const page = `${prefix}tools/${tool.slug}.html`;
+    const tags = readFileSync(join(root, page), 'utf8').match(/<script src="[^"]*assets\/js\/core\/tool-io\.js[^"]*" data-io="([^"]*)" defer><\/script>/g) || [];
+    if (!tool.io) { assert.equal(tags.length, 0, `${page} loads tool-io.js without "io" in _data/tools.json.`); continue; }
+    assert.equal(tags.length, 1, `${page} needs tool-io.js once.`);
+    const config = JSON.parse(tags[0].match(/data-io="([^"]*)"/)[1].replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&'));
+    assert.deepEqual(config, tool.io, `${page} passes tool-io.js another "io" entry than _data/tools.json.`);
+  }
+}
+
 // Every tool has an icon of its own: no two tools share one. The home page's
 // static cards show the same icons (build.py run_home_icons), and the
 // registry carries the expansion tools' icons to the cards home.js adds.

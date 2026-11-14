@@ -6,6 +6,10 @@
 .expansion-card { overflow: visible; }
 .expansion-tool { min-height: 16rem; }
 
+/* A run button or button row was followed by the next field with no gap. */
+.expansion-tool .btn + .form-group,
+.expansion-tool .btn-row + .form-group { margin-top: 1.25rem; }
+
 .expansion-tool .form-hint {
   margin: 0.75rem 0 0;
   color: var(--text-muted);

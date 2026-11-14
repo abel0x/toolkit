@@ -4,11 +4,9 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Output": "Çıktı",
     "Calculate": "Hesapla",
     "Preview": "Önizle",
     "Copy output": "Çıktıyı kopyala",
-    "Download": "İndir",
     "Length": "Uzunluk",
     "Width": "Genişlik",
     "From": "Başlangıç",
@@ -112,7 +110,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Enter at least one absolute URL.": "En az bir mutlak URL girin.",
     "Generate a sitemap first.": "Önce bir site haritası oluşturun.",
     "Check contrast": "Kontrastı denetle",
-    "File": "Dosya",
     "image/jpeg": "resim/jpeg",
     "image/webp": "resim/webp",
     "image/png": "resim/png",

@@ -1192,6 +1192,49 @@ input[type="range"]:focus { outline: none; }
 
 .tool-col-header .control-label { margin-bottom: 0; }
 
+/* tool-io.js: a field's label on the left, Open file / Copy / Download on
+   the right; a field shows a dashed outline while a file is dragged over. */
+.field-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.field-head > label,
+.field-head > .form-label,
+.field-head > .control-label { margin-bottom: 0; }
+.field-head--bare { justify-content: flex-end; }
+
+.field-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.btn.field-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 1.65rem;
+  padding: 0 0.65rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+/* Beside a label (21px) the 26px buttons take no extra height, so fields
+   placed side by side still start on the same line with or without them. */
+.field-head:not(.field-head--bare) .field-actions { margin-block: -0.17rem; }
+.field-head--bare { margin-bottom: 0.6rem; }
+
+.is-file-over {
+  outline: 2px dashed var(--border-hover);
+  outline-offset: 2px;
+}
+
 /* ── Gradient Text ────────────────────────────────────────── */
 /* Kept for existing markup; emphasis now comes from weight, not colour. */
 .gradient-text { color: inherit; }

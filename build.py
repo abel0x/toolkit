@@ -84,8 +84,30 @@ UNPUBLISHED_SUFFIXES = ('.md',)
 # ---------------------------------------------------------------------------
 
 _RELATED_COUNT = 4
+_IO_FILE_NAME = re.compile(r'[a-z0-9][a-z0-9.-]*\.[a-z0-9]+')
+
+
+def _io_problems(io):
+    """Explain what is wrong with a tool's "io" entry (see tool-io.js)."""
+    if not isinstance(io, dict) or not io or set(io) - {'inputs', 'outputs'}:
+        return ['io holds "inputs" and/or "outputs"']
+    problems = []
+    for selector, accept in io.get('inputs', {}).items():
+        if not _ID_SELECTOR.fullmatch(selector) or not isinstance(accept, str) or not accept:
+            problems.append(f'io input {selector} needs an #id and a list of accepted file types')
+    for selector, options in io.get('outputs', {}).items():
+        if not _ID_SELECTOR.fullmatch(selector) or not isinstance(options, dict) or set(options) - {'copy', 'save', 'beside'}:
+            problems.append(f'io output {selector} needs an #id and copy, save or beside')
+            continue
+        if not options.get('copy') and not options.get('save'):
+            problems.append(f'io output {selector} adds neither a Copy nor a Download button')
+        if 'save' in options and not _IO_FILE_NAME.fullmatch(str(options['save'])):
+            problems.append(f'io output {selector} saves to an unusable file name')
+        if 'beside' in options and not _ID_SELECTOR.fullmatch(str(options['beside'])):
+            problems.append(f'io output {selector} sits beside something that is not an #id')
+    return problems
 _ID_SELECTOR = re.compile(r'#[A-Za-z][\w-]*')
-_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'share', 'icon', 'shell', 'exampleStarter'}
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'share', 'io', 'icon', 'shell', 'exampleStarter'}
 _REGISTRY = None
 
 
@@ -129,6 +151,9 @@ def _registry():
             if (not isinstance(fields, list) or not fields or set(share) - {'fields', 'action'}
                     or not all(isinstance(field, str) and _ID_SELECTOR.fullmatch(field) for field in fields + [share.get('action', '#x')])):
                 errors.append(f'{label}: share needs "fields" (a list of #id selectors) and optionally an "action" #id')
+        io = entry.get('io')
+        if io is not None:
+            errors.extend(f'{label}: {problem}' for problem in _io_problems(io))
         if entry.get('exampleStarter') and not expansion:
             errors.append(f'{label}: exampleStarter applies only to expansion tools')
         tools.append(dict(entry, catLabel=categories.get(entry.get('cat'), '')))
@@ -626,6 +651,7 @@ _SHARE_ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stro
                '<path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>')
 _SHARE_SCRIPT = '<script src="../assets/js/core/share-link.js" defer></script>'
 _SHARE_SCRIPT_TAG = re.compile(r'[ \t]*<script src="\.\./assets/js/core/share-link\.js(?:\?v=[0-9a-f]+)?" defer></script>\n')
+_IO_SCRIPT_TAG = re.compile(r'[ \t]*<script src="\.\./assets/js/core/tool-io\.js(?:\?v=[0-9a-f]+)?" data-io="[^"]*" defer></script>\n')
 _SAMPLE_ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
                 'stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 '
                 '10l-5.7-1.3L12 3Z"/></svg>')
@@ -718,12 +744,19 @@ def _with_tool_header(html, tool, filename):
 
 
 def _with_share_script(html, tool):
-    """Load share-link.js on the pages whose header has a "Copy link" button."""
-    html = _SHARE_SCRIPT_TAG.sub('', html)
-    if not tool.get('share'):
+    """Load share-link.js where the header has "Copy link", and tool-io.js with
+    the tool's "io" entry where fields open files or outputs copy and save."""
+    html = _IO_SCRIPT_TAG.sub('', _SHARE_SCRIPT_TAG.sub('', html))
+    scripts = []
+    if tool.get('share'):
+        scripts.append(_SHARE_SCRIPT)
+    if tool.get('io'):
+        config = html_lib.escape(json.dumps(tool['io'], ensure_ascii=False, separators=(',', ':')), quote=True)
+        scripts.append(f'<script src="../assets/js/core/tool-io.js" data-io="{config}" defer></script>')
+    if not scripts:
         return html
     body_end = html.rindex('</body>')
-    return html[:body_end] + f'  {_SHARE_SCRIPT}\n' + html[body_end:]
+    return html[:body_end] + ''.join(f'  {script}\n' for script in scripts) + html[body_end:]
 
 
 def run_tool_headers():

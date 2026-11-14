@@ -9,7 +9,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Converted to CSV!": "CSV’ye dönüştürüldü!",
     "JSON must be an array of objects.": "JSON, nesnelerden oluşan bir dizi olmalıdır.",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Nothing to download": "İndirilecek bir şey yok",
     "Nothing to download.": "İndirilecek bir şey yok.",
     "Please enter JSON.": "Lütfen JSON girin.",
     ".csv": ".csv"

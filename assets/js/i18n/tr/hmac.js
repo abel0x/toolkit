@@ -4,7 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Output": "Çıktı",
     "HMAC generated!": "HMAC oluşturuldu!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter a message.": "Lütfen bir ileti girin.",

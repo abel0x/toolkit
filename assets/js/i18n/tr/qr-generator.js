@@ -4,8 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Output": "Çıktı",
-    "Download": "İndir",
     "Remove": "Kaldır",
     "Password": "Parola",
     "Width": "Genişlik",
@@ -22,7 +20,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Please fill in the required fields": "Lütfen zorunlu alanları doldurun",
     "QR code generated!": "QR kodu oluşturuldu!",
     "QR library not loaded yet — please try again": "QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin",
-    "File": "Dosya",
     "image/png": "resim/png",
     "Mode": "Mod",
     ".mjs": ".mjs",

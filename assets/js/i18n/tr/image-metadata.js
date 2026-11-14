@@ -9,7 +9,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Height": "Yükseklik",
     "Reader": "Okuyucu",
     "Please select an image file": "Lütfen bir görüntü dosyası seçin",
-    "File": "Dosya",
     "Filename": "Dosya adı",
     "Aspect Ratio": "En Boy Oranı",
     "File Size": "Dosya Boyutu"

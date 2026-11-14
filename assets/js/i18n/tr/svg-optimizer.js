@@ -4,7 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Output": "Çıktı",
     "Remove": "Kaldır",
     "From": "Başlangıç",
     "Parser": "Ayrıştırıcı",
@@ -14,7 +13,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid SVG": "Geçersiz SVG",
     "Paste or upload an SVG first": "Önce bir SVG yapıştırın veya yükleyin",
     "No file selected": "Dosya seçilmedi",
-    "File": "Dosya",
     ".svg": ".svg",
     "Remove comments": "Yorumları kaldır",
     "Remove DOCTYPE": "DOCTYPE'ı kaldır",

@@ -4,7 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Output": "Çıktı",
     "Invalid": "Geçersiz",
     "Decoded from Base32!": "Base32 kodu çözüldü!",
     "Input is empty": "Girdi boş",

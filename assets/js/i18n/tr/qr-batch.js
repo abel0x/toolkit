@@ -4,7 +4,6 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Download": "İndir",
     "Enter at least one value": "En az bir değer girin",
     "QR library not loaded yet — please try again": "QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin",
     "image/png": "resim/png",
