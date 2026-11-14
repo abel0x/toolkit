@@ -1,7 +1,8 @@
 /* ═══════════════════════════════════════════════════════════
    TOOLKIT — assets/js/pages/home.js
    Homepage search + filter orchestration
-   Depends on: tools-data.js (TOOLS_DATA global)
+   Every tool already has a card in index.html (build.py writes the
+   ones that are not hand-written), so this script only filters them.
    ═══════════════════════════════════════════════════════════ */
 
 (function initHubSearch() {
@@ -14,47 +15,6 @@
   const noResults    = document.getElementById('hubNoResults');
 
   if (!hubGrid) return; // not on the homepage
-
-  /* ── Data-driven cards for every registered tool ───────── */
-  function addMissingCards() {
-    if (typeof TOOLS_DATA === 'undefined') return;
-    const known = new Set([...hubGrid.querySelectorAll('.hub-card')]
-      .map((card) => card.getAttribute('href')?.split('/').pop()?.replace(/\.html$/, ''))
-      .filter(Boolean));
-
-    TOOLS_DATA.forEach((tool) => {
-      if (known.has(tool.slug)) return;
-      const card = document.createElement('a');
-      card.href = `tools/${tool.slug}.html`;
-      card.className = 'hub-card';
-      card.dataset.cat = tool.cat;
-      card.dataset.tags = (tool.tags || []).join(' ');
-
-      const header = document.createElement('div');
-      header.className = 'hub-card-header';
-      const icon = document.createElement('div');
-      icon.className = 'hub-card-icon';
-      icon.setAttribute('aria-hidden', 'true');
-      icon.innerHTML = tool.icon;
-      const title = document.createElement('h3');
-      title.className = 'hub-card-title';
-      title.textContent = tool.name;
-      header.append(icon, title);
-
-      const description = document.createElement('p');
-      description.className = 'hub-card-desc';
-      description.textContent = tool.desc;
-      card.append(header, description);
-      hubGrid.appendChild(card);
-    });
-
-    const total = TOOLS_DATA.length;
-    const headingCount = document.querySelector('#hubHeading .gradient-text');
-    if (headingCount) headingCount.textContent = `${total} Tools`;
-    window.ToolkitI18n?.apply(hubGrid);
-  }
-
-  addMissingCards();
 
   /* ── Tool count on every category tab ──────────────────── */
   filterBtns.forEach((btn) => {

@@ -309,7 +309,7 @@ for (const asset of [
   'assets/js/vendor/qrcode-generator.LICENSE.txt',
   'assets/js/vendor/jsQR.min.js',
   'assets/js/vendor/jsQR.LICENSE.txt',
-  'assets/js/vendor/bcrypt.min.js',
+  'assets/js/vendor/bcryptjs.umd.js',
   'assets/js/vendor/bcrypt.LICENSE.txt',
   'words/manifest.json',
   'license/',
@@ -370,21 +370,22 @@ assert.equal(
   '6f139698c4ccab1764764600cc6d1baf12fa00f00ee4b8781e36ed337e0fda07',
   'The pinned jsQR 1.4.0 distribution has changed unexpectedly.'
 );
-assert(existsSync(join(root, 'assets/js/vendor/bcrypt.min.js')), 'The self-hosted bcrypt library is missing.');
+assert(existsSync(join(root, 'assets/js/vendor/bcryptjs.umd.js')), 'The self-hosted bcrypt library is missing.');
+assert(!existsSync(join(root, 'assets/js/vendor/bcrypt.min.js')), 'The retired bcrypt.js 2.4.3 build is still published.');
 assert(existsSync(join(root, 'assets/js/vendor/bcrypt.LICENSE.txt')), 'The bcrypt library licence is missing.');
-const bcryptVendor = readFileSync(join(root, 'assets/js/vendor/bcrypt.min.js'));
+const bcryptVendor = readFileSync(join(root, 'assets/js/vendor/bcryptjs.umd.js'));
 assert.equal(
   createHash('sha256').update(bcryptVendor).digest('hex'),
-  'afd4bd299bcde6710dd6fa029156e3e1174c48bc006b8a9eba32f964e5923783',
-  'The pinned bcrypt.js 2.4.3 distribution has changed unexpectedly.'
+  'ed01b52b436504d8bb7086d93fee4bd8edbb22d8ed88e1b456e0c604f30e79c4',
+  'The pinned bcryptjs 3.0.3 UMD distribution has changed unexpectedly.'
 );
 const bcryptHtml = readFileSync(join(toolsDirectory, 'bcrypt.html'), 'utf8');
-const bcryptVendorIndex = bcryptHtml.indexOf('../assets/js/vendor/bcrypt.min.js');
+const bcryptVendorIndex = bcryptHtml.indexOf('../assets/js/vendor/bcryptjs.umd.js');
 const bcryptModuleIndex = bcryptHtml.indexOf('../assets/js/tools/bcrypt.js');
 assert(bcryptVendorIndex !== -1 && bcryptVendorIndex < bcryptModuleIndex,
   'Bcrypt Generator must load the local bcrypt library before its tool module.');
 const bcryptModule = readFileSync(join(root, 'assets/js/tools/bcrypt.js'), 'utf8');
-assert(bcryptModule.includes('window.dcodeIO.bcrypt'), 'Bcrypt Generator does not use the pinned bcrypt implementation.');
+assert(bcryptModule.includes('window.bcrypt'), 'Bcrypt Generator does not use the pinned bcrypt implementation.');
 assert(!bcryptModule.includes('PBKDF2'), 'Bcrypt Generator must not substitute PBKDF2 output for bcrypt.');
 for (const pageName of ['qr-generator.html', 'qr-batch.html']) {
   const html = readFileSync(join(toolsDirectory, pageName), 'utf8');

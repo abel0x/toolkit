@@ -379,7 +379,7 @@ async function assertBcryptCompatibility(bidi, context, baseUrl) {
       knownVectorMatches,
       wrongPasswordRejected,
       generated,
-      generatedRoundTrip: generated && window.dcodeIO.bcrypt.compareSync('Toolkit test', generatedHash)
+      generatedRoundTrip: generated && window.bcrypt.compareSync('Toolkit test', generatedHash)
     };
   })()`);
   assert.deepEqual(result, {

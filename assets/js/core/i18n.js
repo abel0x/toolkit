@@ -116,6 +116,9 @@
 
     document.documentElement.lang = language;
     document.documentElement.dataset.language = language;
+    // English pages ship no dictionary: every string is already English, so
+    // walking the document would only cost time (most on the home page).
+    if (!turkish) return;
     translateDocumentTitle();
 
     // An option without a value inherits its translated text as its functional value.
@@ -165,6 +168,10 @@
     document.title = toolTitle ? `${t(toolTitle[1])} — Toolkit` : t(originalDocumentTitle);
   }
 
+  function languageLabel(locale) {
+    return `${t('Language')}: ${locale === 'tr' ? 'Türkçe' : 'English'}`;
+  }
+
   function createLanguageControl() {
     const container = document.querySelector('.nav-actions') || document.querySelector('.nav-container');
     const toggle = document.getElementById('navToggle');
@@ -176,7 +183,8 @@
     const trigger = document.createElement('button');
     trigger.className = 'nav-language__trigger';
     trigger.type = 'button';
-    trigger.setAttribute('aria-label', t('Language'));
+    // The name holds the visible language (WCAG 2.5.3, label in name).
+    trigger.setAttribute('aria-label', languageLabel(language));
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
     trigger.title = t('Language');
@@ -268,7 +276,7 @@
       const current = control.querySelector('.nav-language__current');
       const menu = control.querySelector('.nav-language__menu');
       if (trigger) {
-        trigger.setAttribute('aria-label', t('Language'));
+        trigger.setAttribute('aria-label', languageLabel(next));
         trigger.title = t('Language');
       }
       if (current) current.textContent = next === 'tr' ? 'Türkçe' : 'English';
@@ -303,5 +311,5 @@
     }));
     added.forEach((node) => apply(node.nodeType === Node.TEXT_NODE ? node.parentElement : node));
   });
-  observer.observe(document.body, { childList: true, subtree: true });
+  if (turkish) observer.observe(document.body, { childList: true, subtree: true });
 }());

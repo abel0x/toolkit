@@ -362,6 +362,29 @@ async function inspectShare(bidi, context, baseUrl, issues, catalogue) {
   await evaluate(bidi, context, `(() => { localStorage.removeItem('toolkit-language'); sessionStorage.clear(); return true; })()`);
 }
 
+// Controls added by script (the menu buttons, the tool finder and the
+// shortcut list) must carry their visible words in their name (WCAG 2.5.3).
+async function inspectNames(bidi, context, baseUrl, issues) {
+  for (const page of ['index.html', 'tools/jwt-decoder.html', 'tr/tools/jwt-decoder.html']) {
+    await navigate(bidi, context, `${baseUrl}/${page}`);
+    await press(bidi, context, CONTROL, 'k');
+    await press(bidi, context, ESCAPE);
+    await evaluate(bidi, context, `(() => { document.querySelector('.footer-shortcuts')?.click(); return true; })()`);
+    const mismatches = await evaluate(bidi, context, `(() => {
+      const visible = (element) => {
+        const clone = element.cloneNode(true);
+        clone.querySelectorAll('[aria-hidden="true"]').forEach((node) => node.remove());
+        return clone.textContent.replace(/\\s+/g, ' ').trim();
+      };
+      return [...document.querySelectorAll('button[aria-label], a[aria-label]')]
+        .map((element) => ({ name: element.getAttribute('aria-label'), text: visible(element) }))
+        .filter(({ name, text }) => /\\p{L}/u.test(text) && !name.toLowerCase().includes(text.toLowerCase()));
+    })()`);
+    mismatches.forEach(({ name, text }) => issues.push(`${page}: "${name}" does not contain its visible label "${text}".`));
+    await evaluate(bidi, context, `(() => { document.querySelector('dialog.shortcut-help')?.close(); return true; })()`);
+  }
+}
+
 async function inspectIcons(bidi, context, baseUrl, issues, catalogue) {
   await navigate(bidi, context, `${baseUrl}/index.html`);
   const cards = await evaluate(bidi, context, `[...document.querySelectorAll('.hub-card[href]')].map((card) => ({
@@ -398,6 +421,7 @@ async function main() {
     await inspectHelp(bidi, tab.context, baseUrl, issues);
     await inspectShare(bidi, tab.context, baseUrl, issues, catalogue);
     await inspectIcons(bidi, tab.context, baseUrl, issues, catalogue);
+    await inspectNames(bidi, tab.context, baseUrl, issues);
 
     // A fragment never leaves the browser: no request carried a shared value.
     const leaked = requests.filter((url) => url.includes('#') || url.includes('share='));

@@ -389,31 +389,59 @@ def run_registry():
         if revised != content:
             _write(path, revised)
     print(f'  OK    {len(base)} page tools and {len(expansion)} expansion tools.')
-    run_home_icons()
+    run_home_cards()
 
 
-# The home page lists most tools as static cards (home.js adds the rest from
-# the registry). Their icons come from _data/tools.json like every other icon.
+# The home page lists every tool as a static card. Most cards are written by
+# hand (their descriptions are shorter than the catalogue's); the build gives
+# them their catalogue icons and adds a card for every other tool between the
+# HUB-CARDS markers, in catalogue order, so the page needs no script for them.
 _HOME_CARD_ICON = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-card"[^>]*>\s*'
                              r'<div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true">)'
                              r'(<svg\b.*?</svg>)', re.DOTALL)
+_HOME_CARDS_BLOCK = re.compile(r'[ \t]*<!-- HUB-CARDS:START -->.*?<!-- HUB-CARDS:END -->\n', re.DOTALL)
+_HOME_NO_RESULTS = '          <!-- No-results message -->\n'
 
 
-def run_home_icons():
-    """Give the home page's static tool cards their catalogue icons."""
-    tools = {tool['slug']: tool for tool in _registry()}
+def _home_card(tool):
+    """Return one generated home page card."""
+    escape = html_lib.escape
+    return (f'          <a href="tools/{tool["slug"]}.html" class="hub-card" data-cat="{tool["cat"]}" '
+            f'data-tags="{escape(" ".join(tool["tags"]))}">\n'
+            f'            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true">{tool["icon"]}</div>'
+            f'<h3 class="hub-card-title">{escape(tool["name"], quote=False)}</h3></div>\n'
+            f'            <p class="hub-card-desc">{escape(tool["desc"], quote=False)}</p>\n'
+            f'          </a>\n')
+
+
+def run_home_cards():
+    """Give the home page a card for every tool, each with its catalogue icon."""
+    tools = _registry()
+    by_slug = {tool['slug']: tool for tool in tools}
     path = os.path.join(ROOT, 'index.html')
-    html = _read(path)
+    html = _HOME_CARDS_BLOCK.sub('', _read(path))
+    original = _read(path)
 
     def icon(match):
-        if match.group(2) not in tools:
+        if match.group(2) not in by_slug:
             raise SystemExit(f'index.html has a card for unknown tool {match.group(2)}.')
-        return match.group(1) + tools[match.group(2)]['icon']
+        return match.group(1) + by_slug[match.group(2)]['icon']
 
-    revised, cards = _HOME_CARD_ICON.subn(icon, html)
-    if revised != html:
-        _write(path, revised)
-    print(f'  OK    {cards} home page cards carry their catalogue icons.')
+    html, written = _HOME_CARD_ICON.subn(icon, html)
+    present = set(re.findall(r'<a href="tools/([a-z0-9-]+)\.html" class="hub-card"', html))
+    # The same order home.js used: page tools, then expansion tools.
+    ordered = ([tool for tool in tools if tool.get('shell') != 'expansion']
+               + [tool for tool in tools if tool.get('shell') == 'expansion'])
+    missing = [tool for tool in ordered if tool['slug'] not in present]
+    if _HOME_NO_RESULTS not in html:
+        raise SystemExit('index.html lost its no-results message, the anchor for generated cards.')
+    if missing:
+        block = ('          <!-- HUB-CARDS:START -->\n' + ''.join(_home_card(tool) for tool in missing)
+                 + '          <!-- HUB-CARDS:END -->\n')
+        html = html.replace(_HOME_NO_RESULTS, block + _HOME_NO_RESULTS, 1)
+    if html != original:
+        _write(path, html)
+    print(f'  OK    {written} written and {len(missing)} generated home page cards.')
 
 
 def _sitemap_pages():
@@ -1116,6 +1144,9 @@ def _turkish_packs(english_pages):
         core_scripts.update(core)
         module_scripts.update(modules)
         page_modules[relative] = modules
+    # command-palette.js fetches the catalogue on any page, so its pack is
+    # always built, even though no page loads the catalogue up front.
+    module_scripts.update(_CATALOGUE_SCRIPTS)
     shared_source = '\n'.join(_read(os.path.join(ROOT, *path.split('/'))) for path in sorted(core_scripts))
     module_sources = {}
     for path in sorted(module_scripts):

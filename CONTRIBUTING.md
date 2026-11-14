@@ -200,7 +200,7 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--all` | Run every task below, then refresh the cache version. Run this before committing. |
 | `--check` | Run every task in memory and fail, listing the files, if anything is out of date. |
 | `--site` | Copy only the published files into `_site/` and verify every page reference and precache entry resolves. CI deploys this directory. |
-| `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`. |
+| `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`, and the home page cards: every hand-written card gets its catalogue icon, and each tool without one gets a generated card between `<!-- HUB-CARDS:START -->` and `<!-- HUB-CARDS:END -->`, so the home page needs no script to list the tools. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
 | `--tool-headers` | Generate each tool page's breadcrumb (with its category) and header (catalogue icon, title, description, "Try a sample" button) from `_data/tools.json`. |
 | `--related` | End every tool page with its four related tools (from `related` in `_data/tools.json`) and a link to its home page category, between `<!-- RELATED:START -->` and `<!-- RELATED:END -->`. |

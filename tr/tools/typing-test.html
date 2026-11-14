@@ -27,12 +27,12 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Yazma Hızı Testi — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../../assets/css/features/typing-test.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=62936c724d2e" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../../assets/css/features/typing-test.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=585dc032da58" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Yazma Hızı Testi", "url": "https://abel0x.github.io/toolkit/tr/tools/typing-test.html", "description": "İngilizce veya Türkçe temalı kelime listeleriyle yazma hızınızı ve doğruluğunuzu ölçün.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Yazma Hızı Testi", "item": "https://abel0x.github.io/toolkit/tr/tools/typing-test.html"}]}]}</script>
@@ -137,7 +137,7 @@
             </div>
           </div>
 
-          <div class="tt-mode-options" aria-label="Test uzunluğu">
+          <div role="group" class="tt-mode-options" aria-label="Test uzunluğu">
             <div class="tt-length-group" data-mode-options="time">
               <span class="form-label">Süre</span>
               <div class="tt-option-row" role="radiogroup" aria-label="Süre">
@@ -169,7 +169,7 @@
           <div class="form-group">
             <div class="tt-category-heading">
               <span class="form-label" id="tt-category-label">Kelime listesi</span>
-              <span class="tt-category-nav" aria-label="Kelime listesi gezintisi">
+              <span role="group" class="tt-category-nav" aria-label="Kelime listesi gezintisi">
                 <button class="tt-category-scroll" id="tt-category-prev" type="button" aria-label="Önceki kelime listelerini göster">←</button>
                 <button class="tt-category-scroll" id="tt-category-next" type="button" aria-label="Daha fazla kelime listesi göster">→</button>
               </span>
@@ -217,7 +217,7 @@
           <div class="tt-stream-shell" id="tt-stream-shell">
             <label class="sr-only" for="tt-input">Gösterilen kelimeleri yazın</label>
             <input id="tt-input" class="tt-input" type="text" inputmode="text" lang="en" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Gösterilen kelimeleri yazın" />
-            <div class="tt-stream" id="tt-stream" data-i18n-skip aria-label="Yazılacak kelime akışı"></div>
+            <div role="group" class="tt-stream" id="tt-stream" data-i18n-skip aria-label="Yazılacak kelime akışı"></div>
             <span class="tt-caret" id="tt-caret" aria-hidden="true"></span>
           </div>
           <div class="tt-test-footer">
@@ -244,7 +244,7 @@
             <div class="tt-result-stat"><span>Geçen süre</span><strong id="tt-result-elapsed">0:00</strong></div>
           </div>
           <p class="tt-comparability">KPM, kelime başına beş karaktere göre hesaplanır; bu nedenle diller arasında doğrudan karşılaştırılamaz. Yanında karakter/dk. değeri gösterilir.</p>
-          <div class="tt-breakdown" aria-label="Karakter dağılımı">
+          <div role="group" class="tt-breakdown" aria-label="Karakter dağılımı">
             <span><b id="tt-correct">0</b> doğru</span><span><b id="tt-incorrect">0</b> yanlış</span><span><b id="tt-extra">0</b> fazladan</span><span><b id="tt-missed">0</b> atlanan</span>
           </div>
           <section class="tt-chart-section" aria-labelledby="tt-chart-heading">
@@ -311,12 +311,12 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/core/nav.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/i18n/tr/typing-test.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=62936c724d2e" defer></script>
-  <script src="../../assets/js/tools/typing-test.js?v=62936c724d2e" defer></script>
+  <script src="../../assets/js/core/utils.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/core/nav.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/i18n/tr/typing-test.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=585dc032da58" defer></script>
+  <script src="../../assets/js/tools/typing-test.js?v=585dc032da58" defer></script>
 </body>
 </html>

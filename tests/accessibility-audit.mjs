@@ -66,6 +66,25 @@ for (const file of pages) {
   }
 }
 
+// ARIA 1.2 forbids naming generic elements: a labelled div, span, p, pre or
+// code needs a role (region, group, img, note, status …) or the name is lost.
+for (const file of pages) {
+  const name = pageName(file);
+  const html = readFileSync(file, 'utf8');
+  for (const element of html.matchAll(/<(div|span|p|pre|code)\b[^>]*\baria-label(?:ledby)?\s*=[^>]*>/gi)) {
+    assert(/\brole\s*=/.test(element[0]), `${name}: ${element[0].slice(0, 90)} is named but has no role.`);
+  }
+  // A control whose name differs from its visible text cannot be called by
+  // what it shows (WCAG 2.5.3): the name must contain the visible words.
+  for (const control of html.matchAll(/<(button|a)\b([^>]*)\baria-label="([^"]*)"([^>]*)>([\s\S]*?)<\/\1>/gi)) {
+    const visible = control[5].replace(/<[^>]*aria-hidden="true"[^>]*>[\s\S]*?<\/[a-z]+>/gi, '').replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+    if (!/[A-Za-z]/.test(visible)) continue;
+    assert(control[3].toLowerCase().includes(visible.toLowerCase()),
+      `${name}: "${control[3]}" does not contain the visible label "${visible}".`);
+  }
+}
+
 const expansionScript = readFileSync(join(root, 'assets', 'js', 'tools', 'expansion-tools.js'), 'utf8');
 for (const input of expansionScript.matchAll(/<input\b[^>]*\btype=["']file["'][^>]*>/gi)) {
   assert(/\bclass=["'][^"']*\bsr-only\b[^"']*["']/i.test(input[0]) || /\bhidden\b/i.test(input[0]),

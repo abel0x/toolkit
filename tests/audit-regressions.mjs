@@ -33,14 +33,14 @@ await withFirefox(async (page) => {
   assert(homeMatches['iyileştirici'].includes('SVG İyileştirici'), 'Turkish home search missed "SVG İyileştirici".');
   assert(homeMatches['İKİLİ'].includes('İkili Metin Dönüştürücü'), 'Turkish upper-case home search missed "İkili Metin Dönüştürücü".');
 
-  // Every catalogue description has Turkish copy for the command palette.
-  const untranslated = await page.evaluate(() => TOOLS_DATA
-    .filter((tool) => window.ToolkitI18n.t(tool.desc) === tool.desc)
-    .map((tool) => tool.slug));
-  assert.deepEqual(untranslated, [], `Tool descriptions without Turkish copy: ${untranslated.join(', ')}`);
+  // The home page writes every card into its HTML and, like the tool pages,
+  // loads the catalogue only when the finder opens.
+  assert.equal(await page.evaluate(() => typeof TOOLS_DATA), 'undefined', 'The home page should not load the tool catalogue up front.');
   const paletteMatches = await page.evaluate(async () => {
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    for (let tries = 0; tries < 50 && !document.querySelector('.command-palette [role="option"]'); tries += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
     const input = document.querySelector('.command-palette input');
     input.value = 'iyileştirici';
     input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -48,6 +48,11 @@ await withFirefox(async (page) => {
     return [...document.querySelectorAll('.command-palette [role="option"]')].map((option) => option.textContent);
   });
   assert(paletteMatches.some((text) => text.includes('SVG İyileştirici')), 'Turkish palette search missed "SVG İyileştirici".');
+  // Every catalogue description has Turkish copy for the command palette.
+  const untranslated = await page.evaluate(() => TOOLS_DATA
+    .filter((tool) => window.ToolkitI18n.t(tool.desc) === tool.desc)
+    .map((tool) => tool.slug));
+  assert.deepEqual(untranslated, [], `Tool descriptions without Turkish copy: ${untranslated.join(', ')}`);
 
   // Tool pages leave the catalogue out until the finder opens, then list every tool.
   await open('/tools/hash.html');

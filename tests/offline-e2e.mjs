@@ -225,7 +225,7 @@ async function main() {
       '/toolkit/words/en/common-1000.json',
       '/toolkit/words/tr/common-1000.json',
       '/toolkit/assets/js/vendor/qrcode-generator.js',
-      '/toolkit/assets/js/vendor/bcrypt.min.js',
+      '/toolkit/assets/js/vendor/bcryptjs.umd.js',
       '/toolkit/license/'
     ]) {
       assert(installation.requests.some((request) => request === pathname || request.startsWith(`${pathname}?`)),

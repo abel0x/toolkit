@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-14",
-    "sha256": "e09e4726be271f4b42606199f270779ad8300103efe2954ca7fab5c70855ca4f"
+    "sha256": "15197980e7aeba53e77f29ac76b4d4b165f3aa1e3125beeb27f7bb68027c727e"
   },
   "license/index.html": {
     "date": "2026-11-14",
@@ -33,7 +33,7 @@
   },
   "tools/bcrypt.html": {
     "date": "2026-11-14",
-    "sha256": "22d21f993df3ce693d4d99d5e9c09448683df8e9e3c1dfbc7fc30a9238bbc34b"
+    "sha256": "e4ac6677a3ed63ddf784615b169310cbd10c88bd8afdb026435550c274bc6f18"
   },
   "tools/binary-text.html": {
     "date": "2026-11-14",
@@ -41,11 +41,11 @@
   },
   "tools/bytes.html": {
     "date": "2026-11-14",
-    "sha256": "91ffdec5d36b6bbc930ee73136a42931fe5711ebe06b98010e19b9eb26b4a86d"
+    "sha256": "8a092bb8adce28991c6b205e4bb4c846b517bfabd182746a1861e02fce58eca8"
   },
   "tools/case-converter.html": {
     "date": "2026-11-14",
-    "sha256": "93c10acd781937389a46f2c5aea256f048a45090a487510e0dbc885d16ed0a87"
+    "sha256": "4d4b7a7a3576d8cbd3f5807706c4e0a5cabf44ab8d9122be35cb241e87ce3375"
   },
   "tools/certificate-inspector.html": {
     "date": "2026-11-14",
@@ -57,7 +57,7 @@
   },
   "tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "1f0a1cd7216456cec5b5315356c2515de6fd2d0e18311e2dc6a132e127651efb"
+    "sha256": "3599c03e7fab53fb3eba7d85ab6ea3a5e8d1860a1198de28ab70e688ed5b9dd3"
   },
   "tools/color-palette.html": {
     "date": "2026-11-14",
@@ -121,11 +121,11 @@
   },
   "tools/gradient.html": {
     "date": "2026-11-14",
-    "sha256": "e731d172c9db53a86a815b33878a7c0ebd8d64c3c827b9d3a4b4f93d4e62fed5"
+    "sha256": "9eef7c9f554768443047b8e2e45d1e45f75f69dfc04886a29eb50fe63c49a4ee"
   },
   "tools/hash.html": {
     "date": "2026-11-14",
-    "sha256": "3ce3b457298ccf24225aaf0cbc1f2ad4adb9281762627f8fae4fa397f4610754"
+    "sha256": "f0dc9b5430532f4e8aabd36d2e88d493d40387e6752342581ab7c9df73aa7c6d"
   },
   "tools/hex-codec.html": {
     "date": "2026-11-14",
@@ -157,7 +157,7 @@
   },
   "tools/image-dimensions.html": {
     "date": "2026-11-14",
-    "sha256": "03bbcedb73bc1773a96ce1d6fcd217ea39c3409b466f1e88d42f10328a173638"
+    "sha256": "c184289d5c7050572986151b52f14e28adc803aacbd6417f1782c924af1e8cf8"
   },
   "tools/image-metadata.html": {
     "date": "2026-11-14",
@@ -209,7 +209,7 @@
   },
   "tools/jwt-decoder.html": {
     "date": "2026-11-14",
-    "sha256": "35ed86b28fbc74b5b70cafe87173745de3d1ac53468b28300536a8fe87eb4bc7"
+    "sha256": "c47b1f2a7334443a1201770d7313a41718973f7166158ee11a1f562da54c9a7c"
   },
   "tools/line-numbers.html": {
     "date": "2026-11-14",
@@ -217,11 +217,11 @@
   },
   "tools/lorem-ipsum.html": {
     "date": "2026-11-14",
-    "sha256": "6ea881d77c0968bc99d4b2c2ba60356dd69fa8ae138a41aebd445b0a824e599b"
+    "sha256": "94104a90ff66736407f1a4b313812a6505f693b22482d41438edd4620f70af01"
   },
   "tools/markdown.html": {
     "date": "2026-11-14",
-    "sha256": "7d4a4da9483f984c7013b487c4f7e2636f9915b908d46ba4ed2b06a5469d0704"
+    "sha256": "63c731ccafb7d71500d7433cce208e7c958584c0e7e007b1daa7065f90fd0602"
   },
   "tools/meta-tags.html": {
     "date": "2026-11-14",
@@ -245,7 +245,7 @@
   },
   "tools/password.html": {
     "date": "2026-11-14",
-    "sha256": "d85f0f645478172e28fb1cb0230e757f090e34ab5b3cd616f26a95c100c07a54"
+    "sha256": "94e7ed4a6d23ee10330da41f9c860424d9751868883dd7896e8ed24b838c8bf3"
   },
   "tools/pem-jwk.html": {
     "date": "2026-11-14",
@@ -261,7 +261,7 @@
   },
   "tools/qr-generator.html": {
     "date": "2026-11-14",
-    "sha256": "451747962ec9539671d7626d5e1b3a3790f73e23212f24e8374db49f676a3037"
+    "sha256": "8752d71cf3cf369f31842f5818452b19d0f606a4f51394ae98b0302eec0330bf"
   },
   "tools/qr-reader.html": {
     "date": "2026-11-14",
@@ -325,7 +325,7 @@
   },
   "tools/temperature.html": {
     "date": "2026-11-14",
-    "sha256": "f6f03a5aa8086a7e00b65cf6c4860810883f83986dda46eb043f9592a15f8a81"
+    "sha256": "7201ea46314c76a48451c2f9438da1cf5f847954615973df7d4b8628689f770c"
   },
   "tools/text-cleaner.html": {
     "date": "2026-11-14",
@@ -333,7 +333,7 @@
   },
   "tools/text-diff.html": {
     "date": "2026-11-14",
-    "sha256": "15f4cec9fb4a92036404539c1c7a5a4f940b44d92c19d370e6747b33f7906f24"
+    "sha256": "5ff59f2984d3914a7c61b9beda3fc72322d02d3d8b893a0f7cb9066c8ef97e53"
   },
   "tools/text-reverser.html": {
     "date": "2026-11-14",
@@ -349,7 +349,7 @@
   },
   "tools/timestamp.html": {
     "date": "2026-11-14",
-    "sha256": "f4fe5b0c9ca47ded81efbf6c61dcd63d22f18e16f74a661a75c41aa9d403bd9c"
+    "sha256": "a035c1c1c2bf2f1e0737dc63d82b600e8cc13bab1fa051d73c5de3d0a599f277"
   },
   "tools/totp.html": {
     "date": "2026-11-14",
@@ -357,7 +357,7 @@
   },
   "tools/typing-test.html": {
     "date": "2026-11-14",
-    "sha256": "823a1bc8899f89ae7d45fdb764abc06eac4824530a51af6071966c09f50210de"
+    "sha256": "b4ee409e39443e3d5a416d83df50006e9a31e89a5d4891af477d41b0713713a3"
   },
   "tools/unicode-inspector.html": {
     "date": "2026-11-14",
@@ -413,7 +413,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-14",
-    "sha256": "b7ae88630af2feab4dc4d035cf007a8450e8fbdcdd7b9f804684cfb86a79b3ab"
+    "sha256": "3906c5b541a4151ad1b98192a825a4fccbde09bd5423b8886657fa869a0d7395"
   },
   "tr/license/index.html": {
     "date": "2026-11-14",
@@ -445,7 +445,7 @@
   },
   "tr/tools/bcrypt.html": {
     "date": "2026-11-14",
-    "sha256": "688fe2f2528208940692b8d840fc9d7b666b92198e0750a988a46e5532a0b3e7"
+    "sha256": "c04b9fff2010b5d10c9455b6f0fa9ebea216c8f1a36817660a78b77f6dabec91"
   },
   "tr/tools/binary-text.html": {
     "date": "2026-11-14",
@@ -453,11 +453,11 @@
   },
   "tr/tools/bytes.html": {
     "date": "2026-11-14",
-    "sha256": "fe97f3a5918f73a171de6858a6de41f9546634e00b5f33da9670233e21bdb291"
+    "sha256": "660eabc0ec9a58d25ac79501a817de12918791229fc2904c4e16e53499e33aa8"
   },
   "tr/tools/case-converter.html": {
     "date": "2026-11-14",
-    "sha256": "85dd9cba2a1a26bc588ff696c4777ff09b1b0b030769a4833a84beb6d8ecacc9"
+    "sha256": "117fe51f8d2cbc7b7647585239b24396f82a213d17a9c593ebbe8066e3a7bf62"
   },
   "tr/tools/certificate-inspector.html": {
     "date": "2026-11-14",
@@ -469,7 +469,7 @@
   },
   "tr/tools/color-converter.html": {
     "date": "2026-11-14",
-    "sha256": "e6f1a6b7366b3a3e05f75439ef26c49c2d2b049f15f8465151c26f6df66b1a3e"
+    "sha256": "1c861c475f8b1dec4220f342c5b89d1e6966199a702a286adb164bee8dd1c2bb"
   },
   "tr/tools/color-palette.html": {
     "date": "2026-11-14",
@@ -533,11 +533,11 @@
   },
   "tr/tools/gradient.html": {
     "date": "2026-11-14",
-    "sha256": "0961177c276bc0d90a2cde0b2af93ffb2452f41f2959539113f542cb191cca5e"
+    "sha256": "5ee89c7d49c8f94d7652ed641749c211a055ddbcd3b22dacddac2d7b81a5913a"
   },
   "tr/tools/hash.html": {
     "date": "2026-11-14",
-    "sha256": "4f085259ab961393ab9b6b56fd50fcc9e94da479955658f1b795bc69d5547b5f"
+    "sha256": "dbf8039d7f3e0a0799ff7c5078d5587c740215e2e8dbcb48e1bf8e76954ef69f"
   },
   "tr/tools/hex-codec.html": {
     "date": "2026-11-14",
@@ -569,7 +569,7 @@
   },
   "tr/tools/image-dimensions.html": {
     "date": "2026-11-14",
-    "sha256": "38dd134da61d383a29a2aa9872c615d4e2141f3c00b5f5017d7cd70f05f754bd"
+    "sha256": "eb01160ad1bcc94df32ca9e2fb88219d216eba1b527c09b5e09524eeb7ef4501"
   },
   "tr/tools/image-metadata.html": {
     "date": "2026-11-14",
@@ -621,7 +621,7 @@
   },
   "tr/tools/jwt-decoder.html": {
     "date": "2026-11-14",
-    "sha256": "30e9d19307b602cbcd57b78fc7d6468e2e89fecb3cd5c99b102cd615dbb12aab"
+    "sha256": "7b898da0d49f6358211ba9ba1f3e433d697b58de27f57188865d2458a9f77229"
   },
   "tr/tools/line-numbers.html": {
     "date": "2026-11-14",
@@ -629,11 +629,11 @@
   },
   "tr/tools/lorem-ipsum.html": {
     "date": "2026-11-14",
-    "sha256": "bc7f82aa3f174b8e866146775eff607b2c6fcccd6941a1b25acae0d51c3c6758"
+    "sha256": "335624b30adc8abecb372f6a03a5bd58eb0fa84306a63172a08a1a78c811c913"
   },
   "tr/tools/markdown.html": {
     "date": "2026-11-14",
-    "sha256": "1d4e122590ac084c45560ac60bbf4f479c022efe9f84fe804811ca613bde312c"
+    "sha256": "7dd78261faa735100b49c4d128dee5589c65634b3c3e083a5d154ab418335332"
   },
   "tr/tools/meta-tags.html": {
     "date": "2026-11-14",
@@ -657,7 +657,7 @@
   },
   "tr/tools/password.html": {
     "date": "2026-11-14",
-    "sha256": "1b14e41b364fd8bb9328e2fa6b42a7e54d305b9ea5fdbe40d23aafbf3b3dfb7f"
+    "sha256": "e1db1478e8a387478beeee57a2a220e0bdf1d98c7bb3ee1cb4320297531f2829"
   },
   "tr/tools/pem-jwk.html": {
     "date": "2026-11-14",
@@ -673,7 +673,7 @@
   },
   "tr/tools/qr-generator.html": {
     "date": "2026-11-14",
-    "sha256": "0bea0d0871737c578181b005287a4102a37a747cdcb7c381db8fb8877843796a"
+    "sha256": "313ad743c4910322712eb146d4c1984347bdffef159ecd4f239de43a19d39c68"
   },
   "tr/tools/qr-reader.html": {
     "date": "2026-11-14",
@@ -737,7 +737,7 @@
   },
   "tr/tools/temperature.html": {
     "date": "2026-11-14",
-    "sha256": "42fd4e71b2bd764bbad1117afe458cbfed78bd2bdc02eb62bcc0cc1967d32bdb"
+    "sha256": "956452aadd1b2753e9eae5bee8f4f17c1b124b85afce289ab26c6c799d396859"
   },
   "tr/tools/text-cleaner.html": {
     "date": "2026-11-14",
@@ -745,7 +745,7 @@
   },
   "tr/tools/text-diff.html": {
     "date": "2026-11-14",
-    "sha256": "727e028ae772db63cd714ea2c7ae106aa2d7be7a805f2d40df8c6e80cfbeb906"
+    "sha256": "6545bc8c4360954122298ed3aeac362a1de9f6fb772533752ad646ba326cae3d"
   },
   "tr/tools/text-reverser.html": {
     "date": "2026-11-14",
@@ -761,7 +761,7 @@
   },
   "tr/tools/timestamp.html": {
     "date": "2026-11-14",
-    "sha256": "b2db3e02a668b6510405c84de9168695a8b5afecabfe1ff7c28cbc004d55481f"
+    "sha256": "a565f38a6bd8ae4018be753f703aab5abb87897499e12b345a7d6213866cddbc"
   },
   "tr/tools/totp.html": {
     "date": "2026-11-14",
@@ -769,7 +769,7 @@
   },
   "tr/tools/typing-test.html": {
     "date": "2026-11-14",
-    "sha256": "d23f7348bbfadf3d3eb92b211964396ab77e86f596f0c43a3bb09f9b40c10a22"
+    "sha256": "873b4e705ae85a8706e1ed64b07ed016e2e93902e014bf39ac128795e77ac053"
   },
   "tr/tools/unicode-inspector.html": {
     "date": "2026-11-14",

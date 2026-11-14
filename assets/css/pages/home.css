@@ -154,6 +154,14 @@
   background: var(--bg-elevated);
 }
 
+/* Most of the 101 cards start below the first screen: the browser lays each
+   out only as it nears the viewport. 110px is a card's usual height; once
+   drawn, "auto" keeps its real one. */
+.hub-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 110px;
+}
+
 .hub-card[hidden] { display: none; }
 
 .hub-card-header {

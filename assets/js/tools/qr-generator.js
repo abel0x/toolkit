@@ -786,7 +786,9 @@
     slug
   });
 
-  renderForm('text');
+  // The page ships the text form already (no layout shift on load); other
+  // modes are drawn here when chosen.
+  if (!$('qrText')) renderForm('text');
   setLogoName(t('No logo'));
   showEmpty(null);
 }());

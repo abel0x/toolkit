@@ -30,11 +30,11 @@
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Toolkit — 101 Ücretsiz Geliştirici Aracı</title>
   <!-- Non-blocking font load: does not stall first render -->
-  <link rel="stylesheet" href="../assets/css/core.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../assets/css/pages/home.css?v=62936c724d2e" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=62936c724d2e" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../assets/css/pages/home.css?v=585dc032da58" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=585dc032da58" />
   <link rel="manifest" href="../manifest.json" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
@@ -440,6 +440,100 @@
             <p class="hub-card-desc">Bir listeden aynı anda birden çok QR kodu oluşturun ve PNG olarak indirin.</p>
           </a>
 
+          <!-- HUB-CARDS:START -->
+          <a href="tools/typing-test.html" class="hub-card" data-cat="text" data-tags="typing wpm speed keyboard test accuracy practice">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M6 9h.01M9 9h.01M12 9h.01M15 9h.01M18 9h.01M7.5 13h.01M10.5 13h.01M13.5 13h.01M16.5 13h.01M9 16h6"/></svg></div><h3 class="hub-card-title">Yazma Hızı Testi</h3></div>
+            <p class="hub-card-desc">İngilizce veya Türkçe temalı kelime listeleriyle yazma hızınızı ve doğruluğunuzu ölçün.</p>
+          </a>
+          <a href="tools/aes-gcm.html" class="hub-card" data-cat="security" data-tags="aes encrypt decrypt crypto passphrase">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6z"/><circle cx="12" cy="11" r="2"/><path d="M12 13v3"/></svg></div><h3 class="hub-card-title">AES-GCM Şifreleyici</h3></div>
+            <p class="hub-card-desc">Metni AES-GCM ve parola ile yerel olarak şifreleyin veya çözün.</p>
+          </a>
+          <a href="tools/rsa-keypair.html" class="hub-card" data-cat="security" data-tags="rsa key pem jwk crypto">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="15.5" r="3.5"/><path d="M10 13l9-9"/><path d="M15.5 7.5l2.5 2.5"/><path d="M18 5l2 2"/></svg></div><h3 class="hub-card-title">RSA Anahtar Çifti Oluşturucu</h3></div>
+            <p class="hub-card-desc">Tarayıcıda RSA-OAEP anahtar çiftleri oluşturun ve PEM veya JWK olarak dışa aktarın.</p>
+          </a>
+          <a href="tools/pem-jwk.html" class="hub-card" data-cat="security" data-tags="pem jwk rsa key convert">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M10.5 11c-1 0-1.5.5-1.5 1.5v.5c0 .5-.5 1-1 1 .5 0 1 .5 1 1v.5c0 1 .5 1.5 1.5 1.5"/><path d="M14.5 11c1 0 1.5.5 1.5 1.5v.5c0 .5.5 1 1 1-.5 0-1 .5-1 1v.5c0 1-.5 1.5-1.5 1.5"/></svg></div><h3 class="hub-card-title">PEM / JWK Dönüştürücü</h3></div>
+            <p class="hub-card-desc">Desteklenen RSA açık ve özel anahtarlarını PEM ile JWK arasında dönüştürün.</p>
+          </a>
+          <a href="tools/certificate-inspector.html" class="hub-card" data-cat="security" data-tags="certificate x509 pem asn1 security">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h18v11h-6"/><path d="M3 4v11h5"/><path d="M7 8h10M7 11h4"/><circle cx="12" cy="16" r="2.5"/><path d="M10.5 18.2L10 22l2-1 2 1-.5-3.8"/></svg></div><h3 class="hub-card-title">Sertifika İnceleyici</h3></div>
+            <p class="hub-card-desc">Bir X.509 PEM sertifikasını yerel olarak okunabilir ASN.1 ağacı biçiminde inceleyin.</p>
+          </a>
+          <a href="tools/totp.html" class="hub-card" data-cat="security" data-tags="totp 2fa otp base32 security">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10"/><path d="M10 2.5h4"/><path d="M12 2.5V6"/><path d="M18.5 6.5l1.5-1.5"/></svg></div><h3 class="hub-card-title">TOTP Oluşturucu</h3></div>
+            <p class="hub-card-desc">Base32 gizli anahtarından zaman tabanlı tek kullanımlık parolalar üretin; tümü çevrimdışı.</p>
+          </a>
+          <a href="tools/csp-generator.html" class="hub-card" data-cat="web" data-tags="csp security header content security policy">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3 class="hub-card-title">CSP Oluşturucu</h3></div>
+            <p class="hub-card-desc">Yönerge değerlerinden bir Content-Security-Policy başlığı oluşturun.</p>
+          </a>
+          <a href="tools/curl-builder.html" class="hub-card" data-cat="web" data-tags="curl http api request command">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3"/><path d="M12.5 15H17"/></svg></div><h3 class="hub-card-title">cURL Oluşturucu</h3></div>
+            <p class="hub-card-desc">Yöntem, URL, başlıklar ve gövdeden kabukta güvenle kullanılabilecek bir cURL komutu oluşturun.</p>
+          </a>
+          <a href="tools/http-header-analyzer.html" class="hub-card" data-cat="web" data-tags="http headers security analyze">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h12M4 10h9M4 14h6"/><circle cx="16" cy="15" r="3.5"/><path d="M18.5 17.5L21 20"/></svg></div><h3 class="hub-card-title">HTTP Başlık İnceleyici</h3></div>
+            <p class="hub-card-desc">Yapıştırılan HTTP başlıklarını ayrıştırın ve yaygın tarayıcı güvenlik başlıklarını işaretleyin.</p>
+          </a>
+          <a href="tools/cron-assistant.html" class="hub-card" data-cat="devtools" data-tags="cron schedule time devops">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3.5V8H16"/><path d="M12 7.5V12l3 2"/></svg></div><h3 class="hub-card-title">Cron İfadesi Yardımcısı</h3></div>
+            <p class="hub-card-desc">Beş alanlı cron ifadesini açıklayın ve yaklaşan çalıştırmaları yerel olarak hesaplayın.</p>
+          </a>
+          <a href="tools/unix-permissions.html" class="hub-card" data-cat="devtools" data-tags="chmod unix permissions octal">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><rect x="9.5" y="12.5" width="5" height="4" rx="1"/><path d="M10.5 12.5v-1a1.5 1.5 0 0 1 3 0v1"/></svg></div><h3 class="hub-card-title">Unix İzin Hesaplayıcı</h3></div>
+            <p class="hub-card-desc">Unix rwx izinlerini onay kutuları, sembolik kip ve sekizlik sayı arasında dönüştürün.</p>
+          </a>
+          <a href="tools/css-specificity.html" class="hub-card" data-cat="devtools" data-tags="css specificity selector frontend">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v16M8 20h8M5 7.5h14"/><path d="M5 7.5L2.5 13h5zM19 7.5L16.5 13h5z"/></svg></div><h3 class="hub-card-title">CSS Özgüllük Hesaplayıcı</h3></div>
+            <p class="hub-card-desc">CSS seçici özgüllüğünü incelenebilir bir A-B-C puanıyla hesaplayın.</p>
+          </a>
+          <a href="tools/css-clamp.html" class="hub-card" data-cat="devtools" data-tags="css clamp responsive fluid typography">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5v14M20 5v14"/><path d="M8 12h8"/><path d="M10.5 9.5L8 12l2.5 2.5M13.5 9.5L16 12l-2.5 2.5"/></svg></div><h3 class="hub-card-title">CSS Clamp Hesaplayıcı</h3></div>
+            <p class="hub-card-desc">Boyut ve görüntü alanı aralıklarından duyarlı bir CSS clamp() ifadesi üretin.</p>
+          </a>
+          <a href="tools/json-to-typescript.html" class="hub-card" data-cat="devtools" data-tags="json typescript interface generate">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 9h6M10 9v8"/><path d="M18 9.5c-.5-.6-1.2-1-2-1-1 0-1.8.6-1.8 1.5 0 2 4 1.3 4 3.8 0 1-.9 1.7-2 1.7-.9 0-1.7-.4-2.2-1"/></svg></div><h3 class="hub-card-title">JSON’dan TypeScript’e</h3></div>
+            <p class="hub-card-desc">Veri yüklemeden JSON’dan TypeScript arayüzleri çıkarın.</p>
+          </a>
+          <a href="tools/json-to-markdown.html" class="hub-card" data-cat="devtools" data-tags="json markdown table convert">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M6 15V9l2.5 3L11 9v6"/><path d="M16.5 9v6M14.5 13l2 2 2-2"/></svg></div><h3 class="hub-card-title">JSON’dan Markdown Tablosuna</h3></div>
+            <p class="hub-card-desc">JSON nesne dizisini Markdown tablosuna dönüştürün.</p>
+          </a>
+          <a href="tools/xml-to-json.html" class="hub-card" data-cat="devtools" data-tags="xml json convert parser">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7l-5 5 5 5"/><path d="M13 12h8"/><path d="M18 9l3 3-3 3"/></svg></div><h3 class="hub-card-title">XML’den JSON’a Dönüştürücü</h3></div>
+            <p class="hub-card-desc">XML belgelerini tarayıcıda anlaşılır bir JSON gösterimine dönüştürün.</p>
+          </a>
+          <a href="tools/csv-viewer.html" class="hub-card" data-cat="devtools" data-tags="csv table viewer data">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3 class="hub-card-title">CSV Görüntüleyici</h3></div>
+            <p class="hub-card-desc">CSV verisini aranabilir yerel tablo olarak önizleyin.</p>
+          </a>
+          <a href="tools/unicode-inspector.html" class="hub-card" data-cat="text" data-tags="unicode text normalize code point">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 19l4.5-13 4.5 13"/><path d="M4.8 14.5h5.4"/><circle cx="17" cy="14" r="3"/><path d="M19.2 16.2L21.5 18.5"/></svg></div><h3 class="hub-card-title">Unicode İnceleyici</h3></div>
+            <p class="hub-card-desc">Unicode kod noktalarını inceleyin ve metni standart Unicode biçimleriyle normalleştirin.</p>
+          </a>
+          <a href="tools/time-zone-converter.html" class="hub-card" data-cat="converters" data-tags="timezone date time intl">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="13" r="6.5"/><path d="M9 10v3l2 1.5"/><path d="M14 4.8A6.5 6.5 0 0 1 21.5 11"/><path d="M17.5 3.5l-3.5 1.3 1.6 3.2"/></svg></div><h3 class="hub-card-title">Saat Dilimi Dönüştürücü</h3></div>
+            <p class="hub-card-desc">Tarayıcı yerel ayarlarını kullanarak bir tarih ve saati IANA saat dilimlerinde görüntüleyin.</p>
+          </a>
+          <a href="tools/date-duration.html" class="hub-card" data-cat="converters" data-tags="date duration days weeks">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M7.5 15.5h8"/><path d="M13.5 13.5l2 2-2 2"/></svg></div><h3 class="hub-card-title">Tarih Aralığı Hesaplayıcı</h3></div>
+            <p class="hub-card-desc">İki takvim tarihi arasındaki tam gün ve hafta farkını hesaplayın.</p>
+          </a>
+          <a href="tools/image-compressor.html" class="hub-card" data-cat="media" data-tags="image compress resize canvas">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg></div><h3 class="hub-card-title">Görsel Sıkıştırıcı</h3></div>
+            <p class="hub-card-desc">Görselleri Canvas ile yerel olarak yeniden boyutlandırın ve sıkıştırın; hiçbir şey yüklenmez.</p>
+          </a>
+          <a href="tools/sitemap-generator.html" class="hub-card" data-cat="web" data-tags="sitemap seo xml urls">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></div><h3 class="hub-card-title">Site Haritası Oluşturucu</h3></div>
+            <p class="hub-card-desc">URL listesinden standartlara uygun bir sitemap.xml oluşturun.</p>
+          </a>
+          <a href="tools/color-contrast.html" class="hub-card" data-cat="devtools" data-tags="color contrast wcag accessibility">
+            <div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></div><h3 class="hub-card-title">Renk Kontrast Denetleyici</h3></div>
+            <p class="hub-card-desc">Ön plan ve arka plan renkleri için WCAG kontrast oranlarını denetleyin.</p>
+          </a>
+          <!-- HUB-CARDS:END -->
           <!-- No-results message -->
           <p id="hubNoResults" class="hub-no-results" hidden>Aramanızla eşleşen araç yok. Başka bir anahtar sözcük deneyin.</p>
         </div>
@@ -474,15 +568,12 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/core/nav.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/i18n/tr/shared.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/i18n/tr/catalogue.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/i18n/tr/home.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/core/i18n.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/core/tools-data.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/core/extra-tools-data.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=62936c724d2e" defer></script>
-  <script src="../assets/js/pages/home.js?v=62936c724d2e" defer></script>
+  <script src="../assets/js/core/utils.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/core/nav.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/i18n/tr/shared.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/i18n/tr/home.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/core/i18n.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=585dc032da58" defer></script>
+  <script src="../assets/js/pages/home.js?v=585dc032da58" defer></script>
 </body>
 </html>

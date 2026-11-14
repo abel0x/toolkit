@@ -7,6 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Output": "Çıktı",
     "Verify": "Doğrula",
     "Password": "Parola",
+    "Length": "Uzunluk",
     "Generate Hash": "Hash Oluştur",
     "Hashing…": "Hash oluşturuluyor…",
     "Verifying…": "Doğrulanıyor…",

@@ -76,7 +76,7 @@
         </div>
         <div class="command-palette__header-actions">
           <button class="command-palette__clear" type="button" data-command-clear hidden>${t('Clear recent')}</button>
-          <button class="command-palette__close" type="button" aria-label="${t('Close tool finder')}" data-command-close>Esc</button>
+          <button class="command-palette__close" type="button" aria-label="${t('Close tool finder')} (Esc)" data-command-close>Esc</button>
         </div>
       </div>
       <label class="sr-only" for="commandPaletteInput">${t('Search tools')}</label>
@@ -292,12 +292,15 @@
     const trigger = document.createElement('button');
     trigger.className = 'nav-command-trigger';
     trigger.type = 'button';
-    trigger.setAttribute('aria-label', t('Find a tool'));
+    // The visible "Find tools" is the button's name (WCAG 2.5.3, label in
+    // name); the shortcut is announced through aria-keyshortcuts instead.
+    trigger.setAttribute('aria-keyshortcuts', 'Control+K Meta+K');
     trigger.title = t('Find a tool (Ctrl/Cmd + K)');
 
     const label = document.createElement('span');
     label.textContent = t('Find tools');
     const shortcut = document.createElement('kbd');
+    shortcut.setAttribute('aria-hidden', 'true');
     shortcut.textContent = '⌘K';
     trigger.append(label, shortcut);
     trigger.addEventListener('click', openPalette);
@@ -320,7 +323,6 @@
   window.addEventListener('toolkit:languagechange', () => {
     const trigger = document.querySelector('.nav-command-trigger');
     if (trigger) {
-      trigger.setAttribute('aria-label', t('Find a tool'));
       trigger.title = t('Find a tool (Ctrl/Cmd + K)');
       const label = trigger.querySelector('span');
       if (label) label.textContent = t('Find tools');
@@ -389,7 +391,7 @@
     const close = document.createElement('button');
     close.type = 'button';
     close.className = 'shortcut-help__close';
-    close.setAttribute('aria-label', t('Close keyboard shortcuts'));
+    close.setAttribute('aria-label', `${t('Close keyboard shortcuts')} (Esc)`);
     close.textContent = 'Esc';
     close.addEventListener('click', () => dialog.close());
     header.append(title, close);
@@ -421,7 +423,7 @@
       return row;
     }));
     dialog.querySelector('h2').textContent = t('Keyboard shortcuts');
-    dialog.querySelector('.shortcut-help__close').setAttribute('aria-label', t('Close keyboard shortcuts'));
+    dialog.querySelector('.shortcut-help__close').setAttribute('aria-label', `${t('Close keyboard shortcuts')} (Esc)`);
   }
 
   function open() {

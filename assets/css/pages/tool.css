@@ -144,6 +144,17 @@
 .tool-breadcrumb a:hover { color: var(--accent); }
 .tool-breadcrumb-sep { opacity: .35; }
 
+/* A warning under a field, e.g. bcrypt's 72-byte limit. */
+.form-hint--warning {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--yellow);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.form-hint--warning[hidden] { display: none; }
+
 /* ── Related tools (build.py --related) ──────────────────── */
 .related-tools {
   display: flex;
@@ -271,7 +282,8 @@
 
 @media (max-width: 480px) {
   .license-summary { align-items: flex-start; flex-direction: column; }
-  .license-text { font-size: 0.7rem; padding: 0.8rem; }
+  /* 12 px: the smallest size phone browsers treat as legible. */
+  .license-text { font-size: 0.75rem; padding: 0.8rem; }
 }
 
 /* ── Gradient Text ────────────────────────────────────────── */

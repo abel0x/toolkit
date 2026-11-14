@@ -17,7 +17,19 @@
 
   if (!inputEl || !genBtn) return;
 
-  const bcrypt = window.dcodeIO && window.dcodeIO.bcrypt;
+  // bcryptjs 3 (assets/js/vendor/bcryptjs.umd.js) registers itself as window.bcrypt.
+  const bcrypt = window.bcrypt;
+
+  // bcrypt reads at most 72 bytes of a password and silently drops the rest.
+  function showLengthNote(field, note) {
+    if (!note) return;
+    note.hidden = !(bcrypt && field.value && bcrypt.truncates(field.value));
+  }
+  const lengthNotes = [
+    [inputEl, document.getElementById('bcryptLengthNote')],
+    [verifyPasswordEl, document.getElementById('bcryptVerifyLengthNote')]
+  ];
+  lengthNotes.forEach(([field, note]) => field.addEventListener('input', () => showLengthNote(field, note)));
 
   function setBusy(button, busy, busyLabel, readyLabel) {
     button.disabled = busy;

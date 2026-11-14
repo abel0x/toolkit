@@ -236,6 +236,42 @@ await withFirefox(async (page) => {
     const out = value('#svgOutput');
     return [['comment removed', out.includes('note'), false], ['metadata removed', out.includes('metadata'), false], ['shape kept', out, { includes: '<rect' }]];`);
 
+  // bcryptjs 3.0.3 (vendored): OpenBSD/jBCrypt vectors under every prefix a
+  // hash may carry, the $2b$ default, and the 72-byte note.
+  await check('bcrypt', `
+    const vectors = [
+      ['abc', '$2a$06$If6bvum7DFjUnE9p2uDeDu0YHzrHM6tf.iqN8.yx.jNN1ILEf7h0i'],
+      ['abcdefghijklmnopqrstuvwxyz', '$2a$06$.rCVZVOThsIa97pEDOxvGuRRgzG64bvtJ0938xuqzv18d3ZpQhstC'],
+      ['~!@#$%^&*()      ~!@#$%^&*()PNBFRD', '$2a$06$fPIsBO8qRqkjj273rfaOI.HtSV9jLDpTbZn782DC6/t7qT67P6FfO']
+    ];
+    const verify = async (password, hash) => {
+      set('#bcryptVerifyPw', password); set('#bcryptVerifyHash', hash);
+      click('#bcryptVerifyBtn');
+      for (let i = 0; i < 100 && $('#bcryptVerifyBtn').disabled; i += 1) await wait(20);
+      await wait(20);
+      return text('#bcryptVerifyResult');
+    };
+    const results = [];
+    for (const [password, hash] of vectors) {
+      for (const prefix of ['$2a$', '$2b$', '$2y$']) {
+        results.push([prefix + ' ' + password.slice(0, 12) + ' matches', await verify(password, prefix + hash.slice(4)), { includes: 'Password matches' }]);
+      }
+      results.push(['wrong password for ' + password.slice(0, 12), await verify(password + '!', hash), { includes: 'does not match' }]);
+    }
+    set('#bcryptInput', 'Toolkit test'); set('#bcryptCost', '4');
+    click('#bcryptGenBtn');
+    for (let i = 0; i < 100 && !value('#bcryptOutput'); i += 1) await wait(20);
+    const fresh = value('#bcryptOutput');
+    results.push(['new hashes use $2b$', fresh.slice(0, 7), '$2b$04$']);
+    results.push(['a new hash verifies', await verify('Toolkit test', fresh), { includes: 'Password matches' }]);
+    set('#bcryptInput', 'ğ'.repeat(36));
+    results.push(['72 bytes exactly: no note', $('#bcryptLengthNote').hidden, true]);
+    set('#bcryptInput', 'ğ'.repeat(36) + 'a');
+    results.push(['73 bytes: the note shows', $('#bcryptLengthNote').hidden, false]);
+    set('#bcryptVerifyPw', 'x'.repeat(73));
+    results.push(['the verify field warns too', $('#bcryptVerifyLengthNote').hidden, false]);
+    return results;`);
+
   // Generators: verify invariants rather than exact values.
   await check('uuid', `
     const button = [...document.querySelectorAll('main button')].find((node) => /generate/i.test(node.textContent));
@@ -246,4 +282,4 @@ await withFirefox(async (page) => {
 
 if (failures.length) console.log(`\n${failures.length} known-answer failure(s):\n  ${failures.join('\n  ')}`);
 assert.equal(failures.length, 0, 'Tool output did not match the known answers above.');
-console.log(`Tool vectors passed: ${checked} known-answer checks across 33 tools.`);
+console.log(`Tool vectors passed: ${checked} known-answer checks across 34 tools.`);
