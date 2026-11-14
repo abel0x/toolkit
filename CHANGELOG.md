@@ -2,6 +2,27 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.7] — 2026-11-14
+
+More tools show what they do in one click, every tool runs from the keyboard, and the Turkish "page not found" page is finally Turkish.
+
+### Added
+
+- "Try a sample" on 24 more tools, 64 in all: the JWT decoder, HMAC, Timestamp, Number Base, Case Converter, Hex, HTML and Binary codecs, Color Converter, Text Cleaner, Deduplicate Lines, Line Numbers, Text Reverser, ROT13, ASCII, Slug, MIME Lookup, Password Strength, Color Contrast, CSS Clamp, Unicode Inspector, Date Duration, Time Zone Converter and AES-GCM. Each has two examples with Turkish names. An example can now click several controls in order, so the Timestamp sample switches to seconds before converting and the MIME sample looks up by extension.
+- Ctrl+Enter (⌘+Enter on a Mac) in a tool's field runs the tool on every page: it presses the nearest primary button around the field, which announces the shortcut in `aria-keyshortcuts` and a tooltip. Read-only result fields are left out. Tools with their own shortcut keep it (Base64's Shift to decode, the typing test), and the tools that already ran on Enter now claim the key, so nothing runs twice.
+
+### Fixed
+
+- A missing address under `/tr/` showed the 404 page in English unless Turkish had been chosen before, which is the usual case for a visitor from a search. It is now Turkish there, and its home, licence and tool links lead to the Turkish pages.
+- On phones a long licence line wrapped to the left edge of the box, so the indented clauses lost their shape. `build.py --license` now publishes `LICENSE` one line per span with a hanging indent as wide as the line's leading spaces, so a wrapped line continues under its own text. The text is still exactly `LICENSE`, and wide screens look as before.
+- The JWT decoder's copy buttons for the header and the payload had no Turkish label, and the signature's never reached the Turkish page. All three now read "Başlığı Kopyala", "Yükü Kopyala" and "İmzayı Kopyala".
+
+### Tests
+
+- `tests/tool-pages-e2e.mjs` fails when a sample only fills its fields: something else on the page has to change, with no error toast. It presses Ctrl+Enter in every field of every tool and checks that the key is handled and that at most one button runs (169 fields). On the licence pages it checks that no wrapped line starts left of its own text on a phone.
+- `tests/offline-e2e.mjs` opens a missing `/tr/` address with no stored language and checks the Turkish heading and links.
+- `tests/site-audit.mjs` lists the 24 new sample buttons, expects 128 example names, and checks that the licence block holds only line spans and still reads as `LICENSE`.
+
 ## [1.6.6] — 2026-11-14
 
 The licence text reads cleanly on phones.
@@ -316,6 +337,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.7]: https://github.com/abel0x/toolkit/compare/v1.6.6...v1.6.7
 [1.6.6]: https://github.com/abel0x/toolkit/compare/v1.6.5...v1.6.6
 [1.6.5]: https://github.com/abel0x/toolkit/compare/v1.6.4...v1.6.5
 [1.6.4]: https://github.com/abel0x/toolkit/compare/v1.6.3...v1.6.4

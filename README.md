@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.6
+### Latest release — 1.6.7
+
+Twenty-four more tools have a "Try a sample" button, among them the JWT decoder, HMAC, timestamps, colour contrast, CSS clamp and AES encryption, and every sample now really runs its tool. <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> in a tool's field runs that tool on every page. A missing address under `/tr/` shows the "page not found" page in Turkish with links back to the Turkish pages, and on phones long lines of the licence wrap under their own text.
+
+### 1.6.6
 
 On phones the licence text keeps its three-line title instead of breaking each line in two.
 
