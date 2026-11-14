@@ -39,7 +39,7 @@
     return result;
   }
 
-  function generate() {
+  function generate(announce = true) {
     const len    = parseInt(lengthSlider ? lengthSlider.value : 32, 10);
     const fmt    = formatSelect ? formatSelect.value : 'hex';
     const count  = 1;
@@ -53,7 +53,7 @@
     }
 
     outputArea.value = tokens.join('\n');
-    showToast(`${count} token${count > 1 ? 's' : ''} generated!`, 'success');
+    if (announce) showToast(`${count} token${count > 1 ? 's' : ''} generated!`, 'success');
   }
 
   if (lengthSlider && lengthDisplay) {
@@ -62,7 +62,7 @@
     });
   }
 
-  genBtn.addEventListener('click', generate);
+  genBtn.addEventListener('click', () => generate());
 
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
@@ -71,6 +71,6 @@
     });
   }
 
-  // Generate one token on load
-  generate();
+  // Generate one token on load, without a toast: nothing was asked yet.
+  generate(false);
 })();

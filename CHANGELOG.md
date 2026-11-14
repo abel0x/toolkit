@@ -23,10 +23,11 @@ Four tools grow up (Text Diff, JSON Formatter, Regex Tester, Markdown Previewer)
 - Screen readers hear the visible text in every button name (the Esc buttons, the timestamp's ms button, the file drop zones), the copy columns in Bytes and Unit Converter have a header, and six tools no longer skip a heading level.
 - The password show/hide button is easier to tap, the licence text can be scrolled with the keyboard, and the Turkish Regex Tester no longer has two regions with the same name.
 - Random Color's hue and saturation fields show 360 and 100 in full.
+- Success and error toasts were almost transparent, so over a light button their text could not be read; they are opaque now. The Random Token Generator no longer greets every visit with a "1 token generated!" toast.
 
 ### Tests
 
-- `tests/axe-audit.mjs` (316 page states). `tests/tool-vectors.mjs` checks 44 tools with 173 known answers, including both diff views, the JSON tree, regex replacement and the Markdown HTML file. The tool-page suite fails when a file or copy button row lands inside a side-by-side layout, and the audit regressions press Enter and Space on the QR drop zone.
+- `tests/axe-audit.mjs` (318 page states, including a success and an error toast over a light button). `tests/tool-vectors.mjs` checks 44 tools with 173 known answers, including both diff views, the JSON tree, regex replacement and the Markdown HTML file. The tool-page suite fails when a file or copy button row lands inside a side-by-side layout, and the audit regressions press Enter and Space on the QR drop zone.
 
 ### Documentation
 

@@ -68,6 +68,8 @@ jobs:
 
       - name: Audit every page with axe-core in Firefox
         run: node tests/axe-audit.mjs
+        env:
+          AXE_DETAIL: 1
 
       - name: Smoke-test every tool page in Firefox
         run: node tests/tool-pages-e2e.mjs

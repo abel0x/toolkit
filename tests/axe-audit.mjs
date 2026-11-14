@@ -83,18 +83,26 @@ await withFirefox(async (page) => {
     for (const path of list) await visit(path, layout);
   }
 
-  // Dialogs and notices that only exist after an action.
-  await page.viewport(1280, 900);
-  for (const [path, action, label] of [
-    ['index.html', () => { document.querySelector('.nav-command-trigger').click(); return true; }, 'tool finder open'],
-    ['tools/hash.html', () => { document.dispatchEvent(new KeyboardEvent('keydown', { key: '?', bubbles: true })); return true; }, 'shortcut help open']
+  // Dialogs and notices that only exist after an action. Toasts are fixed
+  // over the page, so they are checked on a phone above the tool's buttons.
+  for (const [path, width, height, action, shown, label] of [
+    ['index.html', 1280, 900, () => { document.querySelector('.nav-command-trigger').click(); return true; }, 'dialog[open], [role="dialog"]:not([hidden])', 'tool finder open'],
+    ['tools/hash.html', 1280, 900, () => { document.dispatchEvent(new KeyboardEvent('keydown', { key: '?', bubbles: true })); return true; }, 'dialog[open], [role="dialog"]:not([hidden])', 'shortcut help open'],
+    ...['success', 'error'].map((type) => ['tools/random-token.html', 390, 844, new Function(`
+      // On a long page a toast can float over a light button; put it there.
+      const button = document.querySelector('main .btn--primary, main .btn-primary');
+      showToast('Copied to clipboard', '${type}');
+      const container = document.getElementById('toast-container');
+      container.style.setProperty('bottom', (window.innerHeight - button.getBoundingClientRect().bottom - 4) + 'px');
+      return true;`), `.toast--${type}`, `${type} toast over a button`])
   ]) {
+    await page.viewport(width, height);
     await page.navigate(`/${path}`);
     await settle(`/${path}`);
     await page.evaluate(action);
     await sleep(300);
-    const open = await page.evaluate(() => Boolean(document.querySelector('dialog[open], [role="dialog"]:not([hidden])')));
-    assert(open, `${path}: the ${label} state did not open a dialog.`);
+    const open = await page.evaluate((selector) => Boolean(document.querySelector(selector)), shown);
+    assert(open, `${path}: the ${label} state did not appear.`);
     violations.push(...await audit(`${path} (${label})`));
     audits += 1;
   }
@@ -105,5 +113,5 @@ await withFirefox(async (page) => {
       + (process.env.AXE_DETAIL ? `\n    ${violation.detail.join('\n    ')}` : ''));
     throw new Error(`axe-core found ${violations.length} violations:\n${lines.join('\n')}`);
   }
-  console.log(`axe audit passed: ${audits} page states (${englishPages.length} English and ${turkishPages.length} Turkish pages on desktop, the English pages on a phone, the tool finder and the shortcut help) with no WCAG 2.2 A/AA or best-practice violations.`);
+  console.log(`axe audit passed: ${audits} page states (${englishPages.length} English and ${turkishPages.length} Turkish pages on desktop, the English pages on a phone, the tool finder, the shortcut help and both kinds of toast) with no WCAG 2.2 A/AA or best-practice violations.`);
 });
