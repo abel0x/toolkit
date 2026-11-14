@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.8.7
+### Latest release — 1.8.8
+
+The **Image Metadata Viewer** now writes metadata as well: a description, author, copyright, date or location into a JPEG or PNG, keeping the camera details. It can also remove metadata from many images at once into a ZIP, losslessly.
+
+### 1.8.7
 
 The **Image Compressor** now takes several images at once, can aim for a target file size, shows a before and after slider, and downloads the results as a ZIP. Nothing is uploaded.
 
 ### 1.8.6
 
 The **Favicon Generator** now makes a complete set from a letter, an emoji or your own image: 16 to 512 px icons for browsers, Apple and Android, a multi-size `favicon.ico`, `site.webmanifest`, the HTML to paste, and a ZIP of everything.
-
-### 1.8.5
-
-A new **Country Time Zones** tool lists every country's time zones with the local time, UTC offset, daylight saving and next clock change, shows which countries share the offset, and converts a time between zones.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 

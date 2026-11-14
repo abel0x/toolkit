@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.8] — 2026-11-15
+
+The Image Metadata Viewer writes metadata too, and cleans many images at once.
+
+### Added
+
+- **Edit metadata** in the Image Metadata Viewer: write a description, author, copyright, the date taken and a location (keep the one in the file, remove it, or set new coordinates) into a copy of a JPEG or PNG. The form starts from what the file says; camera, lens and exposure details, the orientation and the software already in the file are kept; the picture data is copied unchanged. A new EXIF block replaces the old one (other blocks such as the colour profile stay).
+- **Remove metadata from several images**: choose JPEG, PNG and WebP files and get them back cleaned, losslessly, in one ZIP.
+
+### Tests
+
+- Known answers for the editor's starting values, the written description, author and copyright, a new location (with a decimal comma), the kept camera details and orientation, and a three-file cleaning ZIP; an axe state with an image loaded. A Pillow check during development read every written field back.
+
 ## [1.8.7] — 2026-11-15
 
 The Image Compressor handles several images at once and can aim for a file size.
@@ -623,6 +636,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.8]: https://github.com/abel0x/toolkit/compare/v1.8.7...v1.8.8
 [1.8.7]: https://github.com/abel0x/toolkit/compare/v1.8.6...v1.8.7
 [1.8.6]: https://github.com/abel0x/toolkit/compare/v1.8.5...v1.8.6
 [1.8.5]: https://github.com/abel0x/toolkit/compare/v1.8.4...v1.8.5
