@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.2
+### Latest release — 1.7.3
+
+The home page loads less and does about a fifth less work on a phone, the QR generator no longer jumps as it loads, buttons carry their visible text in their accessible names, and the bcrypt tool uses bcryptjs 3.0.3 and warns when a password is longer than the 72 bytes bcrypt reads.
+
+### 1.7.2
 
 Every one of the 101 tools now has an icon of its own; 30 tools that shared or looked alike got new ones, from “0x” for Hex to tally marks for the Word Counter.
 

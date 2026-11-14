@@ -2,6 +2,29 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.3] — 2026-11-14
+
+A lighter home page, clearer names for screen readers and voice control, and an up-to-date bcrypt.
+
+### Changed
+
+- The bcrypt tool uses bcryptjs 3.0.3 (was bcrypt.js 2.4.3). New hashes start with `$2b$`, like other current implementations; `$2a$` and `$2y$` hashes still verify, and known test vectors give the same results as before. The GitHub Advisory Database lists no advisories for any of the three bundled libraries; the QR generator and jsQR were already on their latest releases.
+- The home page lists all 101 tools in its HTML and no longer loads the tool catalogue up front (the finder loads it when it opens, as on tool pages), English pages skip the translation pass they never needed, and off-screen cards are laid out only as they come into view. On a phone-speed CPU the home page does about a fifth less work, and its script time drops from 90 to 35 ms; Lighthouse moves from 94 to 100.
+
+### Fixed
+
+- The bcrypt tool now warns when a password is longer than 72 bytes: bcrypt ignores the rest, and letters such as ğ count twice.
+- On phones the QR generator's options no longer jump down after the page loads (layout shift 0.061 → 0.003).
+- Buttons say what they show: "Find tools", "Language: English", the "Esc" close buttons and Timestamp's "s"/"ms" now carry their visible text in their accessible names, so voice control and screen readers match what is on screen.
+- 18 labelled areas in 14 tools (results, previews, tables) get a role, without which screen readers dropped their names.
+- The licence text is 12 px on phones (was 11.2 px).
+
+### Tests
+
+- `tests/accessibility-audit.mjs` rejects a labelled element without a role and a control whose name leaves out its visible text; `tests/shortcuts-share-e2e.mjs` checks the same for controls built by script.
+- `tests/tool-vectors.mjs` checks bcrypt against OpenBSD/jBCrypt vectors under every prefix, the `$2b$` default and the 72-byte warning.
+- `tests/audit-regressions.mjs` checks that the home page leaves the catalogue to the finder; `tests/site-audit.mjs` pins the new library's checksum.
+
 ## [1.7.2] — 2026-11-14
 
 Every tool now has an icon of its own.
@@ -385,6 +408,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.3]: https://github.com/abel0x/toolkit/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/abel0x/toolkit/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/abel0x/toolkit/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/abel0x/toolkit/compare/v1.6.7...v1.7.0
