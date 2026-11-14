@@ -31,6 +31,7 @@
   const canvasWrapper = $('qrCanvasWrap');
   const placeholder = $('qrPlaceholder');
   const status = $('qrStatus');
+  const layout = status.closest('.qr-layout');
   const check = $('qrCheck');
   const warnings = $('qrWarnings');
   const capacityText = $('qrCapacity');
@@ -508,13 +509,20 @@
     warnings.hidden = list.length === 0;
   }
 
+  // The layout class lets the narrowest phones drop the hint beside the code
+  // once the scan check and capacity need that room.
+  function showStatus(visible) {
+    status.hidden = !visible;
+    layout.classList.toggle('qr-layout--status', visible);
+  }
+
   function showEmpty(problem) {
     current = null;
     output.replaceChildren();
     canvasWrapper.classList.remove('qr-canvas-wrap--ready');
     placeholder.hidden = false;
     actions.hidden = true;
-    status.hidden = !problem;
+    showStatus(Boolean(problem));
     if (problem) {
       setCheck('fail', t(problem));
       showWarnings([]);
@@ -540,7 +548,7 @@
     } catch (error) {
       if (String(error).includes('overflow')) {
         showEmpty(null);
-        status.hidden = false;
+        showStatus(true);
         setCheck('fail', t('Too long: {{bytes}} bytes. Level {{level}} holds at most {{max}}; shorten the content or lower error correction.',
           { bytes: number(bytes), level, max: number(maximum) }));
         showWarnings([]);
@@ -559,7 +567,7 @@
     canvasWrapper.classList.add('qr-canvas-wrap--ready');
     placeholder.hidden = true;
     actions.hidden = false;
-    status.hidden = false;
+    showStatus(true);
     current = { code, design: settings, size, name, content };
 
     const count = code.getModuleCount();

@@ -10,7 +10,9 @@
       installed, ZXing-C++ (ZXingReader) outside it; SVGs are rasterised by
       librsvg (rsvg-convert);
    4. the scan check and notes for codes that should not scan well;
-   5. the Turkish page, download names, PNG size and the logo picker.
+   5. the Turkish page, download names, PNG size and the logo picker;
+   6. the layout: on phones the preview sits in the first screen, next to
+      its capacity and above the form, and the tab order follows the screen.
    Set TOOLKIT_SKIP_EXTERNAL_DECODERS=1 to run without zbarimg/rsvg-convert. */
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
@@ -181,6 +183,7 @@ function exportAndDecode(label, result, expected) {
   assert(misses.zbar <= 1, `${label}: ZBar missed the SVG at ${misses.zbar} of 5 scales.`);
 }
 
+let layoutChecks = 0;
 await withFirefox(async (page) => {
   await page.viewport(1280, 1000);
   const open = async (path) => {
@@ -480,6 +483,75 @@ await withFirefox(async (page) => {
   const turkishOverflow = await scenario(page, { mode: 'text', options: { qrECC: 'H' }, fields: { qrText: 'x'.repeat(1300) } });
   assert(turkishOverflow.check.startsWith('Çok uzun: 1.300 bayt'), `Turkish overflow message: ${turkishOverflow.check}`);
 
+  /* ── 6. Layout: the preview stays in view while typing ────── */
+  const layout = () => page.evaluate(() => {
+    const box = (element) => {
+      if (typeof element === 'string') element = document.querySelector(element);
+      if (!element || !element.getClientRects().length) return null;
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, top: rect.top + scrollY, bottom: rect.bottom + scrollY };
+    };
+    // Every control a keyboard reaches, in tab (DOM) order. The file input is
+    // visually hidden behind its "Choose logo" label, which is listed instead.
+    const focusable = [...document.querySelectorAll('.qr-layout :is(input, select, textarea, button, label[for="qrLogoInput"])')]
+      .filter((element) => element.type !== 'file' && !element.disabled && element.getClientRects().length);
+    return {
+      width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth,
+      mode: box('#qrMode'), canvas: box('#qrCanvasWrap'), check: box('#qrCheck'), capacity: box('.qr-capacity'),
+      hint: box('.qr-hint'), notes: box('#qrWarnings'), input: box(document.querySelector('#qrForm :is(input, textarea)')),
+      buttons: box('#qrGenBtn'), actions: box('#qrActions'),
+      order: focusable.map((element) => ({ id: element.id || element.textContent.trim(), top: Math.round(box(element).top) }))
+    };
+  });
+  const states = [
+    ['empty', { mode: 'text', options: reset, fields: { qrText: '' } }],
+    ['readable', { mode: 'url', options: reset, fields: { qrURL: 'https://abel0x.github.io/toolkit/' } }],
+    ['with notes', { mode: 'url', options: { ...reset, qrColorDark: '#ffffff', qrColorLight: '#000000' }, fields: { qrURL: 'https://abel0x.github.io/toolkit/' } }]
+  ];
+    for (const [path, language] of [['/tools/qr-generator.html', 'en'], ['/tr/tools/qr-generator.html', 'tr']]) {
+    for (const [width, height] of [[390, 844], [320, 640]]) {
+      await page.viewport(width, height);
+      await page.navigate(path);
+      await page.evaluate((language) => localStorage.setItem('toolkit-language', language), language);
+      await page.navigate(path);
+      await wait(150);
+      for (const [state, setup] of states) {
+        await scenario(page, setup);
+        const at = `${language} ${width}px, ${state}`;
+        const view = await layout();
+        assert(view.scrollWidth <= view.width, `${at}: the page scrolls sideways (${view.scrollWidth}px).`);
+        assert(view.canvas.top >= view.mode.bottom && view.canvas.bottom <= view.height,
+          `${at}: the preview must sit under the content picker, in the first screen (${view.canvas.top}–${view.canvas.bottom}).`);
+        if (width === 390) assert(view.input.bottom <= view.height, `${at}: the first field must be in the first screen with the preview (${view.input.bottom}).`);
+        for (const [name, part] of [['capacity', view.capacity], ['hint', view.hint]]) {
+          if (!part) continue;
+          assert(part.left >= view.canvas.right && part.top >= view.canvas.top - 1 && part.bottom <= view.canvas.bottom + 1,
+            `${at}: the ${name} must fit beside the preview (${JSON.stringify(part)} vs ${JSON.stringify(view.canvas)}).`);
+        }
+        if (state === 'empty') assert(view.hint, `${at}: the hint must stand beside the empty preview.`);
+        else {
+          assert(view.capacity && view.check.top >= view.canvas.bottom && view.check.bottom <= view.input.top,
+            `${at}: the scan check must span the width under the preview, above the form.`);
+          assert(view.actions.top >= view.buttons.bottom, `${at}: the downloads must come after Generate.`);
+        }
+        if (state === 'with notes') assert(view.notes.top >= view.check.bottom && view.notes.bottom <= view.input.top, `${at}: the notes must follow the scan check.`);
+        const backwards = view.order.filter((item, index) => index && item.top < view.order[index - 1].top - 2);
+        assert.deepEqual(backwards, [], `${at}: the tab order jumps back up the screen.`);
+        layoutChecks += 1;
+      }
+    }
+  }
+  // Wide screens keep the preview column beside the controls.
+  await page.viewport(1280, 1000);
+  await page.navigate('/tools/qr-generator.html');
+  await wait(150);
+  await scenario(page, states[1][1]);
+  const wide = await layout();
+  assert(wide.canvas.left >= wide.mode.right && wide.canvas.top <= wide.mode.top && wide.check.top >= wide.canvas.bottom
+    && wide.actions.top >= wide.capacity.bottom && wide.actions.left >= wide.mode.right && wide.hint.top >= wide.buttons.bottom,
+  `At 1280px the preview, check and downloads must form a column beside the controls: ${JSON.stringify(wide)}`);
+  layoutChecks += 1;
+
   const errors = page.errors();
   assert.deepEqual(errors.map((event) => event.params?.text), [], 'The QR generator logged errors.');
 });
@@ -487,4 +559,4 @@ await withFirefox(async (page) => {
 if (!process.env.TOOLKIT_KEEP_QR_FILES) rmSync(work, { recursive: true, force: true });
 else console.log(`QR test files kept in ${work}`);
 const external = skipExternal ? 'external decoders skipped' : `${externalChecks.length} PNG/SVG decodes by ${Object.entries(decoders).filter(([name, ok]) => ok && name !== 'rsvg').map(([name]) => name).join(' and ')}`;
-console.log(`QR generator E2E passed: 160 capacity values and 799 alignment patterns against the library, a 64-image size and style sweep, payload formats for every content type, style, colour, logo and size variants, readability notes, overflow, download names and sizes, and the Turkish page; ${external}.`);
+console.log(`QR generator E2E passed: 160 capacity values and 799 alignment patterns against the library, a 64-image size and style sweep, payload formats for every content type, style, colour, logo and size variants, readability notes, overflow, download names and sizes, the Turkish page, and ${layoutChecks} phone and desktop layouts; ${external}.`);

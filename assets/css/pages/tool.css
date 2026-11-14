@@ -916,10 +916,30 @@
   .ts-divider { display: none; }
   .md-split { grid-template-columns: 1fr; }
   .md-editor,.md-preview { min-height: 280px; }
-  .qr-layout { grid-template-columns: 1fr; }
-  .qr-preview-col { align-items: flex-start; }
-  .qr-canvas-wrap { width: 220px; height: 220px; }
-  .qr-status { width: 100%; }
+  /* QR on phones: the preview, its capacity and the scan check sit under the content
+     picker, so the code stays in view while typing. Only unfocusable parts move up, so
+     the tab order still follows the screen. */
+  .qr-layout {
+    --qr-thumb: clamp(128px, 36vw, 200px);
+    grid-template-columns: var(--qr-thumb) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "mode mode" "canvas capacity" "canvas hint" "check check" "warnings warnings" "form form" "options options" "buttons buttons" "actions actions";
+    gap: 0 1rem;
+  }
+  .qr-controls, .qr-preview-col, .qr-status { display: contents; }
+  .qr-mode { grid-area: mode; }
+  .qr-canvas-wrap { grid-area: canvas; width: var(--qr-thumb); height: var(--qr-thumb); }
+  .qr-placeholder { padding: 0.6rem; }
+  .qr-placeholder svg { display: block; width: 36px; height: 36px; margin: 0 auto; }
+  .qr-placeholder p { font-size: 0.75rem; margin-top: 0.4rem; }
+  .qr-capacity { grid-area: capacity; margin-bottom: 0.75rem; font-size: 0.8rem; line-height: 1.5; }
+  .qr-hint { grid-area: hint; margin-top: 0; }
+  .qr-check { grid-area: check; margin-top: 1rem; font-size: 0.8rem; line-height: 1.5; }
+  .qr-warnings { grid-area: warnings; margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.5; }
+  #qrForm { grid-area: form; margin-top: 1.2rem; }
+  .qr-options { grid-area: options; }
+  .qr-controls > .btn-row { grid-area: buttons; }
+  .qr-actions { grid-area: actions; margin-top: 1.1rem; }
   .grad-layout { grid-template-columns: 1fr; }
   .color-layout { flex-direction: column; }
   .color-swatch { width: 80px; height: 80px; }
@@ -933,4 +953,9 @@
 @media (max-width: 480px) {
   .case-grid { grid-template-columns: 1fr; }
   .ts-now-bar { flex-direction: column; align-items: flex-start; }
+}
+
+/* Narrowest phones: beside a finished QR code there is only room for its capacity. */
+@media (max-width: 359px) {
+  .qr-layout--status .qr-hint { display: none; }
 }
