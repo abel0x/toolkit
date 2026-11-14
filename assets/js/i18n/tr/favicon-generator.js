@@ -6,7 +6,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Download": "İndir",
     "Generator": "Oluşturucu",
-    "image/png": "resim/png",
-    "raw": "ham"
+    "image/png": "resim/png"
   }))
 });

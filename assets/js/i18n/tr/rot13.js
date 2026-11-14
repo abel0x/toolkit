@@ -8,7 +8,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Input is empty": "Girdi boş",
     "Input is empty.": "Girdi boş.",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "ROT13 applied!": "ROT13 uygulandı!",
-    "Char": "Karakter"
+    "ROT13 applied!": "ROT13 uygulandı!"
   }))
 });

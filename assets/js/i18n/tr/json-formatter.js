@@ -12,7 +12,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "✕ Invalid JSON": "✕ Geçersiz JSON",
     "Invalid": "Geçersiz",
     "JSON is valid ✓": "JSON geçerli ✓",
-    "Please enter JSON to process": "İşlemek için JSON girin",
-    "raw": "ham"
+    "Please enter JSON to process": "İşlemek için JSON girin"
   }))
 });

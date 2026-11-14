@@ -8,7 +8,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Downloaded fake-data.": "Sahte veri indirildi.",
     "Nothing to download": "İndirilecek bir şey yok",
     "Select at least one field": "En az bir alan seçin",
-    "Char": "Karakter",
     "Company": "Şirket",
     "Male": "Erkek",
     "Female": "Kadın",

@@ -213,7 +213,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Generate HMAC": "HMAC oluştur",
     "Encode / Decode": "Kodlama / Kod Çözme",
     "Aspect Ratio": "En Boy Oranı",
-    "raw": "ham",
     "JSON Diff": "JSON Farkı",
     "Generate placeholder text by words, sentences, or paragraphs — instantly.": "Anında kelime, cümle veya paragraf bazında yer tutucu metin oluşturun.",
     "Markdown": "Markdown",

@@ -11,7 +11,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Symbols": "Semboller",
     "Generator": "Oluşturucu",
     "Select at least one character type": "En az bir karakter türü seçin",
-    "Char": "Karakter",
     "Fair": "Orta",
     "Strong": "Güçlü"
   }))

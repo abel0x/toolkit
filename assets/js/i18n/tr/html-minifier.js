@@ -6,7 +6,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "HTML minified!": "HTML küçültüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter HTML.": "Lütfen HTML girin.",
-    "raw": "ham"
+    "Please enter HTML.": "Lütfen HTML girin."
   }))
 });

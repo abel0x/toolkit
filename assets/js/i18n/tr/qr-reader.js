@@ -14,7 +14,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "QR code decoded!": "QR kodu çözüldü!",
     "QR reader library not loaded yet": "QR okuyucu kitaplığı henüz yüklenmedi",
     "File": "Dosya",
-    "raw": "ham",
     "wifi": "Wi-Fi",
     "No QR code detected in this image. Ensure the QR code is clear, well-lit, and not distorted.": "Bu görselde QR kod algılanamadı. QR kodun net, iyi aydınlatılmış ve bozulmamış olduğundan emin olun.",
     "Copy decoded content": "Çözülmüş içeriği kopyala",

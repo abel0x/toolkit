@@ -11,7 +11,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid date": "Geçersiz tarih",
     "Invalid timestamp": "Geçersiz zaman damgası",
     "Select a date and time": "Bir tarih ve saat seçin",
-    "raw": "ham",
     "Now: {{seconds}} (s) · {{milliseconds}} (ms)": "Şimdi: {{seconds}} (sn) · {{milliseconds}} (ms)",
     "Second": "Saniye",
     "Seconds": "Saniye",

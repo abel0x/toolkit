@@ -65,6 +65,9 @@ jobs:
       - name: Smoke-test every tool page in Firefox
         run: node tests/tool-pages-e2e.mjs
 
+      - name: Test keyboard shortcut help and share links in Firefox
+        run: node tests/shortcuts-share-e2e.mjs
+
       - name: Exercise browser tool flows in Firefox
         run: node tests/expansion-e2e.mjs
 

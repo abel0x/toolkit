@@ -9,8 +9,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Copy Header": "Başlığı Kopyala",
     "Copy Payload": "Yükü Kopyala",
     "Copy Signature": "İmzayı Kopyala",
-    "raw": "ham",
-    "not verified": "doğrulanmadı",
-    "base64url": "base64url"
+    "not verified": "doğrulanmadı"
   }))
 });

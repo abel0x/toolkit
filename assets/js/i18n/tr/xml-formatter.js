@@ -10,7 +10,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter XML.": "Lütfen XML girin.",
     "XML formatted!": "XML biçimlendirildi!",
-    "XML minified!": "XML küçültüldü!",
-    "raw": "ham"
+    "XML minified!": "XML küçültüldü!"
   }))
 });

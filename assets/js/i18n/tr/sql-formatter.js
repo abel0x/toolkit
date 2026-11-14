@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Formatter": "Biçimlendirici",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter SQL.": "Lütfen SQL girin.",
-    "SQL formatted!": "SQL biçimlendirildi!",
-    "raw": "ham"
+    "SQL formatted!": "SQL biçimlendirildi!"
   }))
 });

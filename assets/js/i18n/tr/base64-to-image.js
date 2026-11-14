@@ -10,7 +10,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Height": "Yükseklik",
     "Invalid": "Geçersiz",
     "Invalid Base64 image data": "Geçersiz Base64 görüntü verisi",
-    "image/png": "resim/png",
-    "raw": "ham"
+    "image/png": "resim/png"
   }))
 });

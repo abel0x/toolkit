@@ -214,6 +214,102 @@
   opacity: 0.7;
 }
 
+/* Added by command-palette.js; opens the keyboard shortcuts. It sits at
+   the right, just before the technology line. */
+.footer-shortcuts {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.2rem 0.1rem;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.footer-shortcuts:hover,
+.footer-shortcuts:focus-visible { color: var(--text-primary); }
+
+.footer-shortcuts kbd,
+.shortcut-help kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1;
+}
+
+/* ── Keyboard shortcuts dialog ("?") ──────────────────────── */
+/* Centred and placed like the tool finder; the reset removes the
+   dialog's own margins. */
+.shortcut-help {
+  width: min(calc(100% - 2rem), 440px);
+  max-height: calc(100% - 2rem);
+  margin: min(12vh, 7rem) auto auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.shortcut-help::backdrop { background: rgba(0, 0, 0, 0.78); }
+
+.shortcut-help__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.shortcut-help__header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+
+.shortcut-help__close {
+  padding: 0.25rem 0.55rem;
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.shortcut-help__close:hover,
+.shortcut-help__close:focus-visible { color: var(--text-primary); }
+
+.shortcut-help__list { margin: 0; padding: 0.4rem 1.25rem 0.9rem; }
+
+.shortcut-help__list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.shortcut-help__list > div:first-child { border-top: 0; }
+.shortcut-help__list dt { display: flex; gap: 0.25rem; flex: 0 0 auto; order: 2; }
+.shortcut-help__list dd { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+
+@media (max-width: 480px) {
+  .shortcut-help { margin-top: 1rem; }
+}
+
 /* ── Cards & Glass ────────────────────────────────────────── */
 .card {
   border-radius: var(--radius-xl);
@@ -1110,6 +1206,7 @@ input[type="range"]:focus { outline: none; }
   .footer-nav--cols { grid-template-columns: repeat(3, auto); gap: 1.5rem 1.2rem; }
   .footer-inner { flex-direction: column; gap: 1.8rem; }
   .footer-bottom { flex-direction: column; text-align: center; }
+  .footer-shortcuts { margin-left: 0; }
   .footer-social { flex-direction: row; flex-wrap: wrap; }
   #toast-container { bottom: 1rem; right: 1rem; left: 1rem; }
   .toast { min-width: unset; max-width: unset; width: 100%; }

@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/text-diff.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/text-diff.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/text-diff.html" />
-  <script src="../assets/js/core/language-redirect.js?v=12b23ac203da"></script>
+  <script src="../assets/js/core/language-redirect.js?v=0d846dba46c2"></script>
   <meta property="og:title" content="Text Diff Checker — Toolkit" />
   <meta property="og:description" content="Compare two blocks of text and see additions, deletions and unchanged lines side by side. 100% client-side." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/text-diff.html" />
@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Text Diff Checker — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=12b23ac203da" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=12b23ac203da" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=12b23ac203da" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=12b23ac203da" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=12b23ac203da" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=0d846dba46c2" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=0d846dba46c2" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=0d846dba46c2" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=0d846dba46c2" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=0d846dba46c2" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Text Diff Checker", "url": "https://abel0x.github.io/toolkit/tools/text-diff.html", "description": "Compare two blocks of text and see additions, deletions and unchanged lines side by side. 100% client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Text Diff Checker", "item": "https://abel0x.github.io/toolkit/tools/text-diff.html"}]}]}</script>
@@ -73,7 +73,10 @@
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><h1 class="section-title" id="diffHeading">Text Diff Checker</h1></div>
             <p class="section-desc">Compare two blocks of text and see additions, deletions, and unchanged lines at a glance.</p>
           </div>
-          <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="text-diff"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
+          <div class="tool-header__actions">
+            <button type="button" class="btn btn--ghost btn--sm tool-header__share" data-share-fields="#diffA,#diffB" data-share-action="#diffCompareBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
+            <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="text-diff"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
+          </div>
         </div>
         <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="Text Diff Checker Tool">
@@ -133,11 +136,12 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=12b23ac203da" defer></script>
-  <script src="../assets/js/core/nav.js?v=12b23ac203da" defer></script>
-  <script src="../assets/js/core/i18n.js?v=12b23ac203da" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=12b23ac203da" defer></script>
-  <script src="../assets/js/tools/text-diff.js?v=12b23ac203da" defer></script>
-  <script src="../assets/js/core/example-starters.js?v=12b23ac203da" defer></script>
+  <script src="../assets/js/core/utils.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/core/nav.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/core/i18n.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/tools/text-diff.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=0d846dba46c2" defer></script>
+  <script src="../assets/js/core/share-link.js?v=0d846dba46c2" defer></script>
 </body>
 </html>

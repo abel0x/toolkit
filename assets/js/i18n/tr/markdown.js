@@ -11,7 +11,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Formatter": "Biçimlendirici",
     "JSON Formatter": "JSON Biçimlendirici",
     "UUID Generator": "UUID Oluşturucu",
-    "raw": "ham",
     "Paragraphs": "Paragraflar",
     "Welcome to Toolkit": "Araç Seti'ne hoş geldiniz",
     "Markdown": "Markdown",

@@ -25,7 +25,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 
 - Tool input stays on your device. It is processed with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
 - After the first successful load the service worker has cached the site, so the tools keep working without a network connection.
-- <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page, and <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> in a tool's field runs the tool.
+- <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page, and <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> in a tool's field runs the tool. <kbd>?</kbd> lists the shortcuts a page answers to.
 - The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser: a visitor who chose Turkish and opens an English address is sent to its Turkish page. English pages do not download the Turkish dictionaries.
 - There are no accounts, no backend, no analytics, and no stored tool input.
 
@@ -113,6 +113,7 @@ A two-part maintenance pass. 1.2.1 made the release pipeline correct: returning 
 - **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
 - **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
 - **Related tools:** every tool page ends with four related tools and a link to the rest of its category.
+- **Share links:** ten tools (Regex, Cron, JSON and text diff, cURL, CSP, JSON and SQL formatters, CSS specificity, JSON to TypeScript) have “Copy link”, which puts the current input into the link's `#share=` fragment. Browsers never send a fragment to a server, so the input travels only with the link; opening it fills the tool and runs it.
 - **Example starters:** 64 tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
 - **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
 
@@ -270,6 +271,9 @@ node tests/accessibility-audit.mjs
 
 # Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
+
+# Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
+node tests/shortcuts-share-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
 node tests/expansion-e2e.mjs

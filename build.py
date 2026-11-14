@@ -84,7 +84,8 @@ UNPUBLISHED_SUFFIXES = ('.md',)
 # ---------------------------------------------------------------------------
 
 _RELATED_COUNT = 4
-_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'icon', 'shell', 'exampleStarter'}
+_ID_SELECTOR = re.compile(r'#[A-Za-z][\w-]*')
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'share', 'icon', 'shell', 'exampleStarter'}
 _REGISTRY = None
 
 
@@ -120,10 +121,14 @@ def _registry():
         expansion = entry.get('shell') == 'expansion'
         if 'shell' in entry and not expansion:
             errors.append(f'{label}: shell must be "expansion" when present')
-        if expansion and 'icon' in entry:
-            errors.append(f'{label}: expansion tools use the shared icon; remove icon')
-        if not expansion and not entry.get('icon'):
+        if not entry.get('icon'):
             errors.append(f'{label}: missing icon')
+        share = entry.get('share')
+        if share is not None:
+            fields = share.get('fields') if isinstance(share, dict) else None
+            if (not isinstance(fields, list) or not fields or set(share) - {'fields', 'action'}
+                    or not all(isinstance(field, str) and _ID_SELECTOR.fullmatch(field) for field in fields + [share.get('action', '#x')])):
+                errors.append(f'{label}: share needs "fields" (a list of #id selectors) and optionally an "action" #id')
         if entry.get('exampleStarter') and not expansion:
             errors.append(f'{label}: exampleStarter applies only to expansion tools')
         tools.append(dict(entry, catLabel=categories.get(entry.get('cat'), '')))
@@ -360,7 +365,8 @@ def run_registry():
             expansion.append(
                 f"  {{ name: {_js_string(tool['name'])}, slug: {_js_string(tool['slug'])}, "
                 f"cat: {_js_string(tool['cat'])}, catLabel: {_js_string(tool['catLabel'])}, "
-                f"desc: {_js_string(tool['desc'])}, tags: {_js_tags(tool['tags'])} }},")
+                f"desc: {_js_string(tool['desc'])}, tags: {_js_tags(tool['tags'])}, "
+                f"icon: {_js_string(tool['icon'])} }},")
         else:
             base.append('\n'.join((
                 '  {',
@@ -562,9 +568,11 @@ def run_nav():
 
 _TOOL_HEADER_START = '<!-- TOOL-HEADER:START -->'
 _TOOL_HEADER_END = '<!-- TOOL-HEADER:END -->'
-# Expansion tools have no icon of their own; home.js gives their cards this one.
-_FALLBACK_ICON = ('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-                  'stroke-width="1.8"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>')
+_SHARE_ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+               'stroke-width="1.8" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/>'
+               '<path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>')
+_SHARE_SCRIPT = '<script src="../assets/js/core/share-link.js" defer></script>'
+_SHARE_SCRIPT_TAG = re.compile(r'[ \t]*<script src="\.\./assets/js/core/share-link\.js(?:\?v=[0-9a-f]+)?" defer></script>\n')
 _SAMPLE_ICON = ('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
                 'stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 '
                 '10l-5.7-1.3L12 3Z"/></svg>')
@@ -590,11 +598,21 @@ def _tool_breadcrumb(tool, page_name):
 
 def _tool_header(tool, title_html, description_html, sample_group, indent):
     """Return the marked header block of one tool page."""
-    icon = tool.get('icon') or _FALLBACK_ICON
-    button = ''
+    icon = tool['icon']
+    buttons = []
+    share = tool.get('share')
+    if share:
+        action = f' data-share-action="{share["action"]}"' if share.get('action') else ''
+        buttons.append(f'<button type="button" class="btn btn--ghost btn--sm tool-header__share" '
+                       f'data-share-fields="{",".join(share["fields"])}"{action}>{_SHARE_ICON}Copy link</button>')
     if sample_group:
-        button = (f'\n{indent}  <button type="button" class="btn btn--ghost btn--sm tool-header__sample" '
-                  f'data-example-group="{sample_group}">{_SAMPLE_ICON}Try a sample</button>')
+        buttons.append(f'<button type="button" class="btn btn--ghost btn--sm tool-header__sample" '
+                       f'data-example-group="{sample_group}">{_SAMPLE_ICON}Try a sample</button>')
+    button = ''
+    if buttons:
+        button = (f'\n{indent}  <div class="tool-header__actions">'
+                  + ''.join(f'\n{indent}    {item}' for item in buttons)
+                  + f'\n{indent}  </div>')
     return (f'{indent}{_TOOL_HEADER_START}\n'
             f'{indent}<div class="tool-header reveal">\n'
             f'{indent}  <div class="tool-header__text">\n'
@@ -646,6 +664,15 @@ def _with_tool_header(html, tool, filename):
     return html[:wrapper.start(1)] + containers[-1] + html[wrapper.end(1):]
 
 
+def _with_share_script(html, tool):
+    """Load share-link.js on the pages whose header has a "Copy link" button."""
+    html = _SHARE_SCRIPT_TAG.sub('', html)
+    if not tool.get('share'):
+        return html
+    body_end = html.rindex('</body>')
+    return html[:body_end] + f'  {_SHARE_SCRIPT}\n' + html[body_end:]
+
+
 def run_tool_headers():
     """Give every tool page the shared header with its catalogue icon and category."""
     print('\n[--tool-headers] Generating tool page headers...')
@@ -656,7 +683,7 @@ def run_tool_headers():
         if slug not in tools:
             raise SystemExit(f'tools/{slug}.html is not in _data/tools.json.')
         html = _read(path)
-        revised = _with_tool_header(html, tools[slug], f'tools/{slug}.html')
+        revised = _with_share_script(_with_tool_header(html, tools[slug], f'tools/{slug}.html'), tools[slug])
         if revised != html:
             _write(path, revised)
             updated += 1
@@ -1234,7 +1261,7 @@ def _related_row(tool, tools, indent):
     links = []
     for slug in _related_slugs(tool, tools):
         other = by_slug[slug]
-        icon = _RELATED_ICON.sub('width="16" height="16"', other.get('icon') or _FALLBACK_ICON)
+        icon = _RELATED_ICON.sub('width="16" height="16"', other['icon'])
         links.append(f'{indent}  <a class="related-tools__link" href="{slug}.html">'
                      f'<span class="related-tools__icon" aria-hidden="true">{icon}</span>'
                      f'{html_lib.escape(other["name"])}</a>\n')

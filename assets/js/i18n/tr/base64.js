@@ -10,7 +10,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid": "Geçersiz",
     "Input is empty": "Girdi boş",
     "Input is empty.": "Girdi boş.",
-    "Char": "Karakter",
     "Decoded bytes are not valid UTF-8.": "Kodu çözülen baytlar geçerli UTF-8 değil.",
     "Base64 input": "Base64 girdisi"
   }))

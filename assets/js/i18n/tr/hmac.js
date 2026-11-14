@@ -8,7 +8,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "HMAC generated!": "HMAC oluşturuldu!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter a message.": "Lütfen bir ileti girin.",
-    "Please enter a secret key.": "Lütfen gizli anahtarı girin.",
-    "raw": "ham"
+    "Please enter a secret key.": "Lütfen gizli anahtarı girin."
   }))
 });

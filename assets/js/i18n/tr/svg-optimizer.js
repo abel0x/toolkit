@@ -15,7 +15,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Paste or upload an SVG first": "Önce bir SVG yapıştırın veya yükleyin",
     "No file selected": "Dosya seçilmedi",
     "File": "Dosya",
-    "raw": "ham",
     ".svg": ".svg",
     "Remove comments": "Yorumları kaldır",
     "Remove DOCTYPE": "DOCTYPE'ı kaldır",

@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Invalid": "Geçersiz",
     "Keys sorted!": "Anahtarlar sıralandı!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Please enter JSON.": "Lütfen JSON girin.",
-    "raw": "ham"
+    "Please enter JSON.": "Lütfen JSON girin."
   }))
 });

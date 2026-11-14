@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Parser": "Ayrıştırıcı",
     "Invalid": "Geçersiz",
     "Invalid URL": "Geçersiz URL",
-    "raw": "ham",
     "Query Parameters": "Sorgu Parametreleri",
     "No query parameters.": "Sorgu parametresi yok."
   }))

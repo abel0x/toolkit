@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Output": "Çıktı",
     "Remove": "Kaldır",
     "Generator": "Oluşturucu",
-    "raw": "ham",
     "Robots": "Robotlar",
     ".txt": ".txt",
     "Allow rule": "İzin kuralı",

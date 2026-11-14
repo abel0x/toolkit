@@ -95,12 +95,20 @@
   line-height: 1.6;
 }
 
-.tool-header__sample {
+/* "Copy link" and "Try a sample" sit together at the right of the header. */
+.tool-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  margin-bottom: 0.1rem;
+}
+
+.tool-header__sample,
+.tool-header__share {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  flex: 0 0 auto;
-  margin-bottom: 0.1rem;
   white-space: nowrap;
 }
 

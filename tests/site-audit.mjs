@@ -160,7 +160,8 @@ for (const tool of catalogue) {
   const header = html.match(/<!-- TOOL-HEADER:START -->([\s\S]*?)<!-- TOOL-HEADER:END -->/)?.[1];
   assert(header, `tools/${tool.slug}.html has no generated tool header.`);
   assert(header.includes('<span class="tool-header__icon" aria-hidden="true"><svg'), `tools/${tool.slug}.html has no header icon.`);
-  if (tool.icon) assert(header.includes(tool.icon), `tools/${tool.slug}.html shows a different icon than _data/tools.json.`);
+  assert(tool.icon, `_data/tools.json gives ${tool.slug} no icon.`);
+  assert(header.includes(tool.icon), `tools/${tool.slug}.html shows a different icon than _data/tools.json.`);
   assert.equal(header.match(/<h1\b/g)?.length, 1, `tools/${tool.slug}.html needs exactly one <h1> in its header.`);
   assert(html.includes(`<a href="../index.html#category-${tool.cat}">${categories[tool.cat]}</a>`),
     `tools/${tool.slug}.html does not link its category in the breadcrumb.`);
@@ -193,10 +194,43 @@ for (const tool of catalogue) {
   }
 }
 
+// "Copy link" (share-link.js) appears exactly on the tools with "share" in
+// _data/tools.json, beside "Try a sample", in English and Turkish.
+for (const tool of catalogue) {
+  for (const prefix of ['', 'tr/']) {
+    const page = `${prefix}tools/${tool.slug}.html`;
+    const html = readFileSync(join(root, page), 'utf8');
+    const buttons = html.match(/class="btn btn--ghost btn--sm tool-header__share"[^>]*>/g) || [];
+    const scripts = html.match(/assets\/js\/core\/share-link\.js/g) || [];
+    if (!tool.share) {
+      assert.equal(buttons.length + scripts.length, 0, `${page} offers a share link without "share" in _data/tools.json.`);
+      continue;
+    }
+    assert.equal(buttons.length, 1, `${page} needs one "Copy link" button.`);
+    assert.equal(scripts.length, 1, `${page} needs share-link.js once.`);
+    assert(buttons[0].includes(`data-share-fields="${tool.share.fields.join(',')}"`), `${page} shares other fields than _data/tools.json lists.`);
+    if (tool.share.action) assert(buttons[0].includes(`data-share-action="${tool.share.action}"`), `${page} shares without its run button.`);
+    assert(html.includes(prefix ? 'Bağlantıyı kopyala</button>' : 'Copy link</button>'), `${page} has an untranslated or missing "Copy link" label.`);
+  }
+}
+assert.equal(catalogue.filter((tool) => tool.share).length, 10, 'Expected ten tools with a share link.');
+
+// Expansion tools used to share one placeholder icon; each now has its own,
+// shared with no other tool, and the registry carries it to the home page.
+for (const tool of catalogue.filter((entry) => entry.shell === 'expansion')) {
+  const twins = catalogue.filter((other) => other.slug !== tool.slug && other.icon === tool.icon).map((other) => other.slug);
+  assert.deepEqual(twins, [], `${tool.slug} shares its icon with ${twins.join(', ')}.`);
+}
+assert(!catalogue.some((tool) => tool.icon.includes('M12 3v18M3 12h18')), 'A tool still uses the old shared placeholder icon.');
+
 const registrySource = [
   readFileSync(join(root, 'assets/js/core/tools-data.js'), 'utf8'),
   readFileSync(join(root, 'assets/js/core/extra-tools-data.js'), 'utf8')
 ].join('\n');
+for (const tool of catalogue.filter((entry) => entry.shell === 'expansion')) {
+  assert(registrySource.includes(`slug: '${tool.slug}'`) && registrySource.includes(tool.icon.replace(/'/g, "\\'")),
+    `The browser registry does not carry the icon of ${tool.slug}.`);
+}
 const registeredSlugs = [...registrySource.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
 const publishedSlugs = toolPages.map((file) => basename(file, '.html'));
 assert.equal(new Set(registeredSlugs).size, registeredSlugs.length, 'Tool registries contain a duplicate slug.');
@@ -274,11 +308,21 @@ for (const asset of [
   'license/',
   'license/index.html',
   'assets/js/core/example-starters.js',
+  'assets/js/core/share-link.js',
   'assets/js/core/i18n-tr.js',
   'assets/js/core/i18n-expansion.js',
   'assets/js/core/language-redirect.js'
 ]) {
   assert(serviceWorker.includes(`'${asset}'`), `Service worker does not precache ${asset}.`);
+}
+// Every core script a page loads must work offline too.
+const loadedCoreScripts = new Set();
+for (const file of pages) {
+  for (const match of readFileSync(file, 'utf8').matchAll(/src="(?:\.\.\/)*(assets\/js\/core\/[a-z0-9-]+\.js)/g)) loadedCoreScripts.add(match[1]);
+}
+assert(loadedCoreScripts.has('assets/js/core/share-link.js'), 'No page loads share-link.js.');
+for (const script of loadedCoreScripts) {
+  assert(serviceWorker.includes(`'${script}'`), `Service worker does not precache ${script}, which pages load.`);
 }
 for (const asset of [
   'assets/images/favicon-32.png',

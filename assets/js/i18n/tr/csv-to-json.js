@@ -8,7 +8,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Converted to JSON!": "JSON’a dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter CSV.": "Lütfen CSV girin.",
-    "raw": "ham",
     "Quote": "Alıntı",
     "Quotes": "Alıntılar"
   }))

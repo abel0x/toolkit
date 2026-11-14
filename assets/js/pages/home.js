@@ -21,7 +21,6 @@
     const known = new Set([...hubGrid.querySelectorAll('.hub-card')]
       .map((card) => card.getAttribute('href')?.split('/').pop()?.replace(/\.html$/, ''))
       .filter(Boolean));
-    const fallbackIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>';
 
     TOOLS_DATA.forEach((tool) => {
       if (known.has(tool.slug)) return;
@@ -36,7 +35,7 @@
       const icon = document.createElement('div');
       icon.className = 'hub-card-icon';
       icon.setAttribute('aria-hidden', 'true');
-      icon.innerHTML = tool.icon || fallbackIcon;
+      icon.innerHTML = tool.icon;
       const title = document.createElement('h3');
       title.className = 'hub-card-title';
       title.textContent = tool.name;

@@ -24,7 +24,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "QR library not loaded yet — please try again": "QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin",
     "File": "Dosya",
     "image/png": "resim/png",
-    "raw": "ham",
     "Mode": "Mod",
     ".mjs": ".mjs",
     "Phone Number": "Telefon Numarası",

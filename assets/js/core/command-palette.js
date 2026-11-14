@@ -339,3 +339,128 @@
     }
   });
 })();
+
+/* ═══════════════════════════════════════════════════════════
+   Keyboard shortcuts — "?" lists the shortcuts this page answers to
+   A native <dialog> keeps focus inside, closes on Esc and hands focus
+   back. The footer gets a button for it, so the list is not only for
+   those who already know the key.
+   ═══════════════════════════════════════════════════════════ */
+(function initShortcutHelp() {
+  'use strict';
+
+  if (typeof HTMLDialogElement === 'undefined') return;
+
+  function t(key) {
+    return window.ToolkitI18n ? window.ToolkitI18n.t(key) : key;
+  }
+
+  const isMac = /Mac|iPhone|iPad/.test(navigator.userAgentData?.platform || navigator.platform || '');
+  const modifier = isMac ? '⌘' : 'Ctrl';
+  let dialog = null;
+  let opener = null;
+
+  function isTyping(target) {
+    return target instanceof Element
+      && Boolean(target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]'));
+  }
+
+  // Only what works here: "/" on the home page, Ctrl+Enter where a tool runs.
+  function shortcuts() {
+    const rows = [[[modifier, 'K'], t('Find a tool')]];
+    if (document.getElementById('hubSearch')) rows.push([['/'], t('Search the tools on this page')]);
+    if (document.querySelector('.tool-header') && document.querySelector('main button.btn-primary, main button.btn--primary')) {
+      rows.push([[modifier, 'Enter'], t('Run the tool from one of its fields')]);
+    }
+    rows.push([['Esc'], t('Close a window or menu')]);
+    rows.push([['?'], t('Show these shortcuts')]);
+    return rows;
+  }
+
+  function build() {
+    dialog = document.createElement('dialog');
+    dialog.className = 'shortcut-help';
+    dialog.setAttribute('aria-labelledby', 'shortcutHelpTitle');
+    const header = document.createElement('div');
+    header.className = 'shortcut-help__header';
+    const title = document.createElement('h2');
+    title.id = 'shortcutHelpTitle';
+    title.textContent = t('Keyboard shortcuts');
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'shortcut-help__close';
+    close.setAttribute('aria-label', t('Close keyboard shortcuts'));
+    close.textContent = 'Esc';
+    close.addEventListener('click', () => dialog.close());
+    header.append(title, close);
+    const list = document.createElement('dl');
+    list.className = 'shortcut-help__list';
+    dialog.append(header, list);
+    // A click on the backdrop lands on the dialog itself.
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => {
+      if (opener?.isConnected) opener.focus();
+      opener = null;
+    });
+    document.body.appendChild(dialog);
+  }
+
+  function fill() {
+    const list = dialog.querySelector('.shortcut-help__list');
+    list.replaceChildren(...shortcuts().map(([keys, label]) => {
+      const row = document.createElement('div');
+      const term = document.createElement('dt');
+      keys.forEach((key) => {
+        const kbd = document.createElement('kbd');
+        kbd.textContent = key;
+        term.append(kbd);
+      });
+      const description = document.createElement('dd');
+      description.textContent = label;
+      row.append(term, description);
+      return row;
+    }));
+    dialog.querySelector('h2').textContent = t('Keyboard shortcuts');
+    dialog.querySelector('.shortcut-help__close').setAttribute('aria-label', t('Close keyboard shortcuts'));
+  }
+
+  function open() {
+    if (!dialog) build();
+    if (dialog.open) return;
+    fill();
+    opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog.showModal();
+    dialog.querySelector('.shortcut-help__close').focus();
+  }
+
+  function addFooterButton() {
+    const footer = document.querySelector('.footer-bottom');
+    if (!footer || footer.querySelector('.footer-shortcuts')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'footer-shortcuts';
+    button.setAttribute('aria-haspopup', 'dialog');
+    const label = document.createElement('span');
+    label.textContent = t('Keyboard shortcuts');
+    const key = document.createElement('kbd');
+    key.textContent = '?';
+    button.append(label, key);
+    button.addEventListener('click', open);
+    footer.insertBefore(button, footer.querySelector('.footer-tech'));
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== '?' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) return;
+    if (isTyping(event.target) || document.querySelector('.command-palette:not([hidden])')) return;
+    event.preventDefault();
+    open();
+  });
+
+  window.addEventListener('toolkit:languagechange', () => {
+    const label = document.querySelector('.footer-shortcuts span');
+    if (label) label.textContent = t('Keyboard shortcuts');
+    if (dialog?.open) fill();
+  });
+
+  addFooterButton();
+}());

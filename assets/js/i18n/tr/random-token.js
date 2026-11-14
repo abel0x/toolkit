@@ -7,9 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Output": "Çıktı",
     "Length": "Uzunluk",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
-    "Char": "Karakter",
     "Token": "Belirteç",
-    "base64url": "base64url",
     "alpha": "alfa"
   }))
 });
