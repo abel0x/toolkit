@@ -32,12 +32,13 @@
     return 'just now';
   }
 
-  function makePanelHTML(partLabel, cssClass, content, copyId) {
+  // copyLabel is spelled out at each call so the Turkish pack can find it.
+  function makePanelHTML(partLabel, cssClass, content, copyId, copyLabel) {
     return `
       <div class="jwt-panel">
         <div class="jwt-panel-header">
           <span class="jwt-part-label jwt-part-label--${cssClass}">${partLabel}</span>
-          <button class="icon-btn" id="${copyId}" aria-label="Copy ${partLabel}" title="Copy">
+          <button class="icon-btn" id="${copyId}" aria-label="${copyLabel}" title="Copy">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
         </div>
@@ -68,9 +69,9 @@
     const payloadStr = formatJSON(payload);
     const sigNote    = `Signature not verified — raw: ${parts[2].substring(0,32)}…`;
 
-    let html = makePanelHTML('Header', 'header', headerStr, 'jwtCopyHeader');
-    html    += makePanelHTML('Payload', 'payload', payloadStr, 'jwtCopyPayload');
-    html    += makePanelHTML('Signature', 'sig', sigNote, 'jwtCopySig');
+    let html = makePanelHTML('Header', 'header', headerStr, 'jwtCopyHeader', 'Copy Header');
+    html    += makePanelHTML('Payload', 'payload', payloadStr, 'jwtCopyPayload', 'Copy Payload');
+    html    += makePanelHTML('Signature', 'sig', sigNote, 'jwtCopySig', 'Copy Signature');
 
     // Info badges
     const now = Math.floor(Date.now() / 1000);

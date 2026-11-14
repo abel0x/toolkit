@@ -84,5 +84,5 @@
   }
 
   parseBtn.addEventListener('click', parse);
-  urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') parse(); });
+  urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); parse(); } });
 })();

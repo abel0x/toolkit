@@ -37,5 +37,5 @@
   }
 
   validateBtn.addEventListener('click', validate);
-  inputEl.addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') validate(); });
+  inputEl.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); validate(); } });
 })();

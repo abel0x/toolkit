@@ -116,6 +116,7 @@
   [inputEl, verifyPasswordEl, verifyHashEl].forEach((element) => {
     element.addEventListener('keydown', (event) => {
       if (event.key !== 'Enter') return;
+      event.preventDefault();
       if (element === inputEl) generate();
       else verify();
     });

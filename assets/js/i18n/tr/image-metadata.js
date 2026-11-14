@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Preview": "Önizle",
     "Width": "Genişlik",
     "Height": "Yükseklik",
-    "Date": "Tarih",
     "Reader": "Okuyucu",
     "Please select an image file": "Lütfen bir görüntü dosyası seçin",
     "File": "Dosya",

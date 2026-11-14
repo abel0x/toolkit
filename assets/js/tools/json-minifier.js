@@ -32,5 +32,5 @@
     if (outputEl.value) copyToClipboard(outputEl.value, 'Minified JSON');
     else showToast('Nothing to copy.', 'error');
   });
-  inputEl.addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') minify(); });
+  inputEl.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); minify(); } });
 })();

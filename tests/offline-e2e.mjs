@@ -251,6 +251,23 @@ async function main() {
     assert.equal(nestedMissing.home, `${baseUrl}/index.html`, 'The nested 404 page links outside the site root.');
     assert.deepEqual(nestedMissing.failed, [], `The nested 404 page requested missing assets: ${nestedMissing.failed.join(', ')}`);
 
+    // A miss under /tr/ is Turkish even with no stored language (a visitor
+    // from a search), and its site links lead to the Turkish pages.
+    await evaluate(bidi, tab.context, `(() => { localStorage.removeItem('toolkit-language'); sessionStorage.clear(); return true; })()`);
+    await navigate(bidi, tab.context, `${baseUrl}/tr/tools/not-a-published-tool.html`);
+    const turkishMissing = await evaluate(bidi, tab.context, `(() => ({
+      lang: document.documentElement.lang,
+      heading: document.querySelector('h1')?.textContent.trim() || '',
+      links: [...document.querySelectorAll('main a, .nav-brand, .nav-license-link')].map((link) => link.href)
+    }))()`);
+    assert.equal(turkishMissing.lang, 'tr', 'A missing /tr/ page did not render the 404 page in Turkish.');
+    assert.equal(turkishMissing.heading, 'Sayfa bulunamadı', 'The Turkish 404 heading is not translated.');
+    assert.deepEqual(turkishMissing.links, [
+      `${baseUrl}/tr/index.html`, `${baseUrl}/tr/license/index.html`,
+      `${baseUrl}/tr/index.html`, `${baseUrl}/tr/index.html#tools-hub`
+    ], 'The Turkish 404 page links outside the Turkish pages.');
+    await evaluate(bidi, tab.context, `(() => { localStorage.removeItem('toolkit-language'); return true; })()`);
+
     // Turkish pages live one level deeper but share the root worker and assets.
     await navigate(bidi, tab.context, `${baseUrl}/tr/tools/base64.html`);
     const turkishOnline = await evaluate(bidi, tab.context, `(async () => {

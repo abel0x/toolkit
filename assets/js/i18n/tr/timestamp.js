@@ -6,7 +6,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Unit": "Birim",
     "From": "Başlangıç",
-    "Date": "Tarih",
     "Invalid": "Geçersiz",
     "Enter a valid Unix timestamp": "Geçerli bir Unix zaman damgası girin",
     "Invalid date": "Geçersiz tarih",

@@ -7,7 +7,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Unit": "Birim",
     "Converter": "Dönüştürücü",
     "Decimal": "Ondalık",
-    "Binary": "İkili",
     "Bytes (B)": "Bayt (B)",
     "Kilobytes (KB)": "Kilobayt (KB)",
     "Megabytes (MB)": "Megabayt (MB)",

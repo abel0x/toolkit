@@ -648,7 +648,8 @@
       "cat": "security",
       "desc": "Encrypt or decrypt text locally with AES-GCM and a passphrase.",
       "tags": ["aes", "encrypt", "decrypt", "crypto", "passphrase"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     },
     {
       "slug": "rsa-keypair",
@@ -742,7 +743,8 @@
       "cat": "devtools",
       "desc": "Generate a responsive CSS clamp() expression from size and viewport ranges.",
       "tags": ["css", "clamp", "responsive", "fluid typography"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     },
     {
       "slug": "json-to-typescript",
@@ -786,7 +788,8 @@
       "cat": "text",
       "desc": "Inspect Unicode code points and normalize text with standard Unicode forms.",
       "tags": ["unicode", "text", "normalize", "code point"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     },
     {
       "slug": "time-zone-converter",
@@ -794,7 +797,8 @@
       "cat": "converters",
       "desc": "View one date and time across IANA time zones using browser locale data.",
       "tags": ["timezone", "date", "time", "intl"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     },
     {
       "slug": "date-duration",
@@ -802,7 +806,8 @@
       "cat": "converters",
       "desc": "Calculate the exact day and week distance between two calendar dates.",
       "tags": ["date", "duration", "days", "weeks"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     },
     {
       "slug": "image-compressor",
@@ -826,7 +831,8 @@
       "cat": "devtools",
       "desc": "Check WCAG contrast ratios for foreground and background colors.",
       "tags": ["color", "contrast", "wcag", "accessibility"],
-      "shell": "expansion"
+      "shell": "expansion",
+      "exampleStarter": true
     }
   ]
 }

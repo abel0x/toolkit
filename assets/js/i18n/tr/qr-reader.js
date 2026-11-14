@@ -20,7 +20,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Copy decoded content": "Çözülmüş içeriği kopyala",
     "Open Link Safely ↗": "Bağlantıyı güvenle aç ↗",
     "Wi-Fi Details": "Wi-Fi ayrıntıları",
-    "Hidden": "Gizli",
     "(none)": "(yok)"
   }))
 });

@@ -74,6 +74,6 @@
 
   // Also trigger on Ctrl+Enter inside textarea
   hashInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generateHashes();
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); generateHashes(); }
   });
 })();

@@ -9,7 +9,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter a message.": "Lütfen bir ileti girin.",
     "Please enter a secret key.": "Lütfen gizli anahtarı girin.",
-    "Message": "Mesaj",
     "raw": "ham"
   }))
 });

@@ -5,15 +5,15 @@
   },
   "license/index.html": {
     "date": "2026-11-14",
-    "sha256": "3e7ccd327403f3de2580c717fbbfcf57135e20d938ede014f15a7f6c63d17232"
+    "sha256": "efdcff8cc3b163527dee6218181baf79927b68c4b4d46059c36da1fcb8c76242"
   },
   "tools/aes-gcm.html": {
-    "date": "2026-11-13",
-    "sha256": "da2c3ba2c8de37fad8b64635dd18c46a3cb379fede5f4ece3d330ea3d2086493"
+    "date": "2026-11-14",
+    "sha256": "d0a6cf1a47bbbb122a342fbd68856ae9f9eb0a3a0e1c249182e91a8d27344787"
   },
   "tools/ascii.html": {
-    "date": "2026-11-13",
-    "sha256": "78782d7b5b9afee2e29907a50102a121d0216d6d61b58ba6b2ba3a33a22e82b9"
+    "date": "2026-11-14",
+    "sha256": "423a0c18aa9886ab7ace1809a61564aaa9538eb5b4ffa30d03efa1b81474abdf"
   },
   "tools/aspect-ratio.html": {
     "date": "2026-11-13",
@@ -36,28 +36,28 @@
     "sha256": "8a8664e642b5c510cddb4a718607f6c3da1242fa37461bb5200fd6f00a469e6f"
   },
   "tools/binary-text.html": {
-    "date": "2026-11-13",
-    "sha256": "c9fe41053d8479751ac338e2b89b248a3e0fb730db846de82baf1494bd1968ae"
+    "date": "2026-11-14",
+    "sha256": "e7fc1653ba0ee7720db384d78316a4a6fc5efd59645b659f46146ab4dea83c5c"
   },
   "tools/bytes.html": {
     "date": "2026-11-13",
     "sha256": "0f833f11f7a3555acd0905b585b3b99161c4adf51c3215a18991abfabab8f3ac"
   },
   "tools/case-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "d61341faf19a9fd61708b292665822758997f5b084037daef242ff778c813e5e"
+    "date": "2026-11-14",
+    "sha256": "ee99d3d23f026cd8400eedd8e258b67307f1c3e02606aae627feca4e8e624d8e"
   },
   "tools/certificate-inspector.html": {
     "date": "2026-11-13",
     "sha256": "0f99e6cd0a2896348d07320157df409314e3570e66cc7ff99e4e8decdfdd47ad"
   },
   "tools/color-contrast.html": {
-    "date": "2026-11-13",
-    "sha256": "0f1f2dc614388403dae8b3f66e531b8ad0ff693e0709d70b77e8b99b45f6b81e"
+    "date": "2026-11-14",
+    "sha256": "6c2412e2c28db6974b3fe1b21645fc8ee14899103235d939d64549fce5598b06"
   },
   "tools/color-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "719c78bfb5e6634f11577e8ebd0d6ec0f03cf23936e7f6ba3150a2c25630a7e6"
+    "date": "2026-11-14",
+    "sha256": "b8808e3229111365ef2d06ae91aefea22e00bd9f4c61337531787be808444f4c"
   },
   "tools/color-palette.html": {
     "date": "2026-11-13",
@@ -72,8 +72,8 @@
     "sha256": "2eb91cf101c751ed6f8abac50043d5afd3b20a68dad1e618adb1ab5725ea8431"
   },
   "tools/css-clamp.html": {
-    "date": "2026-11-13",
-    "sha256": "acebe8ef6300b352cf453933c7c454120e9444bc29ae98790c5fe02ac7c2c823"
+    "date": "2026-11-14",
+    "sha256": "67604fc5414352c50051a99ee8d86c858927ddf50a3006cebca092cb0d8eda39"
   },
   "tools/css-minifier.html": {
     "date": "2026-11-13",
@@ -96,12 +96,12 @@
     "sha256": "870c9a1b2f6f3d7151222fda596fd157955bc52f7fdbbc5fc454b226905d02b9"
   },
   "tools/date-duration.html": {
-    "date": "2026-11-13",
-    "sha256": "b3abd91529cda69e651fe56a32ae37d27c92522425f295a0a5b7b59ab7807895"
+    "date": "2026-11-14",
+    "sha256": "935bc6de1c1ff8096db85cd9877f02cc5f7eb0dc114e19190dc94d0220365d5c"
   },
   "tools/deduplicate-lines.html": {
-    "date": "2026-11-13",
-    "sha256": "1ca53450e458fd470a4f4c111bb55227c4dc841ad0b533d201882f6d979919fb"
+    "date": "2026-11-14",
+    "sha256": "3fe0493432bf5e93afc476365da7c39f5e5fcb9d3b719eec84eba9a592841f52"
   },
   "tools/fake-data.html": {
     "date": "2026-11-13",
@@ -128,16 +128,16 @@
     "sha256": "824a46410e7c9efdb08a38c8b0a61f6641a89aee7151b96b7c7b43442adbe7e2"
   },
   "tools/hex-codec.html": {
-    "date": "2026-11-13",
-    "sha256": "e6ed4f3bdaf8d62991e5a9b67fbafa50eeda4e5c95cd6847d7c3e20776a71199"
+    "date": "2026-11-14",
+    "sha256": "36c15af43472516f4c05488d69c7853754f732bd90482e3401f9d39eb5f6e957"
   },
   "tools/hmac.html": {
-    "date": "2026-11-13",
-    "sha256": "7d806071ffc42a1049d186a3bb7e2603e29638125629d68671c3e85d0ae78698"
+    "date": "2026-11-14",
+    "sha256": "f01d83be83e96e89cf970d362ae6e2a78da0ac802205dd3589a45861b382a746"
   },
   "tools/html-codec.html": {
-    "date": "2026-11-13",
-    "sha256": "7ec2b154d2f16e47614ba7b5f15dbb4ff879cfffe7a1ccaa7a2a5c032ac20ea1"
+    "date": "2026-11-14",
+    "sha256": "9ae199fd4c52ac37c8e105de2354499500968de4f7ac5236646f4cd676f21759"
   },
   "tools/html-minifier.html": {
     "date": "2026-11-13",
@@ -208,12 +208,12 @@
     "sha256": "8530484245833000ef8f0bc28ddbb63bc2f2da68a52619eff2566daec6282891"
   },
   "tools/jwt-decoder.html": {
-    "date": "2026-11-13",
-    "sha256": "24ba80df95f42ddaca371b5582180918c6a0072651b6bcf366182751a10e1bdf"
+    "date": "2026-11-14",
+    "sha256": "ed5e522b0455edbad99dcb26d68a2a66e6bce86b6a56b49f1acd5ee43cfbf1cd"
   },
   "tools/line-numbers.html": {
-    "date": "2026-11-13",
-    "sha256": "b354127205fb4eee5f01afd9fd57d9a01eaee1068a0cb88d8cc5c9c8b694bb65"
+    "date": "2026-11-14",
+    "sha256": "89a24520956777939fc186201a2a4778b093fc01667bae2e2c4067ee5f073304"
   },
   "tools/lorem-ipsum.html": {
     "date": "2026-11-13",
@@ -228,20 +228,20 @@
     "sha256": "37c512283706c373d73f880ae4ffb295cf26e76dffff6a230382e6c606ec962f"
   },
   "tools/mime-lookup.html": {
-    "date": "2026-11-13",
-    "sha256": "a97fe9cb26ffa62b7af42da8dcb7b944d207904c7b91cbdd2371c5780d1c18b5"
+    "date": "2026-11-14",
+    "sha256": "60dca2f6bee6470e0214a1918c87af713f0194a8b4b14c020fbc62a8e00cff89"
   },
   "tools/number-base.html": {
-    "date": "2026-11-13",
-    "sha256": "eb56679fedc046cf589410e5ea8aa48d3097e4cb3f221a8d81dc725bf6ce74d2"
+    "date": "2026-11-14",
+    "sha256": "a632c185159d3860e45880e316e8d17e679dfbeab6a666e95901453a32c36147"
   },
   "tools/open-graph.html": {
     "date": "2026-11-13",
     "sha256": "e12683f8c0dd36ea89c079f2ccc261df656a44edab54baa5efd596b532204625"
   },
   "tools/password-strength.html": {
-    "date": "2026-11-13",
-    "sha256": "e3291c87176cad9402a6a8279658c52d628fb101ce7dfae797063929f786c907"
+    "date": "2026-11-14",
+    "sha256": "3f50bb547438e4e90890e11cccab7cce4834569ca33330b7ab0de5e0c3b0d6c5"
   },
   "tools/password.html": {
     "date": "2026-11-13",
@@ -300,8 +300,8 @@
     "sha256": "2e771ab5fc3b9a6269ee049dd5cff8e79a43278659a8e7b737c173bc372082f0"
   },
   "tools/rot13.html": {
-    "date": "2026-11-13",
-    "sha256": "5be3ab54bc4e07da30027019430794ce925c615242665398897021379761114e"
+    "date": "2026-11-14",
+    "sha256": "bacf9c78e0583036af2f6bd4f54edb5b3a461bb7a5485928c0525dd5d124f7bd"
   },
   "tools/rsa-keypair.html": {
     "date": "2026-11-13",
@@ -312,8 +312,8 @@
     "sha256": "1844cf492983280443d91fbb925dbd512d0ad4ae6d02590bdcc5840b0a5b6f93"
   },
   "tools/slug.html": {
-    "date": "2026-11-13",
-    "sha256": "5a057c29716682cb4bdbb9c15216c896dfb442d2f5f0e5ad0c2a09e395e3be90"
+    "date": "2026-11-14",
+    "sha256": "a4d0f0304f829d37a1fe4fb48851d566405789c6ddea3ef429c4b8a720b9b46d"
   },
   "tools/sql-formatter.html": {
     "date": "2026-11-13",
@@ -328,28 +328,28 @@
     "sha256": "b1309b64fb99b288c4c3b6d468902a2af01799ad3954c980c9fe8edde8d4977e"
   },
   "tools/text-cleaner.html": {
-    "date": "2026-11-13",
-    "sha256": "77ffcd43a4199bf0b6b5d1d171ba631afd10d8002eb415840b1ba8e780298de9"
+    "date": "2026-11-14",
+    "sha256": "6aca579b8fb2eb5264a38eac46d4274c6daad6f8560dbe65817570e212115cb2"
   },
   "tools/text-diff.html": {
     "date": "2026-11-13",
     "sha256": "668cf842f1b0cd8bf14b9e294ba0d9d4ceba6f6ca44d6b1adeb67e0a5dad8cf3"
   },
   "tools/text-reverser.html": {
-    "date": "2026-11-13",
-    "sha256": "b6920b51b7e9d3ce88b30cfea278586fafa26c61cfe9b8c6e005ddbbb1e43c37"
+    "date": "2026-11-14",
+    "sha256": "bf553ab5331be5679a848b2971088b5b57c3995e894619d9c0470ea05cf901d6"
   },
   "tools/text-sorter.html": {
     "date": "2026-11-13",
     "sha256": "67d7a44ab1ee9a40c8c296f0163587b2016c54cf882b2826292c9f66f355952a"
   },
   "tools/time-zone-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "def141487a3e9d707002f850945dded0f2afb86ff519aee68a515c51ca2d3c85"
+    "date": "2026-11-14",
+    "sha256": "2da994be6fe3b8e2e3b1f15785d5e1c2e0d35a6d45117d5fb46f8bcd7d5df999"
   },
   "tools/timestamp.html": {
-    "date": "2026-11-13",
-    "sha256": "3332e30c670bde3fdc0d8f3308223a6875561a937f5e73883dfca911a8978db1"
+    "date": "2026-11-14",
+    "sha256": "98155a59a141dd4866297d75267c0cbb9c5caa7dad14225b5e6cb4e1cef002e9"
   },
   "tools/totp.html": {
     "date": "2026-11-13",
@@ -360,8 +360,8 @@
     "sha256": "999e8f570d71898230b962c1cedd4869463e5591400ef05b9a72286243861278"
   },
   "tools/unicode-inspector.html": {
-    "date": "2026-11-13",
-    "sha256": "e68143bf3836ac18cdfaca4132cc8e1f56793c7bc026d124613c16ad3ad9f8b2"
+    "date": "2026-11-14",
+    "sha256": "035793b5a0c687911eaff452770b5201263e82db55e0751988bb6495cee9aaf4"
   },
   "tools/unit-converter.html": {
     "date": "2026-11-13",
@@ -417,15 +417,15 @@
   },
   "tr/license/index.html": {
     "date": "2026-11-14",
-    "sha256": "fb9bc81755a40783d61d35504972e226401359d42e359c89c1cf2bab83cc1e6f"
+    "sha256": "2c9c5549295ec6f9b58dc8995fd35e94b7fe39ead7f087b6efd74e7b1f122841"
   },
   "tr/tools/aes-gcm.html": {
-    "date": "2026-11-13",
-    "sha256": "5528b3dd2e59dafe8155a79de3a15d5a4ed8521975f95a46489cb690cf6216da"
+    "date": "2026-11-14",
+    "sha256": "b1125c4541781c530faffb8289e929aacc0ae562a57f4d74cd369b2b7e711c9c"
   },
   "tr/tools/ascii.html": {
-    "date": "2026-11-13",
-    "sha256": "748e8a1b2e7ffdd0a311abd2da0a0776f96f7451e4797eab5de77994ff81a0b5"
+    "date": "2026-11-14",
+    "sha256": "4ecc3108d002e3eec0df68da03bc9e077d29e415932d0b260a66757aff14567f"
   },
   "tr/tools/aspect-ratio.html": {
     "date": "2026-11-13",
@@ -448,28 +448,28 @@
     "sha256": "ac7620246c4fcd86136f62dcac2c6ddc8a5164487696628e6b33fa092f372f49"
   },
   "tr/tools/binary-text.html": {
-    "date": "2026-11-13",
-    "sha256": "ce0c42d3a61846db68cd16bb2acf4218713ab8d994eb697a51014f57efb6854c"
+    "date": "2026-11-14",
+    "sha256": "58568e2f1814335ba942179ed8a912f6214545dadc9c0d6ab32bc108f827e820"
   },
   "tr/tools/bytes.html": {
     "date": "2026-11-13",
     "sha256": "a34a168df0a155a94c32f77f61e5a0ca46c4e6858507608c3101c614d074c9ec"
   },
   "tr/tools/case-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "991d43f4dd70a86f7fcb78eb6a436ece3237d86a996ec62d39d91a014f1e89d1"
+    "date": "2026-11-14",
+    "sha256": "15515656c706914f99e3fe7b8c1b52a11112d9a078203efbb46d48f17197be52"
   },
   "tr/tools/certificate-inspector.html": {
     "date": "2026-11-13",
     "sha256": "ab596e2c8689e1363dd05bed46648ac0d81011c65347c9dc951185eb7e675d91"
   },
   "tr/tools/color-contrast.html": {
-    "date": "2026-11-13",
-    "sha256": "65e41e80585e231bf36de5dd4d8015ccb797d6fc6dafc4fc412d0bd9f31100c0"
+    "date": "2026-11-14",
+    "sha256": "6c2ff863bf2299b32b5b28948cbb49748cfb131c0dbe8428f50d8219e08dc057"
   },
   "tr/tools/color-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "53ab840980d29bfe59bed1fa2fc880da4337f1701042f50a48154315910abda2"
+    "date": "2026-11-14",
+    "sha256": "be5f010e1969685093746e8d93e4fefdcc4a0f5e3d8ce3fc06c665ea4b7945de"
   },
   "tr/tools/color-palette.html": {
     "date": "2026-11-13",
@@ -484,8 +484,8 @@
     "sha256": "ca263f891a8f8a7bd47f1a5e07861e939f715e213f011d6e3e488c09084895d1"
   },
   "tr/tools/css-clamp.html": {
-    "date": "2026-11-13",
-    "sha256": "a5712ee3236c92c7025aa727d0261cedadb07886b75dadb134159be83f0bff22"
+    "date": "2026-11-14",
+    "sha256": "e6d9b48abaab2046b5390f1ccbc1e8c7c9e0895766c917dc1c8fff480775a14a"
   },
   "tr/tools/css-minifier.html": {
     "date": "2026-11-13",
@@ -508,12 +508,12 @@
     "sha256": "f8d7b894b11a7cf1fdfb1d58e1fe1ef703c869777308902feb651773c7126142"
   },
   "tr/tools/date-duration.html": {
-    "date": "2026-11-13",
-    "sha256": "260b14330c127e04e9e6207c10752ef00f0267b0c89ba5a20f2a5e71d02b821d"
+    "date": "2026-11-14",
+    "sha256": "56f818ca2f911a65d3c40cde9effeafb3dea3f134ad12ff5cb61011b88e96741"
   },
   "tr/tools/deduplicate-lines.html": {
-    "date": "2026-11-13",
-    "sha256": "7eee8ff13e93fef03a20a5342d66cf7dcf0855da8e06e1f6713c303d66c39b66"
+    "date": "2026-11-14",
+    "sha256": "978265af0bdfe3aec22f07aecb00037f20726fd1068b36e8c40a06849c3562b5"
   },
   "tr/tools/fake-data.html": {
     "date": "2026-11-13",
@@ -540,16 +540,16 @@
     "sha256": "f64134aa84cdee704a652d948c5189d3c01a26d8678dc0008f2b4635784695ec"
   },
   "tr/tools/hex-codec.html": {
-    "date": "2026-11-13",
-    "sha256": "a27d9f50bf7cb5c5281d643afb5ec53b7d9c6fa62d9a260ebd2c17b63f7d305b"
+    "date": "2026-11-14",
+    "sha256": "91b100ac6fbcaefda18cc73a9b33b1a19935be2fb369206cf87678a1ac2e6fb2"
   },
   "tr/tools/hmac.html": {
-    "date": "2026-11-13",
-    "sha256": "6e7c8a245c813f6810dff7724fec99d08e69a0eab6789e96da1ad72568eb2832"
+    "date": "2026-11-14",
+    "sha256": "6595ebb019b8870bf07bc5cb176418ab9686a1dd0369028f31894d91fb56c099"
   },
   "tr/tools/html-codec.html": {
-    "date": "2026-11-13",
-    "sha256": "90e3547f890b308ce7e011f0fdfa58b2d73c832c1d6fde8979d8c87698cdbb45"
+    "date": "2026-11-14",
+    "sha256": "85e6ae75cbd1de3b10e2c2c2fc6dadd69c1ca9a894cff5be0b219a9ff76b409a"
   },
   "tr/tools/html-minifier.html": {
     "date": "2026-11-13",
@@ -620,12 +620,12 @@
     "sha256": "22e915237c84536fcb6d20de49b80153d7958256669aa84475fd726f53ed85d4"
   },
   "tr/tools/jwt-decoder.html": {
-    "date": "2026-11-13",
-    "sha256": "2caf6a710fcfba3af13e71079373cdb290794b1b66578afa85ba6ce64b621c41"
+    "date": "2026-11-14",
+    "sha256": "a4a0955dd1b63951d2a42609dbbaa769a454f8fb4bf9b6c61a66c0f1de5eb257"
   },
   "tr/tools/line-numbers.html": {
-    "date": "2026-11-13",
-    "sha256": "ce142d6eb2b738910dd5525710f2ac8982602e9b6dd5f1378c9a69a6b83ae82e"
+    "date": "2026-11-14",
+    "sha256": "168e39e2db4d20622899582dc688ba08477656fe1eef5570b87750fb8df49b4a"
   },
   "tr/tools/lorem-ipsum.html": {
     "date": "2026-11-13",
@@ -640,20 +640,20 @@
     "sha256": "22a97743272f626bd2f7eb380d1afcb97fffdec400a804877a1d9e932682191a"
   },
   "tr/tools/mime-lookup.html": {
-    "date": "2026-11-13",
-    "sha256": "edf6633421aa5f0b8b2ff5b4f2d4b1a87880e49fb1dcefc348ce4c4df9573972"
+    "date": "2026-11-14",
+    "sha256": "46b8ded74b213cd4ad2927f7c0e215bdfc2c748b96a3748646d5bcd6cbb510db"
   },
   "tr/tools/number-base.html": {
-    "date": "2026-11-13",
-    "sha256": "cf06a982435c7555bacb34962f5532ddab4a887b818a9c3d4b532423565abce0"
+    "date": "2026-11-14",
+    "sha256": "806142220b03e5980406822159c904d60a26776dde911f56aa7379963ab22431"
   },
   "tr/tools/open-graph.html": {
     "date": "2026-11-13",
     "sha256": "e99229b88072adbfdd2c13cfa379d5393ba43594c3807817b060aa0c705fe312"
   },
   "tr/tools/password-strength.html": {
-    "date": "2026-11-13",
-    "sha256": "b3740b5d1388cfb7b91582e2bb555ea00d399130eb09b383fa44d7951c45b3c6"
+    "date": "2026-11-14",
+    "sha256": "0b00da2081212aaf81bc29b481c7eb6235c2c6c0dd237892d046ee74fa7a2c05"
   },
   "tr/tools/password.html": {
     "date": "2026-11-13",
@@ -712,8 +712,8 @@
     "sha256": "78b1e7b3d878e955cfd643a96bbf08ba0ddafab72b57cd6b056d6f7c4d88f77b"
   },
   "tr/tools/rot13.html": {
-    "date": "2026-11-13",
-    "sha256": "5dc2cf850bd78273fde21b31665df1a0c1d45ae9384e7e98be4cbc4ddb74cd08"
+    "date": "2026-11-14",
+    "sha256": "ace1db34267e534c724b04c62808a0a2239a31d6a7c13bd72641820d46321422"
   },
   "tr/tools/rsa-keypair.html": {
     "date": "2026-11-13",
@@ -724,8 +724,8 @@
     "sha256": "1ca93a519265feead452d93eca76b53986fe764d65e8035fdffcf4bb8ea5b4f2"
   },
   "tr/tools/slug.html": {
-    "date": "2026-11-13",
-    "sha256": "27302d4e063105e7555a5464560b16338362b8eab1f1682ec1a18d469274e423"
+    "date": "2026-11-14",
+    "sha256": "42802c32b1088cbea4d7a8317402e8b4d7518d6c946d6ae0ab01f53da617be4f"
   },
   "tr/tools/sql-formatter.html": {
     "date": "2026-11-13",
@@ -740,28 +740,28 @@
     "sha256": "43fafdd8363154fe0538eb7ef1790576a50dc7e6f1ee77f2c08abd01406aee16"
   },
   "tr/tools/text-cleaner.html": {
-    "date": "2026-11-13",
-    "sha256": "02ea8a03f776204ec5c598a27e84cd5388d758e67a7ebb15594d58ac0e10ebbd"
+    "date": "2026-11-14",
+    "sha256": "2545ba4bb31d44f1ea8b5c1a1ed1e1b3cbb228df81eb82f88d0d8be0d49973de"
   },
   "tr/tools/text-diff.html": {
     "date": "2026-11-13",
     "sha256": "673abe4f7bf53343b57490a2911dc6efcdd87f3463972cbc860bcb30979d7292"
   },
   "tr/tools/text-reverser.html": {
-    "date": "2026-11-13",
-    "sha256": "ee1a46e69371b775994b0e902e3e4ff6c2b84f4ea0395ed48957c19d7caad4aa"
+    "date": "2026-11-14",
+    "sha256": "0eab6886b052ff40a49da073cb924cf1767b4b09cd3a6dc9aa86b33a438fb9c4"
   },
   "tr/tools/text-sorter.html": {
     "date": "2026-11-13",
     "sha256": "0e5a406ab14c6d1d675dd4f5627af2fcb95608679c0e843d41e19af606e42d9a"
   },
   "tr/tools/time-zone-converter.html": {
-    "date": "2026-11-13",
-    "sha256": "6f9457fe65392ec68a131cb5c74fa81f8e9cd7d9d1bbc1680a399b4e8e3fc841"
+    "date": "2026-11-14",
+    "sha256": "ed427998096fde3dc5a7434b0f1761da4794b8ac30b5d1260f66098ae205e080"
   },
   "tr/tools/timestamp.html": {
-    "date": "2026-11-13",
-    "sha256": "abfc970241dc6c5d95fdc59819954feff01281b5479d98977e7dfa010136c1ca"
+    "date": "2026-11-14",
+    "sha256": "5b0df9dfa6334fcbb72319db5ea36615f8a55beac4af4aa49d2e27d4ec12e5e0"
   },
   "tr/tools/totp.html": {
     "date": "2026-11-13",
@@ -772,8 +772,8 @@
     "sha256": "f268b6ce9b2378ca031c35368f67bbcd55c7596bd9ea03ff95e718434760e86b"
   },
   "tr/tools/unicode-inspector.html": {
-    "date": "2026-11-13",
-    "sha256": "fbc23df12e983e415dd861e8df662ac2afd3d16ab57d30dc651e2307fcd6db4f"
+    "date": "2026-11-14",
+    "sha256": "f7430dc0f4aee72dc607b6e3220252055b13ef08f22c2a432d15402765505f3f"
   },
   "tr/tools/unit-converter.html": {
     "date": "2026-11-13",

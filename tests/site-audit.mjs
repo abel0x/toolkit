@@ -417,7 +417,31 @@ const exampleStarterPages = {
   'json-to-typescript.html': 'json-to-typescript',
   'json-to-markdown.html': 'json-to-markdown',
   'xml-to-json.html': 'xml-to-json',
-  'csv-viewer.html': 'csv-viewer'
+  'csv-viewer.html': 'csv-viewer',
+  'jwt-decoder.html': 'jwt-decoder',
+  'hmac.html': 'hmac',
+  'timestamp.html': 'timestamp',
+  'number-base.html': 'number-base',
+  'case-converter.html': 'case-converter',
+  'hex-codec.html': 'hex-codec',
+  'html-codec.html': 'html-codec',
+  'binary-text.html': 'binary-text',
+  'color-converter.html': 'color-converter',
+  'text-cleaner.html': 'text-cleaner',
+  'deduplicate-lines.html': 'deduplicate-lines',
+  'line-numbers.html': 'line-numbers',
+  'text-reverser.html': 'text-reverser',
+  'rot13.html': 'rot13',
+  'ascii.html': 'ascii',
+  'slug.html': 'slug',
+  'mime-lookup.html': 'mime-lookup',
+  'password-strength.html': 'password-strength',
+  'color-contrast.html': 'color-contrast',
+  'css-clamp.html': 'css-clamp',
+  'unicode-inspector.html': 'unicode-inspector',
+  'date-duration.html': 'date-duration',
+  'time-zone-converter.html': 'time-zone-converter',
+  'aes-gcm.html': 'aes-gcm'
 };
 for (const [pageName, group] of Object.entries(exampleStarterPages)) {
   const html = readPage(join(toolsDirectory, pageName));
@@ -433,7 +457,7 @@ for (const source of [
 }
 const exampleStarterSource = readFileSync(join(root, 'assets/js/core/example-starters.js'), 'utf8');
 const exampleNames = [...exampleStarterSource.matchAll(/name: '([^']+)'/g)].map((match) => match[1]);
-assert.equal(exampleNames.length, 80, 'Example starter definitions unexpectedly changed.');
+assert.equal(exampleNames.length, 128, 'Example starter definitions unexpectedly changed.');
 for (const source of exampleNames) {
   assert(i18nExpansion.includes(`'${source}'`), `Turkish i18n is missing the example name: ${source}`);
 }
@@ -490,12 +514,18 @@ assert.notEqual(licenseStart, -1, 'License page does not include the canonical l
 const licenseTextStart = licenseStart + licenseMarker.length;
 const licenseTextEnd = licenseHtml.indexOf('</pre>', licenseTextStart);
 assert.notEqual(licenseTextEnd, -1, 'License page does not close its canonical license block.');
-// Only the title span may sit inside the block; its text must stay LICENSE.
+// build.py wraps each line of LICENSE in one license-line span and nothing
+// else; with the tags removed the block must read exactly as LICENSE.
 const licenseBlock = licenseHtml.slice(licenseTextStart, licenseTextEnd);
-assert.deepEqual(licenseBlock.match(/<[^>]*>/g), ['<span class="license-text__title">', '</span>'],
-  'The canonical license block may only wrap its title in one span.');
+const licenseLines = readFileSync(join(root, 'LICENSE'), 'utf8').split(/(?<=\n)/);
+const licenseSpans = [...licenseBlock.matchAll(/<span class="license-line(?: license-line--\d+| license-text__title)?">([^<]*)<\/span>/g)];
+assert.equal(licenseSpans.map((match) => match[0]).join(''), licenseBlock,
+  'The canonical license block may only hold license-line spans.');
+assert.equal(licenseSpans.length, licenseLines.length, 'The canonical license block must give each line its own span.');
+assert.equal(licenseSpans.filter((match) => match[0].includes('license-text__title')).length, 3,
+  'The canonical license block must mark its three title lines.');
 assert.equal(
-  licenseBlock.replace(/<[^>]*>/g, ''),
+  licenseBlock.replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'),
   readFileSync(join(root, 'LICENSE'), 'utf8'),
   'Published license text has drifted from LICENSE.'
 );

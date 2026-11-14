@@ -21,15 +21,21 @@
     : null;
   // Turkish is only possible where its dictionary was loaded.
   const turkish = window.TOOLKIT_I18N_TR || null;
-  let language = pageLanguage || (turkish ? readLanguage() : DEFAULT_LANGUAGE);
+  // assets/js/core/i18n.js → the site root.
+  const SITE_ROOT = document.currentScript?.src ? new URL('../../../', document.currentScript.src) : null;
+  // 404.html translates in place: it is Turkish at a missing /tr/ address,
+  // even for a visitor who arrives there from a search with nothing stored.
+  const inPlace = !pageLanguage && Boolean(turkish);
+  const turkishAddress = Boolean(SITE_ROOT) && location.pathname.startsWith(`${SITE_ROOT.pathname}tr/`);
+  let language = pageLanguage || (turkish ? (turkishAddress ? 'tr' : readLanguage()) : DEFAULT_LANGUAGE);
   if (pageLanguage) storeLanguage(pageLanguage);
+  else if (inPlace && turkishAddress) storeLanguage('tr');
   // A Turkish page arrived; language-redirect.js no longer needs its loop guard.
   if (pageLanguage === 'tr') {
     try { sessionStorage.removeItem('toolkit-language-redirect'); } catch {}
   }
   const originalDocumentTitle = document.title;
-  // assets/js/core/i18n.js → the site root.
-  const SITE_ROOT = document.currentScript?.src ? new URL('../../../', document.currentScript.src) : null;
+  const originalHrefs = new WeakMap();
 
   function readLanguage() {
     try {
@@ -126,6 +132,7 @@
     const elements = [];
     if (target.nodeType === Node.ELEMENT_NODE) elements.push(target);
     if (target.querySelectorAll) elements.push(...target.querySelectorAll('*'));
+    localiseLinks(target);
     elements.forEach((element) => {
       if (element.matches('[data-i18n]')) {
         element.textContent = t(element.dataset.i18n);
@@ -133,6 +140,23 @@
       ['aria-label', 'title', 'placeholder', 'value'].forEach((attribute) => {
         if (canTranslateAttribute(element, attribute)) translateAttribute(element, attribute);
       });
+    });
+  }
+
+  /*
+   * On 404.html in Turkish, links to site pages lead to their /tr/ twins.
+   * Absolute URLs, fragments, files and links already under tr/ stay as
+   * they are, and English puts every link back.
+   */
+  function localiseLinks(target) {
+    if (!inPlace || !target.querySelectorAll) return;
+    const links = [...target.querySelectorAll('a[href]')];
+    if (target.matches?.('a[href]')) links.unshift(target);
+    links.forEach((link) => {
+      if (!originalHrefs.has(link)) originalHrefs.set(link, link.getAttribute('href'));
+      const href = originalHrefs.get(link);
+      if (/^(?:[a-z][a-z\d+.-]*:|\/|#|tr\/)/i.test(href) || !/\.html(?:#.*)?$/.test(href)) return;
+      link.setAttribute('href', language === 'tr' ? `tr/${href}` : href);
     });
   }
 

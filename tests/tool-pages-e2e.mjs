@@ -235,8 +235,33 @@ async function inspectDesktopPage(bidi, context, url, slug) {
     const englishOnly = document.documentElement.lang === 'en' && !window.TOOLKIT_I18N_TR && !window.TOOLKIT_I18N_EXTRA;
     const turkishOption = Boolean(document.querySelector('.nav-language__option[data-language="tr"]'))
       && Boolean(document.querySelector('link[rel="alternate"][hreflang="tr"]'));
-    exampleButtons.forEach((button) => button.click());
-    await new Promise((resolve) => setTimeout(resolve, 30));
+    // A sample must do more than fill its own fields: something else on the
+    // page (a result field or text) has to change, without an error toast.
+    const main = document.querySelector('main') || document.body;
+    const fieldState = () => new Map([...main.querySelectorAll('input, textarea, select, output')]
+      .map((field) => [field, field.type === 'checkbox' || field.type === 'radio' ? String(field.checked) : field.value]));
+    const idleExamples = [];
+    const failedExamples = [];
+    for (const button of exampleButtons) {
+      const fieldsBefore = fieldState();
+      const textBefore = main.innerText;
+      const errorsBefore = document.querySelectorAll('.toast--error').length;
+      const filled = new Set();
+      const recordFill = (event) => { if (!event.isTrusted) filled.add(event.target); };
+      document.addEventListener('input', recordFill, true);
+      button.click();
+      document.removeEventListener('input', recordFill, true);
+      let produced = false;
+      for (let waited = 0; waited < 3000 && !produced; waited += 50) {
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        const fieldsAfter = fieldState();
+        produced = main.innerText !== textBefore
+          || [...fieldsAfter].some(([field, value]) => !filled.has(field) && fieldsBefore.get(field) !== value);
+      }
+      const group = button.dataset.exampleGroup || 'unknown';
+      if (!produced) idleExamples.push(group);
+      if (document.querySelectorAll('.toast--error').length > errorsBefore) failedExamples.push(group);
+    }
     const unloadedExamples = exampleButtons
       .filter((button) => !button.dataset.exampleLoaded)
       .map((button) => button.dataset.exampleGroup || 'unknown');
@@ -273,6 +298,8 @@ async function inspectDesktopPage(bidi, context, url, slug) {
       interactionErrors,
       exampleCount: exampleButtons.length,
       unloadedExamples,
+      idleExamples,
+      failedExamples,
       controls: controls.length
     };
   })()`);
@@ -297,7 +324,45 @@ async function inspectDesktopPage(bidi, context, url, slug) {
     issues.push(`${slug}: primary action caused a runtime error: ${page.interactionErrors.join(', ')}`);
   }
   if (page.unloadedExamples.length) issues.push(`${slug}: example starter did not load: ${page.unloadedExamples.join(', ')}`);
+  if (page.idleExamples.length) issues.push(`${slug}: example starter filled its fields but produced no result: ${page.idleExamples.join(', ')}`);
+  if (page.failedExamples.length) issues.push(`${slug}: example starter showed an error: ${page.failedExamples.join(', ')}`);
   return { controls: page.controls, examples: page.exampleCount, actions: page.primaryActions, issues };
+}
+
+// Ctrl+Enter in any field runs the tool once: either the tool's own handler
+// or the shared one in utils.js claims the key, and at most one button runs.
+async function inspectRunShortcut(bidi, context, url, slug) {
+  await navigate(bidi, context, url);
+  const result = await evaluate(bidi, context, `(async () => {
+    const main = document.querySelector('main');
+    // Run on real input where the page has a sample, as a visitor would.
+    document.querySelector('[data-example-group]')?.click();
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const visible = (element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden';
+    const fields = [...main.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="button"]):not([readonly]), textarea:not([readonly]), select')]
+      .filter((field) => visible(field) && !field.disabled);
+    const runButtons = [...main.querySelectorAll('button.btn-primary, button.btn--primary')]
+      .filter((button) => visible(button) && !button.disabled && !button.matches('[data-example-group]'));
+    const problems = [];
+    let handled = 0;
+    for (const field of fields) {
+      let clicks = 0;
+      const count = (event) => { if (event.target.closest?.('button')) clicks += 1; };
+      document.addEventListener('click', count, true);
+      const event = new KeyboardEvent('keydown', { key: 'Enter', ctrlKey: true, bubbles: true, cancelable: true });
+      field.dispatchEvent(event);
+      document.removeEventListener('click', count, true);
+      await new Promise((resolve) => setTimeout(resolve, 20));
+      const name = field.id || field.name || field.tagName.toLowerCase();
+      if (event.defaultPrevented) handled += 1;
+      if (runButtons.length && !event.defaultPrevented) problems.push(name + ' ignores Ctrl+Enter');
+      if (clicks > 1) problems.push(name + ' ran ' + clicks + ' buttons');
+    }
+    const labelled = runButtons.filter((button) => button.getAttribute('aria-keyshortcuts') === 'Control+Enter Meta+Enter');
+    if (runButtons.length && fields.length && !labelled.length) problems.push('no run button announces the shortcut');
+    return { problems, handled, labelled: labelled.length };
+  })()`);
+  return { handled: result.handled, issues: result.problems.map((problem) => `${slug}: ${problem}.`) };
 }
 
 async function inspectMobilePage(bidi, context, url, slug) {
@@ -318,14 +383,41 @@ const licensePages = ['license/index.html', 'tr/license/index.html'];
 // Opening a /tr/ page stores the Turkish preference, which would send the
 // English tool pages checked after it to their Turkish twins.
 // The licence title is centred with leading spaces; on narrow screens the
-// spaces go so its three lines never wrap.
+// spaces go so its three lines never wrap. Every other line that wraps must
+// continue under its own text, not at the left edge of the box.
 async function inspectLicenseTitle(bidi, context, page, layout) {
-  const lines = await evaluate(bidi, context, `(() => {
-    const title = document.querySelector('.license-text__title');
-    if (!title) return 0;
-    return Math.round(title.getBoundingClientRect().height / parseFloat(getComputedStyle(title.parentElement).lineHeight));
+  const result = await evaluate(bidi, context, `(() => {
+    const block = document.getElementById('license-text');
+    const lineHeight = parseFloat(getComputedStyle(block).lineHeight);
+    const titleLines = [...block.querySelectorAll('.license-text__title')]
+      .reduce((total, line) => total + Math.round(line.getBoundingClientRect().height / lineHeight), 0);
+    const probe = document.createElement('span');
+    probe.textContent = '0'.repeat(20);
+    block.append(probe);
+    const charWidth = probe.getBoundingClientRect().width / 20;
+    probe.remove();
+    let wrapped = 0;
+    const misaligned = [];
+    block.querySelectorAll('[class*="license-line--"]').forEach((line) => {
+      const range = document.createRange();
+      range.selectNodeContents(line);
+      const rows = [...range.getClientRects()].filter((rect) => rect.width > 0);
+      const indent = Number(line.className.match(/license-line--(\\d+)/)[1]);
+      const textEdge = line.getBoundingClientRect().left + indent * charWidth;
+      const tops = new Set(rows.map((rect) => Math.round(rect.top)));
+      if (tops.size > 1) wrapped += 1;
+      const first = Math.min(...tops);
+      if (rows.some((rect) => Math.round(rect.top) !== first && rect.left < textEdge - 1)) {
+        misaligned.push(line.textContent.trim().slice(0, 40));
+      }
+    });
+    return { titleLines, wrapped, misaligned };
   })()`);
-  return lines === 3 ? [] : [`${page}: ${layout} licence title takes ${lines} lines instead of 3.`];
+  const issues = [];
+  if (result.titleLines !== 3) issues.push(`${page}: ${layout} licence title takes ${result.titleLines} lines instead of 3.`);
+  if (layout === 'mobile' && !result.wrapped) issues.push(`${page}: no licence line wraps on a phone, so the hanging indent went untested.`);
+  if (result.misaligned.length) issues.push(`${page}: ${layout} licence lines wrap to the left edge: ${result.misaligned.slice(0, 3).join(' | ')}`);
+  return issues;
 }
 
 async function forgetLanguage(bidi, context) {
@@ -355,6 +447,7 @@ async function main() {
     const baseUrl = `http://127.0.0.1:${server.address().port}`;
     let controlCount = 0;
     let exampleCount = 0;
+    let shortcutCount = 0;
     let actionCount = 0;
     const issues = [];
 
@@ -365,6 +458,9 @@ async function main() {
       exampleCount += result.examples;
       actionCount += result.actions;
       issues.push(...result.issues);
+      const shortcut = await inspectRunShortcut(bidi, tab.context, `${baseUrl}/tools/${file}`, file);
+      shortcutCount += shortcut.handled;
+      issues.push(...shortcut.issues);
     }
     for (const page of licensePages) {
       await navigate(bidi, tab.context, `${baseUrl}/${page}`);
@@ -388,7 +484,7 @@ async function main() {
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers (licence pages included, with an unwrapped licence title), and English pages free of Turkish dictionaries.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${shortcutCount} fields that run their tool with Ctrl+Enter, ${exampleCount} example starters that each produce a result, desktop and mobile layouts with aligned headers (licence pages included, with an unwrapped licence title and hanging licence lines), and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();

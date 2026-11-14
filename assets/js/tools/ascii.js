@@ -76,6 +76,6 @@
   });
 
   codeInputEl.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') reverseBtn.click();
+    if (e.key === 'Enter') { e.preventDefault(); reverseBtn.click(); }
   });
 })();

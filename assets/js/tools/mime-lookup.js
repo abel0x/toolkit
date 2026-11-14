@@ -88,7 +88,7 @@
   }
 
   lookupBtn.addEventListener('click', lookup);
-  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') lookup(); });
+  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); lookup(); } });
   if (tableSearchEl) {
     tableSearchEl.addEventListener('input', () => renderTable(tableSearchEl.value));
   }

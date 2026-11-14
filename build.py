@@ -14,6 +14,7 @@ Usage:
   python3 build.py --tool-headers    Generate the tool page headers (breadcrumb, icon, sample button)
   python3 build.py --tool-count      Synchronize published static tool-count copy
   python3 build.py --metadata        Add social preview images and JSON-LD to the English pages
+  python3 build.py --license         Publish LICENSE on the licence page, one line per span
   python3 build.py --turkish         Generate the tr/ pages from _data/seo-tr.json
   python3 build.py --words           Generate the word-list precache manifest
   python3 build.py --offline         Generate the tool precache manifest
@@ -1179,6 +1180,54 @@ def run_turkish_pages():
 
 
 # ---------------------------------------------------------------------------
+# Licence page — LICENSE, one line per block
+# ---------------------------------------------------------------------------
+#
+# The licence page shows LICENSE exactly, but each line is its own block with
+# a hanging indent as wide as its leading spaces (license-line--<n> in
+# tool.css), so on a narrow screen a long line wraps under its own text rather
+# than at the left edge. The centred title lines get license-text__title,
+# which drops their spaces on phones. The tr/ twin copies this block.
+
+_LICENSE_BLOCK = re.compile(r'(<pre class="license-text" id="license-text" data-i18n-skip lang="en">)'
+                            r'.*?(</pre>)', re.DOTALL)
+_LICENSE_TITLE_INDENT = 20
+
+
+def _license_markup(text, css):
+    """Return LICENSE as one span per line, each with its indent class."""
+    spans = []
+    for line in text.splitlines(keepends=True):
+        content = line.rstrip('\n')
+        indent = len(content) - len(content.lstrip(' '))
+        classes = 'license-line'
+        if content.strip() and indent >= _LICENSE_TITLE_INDENT:
+            classes += ' license-text__title'
+        elif content.strip() and indent:
+            if not re.search(rf'\.license-line--{indent}\b', css):
+                raise SystemExit(f'LICENSE has a line indented by {indent} spaces; '
+                                 f'add .license-line--{indent} to assets/css/pages/tool.css.')
+            classes += f' license-line--{indent}'
+        spans.append(f'<span class="{classes}">{html_lib.escape(line, quote=False)}</span>')
+    return ''.join(spans)
+
+
+def run_license_text():
+    """Publish LICENSE on the licence page, line by line."""
+    print('\n[--license] Publishing LICENSE on the licence page...')
+    path = os.path.join(ROOT, 'license', 'index.html')
+    html = _read(path)
+    if not _LICENSE_BLOCK.search(html):
+        raise SystemExit('license/index.html has no license-text block.')
+    markup = _license_markup(_read(os.path.join(ROOT, 'LICENSE')),
+                             _read(os.path.join(ROOT, 'assets', 'css', 'pages', 'tool.css')))
+    revised = _LICENSE_BLOCK.sub(lambda match: match.group(1) + markup + match.group(2), html, count=1)
+    if revised != html:
+        _write(path, revised)
+    print(f'  OK    {"updated" if revised != html else "up to date"}.')
+
+
+# ---------------------------------------------------------------------------
 # Published files and the content-hashed cache version
 # ---------------------------------------------------------------------------
 
@@ -1345,6 +1394,7 @@ def run_all():
     run_tool_headers()
     run_tool_count()
     run_page_metadata()
+    run_license_text()
     run_turkish_pages()
     run_words_manifest()
     run_offline_manifest()
@@ -1376,6 +1426,8 @@ def main():
                         help='Create or refresh generated expansion-tool shells')
     parser.add_argument('--metadata', action='store_true',
                         help='Add social preview images and JSON-LD to the English pages')
+    parser.add_argument('--license', action='store_true',
+                        help='Publish LICENSE on the licence page, one line per span')
     parser.add_argument('--turkish', action='store_true',
                         help='Generate the tr/ pages from _data/seo-tr.json')
     parser.add_argument('--words', action='store_true',
@@ -1405,6 +1457,7 @@ def main():
             (args.tool_headers, run_tool_headers),
             (args.tool_count, run_tool_count),
             (args.metadata, run_page_metadata),
+            (args.license, run_license_text),
             (args.turkish, run_turkish_pages),
             (args.words, run_words_manifest),
             (args.offline, run_offline_manifest),

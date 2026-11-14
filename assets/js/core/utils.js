@@ -143,3 +143,61 @@ function foldCase(str) {
 function randomHexColor() {
   return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
 }
+
+/*
+ * Ctrl+Enter (⌘+Enter on a Mac) in a tool's field runs the tool: it clicks the
+ * nearest primary button around that field (read-only result fields excepted). A tool that handles the keys
+ * itself (Base64's Shift to decode, the typing test) calls preventDefault()
+ * first, and this listener then leaves the event alone. The buttons it can
+ * reach carry the shortcut in aria-keyshortcuts and a tooltip.
+ */
+(function initRunShortcut() {
+  'use strict';
+
+  const isMac = /Mac|iPhone|iPad/.test(navigator.userAgentData?.platform || navigator.platform || '');
+  const hint = isMac ? '⌘+Enter' : 'Ctrl+Enter';
+  // Read-only result fields are left out: Ctrl+Enter there should not run the tool again.
+  const fieldSelector = 'input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="button"]):not([readonly]), textarea:not([readonly]), select';
+
+  function isUsable(button) {
+    if (button.disabled || button.matches('[data-example-group]')) return false;
+    const style = getComputedStyle(button);
+    return style.display !== 'none' && style.visibility !== 'hidden' && button.getClientRects().length > 0;
+  }
+
+  // The first usable primary button in the smallest block around the field.
+  function runButtonFor(field) {
+    const main = field.closest('main');
+    if (!main || !document.querySelector('.tool-header')) return null;
+    for (let scope = field.parentElement; scope && main.contains(scope); scope = scope.parentElement) {
+      const button = [...scope.querySelectorAll('button.btn-primary, button.btn--primary')].find(isUsable);
+      if (button) return button;
+    }
+    return null;
+  }
+
+  function annotate(button) {
+    if (!button || button.hasAttribute('aria-keyshortcuts')) return;
+    button.setAttribute('aria-keyshortcuts', 'Control+Enter Meta+Enter');
+    if (!button.title) button.title = hint;
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' || !(event.ctrlKey || event.metaKey) || event.altKey || event.isComposing) return;
+    if (event.defaultPrevented || !(event.target instanceof Element) || !event.target.matches(fieldSelector)) return;
+    const button = runButtonFor(event.target);
+    if (!button) return;
+    event.preventDefault();
+    annotate(button);
+    button.click();
+  });
+
+  // Tools that render their fields from script do so on DOMContentLoaded;
+  // label the buttons once everything has loaded, and again on focus.
+  window.addEventListener('load', () => {
+    document.querySelectorAll(fieldSelector.split(', ').map((selector) => `main ${selector}`).join(', ')).forEach((field) => annotate(runButtonFor(field)));
+  });
+  document.addEventListener('focusin', (event) => {
+    if (event.target instanceof Element && event.target.matches(fieldSelector)) annotate(runButtonFor(event.target));
+  });
+}());

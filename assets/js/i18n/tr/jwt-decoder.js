@@ -4,10 +4,11 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
-    "Decode": "Kodu Çöz",
-    "Date": "Tarih",
     "Invalid": "Geçersiz",
     "Please enter a JWT token": "Lütfen bir JWT belirteci girin",
+    "Copy Header": "Başlığı Kopyala",
+    "Copy Payload": "Yükü Kopyala",
+    "Copy Signature": "İmzayı Kopyala",
     "raw": "ham",
     "not verified": "doğrulanmadı",
     "base64url": "base64url"

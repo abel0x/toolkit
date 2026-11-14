@@ -182,6 +182,14 @@
   white-space: pre-wrap;
 }
 
+/* build.py publishes LICENSE one line per span. A wrapped line continues
+   under its own text: the hanging indent is as wide as its leading spaces. */
+.license-line { display: block; }
+.license-line--3 { padding-left: 3ch; text-indent: -3ch; }
+.license-line--6 { padding-left: 6ch; text-indent: -6ch; }
+.license-line--7 { padding-left: 7ch; text-indent: -7ch; }
+.license-line--10 { padding-left: 10ch; text-indent: -10ch; }
+
 /* The licence centres its title with leading spaces. Once those lines
    no longer fit, drop the spaces so the title stays on three lines. */
 @media (max-width: 640px) {

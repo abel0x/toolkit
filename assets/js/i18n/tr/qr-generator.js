@@ -7,13 +7,10 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Output": "Çıktı",
     "Download": "İndir",
     "Remove": "Kaldır",
-    "Decode": "Kodu Çöz",
     "Password": "Parola",
     "Width": "Genişlik",
     "Height": "Yükseklik",
     "Description": "Açıklama",
-    "Date": "Tarih",
-    "Back": "Geri",
     "Generator": "Oluşturucu",
     "Reader": "Okuyucu",
     "Cleared": "Temizlendi",
@@ -25,11 +22,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Please fill in the required fields": "Lütfen zorunlu alanları doldurun",
     "QR code generated!": "QR kodu oluşturuldu!",
     "QR library not loaded yet — please try again": "QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin",
-    "Phone": "Telefon",
-    "Address": "Adres",
-    "Age": "Yaş",
     "File": "Dosya",
-    "Message": "Mesaj",
     "image/png": "resim/png",
     "raw": "ham",
     "Mode": "Mod",
@@ -100,9 +93,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "sms": "SMS",
     "wifi": "Wi-Fi",
     "Token": "Belirteç",
-    "NFKD": "NFKD",
-    "Long": "Uzun",
-    "correct": "doğru",
-    "Hidden": "Gizli"
+    "NFKD": "NFKD"
   }))
 });

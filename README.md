@@ -25,7 +25,7 @@ Toolkit is a static collection of developer utilities for the everyday work that
 
 - Tool input stays on your device. It is processed with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
 - After the first successful load the service worker has cached the site, so the tools keep working without a network connection.
-- <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page.
+- <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>K</kbd> searches the whole catalogue from any page, and <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> in a tool's field runs the tool.
 - The interface is in English and Turkish. Every page also has a Turkish address under `/tr/` (for example `/toolkit/tr/tools/base64.html`) with Turkish titles and descriptions for search engines. The language menu switches between the two, and the choice is remembered in that browser: a visitor who chose Turkish and opens an English address is sent to its Turkish page. English pages do not download the Turkish dictionaries.
 - There are no accounts, no backend, no analytics, and no stored tool input.
 
@@ -104,7 +104,7 @@ A two-part maintenance pass. 1.2.1 made the release pipeline correct: returning 
 - **Reusable word data:** `words/` provides 20 categories and 9,246 local entries for typing practice and future tools, with structural audits and reproducible primary-source checks for medical descriptors and literary excerpts.
 - **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
 - **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
-- **Example starters:** 40 frequently used tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
+- **Example starters:** 64 tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
 - **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
 
 ### Previous catalogue expansion — 1.1.0
@@ -259,7 +259,7 @@ node tests/turkish-pages-e2e.mjs
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
-# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, including aligned headers, the language menu, English pages free of Turkish dictionaries, accessible control names, and example starters.
+# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, including aligned headers, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
@@ -268,7 +268,7 @@ node tests/expansion-e2e.mjs
 # Check the QR generator several independent ways: its capacity table and alignment patterns against the QR library, every content type's payload format, and PNG/SVG exports of every style, colour, logo and size, decoded by jsQR, ZBar and (when installed) ZXing-C++, plus its phone and desktop layout.
 node tests/qr-generator-e2e.mjs
 
-# Install the real service worker under the GitHub Pages path, stop the server, and verify the cached site in Firefox.
+# Install the real service worker under the GitHub Pages path, stop the server, and verify the cached site and the English and Turkish 404 page in Firefox.
 node tests/offline-e2e.mjs
 ```
 

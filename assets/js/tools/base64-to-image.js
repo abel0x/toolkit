@@ -31,7 +31,7 @@
   }
 
   previewBtn.addEventListener('click', decode);
-  inputEl.addEventListener('keydown', e => { if (e.ctrlKey && e.key === 'Enter') decode(); });
+  inputEl.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); decode(); } });
 
   downloadBtn.addEventListener('click', () => {
     const src = previewEl.src;

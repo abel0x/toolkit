@@ -163,6 +163,102 @@
     'csv-viewer': [
       { name: 'Workshop seats', values: { '#csvViewerInput': 'name,seat,drink\nMira,2,mint tea\nLin,5,black tea\nAda,7,water' }, action: '#csvViewerRun' },
       { name: 'Tea shelf', values: { '#csvViewerInput': 'tea,origin,stock\nEarl Grey,India,12\nJasmine,China,8\nMint,Turkey,16' }, action: '#csvViewerRun' }
+    ],
+    'jwt-decoder': [
+      { name: 'Designer badge', values: { '#jwtInput': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtaXJhIiwibmFtZSI6Ik1pcmEgVGVhIiwicm9sZSI6ImRlc2lnbmVyIiwiaWF0IjoxNzY3MjI1NjAwLCJleHAiOjE3OTg3NjE2MDB9.mSig8FydfX_JV4csPEtr0ApHw5W5-0NA19rBJkm_CDA' }, action: '#jwtDecodeBtn' },
+      { name: 'Expired notes pass', values: { '#jwtInput': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaW4iLCJzY29wZSI6Im5vdGVzOnJlYWQgbm90ZXM6d3JpdGUiLCJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJpYXQiOjE3NjMwNzg0MDAsImV4cCI6MTc2MzA4MjAwMH0.EPVluFdz3jLhvtdpC6v6N8uZ2HKlG_yCx_gT0Qqx-so' }, action: '#jwtDecodeBtn' }
+    ],
+    hmac: [
+      { name: 'Signed webhook', values: { '#hmacMessage': '{"event":"order.paid","order":1042,"total":"18.50"}', '#hmacKey': 'whsec_demo_tea_garden' }, action: '#hmacBtn' },
+      { name: 'Signed note', values: { '#hmacMessage': 'Meet at the blue door at nine.', '#hmacKey': 'pocket-secret' }, action: '#hmacBtn' }
+    ],
+    timestamp: [
+      { name: 'Launch moment', values: { '#tsUnixInput': '1700000000' }, action: ['#tsSecBtn', '#tsToDateBtn'] },
+      { name: 'Y2K38 edge', values: { '#tsUnixInput': '2147483647' }, action: ['#tsSecBtn', '#tsToDateBtn'] }
+    ],
+    'number-base': [
+      { name: 'This year', values: { '#numDec': '2026' } },
+      { name: 'Answer to everything', values: { '#numDec': '42' } }
+    ],
+    'case-converter': [
+      { name: 'Variable name', values: { '#caseInput': 'user profile image url' } },
+      { name: 'Shouty headline', values: { '#caseInput': 'THE CAT FOUND THE WARMEST WINDOW' } }
+    ],
+    'hex-codec': [
+      { name: 'Hello in hex', values: { '#hexInput': 'Hello, Toolkit!' }, action: '#hexEncodeBtn' },
+      { name: 'Hidden message', values: { '#hexInput': '54 65 61 20 74 69 6d 65' }, action: '#hexDecodeBtn' }
+    ],
+    'html-codec': [
+      { name: 'Snippet to escape', values: { '#htmlInput': '<a href="/menu?tea=1&simit=2">Tea & simit</a>' }, action: '#htmlEncodeBtn' },
+      { name: 'Escaped quote', values: { '#htmlInput': '&lt;p&gt;&quot;Curiosity&quot; &amp; tea&lt;/p&gt;' }, action: '#htmlDecodeBtn' }
+    ],
+    'binary-text': [
+      { name: 'Robot greeting', values: { '#binInput': 'Hi, robot!' }, action: '#binEncodeBtn' },
+      { name: 'Binary secret', values: { '#binInput': '01110100 01100101 01100001' }, action: '#binDecodeBtn' }
+    ],
+    'color-converter': [
+      { name: 'Ocean teal', values: { '#colorHex': '#0f766e' } },
+      { name: 'Sunset coral', values: { '#colorHex': '#f97362' } }
+    ],
+    'text-cleaner': [
+      { name: 'Messy paste', values: { '#tc-input': '   Pack   the map.   \n\n\n  Bring    tea.\t\n\n   Meet at nine.   ' }, action: '#tc-clean-btn' },
+      { name: 'Spaced list', values: { '#tc-input': '  figs  \n\n  honey   \n\n\n  warm   bread  ' }, action: '#tc-clean-btn' }
+    ],
+    'deduplicate-lines': [
+      { name: 'Guest list', values: { '#dd-input': 'Mira\nLin\nAda\nMira\nLin\nNora' }, action: '#dd-dedup-btn' },
+      { name: 'Shopping list', values: { '#dd-input': 'tea\nsimit\nfigs\ntea\nhoney\nsimit' }, action: '#dd-dedup-btn' }
+    ],
+    'line-numbers': [
+      { name: 'Tiny poem', values: { '#ln-input': 'The kettle hums,\nthe window glows,\nthe cat decides\nwhere morning goes.' }, action: '#ln-apply-btn' },
+      { name: 'Recipe steps', values: { '#ln-input': 'Warm the pot\nAdd the leaves\nPour the water\nWait four minutes' }, action: '#ln-apply-btn' }
+    ],
+    'text-reverser': [
+      { name: 'Palindrome check', values: { '#tr-input': 'Was it a car or a cat I saw?' }, action: '#tr-reverse-btn' },
+      { name: 'Backwards note', values: { '#tr-input': 'Tea is ready.\nThe cat is asleep.' }, action: '#tr-reverse-btn' }
+    ],
+    rot13: [
+      { name: 'Puzzle hint', values: { '#rot13Input': 'The key is under the blue flowerpot.' }, action: '#rot13ApplyBtn' },
+      { name: 'Spoiler line', values: { '#rot13Input': 'Gur png jnf gur qrgrpgvir nyy nybat.' }, action: '#rot13ApplyBtn' }
+    ],
+    ascii: [
+      { name: 'Short word', values: { '#asciiInput': 'Tea' }, action: '#asciiConvertBtn' },
+      { name: 'Punctuation mix', values: { '#asciiInput': 'Hi! #42 @home' }, action: '#asciiConvertBtn' }
+    ],
+    slug: [
+      { name: 'Blog title', values: { '#slug-input': '10 Small Rituals for a Calmer Morning!' } },
+      { name: 'Accented title', values: { '#slug-input': 'Çay & Simit: İstanbul’da Bir Sabah' } }
+    ],
+    'mime-lookup': [
+      { name: 'Web image', values: { '#mime-input': 'webp' }, action: ['#mime-mode-ext', '#mime-btn'] },
+      { name: 'Data file', values: { '#mime-input': 'json' }, action: ['#mime-mode-ext', '#mime-btn'] }
+    ],
+    'password-strength': [
+      { name: 'Short and guessable', values: { '#psInput': 'summer2024' } },
+      { name: 'Long passphrase', values: { '#psInput': 'violet-kettle-orbit-91-mapleleaf' } }
+    ],
+    'color-contrast': [
+      { name: 'Readable night', values: { '#contrastForeground': '#ededed', '#contrastBackground': '#111111' }, action: '#contrastRun' },
+      { name: 'Too faint', values: { '#contrastForeground': '#9ca3af', '#contrastBackground': '#f3f4f6' }, action: '#contrastRun' }
+    ],
+    'css-clamp': [
+      { name: 'Hero heading', values: { '#clampMin': '32', '#clampMax': '64', '#clampVmin': '360', '#clampVmax': '1280' }, action: '#clampRun' },
+      { name: 'Body text', values: { '#clampMin': '15', '#clampMax': '18', '#clampVmin': '320', '#clampVmax': '1200' }, action: '#clampRun' }
+    ],
+    'unicode-inspector': [
+      { name: 'Emoji family', values: { '#unicodeInput': 'Tea 🍵 and a wave 👋🏽' }, action: '#unicodeRun' },
+      { name: 'Accented letters', values: { '#unicodeInput': 'Çay, İstanbul, café, naïve' }, action: '#unicodeRun' }
+    ],
+    'date-duration': [
+      { name: 'Summer holiday', values: { '#durationStart': '2026-06-15', '#durationEnd': '2026-09-07' }, action: '#durationRun' },
+      { name: 'One leap year', values: { '#durationStart': '2028-01-01', '#durationEnd': '2029-01-01' }, action: '#durationRun' }
+    ],
+    'time-zone-converter': [
+      { name: 'Team call', values: { '#zoneDate': '2026-12-01T16:00', '#zoneList': 'Europe/Istanbul\nEurope/London\nAmerica/New_York\nAsia/Tokyo' }, action: '#zoneRun' },
+      { name: 'New Year countdown', values: { '#zoneDate': '2026-12-31T23:59', '#zoneList': 'Pacific/Auckland\nEurope/Istanbul\nAmerica/Los_Angeles' }, action: '#zoneRun' }
+    ],
+    'aes-gcm': [
+      { name: 'Secret recipe', values: { '#aesText': 'Grandma’s tea: two spoons, four minutes, one cinnamon stick.', '#aesPass': 'correct-kettle-violet-42' }, action: '#aesEncrypt' },
+      { name: 'Locked diary', values: { '#aesText': 'Dear diary, the cat learned to open the door today.', '#aesPass': 'moonlight-notebook-17' }, action: '#aesEncrypt' }
     ]
   });
   const lastExample = new Map();
@@ -229,7 +325,8 @@
     });
     if (loadUrlBuilder(example.urlBuilder)) applied = true;
     if (!applied) return;
-    if (example.action) document.querySelector(example.action)?.click();
+    // An action is one selector, or several clicked in order (choose a unit, then run).
+    [].concat(example.action || []).forEach((selector) => document.querySelector(selector)?.click());
     button.dataset.exampleLoaded = example.name;
     if (typeof window.showToast === 'function') {
       window.showToast(t('Example loaded: {{name}}', { name: t(example.name) }), 'success');
