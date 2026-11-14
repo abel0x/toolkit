@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.4
+### Latest release — 1.7.5
+
+The JWT Decoder can check a token's signature with a secret or public key, the QR Code Reader scans with your camera, the Hash Generator and File Checksum add MD5, the UUID Generator makes time-ordered v7 UUIDs, the Password Generator makes passphrases in English or Turkish, and the Color Converter shows OKLCH and HWB. All of it runs in your browser.
+
+### 1.7.4
 
 Open a file in 31 tools or drop it onto the field, and copy or download the result: 18 results that could not be copied now can, and 22 can be saved as files such as `formatted.json`, `data.yaml` or `minified.css`. Files are read in your browser and never leave it.
 

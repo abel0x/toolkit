@@ -2,6 +2,29 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.5] — 2026-11-14
+
+Six tools learn something new: check a JWT's signature, scan a QR code with the camera, MD5, UUID v7, passphrases and OKLCH.
+
+### Added
+
+- **JWT Decoder** checks the signature: paste the secret for HS256/384/512, or the public key as PEM, JWK or JWKS (the token's `kid` picks the key) for RS, PS and ES 256/384/512 and EdDSA. Unsigned tokens (`alg: none`) are flagged, and an HMAC token checked against a public key is refused, a known attack. Everything runs in your browser.
+- **QR Code Reader** scans with the camera: it prefers the rear camera, reads about five frames a second, stops as soon as it finds a code or when you leave the tab, and keeps every frame in the browser.
+- **Hash Generator** and **File Checksum** compute MD5, marked legacy, to compare published checksums.
+- **UUID Generator** makes version 7 UUIDs (RFC 9562): time-ordered, so a batch comes out in ascending order. **UUID Validator** shows when a v7 UUID was created.
+- **Password Generator** has a Words mode for passphrases from English or Turkish word lists, with separator, capitals and a digit; the strength meter now shows the bits.
+- **Color Converter** shows OKLCH and HWB next to HEX, RGB and HSL.
+
+### Fixed
+
+- The JWT Decoder showed letters such as Ç or ş in claims as garbled text; header and payload are now read as UTF-8.
+- The UUID Generator's link-preview description was cut off and appeared in English on the Turkish page.
+- The SHA-1 warning in the Hash Generator had no Turkish text.
+
+### Tests
+
+- `tests/tool-vectors.mjs` now checks 41 tools with 149 known answers, including 15 JWT cases signed by Node's own crypto (valid keys of every family, wrong keys, a tampered payload, `alg: none` and the HMAC/public-key confusion), RFC 1321 MD5 vectors, ordered v7 UUIDs, OKLCH against CSS Color 4 values, passphrases, and a QR code shown to the camera as a canvas stream.
+
 ## [1.7.4] — 2026-11-14
 
 Open files straight into the tools, and copy or download every result.
@@ -426,6 +449,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.5]: https://github.com/abel0x/toolkit/compare/v1.7.4...v1.7.5
 [1.7.4]: https://github.com/abel0x/toolkit/compare/v1.7.3...v1.7.4
 [1.7.3]: https://github.com/abel0x/toolkit/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/abel0x/toolkit/compare/v1.7.1...v1.7.2
