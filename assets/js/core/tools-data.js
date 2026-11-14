@@ -696,7 +696,7 @@ const TOOLS_DATA = [
     slug: 'image-metadata',
     cat: 'media',
     catLabel: 'Media',
-    desc: 'Read an image’s EXIF data — camera, settings, date and GPS location — and download a copy without it.',
+    desc: 'Read, edit and remove an image’s EXIF data — camera, date, author and GPS location — losslessly, one image or many.',
     tags: ['image', 'exif', 'metadata', 'dimensions', 'gps'],
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg>',
   },

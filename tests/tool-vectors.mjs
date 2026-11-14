@@ -538,6 +538,33 @@ await withFirefox(async (page) => {
       ['summary and ZIP', text('#imageCompressResult'), { includes: 'Download all (ZIP)' }],
       ['before/after view', [$('#imageCompare').hidden, $('#imageCompareBefore').style.clipPath], [false, 'inset(0px 70% 0px 0px)']]];`);
 
+  await check('image-metadata', `
+    const bytes = Uint8Array.from(atob(JPEG_PLACEHOLDER), (c) => c.charCodeAt(0));
+    const files = new DataTransfer(); files.items.add(new File([bytes], 'photo.jpg', { type: 'image/jpeg' }));
+    $('#imFile').files = files.files; $('#imFile').dispatchEvent(new Event('change')); await wait(400);
+    const prefilled = [$('#imEdit').hidden, value('#imEditDate'), document.querySelector('input[name="imEditGps"][value="keep"]').checked];
+    set('#imEditDescription', 'Galata Kulesi'); set('#imEditArtist', 'Ayşe'); set('#imEditCopyright', '© 2026 Ayşe');
+    set('input[name="imEditGps"][value="set"]', true, 'change'); set('#imEditLat', '41.025658'); set('#imEditLon', '28,974155');
+    const saved = []; const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#imWrite'); await wait(50);
+    const edited = window.ToolkitImageMetadata.inspect(new Uint8Array(await saved[0].arrayBuffer()));
+    // Batch: the JPEG twice and a PNG with a text chunk-free canvas image.
+    const canvas = document.createElement('canvas'); canvas.width = 4; canvas.height = 4;
+    const png = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const batch = new DataTransfer(); batch.items.add(new File([bytes], 'a.jpg', { type: 'image/jpeg' })); batch.items.add(new File([bytes], 'b.jpg', { type: 'image/jpeg' })); batch.items.add(new File([png], 'c.png', { type: 'image/png' }));
+    $('#imBatch').files = batch.files; $('#imBatch').dispatchEvent(new Event('change')); await wait(400);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const zip = saved.find((item, index) => index > 1 && item instanceof Blob);
+    const zipBytes = new Uint8Array(await zip.arrayBuffer()); const names = []; const view = new DataView(zipBytes.buffer);
+    for (let at = 0; at + 46 < zipBytes.length; at += 1) if (view.getUint32(at, true) === 0x02014b50) { const length = view.getUint16(at + 28, true); names.push(new TextDecoder().decode(zipBytes.slice(at + 46, at + 46 + length))); }
+    return [['editor prefilled', prefilled, [false, '2026-11-14T10:20:30', true]], ['edited file name', saved[1], 'photo-edited.jpg'],
+      ['written fields', [edited.tags['ifd0:270'], edited.tags['ifd0:315'], edited.tags['ifd0:33432']], ['Galata Kulesi', 'Ayşe', '© 2026 Ayşe']],
+      ['new GPS (comma accepted)', [edited.tags['gps:1'], edited.tags['gps:2'][0], edited.tags['gps:2'][1], edited.tags['gps:4'][0], edited.tags['gps:4'][1]], ['N', 41, 1, 28, 58]],
+      ['camera kept', [edited.tags['ifd0:271'], edited.tags['exif:33434'], edited.tags['ifd0:274']], ['Canon', 0.004, 6]],
+      ['batch ZIP', names, ['a-clean.jpg', 'b-clean.jpg', 'c-clean.png']], ['batch note', text('#imBatchNote'), { includes: '3 cleaned, 0 skipped' }]];`.replace('JPEG_PLACEHOLDER', `'${JPEG}'`));
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

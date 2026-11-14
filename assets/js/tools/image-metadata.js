@@ -9,6 +9,8 @@
   const actionsEl = document.getElementById('imActions');
   const stripBtn  = document.getElementById('imStrip');
   const stripNote = document.getElementById('imStripNote');
+  const editEl = document.getElementById('imEdit');
+  const field = (id) => document.getElementById(id);
 
   if (!dropZone) return;
 
@@ -331,6 +333,156 @@
     return null;
   }
 
+  /* ── Writing ─────────────────────────────────────────────────
+     A little-endian TIFF with IFD0, an Exif IFD and a GPS IFD, built from
+     scratch: the fields of the form plus the camera details, orientation
+     and software already in the file (and, for 1.8.9, a signature). */
+
+  const utf8 = (text) => new TextEncoder().encode(text);
+  function rational(value, scale = 10000) {
+    const gcd = (a, b) => { while (b) { const r = a % b; a = b; b = r; } return a || 1; };
+    const numerator = Math.round(Math.abs(value) * scale);
+    const divisor = gcd(numerator, scale);
+    return [numerator / divisor, scale / divisor];
+  }
+
+  // entries: [{ tag, type, values }] → bytes of one IFD placed at `at` in the TIFF.
+  function ifdBytes(entries, at) {
+    const sorted = entries.slice().sort((a, b) => a.tag - b.tag);
+    const head = 2 + sorted.length * 12 + 4;
+    const parts = sorted.map((entry) => {
+      let data;
+      if (entry.type === 2) data = new Uint8Array([...utf8(entry.values), 0]);
+      else if (entry.type === 1 || entry.type === 7) data = Uint8Array.from(entry.values);
+      else {
+        const size = TYPE_SIZE[entry.type];
+        const count = entry.type === 5 || entry.type === 10 ? entry.values.length : entry.values.length;
+        data = new Uint8Array(size * count);
+        const view = new DataView(data.buffer);
+        entry.values.forEach((value, index) => {
+          if (entry.type === 3) view.setUint16(index * 2, value, true);
+          else if (entry.type === 4) view.setUint32(index * 4, value, true);
+          else if (entry.type === 5) { view.setUint32(index * 8, value[0], true); view.setUint32(index * 8 + 4, value[1], true); }
+        });
+      }
+      return { ...entry, data, count: entry.type === 2 || entry.type === 1 || entry.type === 7 ? data.length : entry.values.length };
+    });
+    let extra = 0;
+    parts.forEach((part) => { if (part.data.length > 4) { part.offset = at + head + extra; extra += part.data.length + (part.data.length % 2); } });
+    const out = new Uint8Array(head + extra);
+    const view = new DataView(out.buffer);
+    view.setUint16(0, parts.length, true);
+    parts.forEach((part, index) => {
+      const entry = 2 + index * 12;
+      view.setUint16(entry, part.tag, true);
+      view.setUint16(entry + 2, part.type, true);
+      view.setUint32(entry + 4, part.count, true);
+      if (part.data.length > 4) {
+        view.setUint32(entry + 8, part.offset, true);
+        out.set(part.data, part.offset - at);
+      } else out.set(part.data, entry + 8);
+    });
+    return out;
+  }
+
+  // fields: { description, artist, copyright, date ("YYYY:MM:DD HH:MM:SS"), gps: { latitude, longitude, altitude } | null, comment }
+  function buildTiff(fields, tags) {
+    const keep = (key) => tags && tags[key] !== undefined && tags[key] !== null && tags[key] !== '';
+    const ifd0 = [];
+    const text = (tag, value) => { if (value) ifd0.push({ tag, type: 2, values: value }); };
+    text(0x010e, fields.description);
+    if (keep('ifd0:271')) text(0x010f, tags['ifd0:271']);
+    if (keep('ifd0:272')) text(0x0110, tags['ifd0:272']);
+    if (keep('ifd0:274')) ifd0.push({ tag: 0x0112, type: 3, values: [tags['ifd0:274']] });
+    if (keep('ifd0:305')) text(0x0131, tags['ifd0:305']);
+    text(0x013b, fields.artist);
+    text(0x8298, fields.copyright);
+    const exif = [{ tag: 0x9000, type: 7, values: [...utf8('0232')] }];
+    if (fields.date) exif.push({ tag: 0x9003, type: 2, values: fields.date });
+    if (keep('exif:33434')) exif.push({ tag: 0x829a, type: 5, values: [rational(tags['exif:33434'], 1000000)] });
+    if (keep('exif:33437')) exif.push({ tag: 0x829d, type: 5, values: [rational(tags['exif:33437'], 10)] });
+    if (keep('exif:34855')) exif.push({ tag: 0x8827, type: 3, values: [[].concat(tags['exif:34855'])[0]] });
+    if (keep('exif:37386')) exif.push({ tag: 0x920a, type: 5, values: [rational(tags['exif:37386'], 10)] });
+    if (keep('exif:37385')) exif.push({ tag: 0x9209, type: 3, values: [tags['exif:37385']] });
+    if (keep('exif:42035')) exif.push({ tag: 0xa433, type: 2, values: tags['exif:42035'] });
+    if (keep('exif:42036')) exif.push({ tag: 0xa434, type: 2, values: tags['exif:42036'] });
+    // UserComment: an 8-byte character-code prefix, then the text.
+    if (fields.comment) exif.push({ tag: 0x9286, type: 7, values: [...utf8('ASCII\0\0\0'), ...utf8(fields.comment)] });
+    let gps = null;
+    if (fields.gps) {
+      const dms = (value) => {
+        const absolute = Math.abs(value);
+        const degrees = Math.floor(absolute);
+        const minutes = Math.floor((absolute - degrees) * 60);
+        const seconds = (absolute - degrees - minutes / 60) * 3600;
+        return [[degrees, 1], [minutes, 1], rational(seconds, 1000)];
+      };
+      gps = [
+        { tag: 0x0000, type: 1, values: [2, 3, 0, 0] },
+        { tag: 0x0001, type: 2, values: fields.gps.latitude < 0 ? 'S' : 'N' },
+        { tag: 0x0002, type: 5, values: dms(fields.gps.latitude) },
+        { tag: 0x0003, type: 2, values: fields.gps.longitude < 0 ? 'W' : 'E' },
+        { tag: 0x0004, type: 5, values: dms(fields.gps.longitude) }
+      ];
+      if (Number.isFinite(fields.gps.altitude)) {
+        gps.push({ tag: 0x0005, type: 1, values: [fields.gps.altitude < 0 ? 1 : 0] }, { tag: 0x0006, type: 5, values: [rational(fields.gps.altitude, 10)] });
+      }
+    }
+    // Pointers are LONGs; lay out IFD0 first with them in place, then the sub-IFDs.
+    ifd0.push({ tag: 0x8769, type: 4, values: [0] });
+    if (gps) ifd0.push({ tag: 0x8825, type: 4, values: [0] });
+    const size0 = ifdBytes(ifd0, 8).length;
+    const exifAt = 8 + size0 + (size0 % 2);
+    const exifBytes = ifdBytes(exif, exifAt);
+    const gpsAt = exifAt + exifBytes.length + (exifBytes.length % 2);
+    ifd0.find((entry) => entry.tag === 0x8769).values = [exifAt];
+    if (gps) ifd0.find((entry) => entry.tag === 0x8825).values = [gpsAt];
+    const ifd0Bytes = ifdBytes(ifd0, 8);
+    const gpsBytes = gps ? ifdBytes(gps, gpsAt) : new Uint8Array(0);
+    const tiff = new Uint8Array(gps ? gpsAt + gpsBytes.length : exifAt + exifBytes.length);
+    tiff.set([0x49, 0x49, 42, 0, 8, 0, 0, 0], 0);
+    tiff.set(ifd0Bytes, 8);
+    tiff.set(exifBytes, exifAt);
+    if (gps) tiff.set(gpsBytes, gpsAt);
+    return tiff;
+  }
+
+  // Put a TIFF into a copy of the file: a new JPEG APP1 or PNG eXIf, the old EXIF removed.
+  function writeExif(bytes, found, tiff) {
+    if (found.kind === 'jpeg') {
+      const payload = concat([utf8('Exif\0\0'), tiff]);
+      if (payload.length + 2 > 65535) throw new Error('The metadata is too large for a JPEG.');
+      const app1 = concat([new Uint8Array([0xff, 0xe1, ((payload.length + 2) >> 8) & 255, (payload.length + 2) & 255]), payload]);
+      const parts = [bytes.slice(0, 2)];
+      let inserted = false;
+      for (const segment of jpegSegments(bytes)) {
+        const oldExif = segment.marker === 0xe1 && startsWith(bytes, segment.start + 4, 'Exif\0\0');
+        if (!inserted && segment.marker !== 0xe0) { parts.push(app1); inserted = true; }
+        if (segment.marker === 0xda) { parts.push(bytes.slice(segment.start)); return concat(parts); }
+        if (!oldExif) parts.push(bytes.slice(segment.start, segment.end));
+      }
+      return null;
+    }
+    if (found.kind === 'png') {
+      const crc32 = window.ToolkitZip.crc32;
+      const chunk = new Uint8Array(12 + tiff.length);
+      const view = new DataView(chunk.buffer);
+      view.setUint32(0, tiff.length);
+      chunk.set(utf8('eXIf'), 4);
+      chunk.set(tiff, 8);
+      view.setUint32(8 + tiff.length, crc32(chunk.slice(4, 8 + tiff.length)));
+      const parts = [bytes.slice(0, 8)];
+      let inserted = false;
+      for (const item of pngChunks(bytes)) {
+        if (item.type === 'eXIf') continue;
+        if (!inserted && item.type === 'IDAT') { parts.push(chunk); inserted = true; }
+        parts.push(bytes.slice(item.start, item.end));
+      }
+      return concat(parts);
+    }
+    return null;
+  }
+
   /* ── Page ────────────────────────────────────────────────────── */
 
   function handleFile(file) {
@@ -377,6 +529,7 @@
       };
       img.src = previewUrl;
       showMeta(found);
+      fillEditor(found);
       const removable = found.kind !== 'other' && (found.blocks.some((block) => block !== 'ICC colour profile') || found.texts.length);
       actionsEl.hidden = found.kind === 'other' ? false : !removable;
       stripBtn.hidden = found.kind === 'other';
@@ -403,8 +556,96 @@
     showToast(t(`Saved without metadata, ${formatBytes(current.bytes.length - cleaned.length)} smaller.`), 'success');
   });
 
-  // Exposed for the tests: inspect and strip without a file dialog.
-  window.ToolkitImageMetadata = Object.freeze({ inspect, strip });
+  // The form starts from what the file already says.
+  function fillEditor(found) {
+    editEl.hidden = !(found.kind === 'jpeg' || found.kind === 'png');
+    const tags = found.tags || {};
+    field('imEditDescription').value = tags['ifd0:270'] || '';
+    field('imEditArtist').value = tags['ifd0:315'] || '';
+    field('imEditCopyright').value = tags['ifd0:33432'] || '';
+    const taken = String(tags['exif:36867'] || tags['ifd0:306'] || '').match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})/);
+    field('imEditDate').value = taken ? `${taken[1]}-${taken[2]}-${taken[3]}T${taken[4]}:${taken[5]}:${taken[6]}` : '';
+    const location = gps(tags);
+    const keepOption = document.querySelector('input[name="imEditGps"][value="keep"]');
+    keepOption.disabled = !location;
+    (location ? keepOption : document.querySelector('input[name="imEditGps"][value="remove"]')).checked = true;
+    field('imEditLat').value = location ? location.latitude.toFixed(6) : '';
+    field('imEditLon').value = location ? location.longitude.toFixed(6) : '';
+  }
+
+  function editorFields(found) {
+    const choice = document.querySelector('input[name="imEditGps"]:checked').value;
+    let location = null;
+    if (choice === 'keep') location = gps(found.tags || {});
+    if (choice === 'set') {
+      const latitude = Number(field('imEditLat').value.replace(',', '.'));
+      const longitude = Number(field('imEditLon').value.replace(',', '.'));
+      if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180 || !field('imEditLat').value.trim()) {
+        throw new Error('Latitude must be between −90 and 90, longitude between −180 and 180.');
+      }
+      location = { latitude, longitude };
+    }
+    const date = field('imEditDate').value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?/);
+    return {
+      description: field('imEditDescription').value.trim(),
+      artist: field('imEditArtist').value.trim(),
+      copyright: field('imEditCopyright').value.trim(),
+      date: date ? `${date[1]}:${date[2]}:${date[3]} ${date[4]}:${date[5]}:${date[6] || '00'}` : '',
+      gps: location
+    };
+  }
+
+  function saveBytes(bytes, type, name) {
+    const url = URL.createObjectURL(new Blob([bytes], { type }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  const renamed = (name, suffix) => {
+    const dot = name.lastIndexOf('.');
+    return dot > 0 ? `${name.slice(0, dot)}-${suffix}${name.slice(dot)}` : `${name}-${suffix}`;
+  };
+
+  field('imWrite').addEventListener('click', () => {
+    if (!current) return;
+    try {
+      const tiff = buildTiff(editorFields(current.found), current.found.tags);
+      const written = writeExif(current.bytes, current.found, tiff);
+      if (!written) throw new Error('This file could not be written.');
+      saveBytes(written, current.file.type, renamed(current.file.name, 'edited'));
+      showToast(t('Saved a copy with the new metadata.'), 'success');
+    } catch (error) {
+      showToast(t(error.message), 'error');
+    }
+  });
+
+  // Several files: each cleaned the same lossless way, saved as one ZIP.
+  field('imBatch').addEventListener('change', async () => {
+    const files = [...field('imBatch').files];
+    if (!files.length) return;
+    const out = [];
+    let skipped = 0;
+    let saved = 0;
+    for (const file of files) {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const found = inspect(bytes);
+      const cleaned = found.kind === 'other' ? null : strip(bytes, found);
+      if (!cleaned) { skipped += 1; continue; }
+      out.push({ name: renamed(file.name, 'clean'), data: cleaned });
+      saved += bytes.length - cleaned.length;
+    }
+    field('imBatch').value = '';
+    field('imBatchNote').textContent = t(`${out.length} cleaned, ${skipped} skipped, ${formatBytes(saved)} of metadata removed.`);
+    if (out.length) saveBytes(window.ToolkitZip.zip(out), 'application/zip', 'clean-images.zip');
+  });
+
+  // Exposed for the tests: inspect, strip and write without a file dialog.
+  window.ToolkitImageMetadata = Object.freeze({ inspect, strip, buildTiff, writeExif });
 
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
