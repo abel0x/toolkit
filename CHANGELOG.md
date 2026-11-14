@@ -2,6 +2,30 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.3] — 2026-11-14
+
+Six tools that overlapped with another one now do something of their own.
+
+### Added
+
+- **JSON Validator** checks JSON against a JSON Schema you paste beside it (draft 2020-12 and draft-07 keywords: types, required and additional properties, patterns, formats, numbers and lengths, arrays, `$ref` and `$defs`, `allOf`/`anyOf`/`oneOf`/`not`, `if`/`then`/`else`) and lists every problem with its JSON path.
+- **JSON Minifier** accepts JSON with comments and trailing commas (JSONC, as in `tsconfig.json` and editor settings) and can escape non-ASCII characters.
+- **Open Graph Tag Generator** previews the link the way Facebook, X, LinkedIn and WhatsApp show it, with a local image of your choice (never uploaded; remote images are still not loaded), and checks the title and description length, an HTTPS image URL and the 1200 × 630 image size.
+- **Find and Replace** runs a list of rules in order, each on the result of the one before, and shows how many each one replaced.
+- **Image Metadata Viewer** reads EXIF from JPEG, PNG and WebP: camera and lens, exposure, aperture, ISO, date, orientation, author, and the GPS location with a warning and an OpenStreetMap link; XMP, IPTC, ICC profiles, comments and PNG text are listed too. "Download without metadata" saves a copy with all of it removed and the picture data untouched (no re-compression); a JPEG keeps only its orientation.
+- **QR Batch Generator** downloads all codes as one ZIP, takes "name, value" lines whose names become the file names, and offers 300, 500 and 1000 px sizes.
+
+### Fixed
+
+- Find and Replace counted capture groups as matches when "Global replace" was off, and its Turkish count message was never translated.
+- The Image Metadata Viewer wrote its results as a table inside a table.
+- The drop zones of the Image Metadata Viewer, Image to Base64 and Image Dimension Checker did not open with Enter or Space; every element with `role="button"` now does.
+- The QR Batch Generator's single downloads could be cancelled because the link was revoked at once.
+
+### Tests
+
+- `tests/tool-vectors.mjs` checks 54 tools with 237 known answers, including a schema with six kinds of problem, JSONC, rule lists, the Open Graph checks with a local 1200 × 630 image (and no request to the image URL), EXIF from a Pillow-made JPEG and its cleaned copy, and the QR ZIP's file names. The axe audit adds the schema problem list and a second replace rule.
+
 ## [1.8.2] — 2026-11-14
 
 Every tool is now named and described in one place, and every description says what the tool does today.
@@ -542,6 +566,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.3]: https://github.com/abel0x/toolkit/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/abel0x/toolkit/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/abel0x/toolkit/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/abel0x/toolkit/compare/v1.7.6...v1.8.0

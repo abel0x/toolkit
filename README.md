@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.8.2
+### Latest release — 1.8.3
+
+Tools that overlapped now each do something of their own: the JSON Validator checks against a JSON Schema, the JSON Minifier takes JSON with comments, the Open Graph generator previews the link on Facebook, X, LinkedIn and WhatsApp, Find and Replace runs a list of rules, the Image Metadata Viewer reads EXIF and GPS and saves a copy without them, and the QR Batch Generator downloads everything as a ZIP.
+
+### 1.8.2
 
 Every tool is named and described in one place now, so the home page, the tool finder, the page itself and search results say the same thing, and no description promises a feature the tool does not have. Twelve tools that had two or three names now have one.
 
 ### 1.8.1
 
 Seventeen tools fixed after a review of every tool: the SQL Formatter keeps strings and comments intact, YAML to JSON reads real files (flow lists, multi-line text, anchors), the CSS, JavaScript and HTML minifiers minify whole files, CSV to JSON reads semicolon CSV, the Text Sorter and Case Converter follow Turkish letter rules, the Password Strength checker spots common words with a year or symbols added, and the Color Converter reads any CSS colour with alpha.
-
-### 1.8.0
-
-Text Diff can ignore whitespace and case, shows a side-by-side view with line numbers, and marks the changed words. The JSON Formatter lets you choose the indent and browse the result as a collapsible tree, the Regex Tester replaces matches with groups such as `$1`, and the Markdown Previewer downloads your document as an HTML page. Every page now passes an automated accessibility audit (axe-core, WCAG 2.2 AA), which led to clearer contrast, a keyboard-friendly QR drop zone and better button names, and the Markdown editor sits beside its preview again.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
@@ -186,7 +186,7 @@ CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 # Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, CSP-safe copy buttons, and keyboard access to the QR Reader drop zone.
 node tests/audit-regressions.mjs
 
-# Check the output of 50 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, text diffs, JSON trees, regex replacement, Markdown as HTML, encodings, conversions, XML, SQL …).
+# Check the output of 54 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, text diffs, JSON trees, regex replacement, Markdown as HTML, encodings, conversions, XML, SQL …).
 node tests/tool-vectors.mjs
 
 # Optional: smoke-test every page in WebKit (Safari's engine). Needs Playwright, which is test-only and never a site dependency; CI runs it in .github/workflows/webkit.yml.
