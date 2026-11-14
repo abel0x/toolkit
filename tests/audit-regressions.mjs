@@ -290,8 +290,25 @@ await withFirefox(async (page) => {
   assert.equal(skipped.incorrect, '0', `Skipped-character run typed a wrong letter: ${JSON.stringify(skipped)}`);
   assert.notEqual(skipped.accuracy, '100.0%', `Skipping most of each word kept 100% accuracy: ${JSON.stringify(skipped)}`);
 
+  // The QR Reader's drop zone is a button: click, Enter and Space open the
+  // file picker; other keys do not.
+  await page.navigate('/tools/qr-reader.html');
+  const dropZone = await page.evaluate(() => {
+    const zone = document.getElementById('qrDropZone');
+    const input = document.getElementById('qrFileInput');
+    let opened = 0;
+    input.click = () => { opened += 1; };
+    const press = (key) => zone.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+    zone.click();
+    press('Enter');
+    press(' ');
+    press('a');
+    return { opened, role: zone.getAttribute('role'), tabIndex: zone.tabIndex, nestedFocusable: zone.querySelectorAll('input, button, a, [tabindex]').length };
+  });
+  assert.deepEqual(dropZone, { opened: 3, role: 'button', tabIndex: 0, nestedFocusable: 0 }, `QR drop zone keyboard access: ${JSON.stringify(dropZone)}`);
+
   const errors = page.errors();
   assert.deepEqual(errors, [], `Browser errors: ${JSON.stringify(errors).slice(0, 500)}`);
 });
 
-console.log('Audit regressions passed: Turkish search and folding, palette copy, Markdown, Base64 image, checksum ordering, blob cleanup, reverser copy, delegated copy buttons, and typing case/skip accuracy.');
+console.log('Audit regressions passed: Turkish search and folding, palette copy, Markdown, Base64 image, checksum ordering, blob cleanup, reverser copy, delegated copy buttons, typing case/skip accuracy, and keyboard access to the QR Reader drop zone.');

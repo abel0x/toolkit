@@ -166,6 +166,14 @@
 
   fileInput.addEventListener('change', (e) => { if (e.target.files[0]) processFile(e.target.files[0]); });
 
+  // The drop zone opens the file picker on click, Enter or Space.
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    fileInput.click();
+  });
+
   // Drag and drop
   dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));

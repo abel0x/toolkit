@@ -62,6 +62,13 @@ jobs:
       - name: Audit accessibility contracts
         run: node tests/accessibility-audit.mjs
 
+      # Test-only; pinned so a new axe rule never fails a release by surprise.
+      - name: Install axe-core
+        run: npm install --no-save --no-package-lock axe-core@4.14.0
+
+      - name: Audit every page with axe-core in Firefox
+        run: node tests/axe-audit.mjs
+
       - name: Smoke-test every tool page in Firefox
         run: node tests/tool-pages-e2e.mjs
 

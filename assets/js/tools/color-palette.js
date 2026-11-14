@@ -65,13 +65,24 @@
       return hues.map(function (hu) { return hslToHex(hu, s, l); });
     }
 
+    // Black or white, whichever reads better on the swatch (WCAG contrast).
+    function readableOn(hex) {
+      var n = parseInt(hex.slice(1, 7), 16);
+      var lin = [n >> 16, (n >> 8) & 255, n & 255].map(function (v) {
+        v /= 255;
+        return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      var lum = 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+      return (lum + 0.05) / 0.05 >= 1.05 / (lum + 0.05) ? '#000' : '#fff';
+    }
+
     function renderPalette(colors) {
       paletteEl.innerHTML = '';
       colors.forEach(function (hex) {
         var swatch = document.createElement('div');
         swatch.style.cssText = 'background:' + hex + ';border-radius:8px;padding:1rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;min-width:80px;cursor:pointer;';
         var label = document.createElement('span');
-        label.style.cssText = 'font-family:monospace;font-size:.75rem;color:#fff;text-shadow:0 1px 2px #000;';
+        label.style.cssText = 'font-family:monospace;font-size:.75rem;color:' + readableOn(hex) + ';';
         label.textContent = hex.toUpperCase();
         swatch.appendChild(label);
         var btn = document.createElement('button');

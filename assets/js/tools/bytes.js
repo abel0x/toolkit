@@ -40,7 +40,7 @@
     html += '<th class="ix-c4ccea">Unit</th>';
     html += '<th class="ix-be468c">Value</th>';
     html += '<th class="ix-d3c755">Type</th>';
-    html += '<th class="ix-6c8182"></th>';
+    html += '<th class="ix-6c8182"><span class="sr-only">Copy</span></th>';
     html += '</tr></thead><tbody>';
 
     UNITS.forEach(u => {

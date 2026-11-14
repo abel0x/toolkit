@@ -37,6 +37,14 @@ async function startServer() {
         response.end("self.addEventListener('install', () => self.skipWaiting()); self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim()));");
         return;
       }
+      // axe-core for tests/axe-audit.mjs, served same-origin so the pages'
+      // script-src 'self' policy lets it run. CI installs it with npm.
+      if (url.pathname === '/__test/axe.min.js') {
+        const axe = await readFile(process.env.AXE_CORE_PATH || join(root, 'node_modules', 'axe-core', 'axe.min.js'));
+        response.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-store' });
+        response.end(axe);
+        return;
+      }
       const pathname = decodeURIComponent(url.pathname);
       const target = resolve(root, `.${pathname}`);
       if (target !== root && !target.startsWith(`${root}${sep}`)) throw new Error('Forbidden');

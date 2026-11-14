@@ -5,7 +5,7 @@
   },
   "license/index.html": {
     "date": "2026-11-14",
-    "sha256": "9118397c9e71d16bec478758205c2a484f4a1d217ad6cce34f38cbe8260ef317"
+    "sha256": "50e779fa56754994ebe696fc851995123ad59ab9dbc22487125e9a72a0a60ce1"
   },
   "privacy/index.html": {
     "date": "2026-11-14",
@@ -21,7 +21,7 @@
   },
   "tools/aspect-ratio.html": {
     "date": "2026-11-14",
-    "sha256": "7db899fae74f4b90f43574c15f718b631b3a0f9c280658b27e8ef33e6c251e8f"
+    "sha256": "f0aa4a3e2c5b8ee65de97118d4723cf90632f3707b13dc7ce1505fabf2b5371d"
   },
   "tools/base32.html": {
     "date": "2026-11-14",
@@ -117,7 +117,7 @@
   },
   "tools/file-checksum.html": {
     "date": "2026-11-14",
-    "sha256": "8fef4b26fa6b7275df49e1d9ef1b36059201f1fe895ca5357e3ffcd0a5fcdee9"
+    "sha256": "08386bbb98c85851e3e8355acc1943f94c54508bd8c4cdccb998c99ac3c929d4"
   },
   "tools/find-replace.html": {
     "date": "2026-11-14",
@@ -165,11 +165,11 @@
   },
   "tools/image-metadata.html": {
     "date": "2026-11-14",
-    "sha256": "048061319392ff811cf6aeef2f26987fdf7aabf037cae1578b2600d961ed87c9"
+    "sha256": "8ef382e77b851079354d654df2c71f186b293b58b54c8243b829c38e7539ff8e"
   },
   "tools/image-to-base64.html": {
     "date": "2026-11-14",
-    "sha256": "6563f6482b19aeb15a013cc75efeaafa6afd79f03322c04acd1bde8da441a32b"
+    "sha256": "6f2728d569d99faa1826ec2195c0fd05eac79f8792fdbfcf162d206e3601df4a"
   },
   "tools/js-minifier.html": {
     "date": "2026-11-14",
@@ -237,7 +237,7 @@
   },
   "tools/number-base.html": {
     "date": "2026-11-14",
-    "sha256": "1968eccc4a72ed8196a2984bbf3a44d62eeb0346a7c4672550dbfdf34ca47dd9"
+    "sha256": "fd47bb8df43e5f1980ffde7f65ff7034cb4920a0eb909455248bc48063821661"
   },
   "tools/open-graph.html": {
     "date": "2026-11-14",
@@ -257,7 +257,7 @@
   },
   "tools/percentage.html": {
     "date": "2026-11-14",
-    "sha256": "9c200ac9068e6721b3298a05ca432e8001eb65b89c80b1955b792a25f1fa4ed4"
+    "sha256": "749fbfa7b68cb887e8133ad7ee8fde5ced15059dd7c7e9d45dc7225d85a1004d"
   },
   "tools/qr-batch.html": {
     "date": "2026-11-14",
@@ -269,7 +269,7 @@
   },
   "tools/qr-reader.html": {
     "date": "2026-11-14",
-    "sha256": "50094cdeaebff73219f3e277abeb1903d96f1f1c4553f0ca9b66cd17642ab002"
+    "sha256": "d1d50aebfe519ece5f41cdd4ac58b1c76034bf8c0c8ed734f9ae18767cbddb43"
   },
   "tools/query-string.html": {
     "date": "2026-11-14",
@@ -329,7 +329,7 @@
   },
   "tools/temperature.html": {
     "date": "2026-11-14",
-    "sha256": "394f688f50d635ed6a87646973af791fbf52cdb73e7b17a0b0594e54fcd2acd0"
+    "sha256": "cceb02868ebe8f0a1a2906b60a9ef9512b86da1c5e21be277ec50adfe1cfbc01"
   },
   "tools/text-cleaner.html": {
     "date": "2026-11-14",
@@ -353,7 +353,7 @@
   },
   "tools/timestamp.html": {
     "date": "2026-11-14",
-    "sha256": "b887aeecf512b90c9c132926318288a79204d7fc4663b9a29c4c835941e4c550"
+    "sha256": "4b7f3116942cd1a55968db10e3c7509a62597e306470ac57a8c29d654d0128dc"
   },
   "tools/totp.html": {
     "date": "2026-11-14",
@@ -369,7 +369,7 @@
   },
   "tools/unit-converter.html": {
     "date": "2026-11-14",
-    "sha256": "1b1a9871557906cbb527b63d461dba90f8f8e3507eaf570712bd55f8ed52dbdd"
+    "sha256": "6eec0a31c24dd49f64979f827ba8295668d2cf64ea2b8f2903d5e83b44e79fe5"
   },
   "tools/unix-permissions.html": {
     "date": "2026-11-14",
@@ -421,7 +421,7 @@
   },
   "tr/license/index.html": {
     "date": "2026-11-14",
-    "sha256": "8ea56c9fdb3bb53b1378afe10f1ca3d845e1c8ec3ea88e64a93e4b15b1465906"
+    "sha256": "9858f39467c04bee66b3c10606c1cbe27157e045918255a51aeaa7cf494432ba"
   },
   "tr/privacy/index.html": {
     "date": "2026-11-14",
@@ -437,7 +437,7 @@
   },
   "tr/tools/aspect-ratio.html": {
     "date": "2026-11-14",
-    "sha256": "6126955e1bc00c843b65cc5c7c8d258b8b2b4f1eea7696d69db22d47d0f63fd0"
+    "sha256": "a207bbb4d6a1d9375292dd308ab7a8b412f78650bf1879a0e21327e148b3fdcf"
   },
   "tr/tools/base32.html": {
     "date": "2026-11-14",
@@ -533,7 +533,7 @@
   },
   "tr/tools/file-checksum.html": {
     "date": "2026-11-14",
-    "sha256": "1c8ab82f0b4cc20823abbca9e90b846ee6ce24b0624632db9e4df50c0f0995b2"
+    "sha256": "7778a3583e8d917a305a2dca6df949602b25e8ea8a32ecf7c238498c54815b96"
   },
   "tr/tools/find-replace.html": {
     "date": "2026-11-14",
@@ -581,11 +581,11 @@
   },
   "tr/tools/image-metadata.html": {
     "date": "2026-11-14",
-    "sha256": "2a18ecc61abace6ea46e24a54efde9121b59b156529b592aa3f476385df0b501"
+    "sha256": "d5ea01bc12d3ffd0f934911a72569d57c40448d4e53133ca3f444c9a375fb87a"
   },
   "tr/tools/image-to-base64.html": {
     "date": "2026-11-14",
-    "sha256": "bee904732b71b7b9e49a0508773bbddfe61e97aab4f0375a75003bdf0abcf764"
+    "sha256": "c7023d7613d235c5427d8e099752c67b59b67ca58d809ae20d8398096043de5f"
   },
   "tr/tools/js-minifier.html": {
     "date": "2026-11-14",
@@ -653,7 +653,7 @@
   },
   "tr/tools/number-base.html": {
     "date": "2026-11-14",
-    "sha256": "e2a78394a7076570cb69d44975d6b3e23fe49abd3c620ed5d619d988325cbb2f"
+    "sha256": "4a19db3e3080658b869a66359c5ae3feaf9446042cec200b25258cc80075db21"
   },
   "tr/tools/open-graph.html": {
     "date": "2026-11-14",
@@ -673,7 +673,7 @@
   },
   "tr/tools/percentage.html": {
     "date": "2026-11-14",
-    "sha256": "80c184aac67baa8704e70f25346bceb2801db656d91e8b29bd1d1cf9d7f73b3f"
+    "sha256": "d3f65d637a6d0ebe4be956fcd9439b1bd083be0da72771ad9b31770c1773598b"
   },
   "tr/tools/qr-batch.html": {
     "date": "2026-11-14",
@@ -685,7 +685,7 @@
   },
   "tr/tools/qr-reader.html": {
     "date": "2026-11-14",
-    "sha256": "3a60965950871802a7ddb88613756be823c5749cac59fc6f88a32a88ca488b52"
+    "sha256": "15ec27c05aeec5faa24da5c4c140fc4246aeff0971406114ba42f610ddfd0bc7"
   },
   "tr/tools/query-string.html": {
     "date": "2026-11-14",
@@ -713,7 +713,7 @@
   },
   "tr/tools/regex-tester.html": {
     "date": "2026-11-14",
-    "sha256": "4fffdd2c8dfbaf9dde3958a391f2ce837752a255175b67156f990f62e06647e6"
+    "sha256": "e8934aebdce7435319d18ea520e53eaa3bf3ce094c4d4d2fa00651725c6194de"
   },
   "tr/tools/robots-generator.html": {
     "date": "2026-11-14",
@@ -745,7 +745,7 @@
   },
   "tr/tools/temperature.html": {
     "date": "2026-11-14",
-    "sha256": "536da7183c582e0d41de35ae385527c828ec9047ef762c97ed6103d5c600114e"
+    "sha256": "cf6c309e73de2e15547b4af0b015c6b018049121832b72be2942941d30bdf010"
   },
   "tr/tools/text-cleaner.html": {
     "date": "2026-11-14",
@@ -769,7 +769,7 @@
   },
   "tr/tools/timestamp.html": {
     "date": "2026-11-14",
-    "sha256": "a368fad80c0bac121fe632bdaef41c92b7def808caeba5db97464ac2bb84cf72"
+    "sha256": "d8f0650d5677513ec79ee1527f64831d8e37d024fb32546d718f5ee09b28d3a3"
   },
   "tr/tools/totp.html": {
     "date": "2026-11-14",
@@ -785,7 +785,7 @@
   },
   "tr/tools/unit-converter.html": {
     "date": "2026-11-14",
-    "sha256": "1b70bad1b6aa83de99b2d94ab011846aea1ff752fa26cf7819316c648d2d62e5"
+    "sha256": "a43854a01fea0ed1b63e7e6ebc6189e439d474d8aea5b70020d41326c93647ac"
   },
   "tr/tools/unix-permissions.html": {
     "date": "2026-11-14",

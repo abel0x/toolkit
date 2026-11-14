@@ -1426,7 +1426,7 @@ def run_related_tools():
 # than at the left edge. The centred title lines get license-text__title,
 # which drops their spaces on phones. The tr/ twin copies this block.
 
-_LICENSE_BLOCK = re.compile(r'(<pre class="license-text" id="license-text" data-i18n-skip lang="en">)'
+_LICENSE_BLOCK = re.compile(r'(<pre class="license-text" id="license-text" tabindex="0" data-i18n-skip lang="en">)'
                             r'.*?(</pre>)', re.DOTALL)
 _LICENSE_TITLE_INDENT = 20
 

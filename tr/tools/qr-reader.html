@@ -27,14 +27,14 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>QR Kod Okuyucu — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=5a3e67cc3205" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=5a3e67cc3205" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=5a3e67cc3205" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=5a3e67cc3205" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=5a3e67cc3205" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=6231d4e02531" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=6231d4e02531" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=6231d4e02531" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=6231d4e02531" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=6231d4e02531" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
-  <script src="../../assets/js/vendor/jsQR.min.js?v=5a3e67cc3205" defer></script>
+  <script src="../../assets/js/vendor/jsQR.min.js?v=6231d4e02531" defer></script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "QR Kod Okuyucu", "url": "https://abel0x.github.io/toolkit/tr/tools/qr-reader.html", "description": "Bir QR kodu görüntüden ya da doğrudan kameranızdan çözün. PNG, JPG ve WebP desteklenir. Tamamen tarayıcınızda çalışır.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "QR Kod Okuyucu", "item": "https://abel0x.github.io/toolkit/tr/tools/qr-reader.html"}]}]}</script>
 </head>
 <body>
@@ -77,12 +77,12 @@
         </div>
         <!-- TOOL-HEADER:END -->
         <div class="card glass reveal" role="region" aria-label="QR Kod Okuyucu Aracı">
-          <label id="qrDropZone" for="qrFileInput" class="qr-dropzone" tabindex="0" role="button" aria-label="QR koduyla resim yükleyin" aria-describedby="qrDropDesc">
+          <div id="qrDropZone" class="qr-dropzone" tabindex="0" role="button" aria-describedby="qrDropDesc">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <p class="dropzone-title">Resmi buraya bırakın veya göz atmak için tıklayın</p>
             <p class="dropzone-sub" id="qrDropDesc">PNG, JPG, WebP, GIF'i destekler — Maksimum 10MB</p>
-            <input type="file" id="qrFileInput" accept="image/*" class="sr-only" aria-label="Görsel dosyası seç" />
-          </label>
+          </div>
+          <input type="file" id="qrFileInput" accept="image/*" hidden aria-label="Görsel dosyası seç" />
           <div class="qr-camera-row">
             <button type="button" class="btn btn--secondary" id="qrCameraBtn" hidden>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
@@ -138,12 +138,12 @@
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/core/nav.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/i18n/tr/qr-reader.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=5a3e67cc3205" defer></script>
-  <script src="../../assets/js/tools/qr-reader.js?v=5a3e67cc3205" defer></script>
+  <script src="../../assets/js/core/utils.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/core/nav.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/i18n/tr/qr-reader.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=6231d4e02531" defer></script>
+  <script src="../../assets/js/tools/qr-reader.js?v=6231d4e02531" defer></script>
 </body>
 </html>

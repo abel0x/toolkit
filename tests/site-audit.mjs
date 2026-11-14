@@ -625,7 +625,7 @@ assert(licenseHtml.includes('https://abel0x.github.io/toolkit/license/'),
   'License page has an invalid canonical URL.');
 assert(licenseHtml.includes('data-i18n-skip lang="en"'),
   'License text must be excluded from DOM translation.');
-const licenseMarker = '<pre class="license-text" id="license-text" data-i18n-skip lang="en">';
+const licenseMarker = '<pre class="license-text" id="license-text" tabindex="0" data-i18n-skip lang="en">';
 const licenseStart = licenseHtml.indexOf(licenseMarker);
 assert.notEqual(licenseStart, -1, 'License page does not include the canonical license block.');
 const licenseTextStart = licenseStart + licenseMarker.length;

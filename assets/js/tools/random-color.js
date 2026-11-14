@@ -47,6 +47,17 @@
       renderGrid();
     }
 
+    // Black or white, whichever reads better on the swatch (WCAG contrast).
+    function readableOn(hex) {
+      var n = parseInt(hex.slice(1, 7), 16);
+      var lin = [n >> 16, (n >> 8) & 255, n & 255].map(function (v) {
+        v /= 255;
+        return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      var lum = 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+      return (lum + 0.05) / 0.05 >= 1.05 / (lum + 0.05) ? '#000' : '#fff';
+    }
+
     function renderGrid() {
       if (!gridEl) return;
       gridEl.innerHTML = '';
@@ -58,7 +69,7 @@
         var swatch = document.createElement('div');
         swatch.style.cssText = 'background:' + hex + ';border-radius:8px;padding:.75rem;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:.4rem;flex:1;';
         var label = document.createElement('span');
-        label.style.cssText = 'font-family:monospace;font-size:.7rem;color:#fff;text-shadow:0 1px 3px #000;word-break:break-all;text-align:center;';
+        label.style.cssText = 'font-family:monospace;font-size:.7rem;color:' + readableOn(hex) + ';word-break:break-all;text-align:center;';
         label.textContent = code;
         swatch.appendChild(label);
         var btn = document.createElement('button');

@@ -65,7 +65,7 @@
     if (isNaN(value)) { convTableEl.innerHTML = ''; return; }
     const px = toPx(value, fromUnit);
     let html = '<table class="ix-53d69d">';
-    html += '<thead><tr><th class="ix-47aec6">Unit</th><th class="ix-e8cf08">Value</th><th class="ix-e9842b"></th></tr></thead><tbody>';
+    html += '<thead><tr><th class="ix-47aec6">Unit</th><th class="ix-e8cf08">Value</th><th class="ix-e9842b"><span class="sr-only">Copy</span></th></tr></thead><tbody>';
     UNITS.forEach(u => {
       const v = fromPx(px, u);
       html += `<tr>

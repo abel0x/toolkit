@@ -76,7 +76,7 @@
         </div>
         <div class="command-palette__header-actions">
           <button class="command-palette__clear" type="button" data-command-clear hidden>${t('Clear recent')}</button>
-          <button class="command-palette__close" type="button" aria-label="${t('Close tool finder')} (Esc)" data-command-close>Esc</button>
+          <button class="command-palette__close" type="button" aria-label="${t('Close tool finder')}, Esc" data-command-close>Esc</button>
         </div>
       </div>
       <label class="sr-only" for="commandPaletteInput">${t('Search tools')}</label>
@@ -391,7 +391,7 @@
     const close = document.createElement('button');
     close.type = 'button';
     close.className = 'shortcut-help__close';
-    close.setAttribute('aria-label', `${t('Close keyboard shortcuts')} (Esc)`);
+    close.setAttribute('aria-label', `${t('Close keyboard shortcuts')}, Esc`);
     close.textContent = 'Esc';
     close.addEventListener('click', () => dialog.close());
     header.append(title, close);
@@ -423,7 +423,7 @@
       return row;
     }));
     dialog.querySelector('h2').textContent = t('Keyboard shortcuts');
-    dialog.querySelector('.shortcut-help__close').setAttribute('aria-label', `${t('Close keyboard shortcuts')} (Esc)`);
+    dialog.querySelector('.shortcut-help__close').setAttribute('aria-label', `${t('Close keyboard shortcuts')}, Esc`);
   }
 
   function open() {

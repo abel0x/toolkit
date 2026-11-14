@@ -266,6 +266,8 @@
   white-space: pre-wrap;
 }
 
+.license-text:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 /* build.py publishes LICENSE one line per span. A wrapped line continues
    under its own text: the hanging indent is as wide as its leading spaces. */
 .license-line { display: block; }

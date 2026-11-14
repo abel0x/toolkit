@@ -296,6 +296,10 @@ node tests/turkish-pages-e2e.mjs
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
+# Run axe-core (WCAG 2.2 A/AA and best practices) on every English and Turkish page in Firefox, on desktop and a phone, and with the tool finder and shortcut help open. axe-core is test-only; CI pins the same version.
+npm install --no-save --no-package-lock axe-core@4.14.0
+node tests/axe-audit.mjs
+
 # Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
@@ -311,7 +315,7 @@ node tests/expansion-e2e.mjs
 # Check the QR generator several independent ways: its capacity table and alignment patterns against the QR library, every content type's payload format, and PNG/SVG exports of every style, colour, logo and size, decoded by jsQR, ZBar and (when installed) ZXing-C++, plus its phone and desktop layout.
 node tests/qr-generator-e2e.mjs
 
-# Install the real service worker under the GitHub Pages path, stop the server, and verify the cached site and the English and Turkish 404 page in Firefox.
+# Install the real service worker under the GitHub Pages path, publish a pretend next release to check the "new version" notice, stop the server, and verify the cached site and the English and Turkish 404 page in Firefox.
 node tests/offline-e2e.mjs
 ```
 
