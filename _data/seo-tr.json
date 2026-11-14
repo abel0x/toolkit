@@ -137,6 +137,14 @@
       "description": "Generate harmonious color palettes — complementary, triadic, analogous, tetradic."
     }
   },
+  "tools/credit-card-validator.html": {
+    "title": "Kredi Kartı Doğrulayıcı — Toolkit",
+    "description": "Visa, Mastercard, American Express, Troy ve diğer kart numaralarını tarayıcınızda denetleyin: ağ, uzunluk, Luhn kontrol hanesi, son kullanma tarihi ve güvenlik kodu uzunluğu. Numara cihazınızdan hiç çıkmaz.",
+    "source": {
+      "title": "Credit Card Validator — Toolkit",
+      "description": "Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device."
+    }
+  },
   "tools/cron-assistant.html": {
     "title": "Cron İfadesi Yardımcısı — Toolkit",
     "description": "Beş alanlı cron ifadesini açıklayın ve yaklaşan çalıştırmaları yerel olarak hesaplayın.",

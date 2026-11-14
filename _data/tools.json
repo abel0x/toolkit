@@ -101,6 +101,16 @@
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><polyline points=\"9 12 11 14 15 10\"/></svg>"
     },
     {
+      "slug": "credit-card-validator",
+      "name": "Credit Card Validator",
+      "cat": "security",
+      "desc": "Check a Visa, Mastercard, American Express or Troy card number: network, length and the Luhn check digit.",
+      "meta": "Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device.",
+      "tags": ["credit card", "card", "luhn", "visa", "mastercard", "amex", "troy", "bin", "validate"],
+      "related": ["uuid-validator", "file-checksum", "fake-data", "hash"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 9.5h19\"/><path d=\"M6 15h4\"/><path d=\"M15 15l1.5 1.5 3-3\"/></svg>"
+    },
+    {
       "slug": "base64",
       "name": "Base64 Encode / Decode",
       "cat": "encoding",

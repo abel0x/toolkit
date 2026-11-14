@@ -445,6 +445,22 @@ await withFirefox(async (page) => {
     for (const key of ['Enter', ' ', 'a']) zone.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
     return [['drop zone opens with Enter and Space', opened, 2]];`);
 
+  await check('credit-card-validator', `
+    const api = window.ToolkitCardValidator;
+    const networks = ['4111111111111111', '9792030000001230', '378282246310005', '5555555555554444', '2221000000000009', '6011111111111117', '3530111333300000', '6200000000000005', '1234567812345670'].map(api.detect);
+    set('#ccNumber', '5555 5555 5555 4445');
+    const typo = text('#ccChecks');
+    set('#ccNumber', '3782-822463-10005'); set('#ccExpiry', '01/20'); set('#ccCvc', '123');
+    const amex = [text('#ccFormatted'), text('#ccNetwork'), text('#ccChecks')];
+    set('#ccNumber', '9792 0300 0000 1230'); set('#ccExpiry', ''); set('#ccCvc', '');
+    const troy = text('#ccFacts') + ' ' + text('#ccNote');
+    return [['networks', networks, ['Visa', 'Troy', 'American Express', 'Mastercard', 'Mastercard', 'Discover', 'JCB', 'UnionPay', null]],
+      ['Luhn', [api.luhn('4111111111111111'), api.luhn('4111111111111112')], [true, false]],
+      ['a mistyped digit and the right one', typo, { includes: 'Check digit is wrong (Luhn): the last digit would be 4.' }],
+      ['Amex grouping', amex[0], '3782 822463 10005'], ['Amex network', amex[1], 'American Express'],
+      ['expired card', amex[2], { includes: 'Expiry date has passed.' }], ['Amex code is 4 digits', amex[2], { includes: '✕ Security code: 4 digits, on the front of the card.' }],
+      ['Troy is national', troy, { includes: '9 — National assignment' }], ['Troy note', troy, { includes: 'Interbank Card Center' }]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

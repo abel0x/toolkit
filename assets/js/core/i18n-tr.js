@@ -585,6 +585,18 @@
     if (match) return `Seçilen görsel: ${match[1]} × ${match[2]} px (1200 × 630, yaklaşık 1,91:1, her platforma uyar).`;
     match = key.match(/^Saved without metadata, (.+) smaller\.$/);
     if (match) return `Meta veri olmadan kaydedildi, ${match[1]} daha küçük.`;
+    match = key.match(/^Network: (.+)$/);
+    if (match) return `Ağ: ${match[1]}`;
+    match = key.match(/^(\d+) digits \((.+) uses (.+)\)$/);
+    if (match) return `${match[1]} hane (${match[2]}: ${match[3].replace(/, /g, ', ')} hane)`;
+    match = key.match(/^(\d+) digits \(cards have 12 to 19\)$/);
+    if (match) return `${match[1]} hane (kartlarda 12 ile 19 arası)`;
+    match = key.match(/^Check digit is wrong \(Luhn\): the last digit would be (\d)\.$/);
+    if (match) return `Kontrol hanesi yanlış (Luhn): son hane ${match[1]} olmalıydı.`;
+    match = key.match(/^Security code: (\d) digits, on the front of the card\.$/);
+    if (match) return `Güvenlik kodu: ${match[1]} hane, kartın ön yüzünde.`;
+    match = key.match(/^Security code: (\d) digits\.$/);
+    if (match) return `Güvenlik kodu: ${match[1]} hane.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

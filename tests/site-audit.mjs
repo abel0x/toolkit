@@ -554,7 +554,7 @@ for (const source of [
 }
 const exampleStarterSource = readFileSync(join(root, 'assets/js/core/example-starters.js'), 'utf8');
 const exampleNames = [...exampleStarterSource.matchAll(/name: '([^']+)'/g)].map((match) => match[1]);
-assert.equal(exampleNames.length, 128, 'Example starter definitions unexpectedly changed.');
+assert.equal(exampleNames.length, 132, 'Example starter definitions unexpectedly changed.');
 for (const source of exampleNames) {
   assert(i18nExpansion.includes(`'${source}'`), `Turkish i18n is missing the example name: ${source}`);
 }

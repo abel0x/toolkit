@@ -1233,6 +1233,29 @@
 .im-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 1.25rem; }
 .im-actions[hidden] { display: none; }
 .im-strip-note { font-size: 0.82rem; color: var(--text-muted); }
+/* Credit card validator */
+.cc-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; }
+.cc-number { font-size: 1.05rem; letter-spacing: 0.04em; }
+.cc-privacy { margin-top: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
+.cc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.cc-card { display: grid; gap: 1.6rem; aspect-ratio: 1.586; max-width: 22rem; padding: 1.1rem 1.25rem; border: 1px solid var(--border-hover); border-radius: 14px; background: var(--bg-elevated); align-content: space-between; }
+.cc-card__network { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+.cc-card__number { font-size: 1.15rem; letter-spacing: 0.08em; color: var(--text-primary); overflow-wrap: anywhere; }
+.cc-checks { display: grid; gap: 0.35rem; margin: 1rem 0 0; padding: 0; list-style: none; font-size: 0.88rem; }
+.cc-check--ok { color: var(--text-secondary); }
+.cc-check--bad { color: var(--red); }
+.cc-verdict { margin-bottom: 0.25rem; font-weight: 600; }
+.cc-verdict--ok { color: var(--green); }
+.cc-verdict--bad { color: var(--red); }
+.cc-facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 1rem; margin-top: 1rem; font-size: 0.85rem; }
+.cc-facts dt { color: var(--text-muted); }
+.cc-facts dd { margin: 0; color: var(--text-secondary); font-family: var(--font-mono); overflow-wrap: anywhere; }
+.cc-note { margin-top: 0.85rem; font-size: 0.85rem; color: var(--text-secondary); }
+.cc-about { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.88rem; color: var(--text-secondary); }
+.cc-about summary { cursor: pointer; color: var(--text-primary); font-weight: 600; }
+.cc-about p { margin-top: 0.6rem; line-height: 1.6; }
+@media (max-width: 768px) { .cc-layout { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .cc-row { grid-template-columns: 1fr; } .cc-facts { grid-template-columns: 1fr; } }
 .diff-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1rem; }
 .diff-option { display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
 .diff-options .view-switch { margin-left: auto; }

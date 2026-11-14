@@ -89,6 +89,15 @@ const TOOLS_DATA = [
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg>',
   },
   {
+    name: 'Credit Card Validator',
+    slug: 'credit-card-validator',
+    cat: 'security',
+    catLabel: 'Security',
+    desc: 'Check a Visa, Mastercard, American Express or Troy card number: network, length and the Luhn check digit.',
+    tags: ['credit card', 'card', 'luhn', 'visa', 'mastercard', 'amex', 'troy', 'bin', 'validate'],
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19"/><path d="M6 15h4"/><path d="M15 15l1.5 1.5 3-3"/></svg>',
+  },
+  {
     name: 'Base64 Encode / Decode',
     slug: 'base64',
     cat: 'encoding',

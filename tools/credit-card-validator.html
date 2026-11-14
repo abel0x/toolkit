@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device." />
+  <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/credit-card-validator.html" />
+  <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/credit-card-validator.html" />
+  <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/credit-card-validator.html" />
+  <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/credit-card-validator.html" />
+  <script src="../assets/js/core/language-redirect.js?v=06b5ef6f226f"></script>
+  <meta property="og:title" content="Credit Card Validator — Toolkit" />
+  <meta property="og:description" content="Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device." />
+  <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/credit-card-validator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Toolkit" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="tr_TR" />
+  <meta property="og:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Credit Card Validator — Toolkit" />
+  <meta name="twitter:description" content="Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device." />
+  <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <title>Credit Card Validator — Toolkit</title>
+  <link rel="stylesheet" href="../assets/css/core.css?v=06b5ef6f226f" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=06b5ef6f226f" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=06b5ef6f226f" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=06b5ef6f226f" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=06b5ef6f226f" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Credit Card Validator", "url": "https://abel0x.github.io/toolkit/tools/credit-card-validator.html", "description": "Check a Visa, Mastercard, American Express, Troy or other card number in your browser: the network, the length, the Luhn check digit, the expiry date and the security code length. The number never leaves your device.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Credit Card Validator", "item": "https://abel0x.github.io/toolkit/tools/credit-card-validator.html"}]}]}</script>
+</head>
+<body>
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- NAV:START -->
+<nav class="navbar" id="navbar" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+      <span class="brand-icon" aria-hidden="true">
+        <img src="../assets/images/logo.png" width="36" height="36" alt="" />
+      </span>
+      <span class="brand-name">Toolkit</span>
+    </a>
+    <div class="nav-actions">
+      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
+          <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- NAV:END -->
+
+  <main class="tool-page-main">
+    <div class="container">
+      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-security">Security</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Credit Card Validator</span></nav>
+    </div>
+
+    <section class="section" id="credit-card-validator" aria-labelledby="creditCardHeading">
+      <div class="container">
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19"/><path d="M6 15h4"/><path d="M15 15l1.5 1.5 3-3"/></svg></span><h1 class="section-title" id="creditCardHeading">Credit Card Validator</h1></div>
+            <p class="section-desc">Check a Visa, Mastercard, American Express or Troy card number: network, length and the Luhn check digit.</p>
+          </div>
+          <div class="tool-header__actions">
+            <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="credit-card-validator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
+          </div>
+        </div>
+        <!-- TOOL-HEADER:END -->
+        <div class="card glass reveal" role="region" aria-label="Credit Card Validator Tool">
+          <div class="cc-layout">
+            <div class="cc-form">
+              <div class="form-group">
+                <label class="form-label" for="ccNumber">Card number</label>
+                <input type="text" id="ccNumber" class="form-control font-mono cc-number" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="4111 1111 1111 1111" aria-describedby="ccPrivacy" />
+                <p class="cc-privacy" id="ccPrivacy">Checked on this device only: the number is never sent, saved or put in a link.</p>
+              </div>
+              <div class="cc-row">
+                <div class="form-group">
+                  <label class="form-label" for="ccExpiry">Expiry date (optional)</label>
+                  <input type="text" id="ccExpiry" class="form-control font-mono" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="MM/YY" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="ccCvc">Security code (optional)</label>
+                  <input type="text" id="ccCvc" class="form-control font-mono" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="123" />
+                </div>
+              </div>
+            </div>
+            <div class="cc-result" id="ccResult" aria-live="polite">
+              <div class="cc-card" id="ccCard">
+                <span class="cc-card__network" id="ccNetwork">Enter a card number</span>
+                <span class="cc-card__number font-mono" id="ccFormatted" data-i18n-skip>•••• •••• •••• ••••</span>
+              </div>
+              <ul class="cc-checks" id="ccChecks"></ul>
+              <dl class="cc-facts" id="ccFacts"></dl>
+              <p class="cc-note" id="ccNote" hidden></p>
+            </div>
+          </div>
+          <details class="cc-about">
+            <summary>What a card number can and cannot tell</summary>
+            <p>The first digits name the card network (Visa starts with 4, Mastercard with 51–55 or 2221–2720, American Express with 34 or 37, Troy with 9792), the length must suit that network, and the last digit is a check digit (the Luhn algorithm) that catches typing mistakes.</p>
+            <p>A number that passes every check only has the right shape. Whether the card was really issued, is active, has funds or belongs to someone cannot be read from the number: only the issuing bank knows. The issuing bank itself is identified by the first 6 or 8 digits (the BIN), which needs a bank database Toolkit does not ship. An American Express “Member since” year is printed on the card; it is not part of the number.</p>
+          </details>
+        </div>
+        <!-- RELATED:START -->
+        <nav class="related-tools" aria-label="Related tools">
+          <span class="related-tools__label">Related</span>
+          <a class="related-tools__link" href="uuid-validator.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 12l2.5 2.5L16 9"/></svg></span>UUID Validator</a>
+          <a class="related-tools__link" href="file-checksum.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 12 11 14 15 10"/></svg></span>File Checksum</a>
+          <a class="related-tools__link" href="fake-data.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Fake Data Generator</a>
+          <a class="related-tools__link" href="hash.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></span>Hash Generator</a>
+          <a class="related-tools__more" href="../index.html#category-security">All security tools<span aria-hidden="true"> →</span></a>
+        </nav>
+        <!-- RELATED:END -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">Toolkit</span>
+          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>abel0x</span>
+          </a>
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <span>Buy me a coffee</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
+        <p class="footer-tech">102 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/core/utils.js?v=06b5ef6f226f" defer></script>
+  <script src="../assets/js/core/nav.js?v=06b5ef6f226f" defer></script>
+  <script src="../assets/js/core/i18n.js?v=06b5ef6f226f" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=06b5ef6f226f" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=06b5ef6f226f" defer></script>
+  <script src="../assets/js/tools/credit-card-validator.js?v=06b5ef6f226f" defer></script>
+</body>
+</html>

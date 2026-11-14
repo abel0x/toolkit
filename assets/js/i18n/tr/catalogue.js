@@ -215,6 +215,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Optimize": "İyileştir",
     "Convert between Celsius, Fahrenheit, Kelvin, Rankine and Réaumur.": "Celsius, Fahrenheit, Kelvin, Rankine ve Réaumur arasında dönüştürme yapın.",
     "Reference": "Referans",
+    "Credit Card Validator": "Kredi Kartı Doğrulayıcı",
+    "Check a Visa, Mastercard, American Express or Troy card number: network, length and the Luhn check digit.": "Visa, Mastercard, American Express ya da Troy kart numarasını denetleyin: ağ, uzunluk ve Luhn kontrol hanesi.",
     "Validate JSON syntax with line numbers, and check it against a JSON Schema.": "JSON sözdizimini satır numaralarıyla doğrulayın ve bir JSON Schema’ya göre denetleyin.",
     "Minify JSON to its smallest valid form — also JSON with comments, such as tsconfig.json.": "JSON’u en küçük geçerli biçimine küçültün — tsconfig.json gibi yorumlu JSON dahil.",
     "Generate Open Graph and Twitter Card tags and preview the link on Facebook, X, LinkedIn and WhatsApp.": "Open Graph ve Twitter Card etiketleri oluşturun, bağlantının Facebook, X, LinkedIn ve WhatsApp’ta nasıl görüneceğini önizleyin.",

@@ -32,6 +32,12 @@
       { name: 'Pocket profile', values: { '#jsonInput': '{"name":"Mira","level":7,"snacks":["fig","tea"],"curious":true}' }, action: '#jsonBeautifyBtn' },
       { name: 'Space launch', values: { '#jsonInput': '{"mission":"Comet Tea","crew":3,"launch":"06:45","ready":true}' }, action: '#jsonBeautifyBtn' }
     ],
+    'credit-card-validator': [
+      { name: 'Visa test card', values: { '#ccNumber': '4111 1111 1111 1111', '#ccExpiry': '12/30', '#ccCvc': '123' } },
+      { name: 'Troy example', values: { '#ccNumber': '9792 0300 0000 1230' } },
+      { name: 'American Express test card', values: { '#ccNumber': '3782 822463 10005', '#ccCvc': '1234' } },
+      { name: 'Mistyped Mastercard', values: { '#ccNumber': '5555 5555 5555 4445' } }
+    ],
     'json-validator': [
       { name: 'Tiny recipe', values: { '#jval-input': '{"recipe":"Midnight toast","minutes":4,"ingredients":["bread","honey"]}' }, action: '#jval-btn' },
       { name: 'Desk plant', values: { '#jval-input': '{"plant":"Pothos","water":"Friday","sun":"gentle"}' }, action: '#jval-btn' }

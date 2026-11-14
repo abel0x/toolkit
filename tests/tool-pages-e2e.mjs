@@ -508,7 +508,7 @@ async function main() {
   const toolFiles = (await readdir(toolsDirectory))
     .filter((file) => file.endsWith('.html'))
     .sort();
-  assert.equal(toolFiles.length, 101, 'The browser smoke suite expects 101 published tool pages.');
+  assert.equal(toolFiles.length, JSON.parse(await readFile(join(root, '_data', 'tools.json'), 'utf8')).tools.length, 'Every catalogue tool needs a published page.');
   const server = await startServer();
   const browserPort = await unusedPort();
   const profile = await mkdtemp(join(tmpdir(), 'toolkit-tool-pages-'));
