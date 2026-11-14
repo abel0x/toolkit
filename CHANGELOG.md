@@ -2,6 +2,23 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.0] — 2026-11-14
+
+Every tool now leads to the next one.
+
+### Added
+
+- Every tool page ends with a row of four related tools and a link to the rest of its category ("Related … All security tools →"; on the Turkish pages "İlgili … Tüm güvenlik araçları →"). The four were picked by hand for all 101 tools and live under `related` in `_data/tools.json`; `build.py --related` writes the row, and a future tool without the list gets the tools that share most of its tags. The row is plain links, so it adds no script, and the category link always has a line of its own so every page shows it the same way.
+
+### Fixed
+
+- On phones the breadcrumb squeezed its items instead of wrapping, so on 47 Turkish tool pages and on Random Number Generator "← All Tools", the category and the tool name each broke over two lines. It now wraps between items.
+
+### Tests
+
+- `tests/tool-pages-e2e.mjs` measures every tool page in English and Turkish at 1440 px and 390 px: the header, breadcrumb and related-tools row share one column, the row sits between the tool and the footer, its links stay inside it on one line without overlapping, the category link has its own line, no breadcrumb item breaks, and nothing scrolls sideways.
+- `tests/site-audit.mjs` checks that every English and Turkish tool page has one labelled related-tools row linking the four tools from `_data/tools.json` and its category.
+
 ## [1.6.7] — 2026-11-14
 
 More tools show what they do in one click, every tool runs from the keyboard, and the Turkish "page not found" page is finally Turkish.
@@ -337,6 +354,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.0]: https://github.com/abel0x/toolkit/compare/v1.6.7...v1.7.0
 [1.6.7]: https://github.com/abel0x/toolkit/compare/v1.6.6...v1.6.7
 [1.6.6]: https://github.com/abel0x/toolkit/compare/v1.6.5...v1.6.6
 [1.6.5]: https://github.com/abel0x/toolkit/compare/v1.6.4...v1.6.5
