@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.5
+### Latest release — 1.6.6
+
+On phones the licence text keeps its three-line title instead of breaking each line in two.
+
+### 1.6.5
 
 The licence page now opens with the same left-aligned header as the tool pages, in English and Turkish, so every page below the home page lines up the same way.
 

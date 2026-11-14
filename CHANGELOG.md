@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.6] — 2026-11-14
+
+The licence text reads cleanly on phones.
+
+### Fixed
+
+- The licence centres its first three lines ("Apache License", the version and the URL) with up to 33 leading spaces. Below about 560 px those spaces no longer fit, so each line broke over two lines under a run of blank indent. Up to 640 px the title now drops the leading spaces and keeps its three lines; wider screens still show it centred. The licence text itself is unchanged.
+
+### Tests
+
+- `tests/site-audit.mjs` allows only the title span inside the licence block and still compares the text with `LICENSE`.
+- `tests/tool-pages-e2e.mjs` checks that the licence title takes three lines on both licence pages at 1280 px and 390 px.
+
 ## [1.6.5] — 2026-11-14
 
 The licence page now matches the tool pages.
@@ -303,6 +316,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.6.6]: https://github.com/abel0x/toolkit/compare/v1.6.5...v1.6.6
 [1.6.5]: https://github.com/abel0x/toolkit/compare/v1.6.4...v1.6.5
 [1.6.4]: https://github.com/abel0x/toolkit/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/abel0x/toolkit/compare/v1.6.2...v1.6.3
