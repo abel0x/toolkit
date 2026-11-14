@@ -75,7 +75,7 @@ await withFirefox(async (page) => {
   });
   assert.equal(lazyPalette.subtitle, `Search all ${lazyPalette.count} utilities`);
   assert.equal(lazyPalette.recent[0], 'Hash Generator', 'The current tool was not remembered as the most recent one.');
-  assert(lazyPalette.matches.includes('YAML to JSON'), `Lazy palette search missed "YAML to JSON": ${lazyPalette.matches}`);
+  assert(lazyPalette.matches.includes('YAML to JSON Converter'), `Lazy palette search missed "YAML to JSON Converter": ${lazyPalette.matches}`);
   await page.evaluate(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })));
 
   // The category link in a tool page breadcrumb opens the home page on that tab.

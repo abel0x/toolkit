@@ -59,6 +59,7 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
   "name": "Your Tool Name",
   "cat": "devtools",
   "desc": "A concise, browser-only description.",
+  "meta": "A longer description for search results (optional).",
   "tags": ["searchable", "keywords"],
   "related": ["json-formatter", "json-validator", "json-diff", "json-sorter"],
   "icon": "<svg ...>...</svg>"
@@ -66,6 +67,7 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
 ```
 
 - `cat` must be a key of the `categories` table at the top of the file; its display label comes from there.
+- `name`, `desc` and `meta` are the only place a tool is named and described. `build.py --tool-headers` writes `name` into the page `<title>`, `og:title`, `twitter:title`, the `<h1>` and the breadcrumb, `desc` into the line under the `<h1>`, and `meta` (or `desc` when there is no `meta`) into the meta, Open Graph and Twitter descriptions, from which the JSON-LD is made; `build.py --registry` writes `name` and `desc` into the home page card and the tool finder. Describe only what the tool does today. Changing `name` or `meta` changes the English page metadata, so update the page's entry in `_data/seo-tr.json` too; `desc` and `name` need a Turkish entry in `i18n-expansion.js`. `tests/site-audit.mjs` checks that every page and card agrees with the catalogue.
 - `related` names four other tools, by slug, that someone using this one is likely to want next. `build.py --related` shows them in a row at the end of the page, with a link to the tool's category; the `tr/` twin gets the same row in Turkish. Without the list the build picks the tools sharing the most tags, then the same category, so add it by hand once those picks look wrong.
 - `io` (optional) lets fields open files and outputs be copied or downloaded, through `assets/js/core/tool-io.js`: `{"inputs": {"#input": ".json,text/plain"}, "outputs": {"#output": {"copy": true, "save": "result.json", "beside": "#copyButton"}}}`. An input gets "Open file" and accepts a dropped file (up to 5 MB, read as text in the browser); an output gets Copy (`copy`) and/or Download (`save`, the file name). With `beside` the new buttons sit next to that existing button in its style; otherwise they go to the right of the field's label. When the field has no label above it, or sits in a side-by-side layout, put an empty `<div class="field-actions" data-for="<field id>"></div>` where the buttons belong (the Markdown toolbar does); a button row inside a side-by-side layout fails the tool-page suite. `build.py --tool-headers` loads the script with the entry, and `tests/tool-io-e2e.mjs` exercises every one.
 - `share` (optional) gives a tool a “Copy link” button: `{"fields": ["#input"], "action": "#run"}` lists the `#id`s of the fields whose values go into the link's `#share=` fragment and, if the tool does not update live, the button that runs it. `build.py --tool-headers` adds the button and `share-link.js`. Leave it out for tools whose input is usually a secret (keys, tokens, passwords).
@@ -98,7 +100,7 @@ Start the page body with the breadcrumb and header that every tool page shares; 
 </div>
 ```
 
-The breadcrumb gains the tool's category (linked to that tab on the home page, `index.html#category-<cat>`) and the title gains the tool's `icon` from `_data/tools.json` (expansion tools get the shared one). The button is optional: add it only when `assets/js/core/example-starters.js` has examples under that group name (an example fills fields by selector, then clicks its `action`, or each of several in order), give every example name a Turkish entry in `i18n-expansion.js`, and load that script; the build restyles it and places it beside the header. A sample must produce a visible result: the tool-page suite fails when one only fills its fields. Afterwards edit the title and description inside the generated block; the build keeps them, and the group name, and regenerates the rest.
+The breadcrumb gains the tool's category (linked to that tab on the home page, `index.html#category-<cat>`) and the title gains the tool's `icon` from `_data/tools.json` (expansion tools get the shared one). The button is optional: add it only when `assets/js/core/example-starters.js` has examples under that group name (an example fills fields by selector, then clicks its `action`, or each of several in order), give every example name a Turkish entry in `i18n-expansion.js`, and load that script; the build restyles it and places it beside the header. A sample must produce a visible result: the tool-page suite fails when one only fills its fields. Afterwards change the title and description in `_data/tools.json`, not in the page: the build rewrites them from the catalogue and keeps the sample group name.
 
 Keep a conventional tool module isolated and strict:
 
@@ -205,7 +207,7 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--site` | Copy only the published files into `_site/` and verify every page reference and precache entry resolves. CI deploys this directory. |
 | `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`, and the home page cards: every hand-written card gets its catalogue icon, and each tool without one gets a generated card between `<!-- HUB-CARDS:START -->` and `<!-- HUB-CARDS:END -->`, so the home page needs no script to list the tools. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
-| `--tool-headers` | Generate each tool page's breadcrumb (with its category) and header (catalogue icon, title, description, "Try a sample" button) from `_data/tools.json`. |
+| `--tool-headers` | Generate each tool page's breadcrumb (with its category), header (catalogue icon, name, description, "Try a sample" button) and its `<title>` and description tags from `_data/tools.json`. |
 | `--related` | End every tool page with its four related tools (from `related` in `_data/tools.json`) and a link to its home page category, between `<!-- RELATED:START -->` and `<!-- RELATED:END -->`. |
 | `--tool-count` | Synchronise published static tool-count copy. |
 | `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |

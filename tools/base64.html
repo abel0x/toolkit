@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Encode text to Base64 or decode Base64 strings back to plain text. Unicode-safe, fully client-side." />
+  <meta name="description" content="Encode text to Base64 or decode Base64 back to text, including URL-safe Base64 without padding. Unicode-safe, fully client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/base64.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/base64.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/base64.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/base64.html" />
-  <script src="../assets/js/core/language-redirect.js?v=35c7f0646fc5"></script>
+  <script src="../assets/js/core/language-redirect.js?v=74653962c61a"></script>
   <meta property="og:title" content="Base64 Encode / Decode — Toolkit" />
-  <meta property="og:description" content="Encode text to Base64 or decode Base64 strings back to plain text. Unicode-safe, fully client-side." />
+  <meta property="og:description" content="Encode text to Base64 or decode Base64 back to text, including URL-safe Base64 without padding. Unicode-safe, fully client-side." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/base64.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -23,18 +23,18 @@
   <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Base64 Encode / Decode — Toolkit" />
-  <meta name="twitter:description" content="Encode text to Base64 or decode Base64 strings back to plain text. Unicode-safe, fully client-side." />
+  <meta name="twitter:description" content="Encode text to Base64 or decode Base64 back to text, including URL-safe Base64 without padding. Unicode-safe, fully client-side." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Base64 Encode / Decode — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=74653962c61a" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Base64 Encode / Decode", "url": "https://abel0x.github.io/toolkit/tools/base64.html", "description": "Encode text to Base64 or decode Base64 strings back to plain text. Unicode-safe, fully client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Base64 Encode / Decode", "item": "https://abel0x.github.io/toolkit/tools/base64.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Base64 Encode / Decode", "url": "https://abel0x.github.io/toolkit/tools/base64.html", "description": "Encode text to Base64 or decode Base64 back to text, including URL-safe Base64 without padding. Unicode-safe, fully client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Base64 Encode / Decode", "item": "https://abel0x.github.io/toolkit/tools/base64.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -71,7 +71,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><h1 class="section-title" id="b64Heading">Base64 Encode / Decode</h1></div>
-            <p class="section-desc">Instantly encode or decode Base64 strings — fully client-side.</p>
+            <p class="section-desc">Encode or decode Base64, including URL-safe Base64 — Unicode-safe.</p>
           </div>
           <div class="tool-header__actions">
             <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="base64"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
@@ -109,7 +109,7 @@
           <a class="related-tools__link" href="base32.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M10.5 9v6M13.5 9v6"/></svg></span>Base32 Encoder / Decoder</a>
           <a class="related-tools__link" href="url-codec.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>URL Encoder / Decoder</a>
           <a class="related-tools__link" href="hex-codec.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="7" height="10" rx="3.5"/><path d="M14 8.5l7 7M21 8.5l-7 7"/></svg></span>Hex Encoder / Decoder</a>
-          <a class="related-tools__link" href="image-to-base64.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>Image to Base64</a>
+          <a class="related-tools__link" href="image-to-base64.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>Image to Base64 Converter</a>
           <a class="related-tools__more" href="../index.html#category-encoding">All encoding tools<span aria-hidden="true"> →</span></a>
         </nav>
         <!-- RELATED:END -->
@@ -142,11 +142,11 @@
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/nav.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/i18n.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/tools/base64.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/example-starters.js?v=35c7f0646fc5" defer></script>
+  <script src="../assets/js/core/utils.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/nav.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/i18n.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/tools/base64.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=74653962c61a" defer></script>
 </body>
 </html>

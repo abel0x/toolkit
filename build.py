@@ -107,7 +107,7 @@ def _io_problems(io):
             problems.append(f'io output {selector} sits beside something that is not an #id')
     return problems
 _ID_SELECTOR = re.compile(r'#[A-Za-z][\w-]*')
-_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'share', 'io', 'icon', 'shell', 'exampleStarter'}
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'meta', 'tags', 'related', 'share', 'io', 'icon', 'shell', 'exampleStarter'}
 _REGISTRY = None
 
 
@@ -132,6 +132,9 @@ def _registry():
         for key in ('slug', 'name', 'cat', 'desc', 'tags'):
             if not entry.get(key):
                 errors.append(f'{label}: missing {key}')
+        if 'meta' in entry and (not isinstance(entry['meta'], str) or not entry['meta'].strip()
+                                or entry['meta'] == entry.get('desc')):
+            errors.append(f'{label}: meta must be a description that differs from desc (leave it out to reuse desc)')
         slug = entry.get('slug', '')
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug):
             errors.append(f'{label}: slug must be lowercase words joined by hyphens')
@@ -244,6 +247,7 @@ def _expansion_page(tool):
     slug = tool['slug']
     safe_title = html_lib.escape(tool['name'])
     safe_desc = html_lib.escape(tool['desc'])
+    safe_meta = html_lib.escape(tool.get('meta', tool['desc']))
     url = f'{SITE_BASE}tools/{slug}.html'
     tool_count = _registered_tool_count()
     example_script = ''
@@ -258,16 +262,16 @@ def _expansion_page(tool):
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="{CONTENT_SECURITY_POLICY}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="{safe_desc}" />
+  <meta name="description" content="{safe_meta}" />
   <link rel="canonical" href="{url}" />
   <meta property="og:title" content="{safe_title} — Toolkit" />
-  <meta property="og:description" content="{safe_desc}" />
+  <meta property="og:description" content="{safe_meta}" />
   <meta property="og:url" content="{url}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="{safe_title} — Toolkit" />
-  <meta name="twitter:description" content="{safe_desc}" />
+  <meta name="twitter:description" content="{safe_meta}" />
   <title>{safe_title} — Toolkit</title>
   <link rel="stylesheet" href="../assets/css/core.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
@@ -424,6 +428,8 @@ def run_registry():
 _HOME_CARD_ICON = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-card"[^>]*>\s*'
                              r'<div class="hub-card-header"><div class="hub-card-icon" aria-hidden="true">)'
                              r'(<svg\b.*?</svg>)', re.DOTALL)
+_HOME_CARD_TEXT = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-card"[^>]*>.*?<h3 class="hub-card-title">)'
+                             r'[^<]*(</h3></div>\s*<p class="hub-card-desc">)[^<]*(</p>)', re.DOTALL)
 _HOME_CARDS_BLOCK = re.compile(r'[ \t]*<!-- HUB-CARDS:START -->.*?<!-- HUB-CARDS:END -->\n', re.DOTALL)
 _HOME_NO_RESULTS = '          <!-- No-results message -->\n'
 
@@ -453,6 +459,12 @@ def run_home_cards():
         return match.group(1) + by_slug[match.group(2)]['icon']
 
     html, written = _HOME_CARD_ICON.subn(icon, html)
+    # Every card, written by hand or generated, shows the catalogue name and description.
+    def card_text(match):
+        tool = by_slug[match.group(2)]
+        return (match.group(1) + html_lib.escape(tool["name"], quote=False) + match.group(3)
+                + html_lib.escape(tool["desc"], quote=False) + match.group(4))
+    html = _HOME_CARD_TEXT.sub(card_text, html)
     present = set(re.findall(r'<a href="tools/([a-z0-9-]+)\.html" class="hub-card"', html))
     # The same order home.js used: page tools, then expansion tools.
     ordered = ([tool for tool in tools if tool.get('shell') != 'expansion']
@@ -748,15 +760,20 @@ def _with_tool_header(html, tool, filename):
         fail('its header needs an <h1> and a <p class="section-desc">.')
     group = _SAMPLE_GROUP.search(block)
     sample_group = starter_group or (group.group(1) if group else None)
+    # The catalogue is the one source of the name and the short description.
+    heading = re.sub(r'(<h1\b[^>]*>).*?(</h1>)', lambda m: m.group(1) + html_lib.escape(tool['name'], quote=False) + m.group(2),
+                     title.group(0), flags=re.DOTALL)
+    summary = f'<p class="section-desc">{html_lib.escape(tool["desc"], quote=False)}</p>'
     html = (html[:header.start()] +
-            _tool_header(tool, title.group(0), description.group(0), sample_group, header.group(1)) +
+            _tool_header(tool, heading, summary, sample_group, header.group(1)) +
             html[header.end():])
 
     breadcrumb = _BREADCRUMB.search(html)
     page = _BREADCRUMB_PAGE.search(breadcrumb.group(1)) if breadcrumb else None
     if not page:
         fail('has no breadcrumb ending in the page name.')
-    html = html[:breadcrumb.start()] + _tool_breadcrumb(tool, page.group(1)) + html[breadcrumb.end():]
+    html = html[:breadcrumb.start()] + _tool_breadcrumb(tool, html_lib.escape(tool['name'], quote=False)) + html[breadcrumb.end():]
+    html = _with_catalogue_metadata(html, tool, filename)
 
     # The breadcrumb sits in its own container; give it the header's classes
     # so the two can never start at different edges.
@@ -766,6 +783,24 @@ def _with_tool_header(html, tool, filename):
     if not containers or not wrapper:
         fail('needs its breadcrumb and header inside .container elements.')
     return html[:wrapper.start(1)] + containers[-1] + html[wrapper.end(1):]
+
+
+def _with_catalogue_metadata(html, tool, relative):
+    """Title and description tags from the catalogue: the name, and meta (or desc)."""
+    name = html_lib.escape(tool['name'], quote=True)
+    meta = html_lib.escape(tool.get('meta', tool['desc']), quote=True)
+    for pattern, replacement in (
+        (r'<title>[^<]*</title>', f'<title>{name} — Toolkit</title>'),
+        (r'<meta property="og:title" content="[^"]*" />', f'<meta property="og:title" content="{name} — Toolkit" />'),
+        (r'<meta name="twitter:title" content="[^"]*" />', f'<meta name="twitter:title" content="{name} — Toolkit" />'),
+        (r'<meta name="description" content="[^"]*" />', f'<meta name="description" content="{meta}" />'),
+        (r'<meta property="og:description" content="[^"]*" />', f'<meta property="og:description" content="{meta}" />'),
+        (r'<meta name="twitter:description" content="[^"]*" />', f'<meta name="twitter:description" content="{meta}" />'),
+    ):
+        html, count = re.subn(pattern, lambda _: replacement, html, count=1)
+        if count != 1:
+            raise SystemExit(f'{relative} is missing {pattern!r}.')
+    return html
 
 
 def _with_share_script(html, tool):

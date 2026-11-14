@@ -582,6 +582,27 @@ for (const source of [
     `Turkish i18n is missing the Typing Speed Test key: ${source}`);
 }
 
+// One source for each tool's name and descriptions: _data/tools.json. The
+// page title, h1, breadcrumb and home card show "name"; the line under the
+// h1 and the home card show "desc"; meta, Open Graph and Twitter carry
+// "meta" (or "desc" when there is none).
+const unescape = (text) => text.replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+for (const tool of catalogue) {
+  const pageHtml = readFileSync(join(toolsDirectory, `${tool.slug}.html`), 'utf8');
+  const pick = (pattern) => { const match = pageHtml.match(pattern); return match ? unescape(match[1]).trim() : null; };
+  const meta = tool.meta || tool.desc;
+  assert.equal(pick(/<title>([^<]*) — Toolkit<\/title>/), tool.name, `${tool.slug}: <title> must be the catalogue name.`);
+  assert.equal(pick(/<h1\b[^>]*>([^<]*)<\/h1>/), tool.name, `${tool.slug}: <h1> must be the catalogue name.`);
+  assert.equal(pick(/<span aria-current="page">([^<]*)<\/span><\/nav>/), tool.name, `${tool.slug}: breadcrumb must end in the catalogue name.`);
+  assert.equal(pick(/<p class="section-desc">([^<]*)<\/p>/), tool.desc, `${tool.slug}: the line under the h1 must be the catalogue desc.`);
+  for (const tag of ['name="description"', 'property="og:description"', 'name="twitter:description"']) {
+    assert.equal(pick(new RegExp(`<meta ${tag} content="([^"]*)"`)), meta, `${tool.slug}: <meta ${tag}> must be the catalogue meta.`);
+  }
+  const card = homeHtml.match(new RegExp(`<a href="tools/${tool.slug}\\.html" class="hub-card"[^>]*>[\\s\\S]*?<h3 class="hub-card-title">([^<]*)</h3></div>\\s*<p class="hub-card-desc">([^<]*)</p>`));
+  assert(card, `${tool.slug}: home card is missing.`);
+  assert.deepEqual([unescape(card[1]), unescape(card[2])], [tool.name, tool.desc], `${tool.slug}: home card must show the catalogue name and desc.`);
+}
+
 assert(existsSync(licensePage), 'Published license page is missing.');
 
 // The privacy page must name every storage key the scripts use, and every

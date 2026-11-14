@@ -67,10 +67,10 @@
   },
   "tools/base64.html": {
     "title": "Base64 Kodlama / Kod Çözme — Toolkit",
-    "description": "Metni Base64 olarak kodlayın veya Base64 dizgelerini düz metne geri çözün. Unicode uyumlu, tamamen tarayıcınızda çalışır.",
+    "description": "Metni Base64’e kodlayın ya da Base64’ü metne çözün; dolgusuz URL uyumlu Base64 dahil. Unicode uyumlu, tamamen tarayıcıda.",
     "source": {
       "title": "Base64 Encode / Decode — Toolkit",
-      "description": "Encode text to Base64 or decode Base64 strings back to plain text. Unicode-safe, fully client-side."
+      "description": "Encode text to Base64 or decode Base64 back to text, including URL-safe Base64 without padding. Unicode-safe, fully client-side."
     }
   },
   "tools/bcrypt.html": {
@@ -99,10 +99,10 @@
   },
   "tools/case-converter.html": {
     "title": "Büyük/Küçük Harf Dönüştürücü — Toolkit",
-    "description": "Metni camelCase, PascalCase, snake_case, kebab-case, BÜYÜK HARF ve daha fazla biçim arasında dönüştürün. Tamamen tarayıcınızda çalışır.",
+    "description": "Metni camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, BÜYÜK HARF ve daha fazlasına dönüştürün; Türkçe İ ve ı doğru işlenir. Tamamen tarayıcıda.",
     "source": {
       "title": "Case Converter — Toolkit",
-      "description": "Transform text between camelCase, PascalCase, snake_case, kebab-case, UPPER CASE, and more. 100% client-side."
+      "description": "Transform text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, UPPER CASE and more, with correct Turkish İ and ı. 100% client-side."
     }
   },
   "tools/certificate-inspector.html": {
@@ -123,10 +123,10 @@
   },
   "tools/color-converter.html": {
     "title": "Renk Dönüştürücü — Toolkit",
-    "description": "Bir rengi HEX, RGB, HSL, OKLCH ve HWB arasında canlı önizleme ve seçiciyle dönüştürün. Tamamen tarayıcınızda çalışır.",
+    "description": "Bir CSS rengini (hex, rgb(), hsl() ya da ad, saydamlık dahil) HEX, RGB, HSL, OKLCH ve HWB arasında canlı önizleme ve renk seçiciyle dönüştürün. Tamamen tarayıcıda.",
     "source": {
       "title": "Color Converter — Toolkit",
-      "description": "Convert a color between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side."
+      "description": "Convert a CSS colour (hex, rgb(), hsl() or a name, with alpha) between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side."
     }
   },
   "tools/color-palette.html": {
@@ -179,10 +179,10 @@
   },
   "tools/csv-to-json.html": {
     "title": "CSV'den JSON'ye dönüştürücü — Toolkit",
-    "description": "CSV verilerini ayrıştırın ve JSON nesne dizisine dönüştürün.",
+    "description": "Virgül, noktalı virgül, sekme ya da dikey çizgiyle ayrılmış CSV’yi okuyun ve başlık satırını anahtar yaparak JSON nesne dizisine dönüştürün.",
     "source": {
       "title": "CSV to JSON Converter — Toolkit",
-      "description": "Parse CSV data and convert to a JSON array of objects."
+      "description": "Parse CSV with comma, semicolon, tab or pipe delimiters and convert it to a JSON array of objects, using the header row as keys."
     }
   },
   "tools/csv-viewer.html": {
@@ -237,7 +237,7 @@
     "title": "Dosya Sağlama Toplamı Hesaplayıcı — Toolkit",
     "description": "Herhangi bir dosya için MD5, SHA-1, SHA-256 ve SHA-512 sağlama toplamlarını hesaplayın. Tamamen istemci tarafı; dosyanız asla cihazınızdan ayrılmaz.",
     "source": {
-      "title": "File Checksum Tool — Toolkit",
+      "title": "File Checksum — Toolkit",
       "description": "Calculate MD5, SHA-1, SHA-256 and SHA-512 checksums for any file. Fully client-side — your file never leaves your device."
     }
   },
@@ -346,11 +346,11 @@
     }
   },
   "tools/js-minifier.html": {
-    "title": "JS Küçültücü — Toolkit",
-    "description": "Yorumları kaldırıp boşlukları daraltan temel bir JavaScript küçültücü.",
+    "title": "JavaScript Küçültücü — Toolkit",
+    "description": "JavaScript’i yorumları ve gereksiz boşlukları kaldırarak küçültün; değişken adları korunur.",
     "source": {
-      "title": "JS Minifier — Toolkit",
-      "description": "Basic JavaScript minifier that removes comments and collapses whitespace."
+      "title": "JavaScript Minifier — Toolkit",
+      "description": "Minify JavaScript by removing comments and unneeded whitespace; variable names are kept."
     }
   },
   "tools/json-diff.html": {
@@ -363,10 +363,10 @@
   },
   "tools/json-formatter.html": {
     "title": "JSON Biçimlendirici — Toolkit",
-    "description": "Doğrula, beautify and minify JSON with human-friendly error messages. 100% client-side.",
+    "description": "JSON’u açık hata mesajlarıyla doğrulayın, biçimlendirin ve küçültün; girintiyi seçin ve açılıp kapanan ağaç görünümünde gezinin. Tamamen tarayıcıda.",
     "source": {
       "title": "JSON Formatter — Toolkit",
-      "description": "Validate, beautify and minify JSON with human-friendly error messages. 100% client-side."
+      "description": "Validate, beautify and minify JSON with clear error messages, a choice of indent and a collapsible tree view. 100% client-side."
     }
   },
   "tools/json-minifier.html": {
@@ -379,10 +379,10 @@
   },
   "tools/json-sorter.html": {
     "title": "JSON Anahtar Sıralayıcısı — Toolkit",
-    "description": "Tutarlı, okunabilir çıktılar için JSON nesne anahtarlarını alfabetik olarak sıralayın.",
+    "description": "JSON nesne anahtarlarını her düzeyde alfabetik sıralayın; tutarlı ve okunaklı çıktı elde edin.",
     "source": {
       "title": "JSON Key Sorter — Toolkit",
-      "description": "Sort JSON object keys alphabetically for consistent, readable output."
+      "description": "Sort JSON object keys alphabetically at every level for consistent, readable output."
     }
   },
   "tools/json-to-csv.html": {
@@ -427,10 +427,10 @@
   },
   "tools/jwt-decoder.html": {
     "title": "JWT Kod Çözücü — Toolkit",
-    "description": "JSON Web Token'ları çözün; header, payload ve son kullanma bilgilerini inceleyin. Tamamen tarayıcınızda çalışır, sunucuya veri gönderilmez.",
+    "description": "JSON Web Token’ları çözün; başlığı, yükü ve son kullanma tarihini inceleyin, HS, RS, PS, ES ya da EdDSA imzalarını doğrulayın. Tamamen tarayıcıda, sunucuya veri gönderilmez.",
     "source": {
       "title": "JWT Decoder — Toolkit",
-      "description": "Decode JSON Web Tokens and inspect header, payload and expiry claims. 100% client-side, no data sent to the server."
+      "description": "Decode JSON Web Tokens, inspect header, payload and expiry, and verify HS, RS, PS, ES or EdDSA signatures. 100% client-side, no data sent to the server."
     }
   },
   "tools/line-numbers.html": {
@@ -451,10 +451,10 @@
   },
   "tools/markdown.html": {
     "title": "Markdown Önizleyici — Toolkit",
-    "description": "Güvenli, istemci taraflı işlemeyle Markdown yazın ve anlık önizleyin.",
+    "description": "Markdown’u gerçek zamanlı ve güvenli biçimde yazıp önizleyin; sonucu tek başına açılan bir HTML sayfası olarak indirin.",
     "source": {
       "title": "Markdown Previewer — Toolkit",
-      "description": "Write and preview Markdown in real time with safe client-side rendering."
+      "description": "Write and preview Markdown in real time with safe client-side rendering, and download the result as a standalone HTML page."
     }
   },
   "tools/meta-tags.html": {
@@ -485,24 +485,24 @@
     "title": "Open Graph Etiket Oluşturucu — Toolkit",
     "description": "Zengin sosyal medya önizlemeleri için Açık Grafik ve Twitter Kartı meta etiketleri oluşturun.",
     "source": {
-      "title": "Open Graph Tags Generator — Toolkit",
+      "title": "Open Graph Tag Generator — Toolkit",
       "description": "Generate Open Graph and Twitter Card meta tags for rich social media previews."
     }
   },
   "tools/password-strength.html": {
     "title": "Parola Gücü Denetleyicisi — Toolkit",
-    "description": "Parolanızın ne kadar güçlü olduğunu kontrol edin. Uzunluk, karmaşıklık ve entropi hakkında anında geri bildirim alın — hepsi yerel olarak tarayıcınızda.",
+    "description": "Bir parolanın ne kadar güçlü olduğunu kontrol edin: uzunluk, karakter çeşitliliği, entropi, yaygın kelimeler, klavye dizileri ve yıllar — hepsi tarayıcınızda.",
     "source": {
       "title": "Password Strength Checker — Toolkit",
-      "description": "Check how strong your password is. Get instant feedback on length, complexity, and entropy — all locally in your browser."
+      "description": "Check how strong a password is: length, character mix, entropy, common words, keyboard runs and years — all locally in your browser."
     }
   },
   "tools/password.html": {
     "title": "Parola Oluşturucu — Toolkit",
-    "description": "Uzunluk ve karakter kümeleri üzerinde tam denetimle kriptografik olarak güçlü parolalar oluşturun. Tamamen tarayıcınızda çalışır, verileriniz tarayıcınızdan ayrılmaz.",
+    "description": "Kriptografik olarak güçlü parolalar ya da kelimelerden parola cümleleri (Türkçe veya İngilizce) üretin; uzunluk ve karakter kümeleri tamamen sizin elinizde. Tamamen tarayıcınızda çalışır, hiçbir veri dışarı çıkmaz.",
     "source": {
       "title": "Password Generator — Toolkit",
-      "description": "Generate cryptographically strong passwords with full control over length and character sets. 100% client-side, no data leaves your browser."
+      "description": "Generate cryptographically strong passwords or word passphrases (English or Turkish) with full control over length and character sets. 100% client-side, no data leaves your browser."
     }
   },
   "tools/pem-jwk.html": {
@@ -546,10 +546,10 @@
     }
   },
   "tools/query-string.html": {
-    "title": "Sorgu Dizesi Ayrıştırıcı / Oluşturucu — Toolkit",
+    "title": "Sorgu Dizesi Ayrıştırıcı ve Oluşturucu — Toolkit",
     "description": "Tarayıcı tabanlı bu araçla URL sorgu dizgelerini hızla ayrıştırın veya oluşturun.",
     "source": {
-      "title": "Query String Parser / Builder — Toolkit",
+      "title": "Query String Parser and Builder — Toolkit",
       "description": "Parse or build URL query strings quickly with this browser-based tool."
     }
   },
@@ -595,10 +595,10 @@
   },
   "tools/regex-tester.html": {
     "title": "Regex Test Aracı — Toolkit",
-    "description": "Düzenli ifadeleri canlı eşleşme vurgulaması ve yakalama grubu gösterimiyle test edin. Bayrakları destekler. Tamamen tarayıcınızda çalışır.",
+    "description": "Düzenli ifadeleri canlı eşleşme vurgusu, yakalama grupları ve bayraklarla test edin; $1 ve adlandırılmış gruplarla değiştirme sonucunu önizleyin. Tamamen tarayıcıda.",
     "source": {
       "title": "Regex Tester — Toolkit",
-      "description": "Test regular expressions with live match highlighting and capture group display. Supports flags. 100% client-side."
+      "description": "Test regular expressions with live match highlighting, capture groups and flags, and preview replacements with $1 and named groups. 100% client-side."
     }
   },
   "tools/robots-generator.html": {
@@ -643,10 +643,10 @@
   },
   "tools/sql-formatter.html": {
     "title": "SQL Biçimlendirici — Toolkit",
-    "description": "Daha iyi okunabilirlik için SQL sorgularını biçimlendirin.",
+    "description": "SQL sorgularını biçimlendirin: anahtar sözcükler büyük harfle, her ifade ayrı satırda, alt sorgular girintili; dizeler ve yorumlar olduğu gibi korunur.",
     "source": {
       "title": "SQL Formatter — Toolkit",
-      "description": "Format and beautify SQL queries for better readability."
+      "description": "Format and beautify SQL queries: keywords upper-cased, one clause per line, indented subqueries, with strings and comments kept exactly."
     }
   },
   "tools/svg-optimizer.html": {
@@ -675,10 +675,10 @@
   },
   "tools/text-diff.html": {
     "title": "Metin Fark Denetleyicisi — Toolkit",
-    "description": "İki metin bloğunu karşılaştırın; eklenen, silinen ve değişmeyen satırları yan yana görün. Tamamen tarayıcınızda çalışır.",
+    "description": "İki metni satır satır karşılaştırın: tek sütun ya da yan yana görünüm, değişen kelimeler vurgulu, boşluk ve büyük/küçük harf farkları yok sayılabilir. Tamamen tarayıcıda.",
     "source": {
       "title": "Text Diff Checker — Toolkit",
-      "description": "Compare two blocks of text and see additions, deletions and unchanged lines side by side. 100% client-side."
+      "description": "Compare two blocks of text line by line: unified or side-by-side view, changed words highlighted, whitespace and case can be ignored. 100% client-side."
     }
   },
   "tools/text-reverser.html": {
@@ -691,10 +691,10 @@
   },
   "tools/text-sorter.html": {
     "title": "Metin Sıralama Aracı — Toolkit",
-    "description": "Satırları alfabetik, sayısal veya uzunluğa göre artan veya azalan düzende sıralayın.",
+    "description": "Satırları Türkçe ya da İngilizce harf sırasıyla, doğal sayı sırasıyla, sayısal olarak ya da uzunluğa göre, artan veya azalan şekilde sıralayın.",
     "source": {
       "title": "Text Sorter — Toolkit",
-      "description": "Sort lines alphabetically, numerically, or by length in ascending or descending order."
+      "description": "Sort lines alphabetically with Turkish or English letter order, in natural number order, numerically or by length, ascending or descending."
     }
   },
   "tools/time-zone-converter.html": {
@@ -771,10 +771,10 @@
   },
   "tools/url-parser.html": {
     "title": "URL Ayrıştırıcı — Toolkit",
-    "description": "Herhangi bir URL'yi bileşenlerine (protokol, ana bilgisayar adı, yol, sorgu parametreleri ve karma) ayırın.",
+    "description": "Herhangi bir URL’yi bileşenlerine ayırın — protokol, kullanıcı adı, sunucu adı (Unicode olarak da), port, yol, sorgu parametreleri ve fragman.",
     "source": {
       "title": "URL Parser — Toolkit",
-      "description": "Break down any URL into its components — protocol, hostname, path, query parameters, and hash."
+      "description": "Break down any URL into its components — protocol, username, hostname (in Unicode too), port, path, query parameters and hash."
     }
   },
   "tools/user-agent.html": {
@@ -827,10 +827,10 @@
   },
   "tools/yaml-to-json.html": {
     "title": "YAML'den JSON'ye dönüştürücü — Toolkit",
-    "description": "Basit YAML'yi ayrıştırın ve biçimlendirilmiş JSON'a dönüştürün.",
+    "description": "YAML’ı JSON’a dönüştürün: iç içe eşlemeler, listeler, çok satırlı metin, çapalar, birleştirmeler ve birden çok belge. Tamamen tarayıcıda.",
     "source": {
       "title": "YAML to JSON Converter — Toolkit",
-      "description": "Parse simple YAML and convert it to formatted JSON."
+      "description": "Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side."
     }
   }
 }

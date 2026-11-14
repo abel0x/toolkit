@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Parse simple YAML and convert it to formatted JSON." />
+  <meta name="description" content="Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side." />
   <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/yaml-to-json.html" />
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/yaml-to-json.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/yaml-to-json.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/yaml-to-json.html" />
-  <script src="../assets/js/core/language-redirect.js?v=35c7f0646fc5"></script>
+  <script src="../assets/js/core/language-redirect.js?v=74653962c61a"></script>
   <meta property="og:title" content="YAML to JSON Converter — Toolkit" />
-  <meta property="og:description" content="Parse simple YAML and convert it to formatted JSON." />
+  <meta property="og:description" content="Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/yaml-to-json.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Toolkit" />
@@ -21,17 +21,17 @@
   <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="YAML to JSON Converter — Toolkit" />
-  <meta name="twitter:description" content="Parse simple YAML and convert it to formatted JSON." />
+  <meta name="twitter:description" content="Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side." />
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>YAML to JSON Converter — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=35c7f0646fc5" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=35c7f0646fc5" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=74653962c61a" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=74653962c61a" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" /><link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "YAML to JSON Converter", "url": "https://abel0x.github.io/toolkit/tools/yaml-to-json.html", "description": "Parse simple YAML and convert it to formatted JSON.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "YAML to JSON Converter", "item": "https://abel0x.github.io/toolkit/tools/yaml-to-json.html"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "YAML to JSON Converter", "url": "https://abel0x.github.io/toolkit/tools/yaml-to-json.html", "description": "Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "YAML to JSON Converter", "item": "https://abel0x.github.io/toolkit/tools/yaml-to-json.html"}]}]}</script>
 </head>
 <body>
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
@@ -58,7 +58,7 @@
 
   <main class="tool-page-main">
     <div class="container">
-      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Dev Tools</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">YAML to JSON</span></nav>
+      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-devtools">Dev Tools</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">YAML to JSON Converter</span></nav>
     </div>
     <section class="section" id="yaml-to-json">
       <div class="container">
@@ -66,7 +66,7 @@
         <div class="tool-header reveal">
           <div class="tool-header__text">
             <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></span><h1 class="section-title">YAML to JSON Converter</h1></div>
-            <p class="section-desc">Parse simple YAML and convert it to formatted JSON.</p>
+            <p class="section-desc">Convert YAML to JSON — mappings, lists, multi-line text, anchors and merges.</p>
           </div>
           <div class="tool-header__actions">
             <button type="button" class="btn btn--ghost btn--sm tool-header__sample" data-example-group="yaml-to-json"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3L12 3Z"/></svg>Try a sample</button>
@@ -102,7 +102,7 @@
         <!-- RELATED:START -->
         <nav class="related-tools" aria-label="Related tools">
           <span class="related-tools__label">Related</span>
-          <a class="related-tools__link" href="json-to-yaml.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>JSON to YAML</a>
+          <a class="related-tools__link" href="json-to-yaml.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>JSON to YAML Converter</a>
           <a class="related-tools__link" href="json-formatter.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>JSON Formatter</a>
           <a class="related-tools__link" href="json-to-typescript.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 9h6M10 9v8"/><path d="M18 9.5c-.5-.6-1.2-1-2-1-1 0-1.8.6-1.8 1.5 0 2 4 1.3 4 3.8 0 1-.9 1.7-2 1.7-.9 0-1.7-.4-2.2-1"/></svg></span>JSON to TypeScript</a>
           <a class="related-tools__link" href="xml-to-json.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7l-5 5 5 5"/><path d="M13 12h8"/><path d="M18 9l3 3-3 3"/></svg></span>XML to JSON Converter</a>
@@ -131,12 +131,12 @@
       <div class="footer-bottom"><p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p><p class="footer-tech">101 tools · HTML · CSS · Vanilla JS · Web Crypto API</p></div>
     </div>
   </footer>
-  <script src="../assets/js/core/utils.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/nav.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/i18n.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/tools/yaml-to-json.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/example-starters.js?v=35c7f0646fc5" defer></script>
-  <script src="../assets/js/core/tool-io.js?v=35c7f0646fc5" data-io="{&quot;inputs&quot;:{&quot;#y2j-input&quot;:&quot;.yaml,.yml,text/plain&quot;},&quot;outputs&quot;:{&quot;#y2j-output&quot;:{&quot;save&quot;:&quot;data.json&quot;,&quot;beside&quot;:&quot;#y2j-copy&quot;}}}" defer></script>
+  <script src="../assets/js/core/utils.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/nav.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/i18n.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/tools/yaml-to-json.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/example-starters.js?v=74653962c61a" defer></script>
+  <script src="../assets/js/core/tool-io.js?v=74653962c61a" data-io="{&quot;inputs&quot;:{&quot;#y2j-input&quot;:&quot;.yaml,.yml,text/plain&quot;},&quot;outputs&quot;:{&quot;#y2j-output&quot;:{&quot;save&quot;:&quot;data.json&quot;,&quot;beside&quot;:&quot;#y2j-copy&quot;}}}" defer></script>
 </body>
 </html>
