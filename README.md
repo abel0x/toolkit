@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.8.1
+### Latest release — 1.8.2
+
+Every tool is named and described in one place now, so the home page, the tool finder, the page itself and search results say the same thing, and no description promises a feature the tool does not have. Twelve tools that had two or three names now have one.
+
+### 1.8.1
 
 Seventeen tools fixed after a review of every tool: the SQL Formatter keeps strings and comments intact, YAML to JSON reads real files (flow lists, multi-line text, anchors), the CSS, JavaScript and HTML minifiers minify whole files, CSV to JSON reads semicolon CSV, the Text Sorter and Case Converter follow Turkish letter rules, the Password Strength checker spots common words with a year or symbols added, and the Color Converter reads any CSS colour with alpha.
 
 ### 1.8.0
 
 Text Diff can ignore whitespace and case, shows a side-by-side view with line numbers, and marks the changed words. The JSON Formatter lets you choose the indent and browse the result as a collapsible tree, the Regex Tester replaces matches with groups such as `$1`, and the Markdown Previewer downloads your document as an HTML page. Every page now passes an automated accessibility audit (axe-core, WCAG 2.2 AA), which led to clearer contrast, a keyboard-friendly QR drop zone and better button names, and the Markdown editor sits beside its preview again.
-
-### 1.7.6
-
-A [privacy page](https://abel0x.github.io/toolkit/privacy/) in English and Turkish lists everything Toolkit keeps in your browser and what the host can see, and an open page now tells you when a new version is ready, with a Reload button instead of reloading on its own.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 

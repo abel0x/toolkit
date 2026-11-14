@@ -2,6 +2,25 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.2] — 2026-11-14
+
+Every tool is now named and described in one place, and every description says what the tool does today.
+
+### Changed
+
+- `_data/tools.json` is the only source of a tool's name and descriptions. Its `name` goes into the page title, the `<h1>`, the breadcrumb and the home page card; `desc` into the line under the `<h1>`, the home page card and the tool finder; and a new `meta` field (or `desc`) into the meta, Open Graph, Twitter and JSON-LD descriptions. Until now a tool could be described four different ways, and 41 home page cards differed from the catalogue.
+- Twelve tools that had two or three names now have one, for example "YAML to JSON Converter", "JSON Key Sorter", "CSS Unit Converter", "Query String Parser and Builder" and "File Checksum".
+
+### Fixed
+
+- Descriptions that promised what a tool does not do: EXIF and GPS in the Image Metadata Viewer, URLs in the Image Dimension Checker, uploaded images and many sizes in the Favicon Generator, sorting by value in the JSON Key Sorter, "diverse datasets" in the Random Name Generator, percentages in the CSS Unit Converter, and redundant declarations and unused attributes in the CSS and HTML minifiers.
+- Descriptions that missed what a tool does: SHA-384 in the HMAC Generator, Rankine and Réaumur in the Temperature Converter, passphrases in the Password Generator, signature checks in the JWT Decoder, and the features added in 1.8.0 and 1.8.1 (Text Diff, JSON Formatter, Regex Tester, Markdown, SQL, YAML, CSV, Text Sorter, Case Converter, Color Converter, Base64, URL Parser, Password Strength).
+- The ASCII Converter and Slug Generator descriptions had no Turkish translation.
+
+### Tests
+
+- `tests/site-audit.mjs` checks that every tool page's title, `<h1>`, breadcrumb, description line and meta tags, and its home page card, match the catalogue.
+
 ## [1.8.1] — 2026-11-14
 
 Bug fixes from a review of all 101 tools, each tried with real-world and edge-case input.
@@ -523,6 +542,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.2]: https://github.com/abel0x/toolkit/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/abel0x/toolkit/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/abel0x/toolkit/compare/v1.7.6...v1.8.0
 [1.7.6]: https://github.com/abel0x/toolkit/compare/v1.7.5...v1.7.6
