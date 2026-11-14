@@ -575,6 +575,15 @@ const TOOLS_DATA = [
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 3v18M20 3v18M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="1.6"/><circle cx="14" cy="12" r="1.6"/><circle cx="10" cy="17" r="1.6"/></svg>',
   },
   {
+    name: 'Country Time Zones',
+    slug: 'country-time-zones',
+    cat: 'converters',
+    catLabel: 'Converters',
+    desc: 'See every country’s time zones, their current time, UTC offset and daylight saving, and convert a time between them.',
+    tags: ['time zone', 'timezone', 'country', 'utc', 'offset', 'dst', 'daylight saving', 'world clock', 'iana'],
+    icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/><path d="M17.5 16.5l1.5 1.5"/></svg>',
+  },
+  {
     name: 'Percentage Calculator',
     slug: 'percentage',
     cat: 'converters',

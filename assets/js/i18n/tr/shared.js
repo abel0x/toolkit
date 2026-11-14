@@ -463,6 +463,10 @@
     if (match) return `Güvenlik kodu: ${match[1]} hane, kartın ön yüzünde.`;
     match = key.match(/^Security code: (\d) digits\.$/);
     if (match) return `Güvenlik kodu: ${match[1]} hane.`;
+    match = key.match(/^(.+) uses one time zone\.$/);
+    if (match) return `${match[1]} tek bir saat dilimi kullanır.`;
+    match = key.match(/^(.+) uses (\d+) time zones\.$/);
+    if (match) return `${match[1]} ${match[2]} saat dilimi kullanır.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

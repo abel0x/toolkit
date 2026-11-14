@@ -20,6 +20,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Mode": "Mod",
     "video": "video",
     "wifi": "Wi-Fi",
+    "this device": "bu cihaz",
     "Camera": "Kamera",
     "This browser cannot use the camera here (it needs a secure https page).": "Bu tarayıcı burada kamerayı kullanamıyor (güvenli bir https sayfası gerekir).",
     "Camera access was denied. Allow it in the browser to scan.": "Kamera erişimi reddedildi. Taramak için tarayıcıda izin verin.",

@@ -21,6 +21,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Looks good!": "İyi görünüyor!",
     "Hide": "Gizle",
     "alpha": "alfa",
+    "this device": "bu cihaz",
     "It is a common word or name with a few characters added.": "Birkaç karakter eklenmiş yaygın bir kelime ya da ad.",
     "It is mostly a keyboard or number run, such as qwerty or 123456.": "Çoğunlukla qwerty ya da 123456 gibi bir klavye veya sayı dizisi.",
     "It repeats the same part.": "Aynı parçayı tekrarlıyor.",

@@ -542,6 +542,10 @@ def run_offline_manifest():
     service_worker = _read(sw_path)
     pages = [f"  'tools/{os.path.basename(path)}'," for path in _tool_files()]
     scripts = [f"  'assets/js/tools/{name}'," for name in sorted(os.listdir(os.path.join(ROOT, 'assets', 'js', 'tools'))) if name.endswith('.js')]
+    # Data that tools load beside their module (such as country time zones).
+    data_dir = os.path.join(ROOT, 'assets', 'js', 'data')
+    if os.path.isdir(data_dir):
+        scripts += [f"  'assets/js/data/{name}'," for name in sorted(os.listdir(data_dir)) if name.endswith('.js')]
 
     service_worker = replace_marker(service_worker, '// TOOL-PRECACHE:PAGES', pages)
     service_worker = replace_marker(service_worker, '// TOOL-PRECACHE:SCRIPTS', scripts)

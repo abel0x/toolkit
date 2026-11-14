@@ -461,6 +461,26 @@ await withFirefox(async (page) => {
       ['expired card', amex[2], { includes: 'Expiry date has passed.' }], ['Amex code is 4 digits', amex[2], { includes: '✕ Security code: 4 digits, on the front of the card.' }],
       ['Troy is national', troy, { includes: '9 — National assignment' }], ['Troy note', troy, { includes: 'Interbank Card Center' }]];`);
 
+  await check('country-time-zones', `
+    const api = window.ToolkitCountryZones;
+    const at = (iso) => new Date(iso);
+    const offsets = [api.offsetMinutes('Europe/Istanbul', at('2026-07-01T00:00Z')), api.offsetMinutes('America/New_York', at('2026-01-15T00:00Z')),
+      api.offsetMinutes('America/New_York', at('2026-07-15T00:00Z')), api.offsetMinutes('Asia/Kolkata', at('2026-01-15T00:00Z')),
+      api.offsetMinutes('Asia/Kathmandu', at('2026-01-15T00:00Z')), api.offsetMinutes('America/St_Johns', at('2026-01-15T00:00Z'))];
+    const change = api.nextChange('America/New_York', at('2026-01-01T00:00Z'));
+    const noon = api.instantFor('Europe/Istanbul', 2026, 11, 15, 12, 0).toISOString();
+    set('#ctzCountry', 'US', 'change'); await wait(20);
+    const us = [document.querySelectorAll('#ctzZones tr').length, text('#ctzSummary')];
+    set('#ctzCountry', 'TR', 'change'); await wait(20);
+    const turkey = [document.querySelectorAll('#ctzZones tr').length, text('#ctzZones'), text('#ctzSame')];
+    set('#ctzFrom', 'Europe/Istanbul', 'change'); set('#ctzWhen', '2026-11-15T12:00'); await wait(20);
+    return [['offsets in minutes', offsets, [180, -300, -240, 330, 345, -210]], ['formatted offset', api.formatOffset(-210), 'UTC−03:30'],
+      ['next US change', [change.at.toISOString(), change.offset], ['2026-03-08T07:00:00.000Z', -240]],
+      ['Istanbul noon in UTC', noon, '2026-11-15T09:00:00.000Z'], ['Istanbul has no daylight saving', api.dst('Europe/Istanbul', at('2026-07-01T00:00Z')), 'none'],
+      ['United States zones', us[0] > 20, true], ['summary', us[1], { includes: 'time zones.' }],
+      ['Türkiye has one zone', turkey[0], 1], ['zone row', turkey[1], { includes: 'Europe/Istanbul' }], ['shares UTC+03:00', turkey[2], { includes: 'UTC+03:00' }],
+      ['converted to UTC', text('#ctzConverted'), { includes: '09:00' }]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

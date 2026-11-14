@@ -124,6 +124,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "weekly": "haftalık",
     "monthly": "aylık",
     "daily": "günlük",
+    "Time zone": "Saat dilimi",
     "ISO": "ISO",
     "Normal": "Normal",
     "30 seconds": "30 saniye",

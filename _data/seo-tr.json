@@ -137,6 +137,14 @@
       "description": "Generate harmonious color palettes — complementary, triadic, analogous, tetradic."
     }
   },
+  "tools/country-time-zones.html": {
+    "title": "Ülke Saat Dilimleri — Toolkit",
+    "description": "Her ülke ve bölgenin saat dilimlerine bakın: şu anki yerel saat, UTC farkı, kısaltma, yaz saati ve bir sonraki saat değişikliği, aynı farkı paylaşan ülkeler ve dilimler arası saat dönüştürücü. IANA tz veritabanı, tarayıcınızda.",
+    "source": {
+      "title": "Country Time Zones — Toolkit",
+      "description": "Look up the time zones of every country and territory: local time now, UTC offset, abbreviation, daylight saving and the next clock change, which countries share the offset, and a converter between zones. Uses the IANA tz database, in your browser."
+    }
+  },
   "tools/credit-card-validator.html": {
     "title": "Kredi Kartı Doğrulayıcı — Toolkit",
     "description": "Visa, Mastercard, American Express, Troy ve diğer kart numaralarını tarayıcınızda denetleyin: ağ, uzunluk, Luhn kontrol hanesi, son kullanma tarihi ve güvenlik kodu uzunluğu. Numara cihazınızdan hiç çıkmaz.",
