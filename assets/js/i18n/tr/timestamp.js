@@ -16,8 +16,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Read as microseconds": "Mikrosaniye olarak okundu",
     "Read as nanoseconds": "Nanosaniye olarak okundu",
     "Now: {{seconds}} (s) · {{milliseconds}} (ms)": "Şimdi: {{seconds}} (sn) · {{milliseconds}} (ms)",
-    "Second": "Saniye",
-    "Seconds": "Saniye",
     "Milliseconds": "Milisaniye",
     "Unix timestamp": "Unix zaman damgası"
   }))

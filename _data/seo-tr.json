@@ -243,10 +243,10 @@
   },
   "tools/favicon-generator.html": {
     "title": "Favicon Oluşturucu — Toolkit",
-    "description": "Bir harf veya emojiden 16×16, 32×32 ve 48×48 favicon PNG dosyaları oluşturun — doğrudan tarayıcınızda.",
+    "description": "Tarayıcınızda bir harf, emoji ya da kendi görselinizden eksiksiz bir favicon seti oluşturun: tarayıcılar, Apple ve Android için 16’dan 512 piksele PNG simgeler, çok boyutlu favicon.ico, site.webmanifest, yapıştırılacak HTML ve hepsini içeren bir ZIP.",
     "source": {
       "title": "Favicon Generator — Toolkit",
-      "description": "Generate 16×16, 32×32 and 48×48 favicon PNG files from a text letter or emoji — right in your browser."
+      "description": "Generate a complete favicon set in your browser from a letter, an emoji or your own image: PNG icons from 16 to 512 px for browsers, Apple and Android, a multi-size favicon.ico, site.webmanifest, the HTML to paste, and a ZIP of everything."
     }
   },
   "tools/file-checksum.html": {

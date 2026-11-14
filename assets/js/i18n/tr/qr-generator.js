@@ -89,6 +89,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "sms": "SMS",
     "wifi": "Wi-Fi",
     "Token": "Belirteç",
+    "Choose an image": "Görsel seç",
     "ISO": "ISO",
     "NFKD": "NFKD"
   }))

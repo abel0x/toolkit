@@ -6,6 +6,12 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Generator": "Oluşturucu",
     "image/png": "resim/png",
+    ".ico": ".ico",
+    ".webm": ".webm",
+    "Fit": "Yerleşim",
+    "Shape": "Şekil",
+    "The image is smaller than 512 px; the large icons will look soft.": "Görsel 512 pikselden küçük; büyük simgeler bulanık görünebilir.",
+    "That file is not an image this browser can show.": "Bu dosya, tarayıcının gösterebildiği bir görsel değil.",
     "Characters": "Karakterler"
   }))
 });

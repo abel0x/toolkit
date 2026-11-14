@@ -714,7 +714,7 @@ const TOOLS_DATA = [
     slug: 'favicon-generator',
     cat: 'media',
     catLabel: 'Media',
-    desc: 'Create 16, 32 and 48 px favicon PNGs from a letter, number or emoji.',
+    desc: 'Create a full favicon set from a letter, an emoji or an image: PNGs from 16 to 512 px, favicon.ico, site.webmanifest and the HTML.',
     tags: ['favicon', 'icon', 'generate', 'logo', 'ico'],
     icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M6 6.5h2.5"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z"/></svg>',
   },

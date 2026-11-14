@@ -124,6 +124,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "weekly": "haftalık",
     "monthly": "aylık",
     "daily": "günlük",
+    "Choose an image": "Görsel seç",
     "Time zone": "Saat dilimi",
     "ISO": "ISO",
     "Normal": "Normal",
@@ -139,8 +140,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Contrast ratio: {{ratio}}:1\nNormal text AA: {{normalAa}} • AAA: {{normalAaa}}\nLarge text AA: {{largeAa}} • AAA: {{largeAaa}}": "Kontrast oranı: {{ratio}}:1\nNormal metin AA: {{normalAa}} • AAA: {{normalAaa}}\nBüyük metin AA: {{largeAa}} • AAA: {{largeAaa}}",
     "Quote": "Alıntı",
     "Duration": "Süre",
-    "Second": "Saniye",
-    "Seconds": "Saniye",
     "Generating…": "Oluşturuluyor…"
   }))
 });

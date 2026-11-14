@@ -339,7 +339,35 @@ await withFirefox(async (page) => {
       ['letter swaps do not hide a word', /weak/i.test(leet) && leetHints.includes('common word'), true], ['common password', row, 'Very Weak'], ['random stays strong', random, 'Very Strong']];`);
 
   await check('favicon-generator', `
-    return [['snippet links the downloaded files', value('#fgSnippet'), '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />\\n<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />\\n<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />']];`);
+    const api = window.ToolkitFavicon;
+    const ico = await api.icoFile();
+    const view = new DataView(ico.buffer);
+    const entries = [0, 1, 2].map((index) => [ico[6 + index * 16], view.getUint32(6 + index * 16 + 12, true)]);
+    const pngAt = entries.every(([, offset]) => ico[offset] === 0x89 && ico[offset + 1] === 0x50);
+    const manifest = JSON.parse(api.manifest());
+    let zip;
+    const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { zip = blob; return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function () {};
+    click('#fgZip'); await wait(1500);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const bytes = new Uint8Array(await zip.arrayBuffer()); const names = []; const zipView = new DataView(bytes.buffer);
+    for (let at = 0; at + 46 < bytes.length; at += 1) if (zipView.getUint32(at, true) === 0x02014b50) { const length = zipView.getUint16(at + 28, true); names.push(new TextDecoder().decode(bytes.slice(at + 46, at + 46 + length))); }
+    // An all-red image fills the icon; a transparent circle leaves the corners empty.
+    const canvas = document.createElement('canvas'); canvas.width = 600; canvas.height = 600;
+    const ctx = canvas.getContext('2d'); ctx.fillStyle = '#ff0000'; ctx.fillRect(0, 0, 600, 600);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const files = new DataTransfer(); files.items.add(new File([blob], 'red.png', { type: 'image/png' }));
+    set('input[name="fgSource"][value="image"]', true, 'change'); $('#fgImage').files = files.files; $('#fgImage').dispatchEvent(new Event('change')); await wait(300);
+    set('#fgShape', 'circle', 'change'); set('#fgTransparent', true, 'change'); await wait(50);
+    const pixel = (id, x, y) => [...document.getElementById(id).getContext('2d').getImageData(x, y, 1, 1).data];
+    return [['ICO holds 16, 32 and 48', entries.map(([size]) => size), [16, 32, 48]], ['ICO images are PNG', pngAt, true],
+      ['manifest', [manifest.icons.length, manifest.display, manifest.icons[1].sizes], [2, 'standalone', '512x512']],
+      ['ZIP contents', names, ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'favicon-48x48.png', 'apple-touch-icon.png', 'android-chrome-192x192.png', 'android-chrome-512x512.png', 'site.webmanifest', 'favicon-snippet.html']],
+      ['snippet', value('#fgSnippet'), { includes: '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />' }],
+      ['image fills the centre', pixel('fgCanvas512', 256, 256), [255, 0, 0, 255]], ['transparent corner', pixel('fgCanvas512', 2, 2)[3], 0],
+      ['Apple icon stays opaque', pixel('fgCanvas180', 2, 2)[3], 255]];`);
 
   await check('url-parser', `
     set('#urlInput', 'https://user:pw@xn--trkiye-3ya.example/a%20b'); click('#parseBtn'); await wait(30);

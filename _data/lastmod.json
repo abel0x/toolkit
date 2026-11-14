@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-15",
-    "sha256": "62c36bdb9081a222c976677ebf6cef623e7ff3876b4b4725d0d94e84b880daf7"
+    "sha256": "aecfec30816048d859c379343ad560278acbd1417754cf6132fa20ee1127bf14"
   },
   "license/index.html": {
     "date": "2026-11-15",
@@ -121,7 +121,7 @@
   },
   "tools/favicon-generator.html": {
     "date": "2026-11-15",
-    "sha256": "34d5651b7142dcef384e199fa6b239a0482f97f86f74c973175e3258f4a2594a"
+    "sha256": "e672108fa9809c4da93858fa781b305f8b864cb65922a76bd5ccfc3fa0daa018"
   },
   "tools/file-checksum.html": {
     "date": "2026-11-15",
@@ -269,7 +269,7 @@
   },
   "tools/qr-batch.html": {
     "date": "2026-11-15",
-    "sha256": "f1ed4cb4d27916f389f8b91ac93cb621dbcd5065adb492284c2f6c4843204adc"
+    "sha256": "6e924b46a2ca5d5a4ea281e3b7fcc9016a4d30b02c2fe10b1a376ca3058379c8"
   },
   "tools/qr-generator.html": {
     "date": "2026-11-15",
@@ -425,7 +425,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-15",
-    "sha256": "c85a28c393abdfdbd2c2867dc66fa3b688b7ec5295b20fc43cf76184a9b039f3"
+    "sha256": "206d774238b008c8f9358ba494253c432296238dc3a337376d5ac0653a669f31"
   },
   "tr/license/index.html": {
     "date": "2026-11-15",
@@ -545,7 +545,7 @@
   },
   "tr/tools/favicon-generator.html": {
     "date": "2026-11-15",
-    "sha256": "babaaae692ba7c32d851a408d486d5bea75b823635ffda420c0928e3e2bdea10"
+    "sha256": "2bae90ed825effa4b33bba300f556a1434d2191a40936088cf8030ffdd6f3b10"
   },
   "tr/tools/file-checksum.html": {
     "date": "2026-11-15",
@@ -693,7 +693,7 @@
   },
   "tr/tools/qr-batch.html": {
     "date": "2026-11-15",
-    "sha256": "9ef8adb794dcb3939456aebef8199d22b944b53aab799e19127309fe29e8300d"
+    "sha256": "a56998dd8caf1938093ed41990b12a97d0aa502973c5ebaa2c79c572e9a212f4"
   },
   "tr/tools/qr-generator.html": {
     "date": "2026-11-15",

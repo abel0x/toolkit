@@ -7,14 +7,11 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Enter at least one value": "En az bir değer girin",
     "QR library not loaded yet — please try again": "QR kitaplığı henüz yüklenmedi — lütfen tekrar deneyin",
     "image/png": "resim/png",
-    ".zip": ".zip",
     "Generating one QR code…": "Bir QR kodu oluşturuluyor…",
     "Generating {{count}} QR codes…": "{{count}} QR kodu oluşturuluyor…",
     "One QR code generated": "Bir QR kodu oluşturuldu",
     "{{count}} QR codes generated": "{{count}} QR kodu oluşturuldu",
     "Generated QR code": "Oluşturulan QR kodu",
-    "NFC": "NFC",
-    "Second": "Saniye",
-    "Seconds": "Saniye"
+    "NFC": "NFC"
   }))
 });

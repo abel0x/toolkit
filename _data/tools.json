@@ -818,8 +818,8 @@
       "slug": "favicon-generator",
       "name": "Favicon Generator",
       "cat": "media",
-      "desc": "Create 16, 32 and 48 px favicon PNGs from a letter, number or emoji.",
-      "meta": "Generate 16×16, 32×32 and 48×48 favicon PNG files from a text letter or emoji — right in your browser.",
+      "desc": "Create a full favicon set from a letter, an emoji or an image: PNGs from 16 to 512 px, favicon.ico, site.webmanifest and the HTML.",
+      "meta": "Generate a complete favicon set in your browser from a letter, an emoji or your own image: PNG icons from 16 to 512 px for browsers, Apple and Android, a multi-size favicon.ico, site.webmanifest, the HTML to paste, and a ZIP of everything.",
       "tags": ["favicon", "icon", "generate", "logo", "ico"],
       "related": ["image-compressor", "svg-optimizer", "meta-tags", "image-dimensions"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 9h18\"/><path d=\"M6 6.5h2.5\"/><path d=\"M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z\"/></svg>"
