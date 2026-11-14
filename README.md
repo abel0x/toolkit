@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.1
+### Latest release — 1.7.2
+
+Every one of the 101 tools now has an icon of its own; 30 tools that shared or looked alike got new ones, from “0x” for Hex to tally marks for the Word Counter.
+
+### 1.7.1
 
 Every tool now has its own icon, <kbd>?</kbd> shows the keyboard shortcuts of the page you are on, and ten tools (among them Regex, Cron, JSON Diff and cURL) have “Copy link”: the link carries your input in its `#` fragment, which never reaches a server, and opens the tool with it.
 

@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.2] — 2026-11-14
+
+Every tool now has an icon of its own.
+
+### Changed
+
+- 30 tools get a new icon, so no two of the 101 tools share one any more. Before, Hash, Hex and Number Base all showed "#", JSON Diff and Text Diff a bar chart, Binary Text and Bytes a monitor, and the image tools the same picture; a few more pairs (two globes, two targets, two tables, two database cylinders) looked alike. The new icons say what each tool does: "0x" for Hex, an abacus for Number Base, ".*" for Regex, tally marks for the Word Counter, a gauge for Password Strength, an ID card for UUID, a drive for Bytes, and more.
+- The home page cards now take their icons from `_data/tools.json` when the site is built, so they can no longer drift from the tool pages.
+
+### Tests
+
+- `tests/site-audit.mjs` fails when two tools share an icon or a home page card shows another icon than the catalogue; `tests/shortcuts-share-e2e.mjs` checks that all 101 home cards show different icons.
+
 ## [1.7.1] — 2026-11-14
 
 Every tool has its own icon, "?" lists the keyboard shortcuts, and ten tools can be shared as a link.
@@ -372,6 +385,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.2]: https://github.com/abel0x/toolkit/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/abel0x/toolkit/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/abel0x/toolkit/compare/v1.6.7...v1.7.0
 [1.6.7]: https://github.com/abel0x/toolkit/compare/v1.6.6...v1.6.7
