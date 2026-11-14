@@ -113,10 +113,12 @@
 }
 
 /* ── Breadcrumb ───────────────────────────────────────────── */
+/* On a narrow screen the trail wraps between items, never inside one. */
 .tool-breadcrumb {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: .45rem;
+  gap: .2rem .45rem;
   padding: .5rem 0 0;
   font-size: .82rem;
   color: var(--text-muted);

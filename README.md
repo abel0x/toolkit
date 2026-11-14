@@ -264,7 +264,7 @@ node tests/turkish-pages-e2e.mjs
 # Check semantic landmarks, label references, focus-order hazards, live regions, and token contrast.
 node tests/accessibility-audit.mjs
 
-# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, including aligned headers, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
+# Smoke-test all 101 tool pages and the licence page in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.

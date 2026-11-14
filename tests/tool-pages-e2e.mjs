@@ -365,6 +365,75 @@ async function inspectRunShortcut(bidi, context, url, slug) {
   return { handled: result.handled, issues: result.problems.map((problem) => `${slug}: ${problem}.`) };
 }
 
+// The related-tools row (build.py --related) and the breadcrumb must sit on
+// the page's column without shifting: the row spans exactly the header's
+// width below the tool and above the footer, its links stay inside it on one
+// line each without overlapping, the label lines up with the first link, and
+// the category link has a line of its own (right on desktop, left on phones).
+// No breadcrumb item may break inside itself.
+async function inspectPageLayout(bidi, context, page, layout) {
+  const problems = await evaluate(bidi, context, `(() => {
+    const problems = [];
+    const box = (element) => element.getBoundingClientRect();
+    const near = (a, b) => Math.abs(a - b) <= 1;
+    const header = document.querySelector('.tool-header');
+    const rows = document.querySelectorAll('.related-tools');
+    if (rows.length !== 1) return ['has ' + rows.length + ' related-tools rows'];
+    const row = rows[0];
+    const edge = box(header);
+    const area = box(row);
+    if (!near(area.left, edge.left) || !near(area.right, edge.right)) {
+      problems.push('related row spans ' + Math.round(area.left) + '–' + Math.round(area.right) + ' instead of ' + Math.round(edge.left) + '–' + Math.round(edge.right));
+    }
+    let previous = row.previousElementSibling;
+    while (previous && !box(previous).height) previous = previous.previousElementSibling;
+    if (previous && box(previous).bottom > area.top + 1) problems.push('related row overlaps the tool above it');
+    const footer = document.querySelector('footer');
+    if (footer && area.bottom > box(footer).top + 1) problems.push('related row runs into the footer');
+    const links = [...row.querySelectorAll('.related-tools__link')];
+    if (links.length !== 4) problems.push('related row shows ' + links.length + ' tools');
+    const rects = links.map(box);
+    const lineHeight = Math.max(...rects.map((rect) => rect.height));
+    links.forEach((link, index) => {
+      const rect = rects[index];
+      const name = link.textContent.trim();
+      if (rect.left < area.left - 0.5 || rect.right > area.right + 0.5) problems.push('"' + name + '" sticks out of the row');
+      if (link.getClientRects().length !== 1 || rect.height > 44) problems.push('"' + name + '" breaks over two lines');
+      for (let other = index + 1; other < rects.length; other += 1) {
+        const next = rects[other];
+        const overlap = Math.min(rect.right, next.right) - Math.max(rect.left, next.left) > 0.5
+          && Math.min(rect.bottom, next.bottom) - Math.max(rect.top, next.top) > 0.5;
+        if (overlap) problems.push('"' + name + '" overlaps "' + links[other].textContent.trim() + '"');
+      }
+    });
+    if (lineHeight && rects.some((rect) => Math.abs(rect.height - lineHeight) > 1)) problems.push('related links differ in height');
+    const label = box(row.querySelector('.related-tools__label'));
+    if (rects[0] && Math.abs((label.top + label.bottom) / 2 - (rects[0].top + rects[0].bottom) / 2) > 2) {
+      problems.push('the "Related" label is not level with the first link');
+    }
+    const more = row.querySelector('.related-tools__more');
+    const moreBox = more && box(more);
+    if (!moreBox) problems.push('category link missing');
+    else {
+      if (moreBox.top < Math.max(...rects.map((rect) => rect.bottom)) - 0.5) problems.push('category link shares a line with the tools');
+      const mobile = innerWidth <= 640;
+      const text = more.firstChild;
+      const range = document.createRange();
+      range.selectNodeContents(more);
+      const textBox = range.getBoundingClientRect();
+      if (mobile ? !near(textBox.left, area.left) : !near(textBox.right, area.right)) {
+        problems.push('category link is not ' + (mobile ? 'left' : 'right') + '-aligned');
+      }
+    }
+    document.querySelectorAll('.tool-breadcrumb > a, .tool-breadcrumb > span:not(.tool-breadcrumb-sep)').forEach((item) => {
+      if (item.getClientRects().length > 1 || box(item).height > 26) problems.push('breadcrumb item "' + item.textContent.trim() + '" breaks inside itself');
+    });
+    if (document.documentElement.scrollWidth > document.documentElement.clientWidth) problems.push('page scrolls sideways');
+    return problems;
+  })()`);
+  return problems.map((problem) => `${page}: ${layout} ${problem}.`);
+}
+
 async function inspectMobilePage(bidi, context, url, slug) {
   await navigate(bidi, context, url);
   const page = await evaluate(bidi, context, `(() => ({
@@ -458,6 +527,7 @@ async function main() {
       exampleCount += result.examples;
       actionCount += result.actions;
       issues.push(...result.issues);
+      issues.push(...await inspectPageLayout(bidi, tab.context, file, 'desktop'));
       const shortcut = await inspectRunShortcut(bidi, tab.context, `${baseUrl}/tools/${file}`, file);
       shortcutCount += shortcut.handled;
       issues.push(...shortcut.issues);
@@ -472,6 +542,7 @@ async function main() {
     await bidi.call('browsingContext.setViewport', { context: tab.context, viewport: { width: 390, height: 844 }, devicePixelRatio: 1 });
     for (const file of toolFiles) {
       issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/tools/${file}`, file));
+      issues.push(...await inspectPageLayout(bidi, tab.context, file, 'mobile'));
     }
     for (const page of licensePages) {
       issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/${page}`, page));
@@ -479,12 +550,24 @@ async function main() {
       await forgetLanguage(bidi, tab.context);
     }
 
+    // The Turkish twins: longer words, same column. Opening a /tr/ page stores
+    // Turkish, so each visit forgets it before the next English page.
+    for (const [width, height, layout] of [[1440, 900, 'desktop'], [390, 844, 'mobile']]) {
+      await bidi.call('browsingContext.setViewport', { context: tab.context, viewport: { width, height }, devicePixelRatio: 1 });
+      for (const file of toolFiles) {
+        await navigate(bidi, tab.context, `${baseUrl}/tr/tools/${file}`);
+        issues.push(...await inspectHeaderAlignment(bidi, tab.context, `tr/${file}`, layout));
+        issues.push(...await inspectPageLayout(bidi, tab.context, `tr/${file}`, layout));
+        await forgetLanguage(bidi, tab.context);
+      }
+    }
+
     assert.deepEqual(issues, [], `Tool-page browser audit failed:\n${issues.join('\n')}`);
     const browserErrors = bidi.events
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${shortcutCount} fields that run their tool with Ctrl+Enter, ${exampleCount} example starters that each produce a result, desktop and mobile layouts with aligned headers (licence pages included, with an unwrapped licence title and hanging licence lines), and English pages free of Turkish dictionaries.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${shortcutCount} fields that run their tool with Ctrl+Enter, ${exampleCount} example starters that each produce a result, desktop and mobile layouts in English and Turkish with aligned headers, breadcrumbs and related-tools rows (licence pages included, with an unwrapped licence title and hanging licence lines), and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();
