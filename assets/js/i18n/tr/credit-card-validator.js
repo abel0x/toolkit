@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Length": "Uzunluk",
     "Validator": "Doğrulayıcı",
+    "Network": "Ağ",
     "MM/YY": "AA/YY",
     "Enter a card number": "Bir kart numarası girin",
     "Not a card number": "Kart numarası değil",

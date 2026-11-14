@@ -848,5 +848,13 @@
       "title": "YAML to JSON Converter — Toolkit",
       "description": "Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side."
     }
+  },
+  "tools/port-reference.html": {
+    "title": "Port Rehberi — Toolkit",
+    "description": "Bir ağ portunu hangi servisin kullandığını bulun (SSH, PostgreSQL, Redis, Vite ve yaklaşık 130 tane daha) ve herhangi bir port numarasının anlamını görün: IANA aralığı, Linux’ta dinlemek için root gerekip gerekmediği, sistemlerin onu giden bağlantılarda kullanıp kullanmadığı ve tarayıcıların engelleyip engellemediği. Tarayıcınızda.",
+    "source": {
+      "title": "Port Reference — Toolkit",
+      "description": "Find the service behind a network port (SSH, PostgreSQL, Redis, Vite and about 130 more), and see what any port number means: its IANA range, whether Linux needs root to listen on it, whether systems use it for outgoing connections, and whether browsers block it. In your browser."
+    }
   }
 }

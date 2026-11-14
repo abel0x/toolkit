@@ -603,6 +603,8 @@
     if (match) return `${match[1]} ${match[2]} saat dilimi kullanır.`;
     match = key.match(/^(\d+) cleaned, (\d+) skipped, (.+) of metadata removed\.$/);
     if (match) return `${match[1]} temizlendi, ${match[2]} atlandı, ${match[3]} meta veri kaldırıldı.`;
+    match = key.match(/^(\d+) ports$/);
+    if (match) return `${match[1]} port`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

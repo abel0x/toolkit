@@ -19,6 +19,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Hashing failed: {{message}}": "Hash oluşturulamadı: {{message}}",
     "Password matches": "Parola eşleşiyor",
     "Password does not match": "Parola eşleşmiyor",
-    "Verification failed: {{message}}": "Doğrulama başarısız oldu: {{message}}"
+    "Verification failed: {{message}}": "Doğrulama başarısız oldu: {{message}}",
+    "Notes": "Notlar"
   }))
 });

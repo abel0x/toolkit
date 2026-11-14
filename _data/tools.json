@@ -402,6 +402,16 @@
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>"
     },
     {
+      "slug": "port-reference",
+      "name": "Port Reference",
+      "cat": "devtools",
+      "desc": "Find which service uses a network port, and what any port number means for servers and browsers.",
+      "meta": "Find the service behind a network port (SSH, PostgreSQL, Redis, Vite and about 130 more), and see what any port number means: its IANA range, whether Linux needs root to listen on it, whether systems use it for outgoing connections, and whether browsers block it. In your browser.",
+      "tags": ["port", "tcp", "udp", "network", "service", "iana", "localhost", "firewall"],
+      "related": ["http-status", "url-parser", "curl-builder", "mime-lookup"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M8 19v-4h8v4\"/><path d=\"M8.5 9v2M12 9v2M15.5 9v2\"/></svg>"
+    },
+    {
       "slug": "mime-lookup",
       "name": "MIME Type Lookup",
       "cat": "devtools",

@@ -596,6 +596,34 @@ await withFirefox(async (page) => {
       ['edited metadata keeps a valid signature', [editedName, await state(edited), api.inspect(edited).tags['ifd0:315']], ['photo-signed-edited.jpg', 'valid', 'Başkası']],
       ['changed picture detected', await state(tampered), 'changed'], ['stripped file has no signature', await state(cleaned), 'none']];`.replace('JPEG_PLACEHOLDER', `'${JPEG}'`));
 
+  await check('port-reference', `
+    const api = window.ToolkitPorts;
+    const all = text('#portCount');
+    set('#portQuery', '5432'); await wait(20);
+    const postgres = [text('#portInfo'), text('#portRows'), text('#portCommands')];
+    set('#portQuery', '22'); await wait(20);
+    const ssh = text('#portInfo');
+    set('#portQuery', '6667'); await wait(20);
+    const irc = [text('#portInfo'), text('#portRows')];
+    set('#portQuery', '50000'); await wait(20);
+    const dynamic = text('#portInfo');
+    set('#portQuery', '70000'); await wait(20);
+    const tooBig = text('#portInfo');
+    set('#portQuery', 'redis'); await wait(20);
+    const byName = [text('#portRows'), $('#portInfo').hidden];
+    set('#portQuery', ''); set('#portCategory', 'database', 'change'); await wait(20);
+    const databases = [...document.querySelectorAll('#portRows tr')].every((row) => /Database|SQL|Redis|Mongo|Cassandra|Elastic|Influx|Couch|Memcached|Oracle/i.test(row.textContent));
+    return [['whole list', all, { includes: ' ports' }], ['5432 is PostgreSQL', postgres[1], { includes: 'PostgreSQL' }],
+      ['5432 is a user port', postgres[0], { includes: 'User port (1024–49151)' }], ['5432 not blocked', postgres[0], { includes: 'Browsers can open web addresses on this port.' }],
+      ['commands use the port', postgres[2], { includes: 'lsof -nP -iTCP:5432 -sTCP:LISTEN' }],
+      ['22 needs root and is blocked', [ssh.includes('CAP_NET_BIND_SERVICE'), ssh.includes('Browsers refuse')], [true, true]],
+      ['6667 inside the IRC range', irc[1], { includes: '6665–6669' }], ['6667 blocked', irc[0], { includes: 'Browsers refuse' }],
+      ['50000 outgoing on all three', dynamic, { includes: 'Linux, Windows, macOS' }], ['50000 dynamic', dynamic, { includes: 'Dynamic port (49152–65535)' }],
+      ['out of range', tooBig, { includes: 'Ports go from 0 to 65535.' }], ['search by name', byName[0], { includes: '6379' }], ['no number, no port facts', byName[1], true],
+      ['category filter', databases, true],
+      ['bad ports from the Fetch standard', [api.blocked.size, api.blocked.has(10080), api.blocked.has(8080)], [83, true, false]],
+      ['describe 1023 / 1024', [api.describe(1023).privileged, api.describe(1024).privileged, api.describe(32768).linuxEphemeral, api.describe(61000).linuxEphemeral], [true, false, true, false]]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');
