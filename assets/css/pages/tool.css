@@ -182,6 +182,12 @@
   white-space: pre-wrap;
 }
 
+/* The licence centres its title with leading spaces. Once those lines
+   no longer fit, drop the spaces so the title stays on three lines. */
+@media (max-width: 640px) {
+  .license-text__title { white-space: pre-line; }
+}
+
 @media (max-width: 480px) {
   .license-summary { align-items: flex-start; flex-direction: column; }
   .license-text { font-size: 0.7rem; padding: 0.8rem; }

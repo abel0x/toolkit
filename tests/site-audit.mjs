@@ -490,8 +490,12 @@ assert.notEqual(licenseStart, -1, 'License page does not include the canonical l
 const licenseTextStart = licenseStart + licenseMarker.length;
 const licenseTextEnd = licenseHtml.indexOf('</pre>', licenseTextStart);
 assert.notEqual(licenseTextEnd, -1, 'License page does not close its canonical license block.');
+// Only the title span may sit inside the block; its text must stay LICENSE.
+const licenseBlock = licenseHtml.slice(licenseTextStart, licenseTextEnd);
+assert.deepEqual(licenseBlock.match(/<[^>]*>/g), ['<span class="license-text__title">', '</span>'],
+  'The canonical license block may only wrap its title in one span.');
 assert.equal(
-  licenseHtml.slice(licenseTextStart, licenseTextEnd),
+  licenseBlock.replace(/<[^>]*>/g, ''),
   readFileSync(join(root, 'LICENSE'), 'utf8'),
   'Published license text has drifted from LICENSE.'
 );

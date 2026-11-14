@@ -317,6 +317,17 @@ const licensePages = ['license/index.html', 'tr/license/index.html'];
 
 // Opening a /tr/ page stores the Turkish preference, which would send the
 // English tool pages checked after it to their Turkish twins.
+// The licence title is centred with leading spaces; on narrow screens the
+// spaces go so its three lines never wrap.
+async function inspectLicenseTitle(bidi, context, page, layout) {
+  const lines = await evaluate(bidi, context, `(() => {
+    const title = document.querySelector('.license-text__title');
+    if (!title) return 0;
+    return Math.round(title.getBoundingClientRect().height / parseFloat(getComputedStyle(title.parentElement).lineHeight));
+  })()`);
+  return lines === 3 ? [] : [`${page}: ${layout} licence title takes ${lines} lines instead of 3.`];
+}
+
 async function forgetLanguage(bidi, context) {
   await evaluate(bidi, context, `(() => { localStorage.removeItem('toolkit-language'); sessionStorage.clear(); return true; })()`);
 }
@@ -358,6 +369,7 @@ async function main() {
     for (const page of licensePages) {
       await navigate(bidi, tab.context, `${baseUrl}/${page}`);
       issues.push(...await inspectHeaderAlignment(bidi, tab.context, page, 'desktop'));
+      issues.push(...await inspectLicenseTitle(bidi, tab.context, page, 'desktop'));
       await forgetLanguage(bidi, tab.context);
     }
 
@@ -367,6 +379,7 @@ async function main() {
     }
     for (const page of licensePages) {
       issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/${page}`, page));
+      issues.push(...await inspectLicenseTitle(bidi, tab.context, page, 'mobile'));
       await forgetLanguage(bidi, tab.context);
     }
 
@@ -375,7 +388,7 @@ async function main() {
       .filter((event) => event.method === 'log.entryAdded' && event.params?.level === 'error');
     assert.equal(browserErrors.length, 0,
       `Browser console errors:\n${browserErrors.map((event) => event.params.text || JSON.stringify(event.params)).join('\n')}`);
-    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers (licence pages included), and English pages free of Turkish dictionaries.`);
+    console.log(`Tool-page E2E passed: ${toolFiles.length} pages, ${controlCount} named controls, ${actionCount} exercised primary actions, ${exampleCount} working example starters, desktop and mobile layouts with aligned headers (licence pages included, with an unwrapped licence title), and English pages free of Turkish dictionaries.`);
   } finally {
     try { await bidi?.call('session.end'); } catch {}
     bidi?.close();
