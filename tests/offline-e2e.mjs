@@ -42,6 +42,16 @@ async function startServer() {
   const server = createServer(async (request, response) => {
     try {
       const url = new URL(request.url || '/', 'http://127.0.0.1');
+      // Set by the update check below to publish a pretend next release.
+      if (url.pathname === `${mountPath}/sw.js` && server.nextWorker) {
+        response.writeHead(200, {
+          'Content-Type': 'text/javascript; charset=utf-8',
+          'Cache-Control': 'no-store',
+          Connection: 'close'
+        });
+        response.end(server.nextWorker);
+        return;
+      }
       if (url.pathname === `${mountPath}/__offline_test_bootstrap.html`) {
         response.writeHead(200, {
           'Content-Type': 'text/html; charset=utf-8',
@@ -226,11 +236,61 @@ async function main() {
       '/toolkit/words/tr/common-1000.json',
       '/toolkit/assets/js/vendor/qrcode-generator.js',
       '/toolkit/assets/js/vendor/bcryptjs.umd.js',
-      '/toolkit/license/'
+      '/toolkit/license/',
+      '/toolkit/privacy/'
     ]) {
       assert(installation.requests.some((request) => request === pathname || request.startsWith(`${pathname}?`)),
         `The installed offline cache is missing ${pathname}.`);
     }
+
+    // "A new version is ready": the first install brings the page's own
+    // release and stays quiet; a worker of another release taking over an
+    // open page shows the notice; going back to the page's release does not.
+    const updateNotice = `(async () => {
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 600));
+      const notice = document.getElementById('update-notice');
+      return notice ? {
+        text: notice.querySelector('.toast-msg')?.textContent || '',
+        action: notice.querySelector('.toast-action')?.textContent || '',
+        close: notice.querySelector('.toast-close')?.getAttribute('aria-label') || '',
+        role: notice.getAttribute('role')
+      } : null;
+    })()`;
+    const takeOver = `(async () => {
+      const registration = await navigator.serviceWorker.ready;
+      const changed = new Promise((resolvePromise) => navigator.serviceWorker.addEventListener('controllerchange', resolvePromise, { once: true }));
+      await registration.update();
+      await Promise.race([changed, new Promise((_, reject) => setTimeout(() => reject(new Error('No worker took over.')), 30000))]);
+      return true;
+    })()`;
+    assert.equal(await evaluate(bidi, tab.context, updateNotice), null, 'The first service-worker install showed the update notice.');
+    server.nextWorker = serviceWorker.replace(`const CACHE_VERSION = '${versionMatch[1]}'`, "const CACHE_VERSION = 'next-release-test'");
+    assert.notEqual(server.nextWorker, serviceWorker, 'Could not prepare the pretend next release.');
+    await evaluate(bidi, tab.context, takeOver);
+    assert.deepEqual(await evaluate(bidi, tab.context, updateNotice), {
+      text: 'A new version of Toolkit is ready.', action: 'Reload', close: 'Close', role: 'status'
+    }, 'A newer release taking over the page did not show the update notice.');
+    await evaluate(bidi, tab.context, `(() => { setTimeout(() => document.querySelector('#update-notice .toast-action').click(), 0); return true; })()`);
+    for (let attempt = 0; attempt < 100; attempt += 1) {
+      await sleep(50);
+      try {
+        if (await evaluate(bidi, tab.context, `document.readyState === 'complete' && !document.getElementById('update-notice') && performance.getEntriesByType('navigation')[0]?.type === 'reload'`)) break;
+      } catch {}
+    }
+    assert.equal(await evaluate(bidi, tab.context, `performance.getEntriesByType('navigation')[0]?.type`), 'reload', 'Reload on the update notice did not reload the page.');
+    assert.equal(await evaluate(bidi, tab.context, updateNotice), null, 'The update notice came back after reloading.');
+    server.nextWorker = null;
+    await evaluate(bidi, tab.context, takeOver);
+    assert.equal(await evaluate(bidi, tab.context, updateNotice), null, "A worker of the page's own release showed the update notice.");
+    const restored = await evaluate(bidi, tab.context, `(async () => {
+      const registration = await navigator.serviceWorker.ready;
+      for (let attempt = 0; attempt < 200 && registration.active?.state !== 'activated'; attempt += 1) {
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 25));
+      }
+      return caches.keys();
+    })()`);
+    assert(restored.includes(expectedCache) && !restored.includes('toolkit-next-release-test'),
+      `The original release did not take its cache back: ${restored.join(', ')}`);
 
     // A miss below a subdirectory still renders the styled 404 page with site-root links.
     await navigate(bidi, tab.context, `${baseUrl}/tools/not-a-published-tool.html`);

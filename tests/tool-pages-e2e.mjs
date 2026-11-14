@@ -448,6 +448,8 @@ async function inspectMobilePage(bidi, context, url, slug) {
 
 // The licence page uses the tool header too, in both languages.
 const licensePages = ['license/index.html', 'tr/license/index.html'];
+// So does the privacy page.
+const privacyPages = ['privacy/index.html', 'tr/privacy/index.html'];
 
 // Opening a /tr/ page stores the Turkish preference, which would send the
 // English tool pages checked after it to their Turkish twins.
@@ -538,6 +540,11 @@ async function main() {
       issues.push(...await inspectLicenseTitle(bidi, tab.context, page, 'desktop'));
       await forgetLanguage(bidi, tab.context);
     }
+    for (const page of privacyPages) {
+      await navigate(bidi, tab.context, `${baseUrl}/${page}`);
+      issues.push(...await inspectHeaderAlignment(bidi, tab.context, page, 'desktop'));
+      await forgetLanguage(bidi, tab.context);
+    }
 
     await bidi.call('browsingContext.setViewport', { context: tab.context, viewport: { width: 390, height: 844 }, devicePixelRatio: 1 });
     for (const file of toolFiles) {
@@ -547,6 +554,10 @@ async function main() {
     for (const page of licensePages) {
       issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/${page}`, page));
       issues.push(...await inspectLicenseTitle(bidi, tab.context, page, 'mobile'));
+      await forgetLanguage(bidi, tab.context);
+    }
+    for (const page of privacyPages) {
+      issues.push(...await inspectMobilePage(bidi, tab.context, `${baseUrl}/${page}`, page));
       await forgetLanguage(bidi, tab.context);
     }
 

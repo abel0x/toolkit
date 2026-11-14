@@ -208,6 +208,17 @@
   font-size: 0.78rem;
 }
 
+.footer-privacy {
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  margin-left: 0.35rem;
+  transition: color var(--transition);
+}
+
+.footer-privacy:hover,
+.footer-privacy:focus-visible { color: var(--text-primary); }
+
 .footer-tech {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -1131,6 +1142,52 @@ input[type="range"]:focus { outline: none; }
 }
 
 .toast--error .toast-icon { color: var(--red); }
+
+/* Added by nav.js when a newer release takes over an open page. */
+.toast--update {
+  max-width: 400px;
+  padding: 0.55rem 0.55rem 0.55rem 1.1rem;
+  background: var(--bg-elevated);
+  border-color: var(--border-hover);
+}
+
+.toast--update .toast-msg { flex: 1; }
+
+.toast-action,
+.toast-close {
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.toast-action {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.toast-action:hover { background: #ffffff; }
+
+.toast-close {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.toast-close:hover { color: var(--text-primary); background: var(--bg-surface); }
+
+.toast-action:focus-visible,
+.toast-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .toast-icon { font-size: 1rem; flex-shrink: 0; }
 
 @keyframes toastIn {

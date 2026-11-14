@@ -20,7 +20,7 @@ const meta = (html, pattern) => {
 
 const toolCount = JSON.parse(read('_data/tools.json')).tools.length;
 const seo = JSON.parse(read('_data/seo-tr.json'));
-const pages = ['index.html', 'license/index.html',
+const pages = ['index.html', 'license/index.html', 'privacy/index.html',
   ...readdirSync(join(root, 'tools')).filter((name) => name.endsWith('.html')).sort().map((name) => `tools/${name}`)];
 const location = (page) => page.replace(/index\.html$/, '');
 const fill = (value) => value.replaceAll('{{count}}', String(toolCount));

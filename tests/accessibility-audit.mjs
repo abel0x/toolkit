@@ -12,6 +12,7 @@ const pages = [
   join(root, 'index.html'),
   join(root, '404.html'),
   join(root, 'license', 'index.html'),
+  join(root, 'privacy', 'index.html'),
   ...readdirSync(toolsDirectory).filter((file) => file.endsWith('.html')).sort().map((file) => join(toolsDirectory, file))
 ];
 const liveValues = new Set(['off', 'polite', 'assertive']);

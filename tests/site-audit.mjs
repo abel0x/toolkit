@@ -15,7 +15,8 @@ const toolPages = readdirSync(toolsDirectory)
   .sort()
   .map((name) => join(toolsDirectory, name));
 const licensePage = join(root, 'license', 'index.html');
-const pages = [join(root, 'index.html'), join(root, '404.html'), licensePage, ...toolPages];
+const privacyPage = join(root, 'privacy', 'index.html');
+const pages = [join(root, 'index.html'), join(root, '404.html'), licensePage, privacyPage, ...toolPages];
 
 // _data/tools.json is the single source of the catalogue; build.py generates
 // the browser registries, expansion shells and sitemap from it.
@@ -327,6 +328,8 @@ for (const asset of [
   'words/manifest.json',
   'license/',
   'license/index.html',
+  'privacy/',
+  'privacy/index.html',
   'assets/js/core/example-starters.js',
   'assets/js/core/share-link.js',
   'assets/js/core/i18n-tr.js',
@@ -580,6 +583,26 @@ for (const source of [
 }
 
 assert(existsSync(licensePage), 'Published license page is missing.');
+
+// The privacy page must name every storage key the scripts use, and every
+// footer must link it next to "No data leaves your device."
+assert(existsSync(privacyPage), 'Published privacy page is missing.');
+const privacyHtml = readFileSync(privacyPage, 'utf8');
+const scriptFiles = (directory) => readdirSync(directory, { withFileTypes: true }).flatMap((entry) =>
+  entry.isDirectory() ? scriptFiles(join(directory, entry.name)) : entry.name.endsWith('.js') ? [join(directory, entry.name)] : []);
+const storageKeys = new Set(scriptFiles(join(root, 'assets/js'))
+  .flatMap((file) => [...readFileSync(file, 'utf8').matchAll(/['"](toolkit-[a-z0-9-]+)['"]/g)].map((match) => match[1])));
+const documentedKeys = new Set([...privacyHtml.matchAll(/<dt><code>(toolkit-[a-z0-9-]+)<\/code><\/dt>/g)].map((match) => match[1]));
+assert.deepEqual([...documentedKeys].sort(), [...storageKeys].sort(),
+  'The privacy page must list exactly the storage keys the scripts use.');
+assert.equal(sitemap.split('<loc>https://abel0x.github.io/toolkit/privacy/</loc>').length - 1, 1,
+  'Sitemap must contain exactly one privacy page entry.');
+for (const file of pages) {
+  const relative = file.slice(root.length + 1);
+  const prefix = ['index.html', '404.html'].includes(relative) ? '' : '../';
+  assert(readFileSync(file, 'utf8').includes(`No data leaves your device. <a class="footer-privacy" href="${prefix}privacy/index.html">Privacy</a></p>`),
+    `${relative}: footer does not link the privacy page.`);
+}
 // Search Console verifies the URL-prefix property from this tag; removing it loses ownership.
 assert(readFileSync(join(root, 'index.html'), 'utf8')
   .includes('<meta name="google-site-verification" content="XacY5y52KIxRIvYicwvR-VJYq8Yw1od7nXy4N9m9evI" />'),
@@ -587,7 +610,7 @@ assert(readFileSync(join(root, 'index.html'), 'utf8')
 
 for (const language of ['en', 'tr']) checkPreviewImage(join(root, `assets/images/og-${language}.png`), `og-${language}.png`);
 const metadataTypes = new Set();
-for (const file of [join(root, 'index.html'), licensePage, ...toolPages]) {
+for (const file of [join(root, 'index.html'), licensePage, privacyPage, ...toolPages]) {
   const relativeName = file.slice(root.length + 1);
   metadataTypes.add(checkPageMetadata(readFileSync(file, 'utf8'), relativeName, {
     language: 'en',

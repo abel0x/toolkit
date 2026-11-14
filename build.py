@@ -75,7 +75,7 @@ PUBLISHED_FILES = (
     '.nojekyll', '404.html', 'LICENSE', 'index.html', 'manifest.json',
     'sitemap.xml', 'style.css', 'sw.js',
 )
-PUBLISHED_DIRS = ('assets', 'license', 'tools', 'tr', 'words')
+PUBLISHED_DIRS = ('assets', 'license', 'privacy', 'tools', 'tr', 'words')
 UNPUBLISHED_SUFFIXES = ('.md',)
 
 
@@ -316,7 +316,7 @@ def _expansion_page(tool):
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Toolkit. No data leaves your device.</p>
+        <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
         <p class="footer-tech">{tool_count} tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
@@ -559,6 +559,31 @@ def run_words_manifest():
         print(f'  WARN  word payload is {total_bytes} bytes; budget is 512000 bytes.')
     else:
         print(f'  OK    {len(entries)} word data files precached ({total_bytes} bytes).')
+
+
+# Every page's footer links the privacy page right after "No data leaves
+# your device.", so the promise and its details sit side by side.
+_FOOTER_NOTE = re.compile(r'<p>© (\d{4}) Toolkit\. No data leaves your device\.(?: <a class="footer-privacy" href="[^"]*">Privacy</a>)?</p>')
+
+
+def run_footer_links():
+    """Link the privacy page from every page's footer."""
+    print('\n[--nav] Linking the privacy page from every footer...')
+    updated = 0
+    for path in _published_pages():
+        relative = os.path.relpath(path, ROOT).replace(os.sep, '/')
+        # 404.html resolves links against <base href="/toolkit/">.
+        prefix = '' if relative in ('index.html', '404.html') else '../'
+        html = _read(path)
+        revised, count = _FOOTER_NOTE.subn(
+            lambda match: f'<p>© {match.group(1)} Toolkit. No data leaves your device. '
+                          f'<a class="footer-privacy" href="{prefix}privacy/index.html">Privacy</a></p>', html)
+        if count != 1:
+            raise SystemExit(f'{relative}: expected one footer note, found {count}.')
+        if revised != html:
+            _write(path, revised)
+            updated += 1
+    print(f'  OK    {updated} footers updated.')
 
 
 def run_tool_count():
@@ -904,7 +929,7 @@ _HTML_REFERENCE = re.compile(r'(\b(?:href|src)=)(["\'])([^"\']*)\2')
 
 def _localized_pages():
     """Return the repository paths that get a Turkish twin under tr/."""
-    return (['index.html', 'license/index.html']
+    return (['index.html', 'license/index.html', 'privacy/index.html']
             + [f'tools/{os.path.basename(path)}' for path in _tool_files()])
 
 
@@ -1448,6 +1473,7 @@ def _published_pages():
     for name in ('index.html', '404.html'):
         yield os.path.join(ROOT, name)
     yield os.path.join(ROOT, 'license', 'index.html')
+    yield os.path.join(ROOT, 'privacy', 'index.html')
     yield from _tool_files()
 
 
@@ -1603,6 +1629,7 @@ def run_all():
     run_registry()
     run_sync_expansion()
     run_nav()
+    run_footer_links()
     run_tool_headers()
     run_related_tools()
     run_tool_count()
@@ -1669,6 +1696,7 @@ def main():
             (args.registry, run_registry),
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
+            (args.nav, run_footer_links),
             (args.tool_headers, run_tool_headers),
             (args.related, run_related_tools),
             (args.tool_count, run_tool_count),

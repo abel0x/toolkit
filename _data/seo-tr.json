@@ -17,6 +17,14 @@
       "description": "Read the Apache License 2.0 that applies to Toolkit."
     }
   },
+  "privacy/index.html": {
+    "title": "Gizlilik — Toolkit",
+    "description": "Toolkit'in tarayıcınızda neleri sakladığı, nelerin asla oradan çıkmadığı ve sitenin barındırıcısının neler görebildiği.",
+    "source": {
+      "title": "Privacy — Toolkit",
+      "description": "What Toolkit keeps in your browser, what never leaves it, and what the website host can see."
+    }
+  },
   "tools/aes-gcm.html": {
     "title": "AES-GCM Şifreleyici — Toolkit",
     "description": "Metni AES-GCM ve parola ile yerel olarak şifreleyin veya çözün.",

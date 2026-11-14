@@ -108,7 +108,7 @@ await withFirefox(async (page) => {
   // The static Turkish body must equal what i18n.js makes of the English body,
   // and leave the runtime nothing more to translate. 404.html is the one page
   // that loads the complete dictionaries, so the comparison runs there.
-  const localized = ['index.html', 'license/index.html',
+  const localized = ['index.html', 'license/index.html', 'privacy/index.html',
     ...(await readdir(join(root, 'tr', 'tools'))).filter((name) => name.endsWith('.html')).sort()
       .map((name) => `tools/${name}`)];
   await page.evaluate(() => localStorage.setItem('toolkit-language', 'tr'));
