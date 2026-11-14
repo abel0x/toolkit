@@ -22,6 +22,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "strikethrough": "üstü çizili",
     "and code blocks": "ve kod blokları",
     "Blockquotes, tables, links and more": "Blok alıntılar, tablolar, bağlantılar ve daha fazlası",
-    "Rendering is fully client-side. Nothing leaves your browser.": "Oluşturma tamamen istemci tarafındadır. Hiçbir şey tarayıcınızdan ayrılmaz."
+    "Rendering is fully client-side. Nothing leaves your browser.": "Oluşturma tamamen istemci tarafındadır. Hiçbir şey tarayıcınızdan ayrılmaz.",
+    "Tab": "Sekme",
+    "NFKD": "NFKD"
   }))
 });

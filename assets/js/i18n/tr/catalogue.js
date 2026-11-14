@@ -223,6 +223,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "alpha": "alfa",
     "User-Agent": "User-Agent",
     "Optimize": "İyileştir",
+    "Tab": "Sekme",
     "Reverse text character by character or word by word.": "Metni karakter karakter veya kelime kelime ters çevirin.",
     "Lines": "Satırlar",
     "Reverse": "Tersine Çevir",

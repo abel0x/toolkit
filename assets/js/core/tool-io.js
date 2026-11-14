@@ -44,6 +44,9 @@
 
   // The row above a field: its label on the left, our buttons on the right.
   function actionsFor(field) {
+    // A page can say where a field's buttons go, e.g. into a toolbar.
+    const placed = field.id ? document.querySelector(`.field-actions[data-for="${field.id}"]`) : null;
+    if (placed) return placed;
     let label = field.id ? document.querySelector(`label[for="${field.id}"]`) : null;
     // Some outputs are captioned by the element just before them.
     const previous = field.previousElementSibling;

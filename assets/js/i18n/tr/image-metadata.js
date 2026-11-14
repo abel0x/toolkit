@@ -11,6 +11,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Please select an image file": "Lütfen bir görüntü dosyası seçin",
     "Filename": "Dosya adı",
     "Aspect Ratio": "En Boy Oranı",
-    "File Size": "Dosya Boyutu"
+    "File Size": "Dosya Boyutu",
+    "Tab": "Sekme"
   }))
 });

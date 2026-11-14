@@ -23,6 +23,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Length:": "Uzunluk:",
     "Token": "Belirteç",
     "daily": "günlük",
+    "Tab": "Sekme",
     "Characters": "Karakterler",
     "NFC": "NFC",
     "Typing Speed Test": "Yazma Hızı Testi",

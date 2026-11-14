@@ -20,6 +20,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "MiB": "MiB",
     "GiB": "GiB",
     "TiB": "TiB",
-    ".bin": ".bin"
+    ".bin": ".bin",
+    "Tab": "Sekme"
   }))
 });

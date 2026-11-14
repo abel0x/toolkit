@@ -6,6 +6,7 @@
   const preview  = document.getElementById('mdPreview');
   const copyBtn  = document.getElementById('mdCopyBtn');
   const clearBtn = document.getElementById('mdClearBtn');
+  const htmlBtn  = document.getElementById('mdHtmlBtn');
   if (!editor) return;
 
   function escapeAttribute(value) {
@@ -145,4 +146,44 @@ console.log(msg);
   editor.addEventListener('input', render);
   copyBtn.addEventListener('click', () => copyToClipboard(editor.value, 'Markdown'));
   clearBtn.addEventListener('click', () => { editor.value = ''; render(); });
+
+  // A standalone page: the preview's (already sanitised) HTML, titled after
+  // the first heading, with a small readable stylesheet and no scripts.
+  const PAGE_STYLE = [
+    'body{max-width:46rem;margin:2.5rem auto;padding:0 1.25rem;font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;color:#1f2328;background:#fff}',
+    'h1,h2,h3,h4,h5,h6{line-height:1.25;margin:1.6em 0 .6em}h1{font-size:2em}h2{font-size:1.5em}',
+    'a{color:#0969da}img{max-width:100%}hr{border:0;border-top:1px solid #d0d7de;margin:2em 0}',
+    'code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}',
+    'code{padding:.15em .35em;border-radius:4px;background:#f3f4f6}pre{padding:1rem;overflow:auto;border-radius:6px;background:#f6f8fa}pre code{padding:0;background:none}',
+    'blockquote{margin:1em 0;padding:0 1em;color:#59636e;border-left:4px solid #d0d7de}',
+    'table{border-collapse:collapse;margin:1em 0}th,td{padding:.4em .8em;border:1px solid #d0d7de}th{background:#f6f8fa}',
+    '@media (prefers-color-scheme:dark){body{color:#e6edf3;background:#0d1117}a{color:#4493f8}code{background:#262c36}pre,th{background:#161b22}hr,th,td{border-color:#3d444d}blockquote{color:#9198a1;border-color:#3d444d}}'
+  ].join('');
+
+  function htmlDocument() {
+    const body = parseMarkdown(editor.value);
+    const heading = preview.querySelector('h1, h2, h3, h4, h5, h6');
+    const title = (heading ? heading.textContent.trim() : '') || 'Document';
+    return `<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1" />\n`
+      + `<title>${escapeHTML(title)}</title>\n<style>${PAGE_STYLE}</style>\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
+  }
+
+  function fileName() {
+    const heading = preview.querySelector('h1, h2, h3, h4, h5, h6');
+    const slug = (heading ? heading.textContent : '').replace(/ı/g, 'i').normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+    return `${slug || 'document'}.html`;
+  }
+
+  htmlBtn.addEventListener('click', () => {
+    if (!editor.value.trim()) { showToast(window.ToolkitI18n ? window.ToolkitI18n.t('Nothing to download yet.') : 'Nothing to download yet.', 'error'); return; }
+    const url = URL.createObjectURL(new Blob([htmlDocument()], { type: 'text/html;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName();
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
 })();

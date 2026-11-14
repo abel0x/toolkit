@@ -7,6 +7,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Unit": "Birim",
     "Width": "Genişlik",
     "Height": "Yükseklik",
-    "Converter": "Dönüştürücü"
+    "Converter": "Dönüştürücü",
+    "Tab": "Sekme"
   }))
 });

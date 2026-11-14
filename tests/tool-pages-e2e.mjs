@@ -380,6 +380,15 @@ async function inspectPageLayout(bidi, context, page, layout) {
     const rows = document.querySelectorAll('.related-tools');
     if (rows.length !== 1) return ['has ' + rows.length + ' related-tools rows'];
     const row = rows[0];
+    // tool-io adds a button row above a field; inside a side-by-side layout
+    // it would take a column of its own and push the fields out of place.
+    document.querySelectorAll('.field-head').forEach((head) => {
+      const parent = getComputedStyle(head.parentElement);
+      const columns = parent.gridTemplateColumns.split(' ').filter(Boolean).length;
+      if ((parent.display.includes('grid') && columns > 1) || (parent.display.includes('flex') && parent.flexDirection.startsWith('row'))) {
+        problems.push('a file/copy button row sits inside the side-by-side .' + head.parentElement.className.split(' ')[0] + ' and pushes its columns');
+      }
+    });
     const edge = box(header);
     const area = box(row);
     if (!near(area.left, edge.left) || !near(area.right, edge.right)) {

@@ -155,7 +155,28 @@ await withFirefox(async (page) => {
     set('#jsonInput', '{"b":[1,2],"a":"ç"}'); click('#jsonBeautifyBtn');
     const pretty = value('#jsonOutput');
     click('#jsonMinifyBtn');
-    return [['beautify', pretty, '{\\n  "b": [\\n    1,\\n    2\\n  ],\\n  "a": "ç"\\n}'], ['minify', value('#jsonOutput'), '{"b":[1,2],"a":"ç"}']];`);
+    const minified = value('#jsonOutput');
+    const falsy = [];
+    for (const raw of ['0', 'false', 'null', '""']) { set('#jsonInput', raw); click('#jsonBeautifyBtn'); falsy.push(value('#jsonOutput')); }
+    set('#jsonInput', '{"a":[1,{"b":null}],"e":{},"s":"x"}');
+    set('#jsonIndent', '4', 'change'); click('#jsonBeautifyBtn');
+    const four = value('#jsonOutput').split('\\n')[1];
+    set('#jsonIndent', 'tab', 'change');
+    const tab = value('#jsonOutput').split('\\n')[1];
+    set('input[name="jsonView"][value="tree"]', true, 'change'); await wait(20);
+    const tree = { textHidden: $('#jsonOutput').hidden, open: document.querySelectorAll('#jsonTree details[open]').length, text: $('#jsonTree').innerText.replace(/\\s+/g, ' ').trim() };
+    click('#jsonExpandBtn');
+    const expanded = document.querySelectorAll('#jsonTree details[open]').length + '/' + document.querySelectorAll('#jsonTree details').length;
+    set('#jsonInput', JSON.stringify(Array.from({ length: 450 }, (_, index) => index))); click('#jsonBeautifyBtn');
+    const firstBatch = document.querySelectorAll('#jsonTree .json-children > .json-row').length;
+    click('.json-more'); click('.json-more');
+    const allRows = document.querySelectorAll('#jsonTree .json-children > .json-row').length;
+    return [['beautify', pretty, '{\\n  "b": [\\n    1,\\n    2\\n  ],\\n  "a": "ç"\\n}'], ['minify', minified, '{"b":[1,2],"a":"ç"}'],
+      ['0, false, null and "" are valid JSON', falsy, ['0', 'false', 'null', '""']],
+      ['4-space indent', four, '    "a": ['], ['tab indent re-formats at once', tab, '\\t"a": ['],
+      ['tree view', tree, { textHidden: true, open: 2, text: '{3 keys "a": [2 items 0: 1, 1: {…}1 key ], "e": {}, "s": "x" }' }],
+      ['expand all', expanded, '3/3'],
+      ['450 items drawn 200 at a time', [firstBatch, allRows, $('.json-more')], [200, 450, null]]];`);
 
   await check('json-minifier', `
     set('#jmin-input', '{ "a" : [ 1 , 2 ] ,\\n "s": " x  y " }'); click('#jmin-btn');
@@ -170,6 +191,79 @@ await withFirefox(async (page) => {
     const good = text('#jval-badge');
     set('#jval-input', '{"a":1,}'); click('#jval-btn'); await wait(50);
     return [['valid badge', good.toLowerCase(), { includes: 'valid' }], ['invalid badge', text('#jval-badge').toLowerCase(), { includes: 'invalid' }]];`);
+
+  await check('text-diff', `
+    const line = (node) => node.className.replace(/^diff-line diff-line--/, '') + ':' + [...node.children].map((part) => part.textContent).join(' ').replace(/\\s+/g, ' ').trim();
+    const rows = (selector) => [...document.querySelectorAll(selector)].map(line);
+    set('#diffA', 'Pack the map\\nBring tea\\nMeet at nine\\nsame end');
+    set('#diffB', 'Pack the map\\nBring warm tea\\nMeet at ten\\nextra\\nsame end');
+    click('#diffCompareBtn'); await wait(30);
+    const summary = text('#diffSummary');
+    const unified = rows('#diffOutput > .diff-line');
+    const marks = [...document.querySelectorAll('.diff-word')].map((node) => node.textContent);
+    set('input[name="diffView"][value="split"]', true, 'change'); await wait(30);
+    const split = [...document.querySelectorAll('.diff-row')].map((row) => [...row.children].map(line).join(' | '));
+    set('input[name="diffView"][value="unified"]', true, 'change');
+    set('#diffA', 'Hello   World\\nkeep'); set('#diffB', 'hello world\\nkeep'); click('#diffCompareBtn'); await wait(30);
+    const strict = text('#diffSummary');
+    set('#diffIgnoreSpace', true, 'change'); await wait(30);
+    const spaceOnly = text('#diffSummary');
+    set('#diffIgnoreCase', true, 'change'); await wait(30);
+    const both = text('#diffSummary');
+    // 3000 lines with a change in the middle: the common start and end are set aside.
+    const long = Array.from({ length: 3000 }, (_, index) => 'line ' + index);
+    const edited = long.slice(); edited[1500] = 'changed';
+    set('#diffIgnoreSpace', false, 'change'); set('#diffIgnoreCase', false, 'change');
+    set('#diffA', long.join('\\n')); set('#diffB', edited.join('\\n')); click('#diffCompareBtn'); await wait(30);
+    return [
+      ['summary', summary, '+ 3 additions − 2 deletions ≡ 2 unchanged'],
+      ['unified rows with old and new line numbers', unified, ['same:1 1 Pack the map', 'del:2 − Bring tea', 'del:3 − Meet at nine', 'add:2 + Bring warm tea', 'add:3 + Meet at ten', 'add:4 + extra', 'same:4 5 same end']],
+      ['changed words marked', marks, ['nine', 'warm', 'ten']],
+      ['side by side pairs', split, ['same:1 Pack the map | same:1 Pack the map', 'del:2 − Bring tea | add:2 + Bring warm tea', 'del:3 − Meet at nine | add:3 + Meet at ten', 'empty: | add:4 + extra', 'same:4 same end | same:5 same end']],
+      ['case and spaces differ', strict, '+ 1 addition − 1 deletion ≡ 1 unchanged'],
+      ['ignoring whitespace only', spaceOnly, '+ 1 addition − 1 deletion ≡ 1 unchanged'],
+      ['ignoring whitespace and case', both, '✓ No differences with the chosen options.'],
+      ['3000-line file', text('#diffSummary'), '+ 1 addition − 1 deletion ≡ 2999 unchanged']
+    ];`);
+
+  await check('regex-tester', `
+    set('#regexTest', 'Date: 2024-01-05, 2025-12-31');
+    set('#regexPattern', '(?<y>\\\\d{4})-(\\\\d{2})-(\\\\d{2})'); set('#regexFlags', 'g'); set('#regexReplace', '$3/$2/$<y> [$&]');
+    const all = [value('#regexResult'), text('#regexReplaceCount'), text('#regexStats')];
+    set('#regexFlags', '');
+    const first = [value('#regexResult'), text('#regexReplaceCount')];
+    set('#regexFlags', 'gi'); set('#regexReplace', '');
+    const removed = value('#regexResult');
+    set('#regexPattern', '(');
+    const invalid = [$('#regexError').hidden, value('#regexResult')];
+    return [
+      ['replace every match with groups', all, ['Date: 05/01/2024 [2024-01-05], 31/12/2025 [2025-12-31]', '2 replacement(s) made', '2 matches']],
+      ['without g only the first', first, ['Date: 05/01/2024 [2024-01-05], 2025-12-31', '1 replacement(s) made']],
+      ['empty replacement removes', removed, 'Date: , '],
+      ['invalid pattern clears the result', invalid, [false, '']]
+    ];`);
+
+  await check('markdown', `
+    const files = [];
+    const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { files.push(blob); return 'blob:test'; };
+    const anchorClick = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function () { files.push(this.download); };
+    set('#mdInput', '# Işık & Çay <b>x</b>\\n\\nSome **bold** [site](https://example.com).');
+    click('#mdHtmlBtn');
+    const page = await files[0].text();
+    set('#mdInput', '');
+    click('#mdHtmlBtn');
+    URL.createObjectURL = createObjectURL;
+    HTMLAnchorElement.prototype.click = anchorClick;
+    return [
+      ['file name from the first heading', files[1], 'isik-cay-b-x-b.html'],
+      ['HTML type', files[0].type, 'text/html;charset=utf-8'],
+      ['standalone page', page.startsWith('<!DOCTYPE html>') && page.includes('<meta charset="utf-8" />') && !page.includes('<script'), true],
+      ['escaped title', page.match(/<title>(.*)<\\/title>/)[1], 'Işık &amp; Çay &lt;b&gt;x&lt;/b&gt;'],
+      ['body is the preview', page.includes('<p>Some <strong>bold</strong> <a href="https://example.com"'), true],
+      ['nothing to download when empty', files.length, 2]
+    ];`);
 
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
@@ -412,4 +506,4 @@ await withFirefox(async (page) => {
 
 if (failures.length) console.log(`\n${failures.length} known-answer failure(s):\n  ${failures.join('\n  ')}`);
 assert.equal(failures.length, 0, 'Tool output did not match the known answers above.');
-console.log(`Tool vectors passed: ${checked} known-answer checks across 41 tools.`);
+console.log(`Tool vectors passed: ${checked} known-answer checks across 44 tools.`);

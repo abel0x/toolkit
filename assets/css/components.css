@@ -1143,6 +1143,15 @@ input[type="range"]:focus { outline: none; }
 
 .toast--error .toast-icon { color: var(--red); }
 
+/* View switch: radio buttons shown as a segmented control
+   (Text Diff, JSON Formatter). */
+.view-switch { display: inline-flex; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-surface); }
+.view-switch .view-switch__option input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.view-switch__option { position: relative; }
+.view-switch__option span { display: block; padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; transition: background var(--transition), color var(--transition); }
+.view-switch__option input:checked + span { background: var(--accent); color: var(--accent-text); font-weight: 600; }
+.view-switch__option input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 /* Added by nav.js when a newer release takes over an open page. */
 .toast--update {
   max-width: 400px;

@@ -497,6 +497,14 @@
     if (match) return `− ${match[1]} silme`;
     match = key.match(/^≡ (\d+) unchanged$/);
     if (match) return `≡ ${match[1]} değişmeyen`;
+    match = key.match(/^(\d+) items?$/);
+    if (match) return `${match[1]} öğe`;
+    match = key.match(/^(\d+) keys?$/);
+    if (match) return `${match[1]} anahtar`;
+    match = key.match(/^Show (\d+) more of (\d+)$/);
+    if (match) return `${match[2]} öğeden ${match[1]} tanesini daha göster`;
+    match = key.match(/^Opened the first (\d+) levels\.$/);
+    if (match) return `İlk ${match[1]} düzey açıldı.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

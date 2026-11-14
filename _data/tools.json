@@ -271,6 +271,7 @@
       "desc": "Test regular expressions with live match highlighting and capture group display.",
       "tags": ["regex", "regexp", "pattern", "match", "test"],
       "related": ["find-replace", "text-cleaner", "unicode-inspector", "word-counter"],
+      "io": {"outputs": {"#regexResult": {"save": "replaced.txt", "beside": "#regexResultCopyBtn"}}},
       "share": {"fields": ["#regexPattern", "#regexFlags", "#regexTest"]},
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M15 3v9M11.1 5.25l7.8 4.5M11.1 9.75l7.8-4.5\"/><circle cx=\"6\" cy=\"18\" r=\"2\"/></svg>"
     },

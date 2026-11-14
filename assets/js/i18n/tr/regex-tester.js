@@ -4,6 +4,7 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Replace": "Değiştir",
     "Invalid": "Geçersiz",
     "— no matches found": "— eşleşme bulunamadı",
     "no matches found": "eşleşme bulunamadı",

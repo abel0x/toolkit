@@ -181,7 +181,7 @@
   },
   "tools/json-formatter.html": {
     "date": "2026-11-14",
-    "sha256": "fd21a1e4903957e46246df072fc431321426e1cd1979f3dec396621abc4c9d44"
+    "sha256": "23f606aafb051acc0786226f9c9febfcf37e6e342c527163590067afe75afaea"
   },
   "tools/json-minifier.html": {
     "date": "2026-11-14",
@@ -225,7 +225,7 @@
   },
   "tools/markdown.html": {
     "date": "2026-11-14",
-    "sha256": "0441888acf836c64f680af601e285ef59352082643334eb0e416dbfa97292605"
+    "sha256": "c8cf6bfe8c69b7229b69268f38ec7f361da667efed806b87de793ba1f6be25e1"
   },
   "tools/meta-tags.html": {
     "date": "2026-11-14",
@@ -297,7 +297,7 @@
   },
   "tools/regex-tester.html": {
     "date": "2026-11-14",
-    "sha256": "41f2f75cef9f58825b8cf16a07cc4d0e547eca196a1845708b86db8b6a2d14b8"
+    "sha256": "ad9d74f4b256d208251bc5bdc9512397ba2f16de8a2d44a2e9be4b5bdbc4fa8d"
   },
   "tools/robots-generator.html": {
     "date": "2026-11-14",
@@ -337,7 +337,7 @@
   },
   "tools/text-diff.html": {
     "date": "2026-11-14",
-    "sha256": "7b9a9154ca7f32202597fac02f0bead3a20a0e7cbf7b375e5487968fc190790d"
+    "sha256": "39674645cc76f2b6b76366172d4dd59faab9f5b6916dc23ae040ac0c93418e74"
   },
   "tools/text-reverser.html": {
     "date": "2026-11-14",
@@ -597,7 +597,7 @@
   },
   "tr/tools/json-formatter.html": {
     "date": "2026-11-14",
-    "sha256": "afca44136507aef3f9f4665422fe18d7ce7a2ff3cd7d58f932625d94a4412503"
+    "sha256": "ab5bbbf0c032d11f25d41ae51ab21025336725a35965c83edc95302387a05481"
   },
   "tr/tools/json-minifier.html": {
     "date": "2026-11-14",
@@ -641,7 +641,7 @@
   },
   "tr/tools/markdown.html": {
     "date": "2026-11-14",
-    "sha256": "83a002d6e4e7f81dc7b068f5fb8d8b0f2421edd282ef038d8fc25fc88cb85dba"
+    "sha256": "eb244b110f896b16152abb10055f3a63be0a6c511419d03b5bbc67591de2eef5"
   },
   "tr/tools/meta-tags.html": {
     "date": "2026-11-14",
@@ -713,7 +713,7 @@
   },
   "tr/tools/regex-tester.html": {
     "date": "2026-11-14",
-    "sha256": "e8934aebdce7435319d18ea520e53eaa3bf3ce094c4d4d2fa00651725c6194de"
+    "sha256": "1010d101a35fb4f224cfa125c85912a4cf8c8071a13069a1e63dc12e4e4f6b3b"
   },
   "tr/tools/robots-generator.html": {
     "date": "2026-11-14",
@@ -753,7 +753,7 @@
   },
   "tr/tools/text-diff.html": {
     "date": "2026-11-14",
-    "sha256": "012274c30f820dab2bf4139e12df16fe195408234d69491dbc97d6fef48cfe62"
+    "sha256": "3bb99f11d0799a74cbb38d2b8168346eb98fc3b2199f852f87c35dbdc905ad62"
   },
   "tr/tools/text-reverser.html": {
     "date": "2026-11-14",

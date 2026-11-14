@@ -218,6 +218,35 @@
   .related-tools__more { text-align: left; }
 }
 
+/* ── JSON Formatter ──────────────────────────────────────── */
+.json-options { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; margin-bottom: 1.1rem; }
+.json-option { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary); }
+.json-option .form-select { width: auto; }
+.json-tree-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+.json-tree-wrap[hidden] { display: none; }
+.json-tree-actions { display: flex; gap: 0.5rem; }
+.json-tree { min-height: 14rem; max-height: 32rem; overflow: auto; padding: 0.75rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); font: 0.82rem/1.7 var(--font-mono); color: var(--text-secondary); }
+.json-tree:empty { display: none; }
+.json-children { padding-left: 1.4rem; border-left: 1px solid var(--border); margin-left: 0.3rem; }
+.json-row { overflow-wrap: anywhere; }
+.json-node > summary { min-height: 1.6rem; padding: 0.1rem 0; cursor: pointer; list-style: none; overflow-wrap: anywhere; border-radius: var(--radius-sm); }
+.json-node > summary::-webkit-details-marker { display: none; }
+.json-node > summary::before { content: '▸'; display: inline-block; width: 1rem; margin-left: -1rem; color: var(--text-muted); transition: transform var(--transition); }
+.json-node[open] > summary::before { transform: rotate(90deg); }
+.json-node > summary:hover { background: rgba(255, 255, 255, 0.04); }
+.json-node > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.json-tree > .json-node { margin-left: 1rem; }
+.json-node[open] > summary .json-collapsed { display: none; }
+.json-node:not([open]) > .json-close { display: none; }
+.json-count { margin-left: 0.6rem; font-size: 0.75rem; color: var(--text-muted); }
+.json-key { color: var(--text-primary); }
+.json-index { color: var(--text-muted); }
+.json-punct { color: var(--text-muted); }
+.json-string { color: var(--green); }
+.json-number { color: var(--yellow); }
+.json-literal { color: var(--yellow); font-style: italic; }
+.json-more { margin: 0.35rem 0; }
+
 /* ── License Page ────────────────────────────────────────── */
 .license-card { max-width: 880px; margin: 0 auto; }
 
@@ -813,6 +842,12 @@
   color: transparent;
 }
 
+.regex-replace { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.regex-replace .input-field { width: 100%; font-family: var(--font-mono); }
+.regex-replace-hint { margin: 0.45rem 0 1rem; font-size: 0.8rem; color: var(--text-muted); }
+.regex-replace-count { margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-muted); }
+.regex-replace-count:empty { display: none; }
+
 .regex-stats {
   margin-top: 0.85rem;
   font-size: 0.82rem;
@@ -998,8 +1033,10 @@
 /* ── Markdown Previewer ───────────────────────────────────── */
 .md-toolbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 0.6rem 1rem;
   margin-bottom: 0.75rem;
 }
 
@@ -1011,7 +1048,8 @@
   color: var(--text-secondary);
 }
 
-.md-toolbar-actions { display: flex; align-items: center; gap: 0.5rem; }
+.md-toolbar-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.5rem; }
+.md-toolbar-actions .btn svg { flex-shrink: 0; }
 
 .md-split {
   display: grid;
@@ -1140,17 +1178,28 @@
 .diff-stat--add { color: var(--green); }
 .diff-stat--del { color: var(--red); }
 .diff-stat--same { color: var(--text-muted); }
+.diff-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1rem; }
+.diff-option { display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
+.diff-options .view-switch { margin-left: auto; }
 .diff-output { margin-top: 0.85rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.65; }
-.diff-line { display: flex; align-items: baseline; padding: 0.2rem 1rem; min-height: 26px; }
+.diff-output:empty { display: none; }
+.diff-line { display: flex; align-items: baseline; padding: 0.2rem 0.75rem 0.2rem 0; min-height: 26px; min-width: 0; }
 .diff-line--add { background: rgba(62, 207, 142,0.08); }
 .diff-line--del { background: rgba(248, 113, 113,0.08); }
+.diff-line--empty { background: rgba(255, 255, 255, 0.02); }
+.diff-num { flex: 0 0 3.2em; padding-right: 0.6em; text-align: right; color: var(--text-muted); font-size: 0.78rem; user-select: none; }
 .diff-sign { min-width: 18px; font-weight: 700; flex-shrink: 0; margin-right: 0.5rem; }
 .diff-line--add .diff-sign { color: var(--green); }
 .diff-line--del .diff-sign { color: var(--red); }
 .diff-line--same .diff-sign { color: var(--text-muted); }
-.diff-text { word-break: break-all; white-space: pre-wrap; color: var(--text-secondary); }
+.diff-text { min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; color: var(--text-secondary); }
 .diff-line--add .diff-text { color: #a7f3d0; }
 .diff-line--del .diff-text { color: #fca5a5; }
+.diff-word { border-radius: 3px; color: inherit; }
+.diff-line--add .diff-word { background: rgba(62, 207, 142, 0.28); }
+.diff-line--del .diff-word { background: rgba(248, 113, 113, 0.28); }
+.diff-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.diff-row > .diff-line + .diff-line { border-left: 1px solid var(--border); }
 
 /* ── Responsive Tool Overrides ────────────────────────────── */
 @media (max-width: 768px) {
@@ -1186,6 +1235,9 @@
   .color-layout { flex-direction: column; }
   .color-swatch { width: 80px; height: 80px; }
   .diff-input-grid { grid-template-columns: 1fr; }
+  .diff-options .view-switch { margin-left: 0; }
+  .diff-output--split { font-size: 0.76rem; }
+  .diff-output--split .diff-num { flex-basis: 2.4em; }
   .b64-grid { grid-template-columns: 1fr; }
   .qr-opt-row { grid-template-columns: 1fr; }
   .qr-form-grid { grid-template-columns: 1fr; }
