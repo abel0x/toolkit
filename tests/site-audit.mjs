@@ -169,6 +169,30 @@ for (const tool of catalogue) {
   assert(!html.includes('container--wide'), `tools/${tool.slug}.html uses the wide container; tool pages share one width.`);
 }
 
+// Every tool page ends with build.py --related: the four tools listed under
+// "related" in _data/tools.json, then a link to the tool's home page category,
+// in English and, translated, on the tr/ twin.
+const relatedSlugs = new Set(catalogue.map((tool) => tool.slug));
+for (const tool of catalogue) {
+  assert(Array.isArray(tool.related) && tool.related.length === 4,
+    `_data/tools.json gives ${tool.slug} no list of four related tools.`);
+  for (const [prefix, label, name] of [['', 'Related', 'Related tools'], ['tr/', 'İlgili', 'İlgili araçlar']]) {
+    const page = `${prefix}tools/${tool.slug}.html`;
+    const html = readFileSync(join(root, page), 'utf8');
+    const rows = html.match(/<!-- RELATED:START -->[\s\S]*?<!-- RELATED:END -->/g) || [];
+    assert.equal(rows.length, 1, `${page} needs exactly one related-tools row.`);
+    const row = rows[0];
+    assert(row.includes(`<nav class="related-tools" aria-label="${name}">`), `${page} has an unlabelled related-tools row.`);
+    assert(row.includes(`<span class="related-tools__label">${label}</span>`), `${page} has the wrong related-tools label.`);
+    const links = [...row.matchAll(/class="related-tools__link" href="([a-z0-9-]+)\.html"/g)].map((match) => match[1]);
+    assert.deepEqual(links, tool.related, `${page} does not link the related tools from _data/tools.json.`);
+    assert(links.every((slug) => relatedSlugs.has(slug) && slug !== tool.slug), `${page} links a missing tool or itself.`);
+    assert(row.includes(`class="related-tools__more" href="../index.html#category-${tool.cat}"`),
+      `${page} does not link its category after the related tools.`);
+    assert(html.indexOf('<!-- RELATED:END -->') < html.indexOf('</main>'), `${page} places its related tools outside <main>.`);
+  }
+}
+
 const registrySource = [
   readFileSync(join(root, 'assets/js/core/tools-data.js'), 'utf8'),
   readFileSync(join(root, 'assets/js/core/extra-tools-data.js'), 'utf8')

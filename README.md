@@ -108,6 +108,7 @@ A two-part maintenance pass. 1.2.1 made the release pipeline correct: returning 
 - **Reusable word data:** `words/` provides 20 categories and 9,246 local entries for typing practice and future tools, with structural audits and reproducible primary-source checks for medical descriptors and literary excerpts.
 - **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
 - **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
+- **Related tools:** every tool page ends with four related tools and a link to the rest of its category.
 - **Example starters:** 64 tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
 - **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
 

@@ -60,11 +60,13 @@ Every published page carries the same `Content-Security-Policy` meta tag directl
   "cat": "devtools",
   "desc": "A concise, browser-only description.",
   "tags": ["searchable", "keywords"],
+  "related": ["json-formatter", "json-validator", "json-diff", "json-sorter"],
   "icon": "<svg ...>...</svg>"
 }
 ```
 
 - `cat` must be a key of the `categories` table at the top of the file; its display label comes from there.
+- `related` names four other tools, by slug, that someone using this one is likely to want next. `build.py --related` shows them in a row at the end of the page, with a link to the tool's category; the `tr/` twin gets the same row in Turkish. Without the list the build picks the tools sharing the most tags, then the same category, so add it by hand once those picks look wrong.
 - For an expansion tool, replace `icon` with `"shell": "expansion"` (the shell uses the shared icon) and add `"exampleStarter": true` if it has a “Try a sample” button. `python3 build.py --all` then creates `tools/your-tool.html`.
 - The `slug` must be unique and lowercase-hyphenated, and match `tools/your-tool.html`. `build.py` rejects an invalid entry, and the site audit checks that pages, registries and the sitemap agree with the file.
 
@@ -199,6 +201,7 @@ Typing-test preferences may persist under one settings key because they are UI s
 | `--registry` | Generate `tools-data.js` and `extra-tools-data.js` from `_data/tools.json`. |
 | `--nav` | Inject `_includes/_nav.html` into the published pages. |
 | `--tool-headers` | Generate each tool page's breadcrumb (with its category) and header (catalogue icon, title, description, "Try a sample" button) from `_data/tools.json`. |
+| `--related` | End every tool page with its four related tools (from `related` in `_data/tools.json`) and a link to its home page category, between `<!-- RELATED:START -->` and `<!-- RELATED:END -->`. |
 | `--tool-count` | Synchronise published static tool-count copy. |
 | `--sync-expansion` | Create missing expansion-tool shells and refresh existing ones from the template. |
 | `--words` | Rebuild the service-worker precache entries for `words/*.json` and report the payload budget. |

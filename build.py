@@ -12,6 +12,7 @@ Usage:
   python3 build.py --sync-expansion  Create or refresh generated expansion-tool shells
   python3 build.py --nav             Inject nav HTML from _includes/_nav.html into published pages
   python3 build.py --tool-headers    Generate the tool page headers (breadcrumb, icon, sample button)
+  python3 build.py --related         End each tool page with its related tools
   python3 build.py --tool-count      Synchronize published static tool-count copy
   python3 build.py --metadata        Add social preview images and JSON-LD to the English pages
   python3 build.py --license         Publish LICENSE on the licence page, one line per span
@@ -82,7 +83,8 @@ UNPUBLISHED_SUFFIXES = ('.md',)
 # Tool registry — _data/tools.json is the single source of the tool list
 # ---------------------------------------------------------------------------
 
-_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'icon', 'shell', 'exampleStarter'}
+_RELATED_COUNT = 4
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'tags', 'related', 'icon', 'shell', 'exampleStarter'}
 _REGISTRY = None
 
 
@@ -125,6 +127,19 @@ def _registry():
         if entry.get('exampleStarter') and not expansion:
             errors.append(f'{label}: exampleStarter applies only to expansion tools')
         tools.append(dict(entry, catLabel=categories.get(entry.get('cat'), '')))
+    known = {tool.get('slug') for tool in tools}
+    for tool in tools:
+        related = tool.get('related')
+        if related is None:
+            continue
+        label = tool.get('slug')
+        if (not isinstance(related, list) or len(related) != _RELATED_COUNT
+                or len(set(related)) != len(related)):
+            errors.append(f'{label}: related must list {_RELATED_COUNT} different tools')
+        elif label in related:
+            errors.append(f'{label}: related must not list the tool itself')
+        elif not set(related) <= known:
+            errors.append(f'{label}: related lists unknown tools {sorted(set(related) - known)}')
     if errors:
         raise SystemExit('_data/tools.json is invalid:\n  ' + '\n  '.join(errors))
     _REGISTRY = tools
@@ -1178,6 +1193,87 @@ def run_turkish_pages():
                 removed += 1
     print(f'  OK    {len(localized)} Turkish pages, {removed} stale removed.')
 
+# ---------------------------------------------------------------------------
+# Related tools — a row of links under every tool
+# ---------------------------------------------------------------------------
+#
+# Each tool page ends with a row of four related tools and a link to its
+# category on the home page. The four come from "related" in
+# _data/tools.json; a tool without that list gets the tools sharing most of
+# its tags (then its category), in catalogue order. The tr/ twins copy the
+# row and translate its text.
+
+_RELATED_START = '<!-- RELATED:START -->'
+_RELATED_END = '<!-- RELATED:END -->'
+_RELATED_BLOCK = re.compile(r'[ \t]*<!-- RELATED:START -->.*?<!-- RELATED:END -->\n', re.DOTALL)
+# The related row goes inside the page's last container, just before it closes.
+_RELATED_SLOT = re.compile(r'\n([ \t]*)</div>(\s*)</section>(\s*)</main>')
+_RELATED_ICON = re.compile(r'width="20" height="20"')
+# "All … →" names each home-page category the way a sentence would.
+_CATEGORY_LINK_TEXT = {
+    'security': 'All security tools', 'encoding': 'All encoding tools', 'devtools': 'All dev tools',
+    'text': 'All text tools', 'generators': 'All generators', 'converters': 'All converters',
+    'web': 'All web utilities', 'media': 'All media tools',
+}
+
+
+def _related_slugs(tool, tools):
+    """Return the four related tools: the curated list, or the closest by tags."""
+    if tool.get('related'):
+        return tool['related']
+    tags = set(tool['tags'])
+    ranked = sorted((index for index, other in enumerate(tools) if other['slug'] != tool['slug']),
+                    key=lambda index: (-(3 * len(tags & set(tools[index]['tags']))
+                                         + 2 * (tools[index]['cat'] == tool['cat'])), index))
+    return [tools[index]['slug'] for index in ranked[:_RELATED_COUNT]]
+
+
+def _related_row(tool, tools, indent):
+    """Return the marked related-tools row of one tool page."""
+    by_slug = {other['slug']: other for other in tools}
+    links = []
+    for slug in _related_slugs(tool, tools):
+        other = by_slug[slug]
+        icon = _RELATED_ICON.sub('width="16" height="16"', other.get('icon') or _FALLBACK_ICON)
+        links.append(f'{indent}  <a class="related-tools__link" href="{slug}.html">'
+                     f'<span class="related-tools__icon" aria-hidden="true">{icon}</span>'
+                     f'{html_lib.escape(other["name"])}</a>\n')
+    if tool['cat'] not in _CATEGORY_LINK_TEXT:
+        raise SystemExit(f'{tool["slug"]}: add category {tool["cat"]!r} to _CATEGORY_LINK_TEXT in build.py.')
+    return (f'{indent}{_RELATED_START}\n'
+            f'{indent}<nav class="related-tools" aria-label="Related tools">\n'
+            f'{indent}  <span class="related-tools__label">Related</span>\n'
+            + ''.join(links) +
+            f'{indent}  <a class="related-tools__more" href="../index.html#category-{tool["cat"]}">'
+            f'{_CATEGORY_LINK_TEXT[tool["cat"]]}<span aria-hidden="true"> →</span></a>\n'
+            f'{indent}</nav>\n'
+            f'{indent}{_RELATED_END}\n')
+
+
+def run_related_tools():
+    """End every tool page with its related tools and a link to its category."""
+    print('\n[--related] Generating related-tool rows...')
+    tools = _registry()
+    by_slug = {tool['slug']: tool for tool in tools}
+    updated = 0
+    for path in _tool_files():
+        slug = os.path.splitext(os.path.basename(path))[0]
+        if slug not in by_slug:
+            raise SystemExit(f'tools/{slug}.html is not in _data/tools.json.')
+        html = _read(path)
+        bare = _RELATED_BLOCK.sub('', html)
+        slots = list(_RELATED_SLOT.finditer(bare))
+        if not slots:
+            raise SystemExit(f'tools/{slug}.html: no container closing before </section></main> for the related row.')
+        slot = slots[-1]
+        indent = slot.group(1) + '  '
+        position = slot.start() + 1
+        revised = bare[:position] + _related_row(by_slug[slug], tools, indent) + bare[position:]
+        if revised != html:
+            _write(path, revised)
+            updated += 1
+    print(f'  OK    {updated} tool pages updated.')
+
 
 # ---------------------------------------------------------------------------
 # Licence page — LICENSE, one line per block
@@ -1392,6 +1488,7 @@ def run_all():
     run_sync_expansion()
     run_nav()
     run_tool_headers()
+    run_related_tools()
     run_tool_count()
     run_page_metadata()
     run_license_text()
@@ -1420,6 +1517,8 @@ def main():
                         help='Inject nav HTML from _includes/_nav.html into published pages')
     parser.add_argument('--tool-headers', action='store_true',
                         help='Generate the tool page headers from _data/tools.json')
+    parser.add_argument('--related', action='store_true',
+                        help='End each tool page with its related tools')
     parser.add_argument('--tool-count', action='store_true',
                         help='Synchronize published static tool-count copy')
     parser.add_argument('--sync-expansion', action='store_true',
@@ -1455,6 +1554,7 @@ def main():
             (args.sync_expansion, run_sync_expansion),
             (args.nav, run_nav),
             (args.tool_headers, run_tool_headers),
+            (args.related, run_related_tools),
             (args.tool_count, run_tool_count),
             (args.metadata, run_page_metadata),
             (args.license, run_license_text),
