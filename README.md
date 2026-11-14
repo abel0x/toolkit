@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.5
+### Latest release — 1.7.6
+
+A [privacy page](https://abel0x.github.io/toolkit/privacy/) in English and Turkish lists everything Toolkit keeps in your browser and what the host can see, and an open page now tells you when a new version is ready, with a Reload button instead of reloading on its own.
+
+### 1.7.5
 
 The JWT Decoder can check a token's signature with a secret or public key, the QR Code Reader scans with your camera, the Hash Generator and File Checksum add MD5, the UUID Generator makes time-ordered v7 UUIDs, the Password Generator makes passphrases in English or Turkish, and the Color Converter shows OKLCH and HWB. All of it runs in your browser.
 
@@ -197,6 +201,8 @@ Toolkit is hosted as static files on GitHub Pages. It has no application server,
 | Image resize/compression | Canvas API |
 | Time-zone rendering | `Intl` and browser locale data |
 | Offline availability | Service Worker and Cache Storage |
+
+The site's [privacy page](https://abel0x.github.io/toolkit/privacy/) lists each item kept in the browser's storage; `tests/site-audit.mjs` fails if a script uses a storage key the page does not name. After a release, the service worker takes over open pages and they offer a Reload instead of reloading on their own.
 
 Some tools use pinned, self-hosted vendor scripts for QR-code and bcrypt support; they are part of the published offline cache and do not call a third-party service. Their upstream licence texts are retained beside the distributions in `assets/js/vendor/`. QR generation uses the MIT-licensed QR Code Generator with its UTF-8 adapter, QR reading uses Apache-2.0-licensed jsQR, and bcrypt support retains its bundled upstream notices.
 

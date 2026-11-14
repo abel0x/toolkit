@@ -2,6 +2,21 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.6] — 2026-11-14
+
+A privacy page that says exactly what stays in your browser, and a notice when a new version is ready.
+
+### Added
+
+- **Privacy page** (English and Turkish), linked from every footer next to "No data leaves your device.": no accounts, cookies, analytics, ads or tracking; each item Toolkit keeps in your browser by name (language, recent tools, the Typing Speed Test's options and opt-in records, the redirect note) and the offline copy; what happens to text, files, the camera, the clipboard and share links; and what the website host, GitHub Pages, can see.
+- **"A new version of Toolkit is ready."** When a newer release takes over a page you have open, a notice offers Reload. It never reloads by itself, so nothing you typed is lost, and it stays quiet on your first visit or when the page is already up to date. A tab left open looks for a new release when you come back to it, at most once an hour.
+
+### Tests
+
+- `tests/site-audit.mjs` checks that the privacy page lists exactly the storage keys the scripts use and that every footer links it.
+- `tests/offline-e2e.mjs` publishes a pretend next release to the installed site: the notice appears, Reload reloads, and neither the first install nor a worker of the page's own release shows it.
+- The privacy pages join the layout, accessibility, Turkish and offline checks.
+
 ## [1.7.5] — 2026-11-14
 
 Six tools learn something new: check a JWT's signature, scan a QR code with the camera, MD5, UUID v7, passphrases and OKLCH.
@@ -449,6 +464,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.6]: https://github.com/abel0x/toolkit/compare/v1.7.5...v1.7.6
 [1.7.5]: https://github.com/abel0x/toolkit/compare/v1.7.4...v1.7.5
 [1.7.4]: https://github.com/abel0x/toolkit/compare/v1.7.3...v1.7.4
 [1.7.3]: https://github.com/abel0x/toolkit/compare/v1.7.2...v1.7.3
