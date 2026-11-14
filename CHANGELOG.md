@@ -2,6 +2,34 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.1] — 2026-11-14
+
+Bug fixes from a review of all 101 tools, each tried with real-world and edge-case input.
+
+### Fixed
+
+- **SQL Formatter** split `'it''s'` into `'it' 's'` and squeezed the spaces inside strings, which changed the query. It now reads strings, quoted names and `--` / `/* */` comments exactly, upper-cases every keyword, indents subqueries and `AND`/`OR`, and keeps `BETWEEN … AND` on one line.
+- **YAML to JSON** refused most real files. It now reads `[a, b]` and `{k: v}` with plain values, `|` and `>` multi-line text, anchors, aliases and `<<` merges, `0o`/`0x` numbers, comments, several documents, and errors name the line.
+- **CSS Minifier** stopped at the first custom property or `url(...)` and never removed the spaces around `{ } : ; , >`. It now minifies the whole file, keeping strings, `calc()`, `url()` and `a :hover` intact.
+- **JavaScript Minifier** stopped at the first regular expression, division or template literal. It now handles all three and removes the whitespace a statement does not need; every script in this project still parses after minifying (about 20% smaller).
+- **HTML Minifier** stopped at `<!DOCTYPE>`. It now minifies whole documents, compacts `attr = "x"`, and a new option collapses whitespace in text (`<pre>`, `<textarea>`, scripts and styles are kept).
+- **Number Base** left the previous number's conversions on screen when the input was invalid (such as `12.5`). It clears them and says which digits the base takes; `0x`/`0b`/`0o` prefixes and grouped digits (`1111 0000`) are accepted.
+- **Color Converter** accepted only `#rrggbb`. It now reads `#rgb`, `#rgba`, `#rrggbbaa`, colours without `#`, `rgb()`/`rgba()`, `hsl()`/`hsla()` and CSS colour names, carries the alpha into every format and says when it cannot read a colour.
+- **Base64** decodes the URL-safe alphabet (`-`, `_`), missing `=` padding and line breaks, and can encode URL-safe output.
+- **Hex Codec** kept the old result after an error; it also reads `0x48, 0x65`, `\x48` and `48:65`.
+- **Timestamp** showed the year 55840 for a millisecond value in seconds mode. 13, 16 and 19 digits are read as milliseconds, microseconds and nanoseconds, and the result says so.
+- **Case Converter** lowered `İ` and `I` by the interface language instead of the text's: `İSTANBUL` became `i̇stanbul` on English pages. A Text language choice (automatic by default) fixes it. `XMLHttpRequest` and `userID` are split into words, and CONSTANT_CASE is added.
+- **Remove Duplicate Lines** did not treat `IŞIK` and `ışık` as the same line.
+- **Text Sorter** sorted Turkish words in English order (`şeker` before `su`) and put `file10` before `file2`. It now uses the Turkish alphabet when the text is Turkish (or when chosen) and natural number order; numerical sort puts lines without a number last.
+- **CSV to JSON** read semicolon CSV (what Excel saves in Turkish) as one column. The delimiter is detected, or can be chosen.
+- **Password Strength** only knew ten common passwords. It now spots a common English or Turkish word or name with characters added (`Galatasaray1905`, `P@ssw0rd!`), keyboard and number runs (`qwerty`, `1qaz2wsx`, `fgğıod`), repeats and a year at the end, and says which.
+- **Favicon Generator**'s HTML snippet held a cut-off data URL and a `favicon-192.png` it never made; it now links the three files it downloads. Emoji such as 🇹🇷 are no longer cut in half.
+- **URL Parser** shows the username and password, the host in Unicode for `xn--` names and the decoded path.
+
+### Tests
+
+- `tests/tool-vectors.mjs` checks 50 tools with 213 known answers, including every fix above; the tool count is now counted, not written by hand. `tests/conversion-regressions.mjs` covers the new YAML, CSS and HTML behaviour.
+
 ## [1.8.0] — 2026-11-14
 
 Four tools grow up (Text Diff, JSON Formatter, Regex Tester, Markdown Previewer), and every page now passes an automated accessibility audit.
@@ -495,6 +523,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.1]: https://github.com/abel0x/toolkit/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/abel0x/toolkit/compare/v1.7.6...v1.8.0
 [1.7.6]: https://github.com/abel0x/toolkit/compare/v1.7.5...v1.7.6
 [1.7.5]: https://github.com/abel0x/toolkit/compare/v1.7.4...v1.7.5
