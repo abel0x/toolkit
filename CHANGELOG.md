@@ -2,6 +2,22 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.6] — 2026-11-15
+
+The Favicon Generator makes a complete favicon set.
+
+### Added
+
+- **Favicon Generator** works from a letter or emoji, or from your own image (fit inside or fill), with a square, rounded or circle shape and an optional transparent background. It draws 16, 32 and 48 px icons, the 180 px Apple touch icon (always opaque, as iOS needs), and the 192 and 512 px Android and PWA icons; saves a multi-size `favicon.ico`, a `site.webmanifest` with your app name and theme colour, and the HTML that links them; and downloads everything as one ZIP. The image is read on the device and never uploaded.
+
+### Changed
+
+- The ZIP writer the QR Batch Generator introduced is now a shared module, `assets/js/core/zip.js`, precached for offline use.
+
+### Tests
+
+- Known answers for the ICO directory (16, 32 and 48 px PNG images), the manifest, the ZIP's nine files, the HTML snippet, an image filling the icon, a transparent circle's empty corner and the always-opaque Apple icon.
+
 ## [1.8.5] — 2026-11-15
 
 A new Country Time Zones tool.
@@ -595,6 +611,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.6]: https://github.com/abel0x/toolkit/compare/v1.8.5...v1.8.6
 [1.8.5]: https://github.com/abel0x/toolkit/compare/v1.8.4...v1.8.5
 [1.8.4]: https://github.com/abel0x/toolkit/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/abel0x/toolkit/compare/v1.8.2...v1.8.3
