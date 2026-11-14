@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.8.4] — 2026-11-15
+
+A new Credit Card Validator.
+
+### Added
+
+- **Credit Card Validator** (tool 102): type or paste a card number and see its network (Visa, Mastercard, American Express, Troy, and Discover, JCB, Diners Club, UnionPay, Maestro and Mir), whether the length suits that network, whether the Luhn check digit is right (and which digit would be), the industry digit, the issuer number (BIN) and the account part, the expiry date and the security code length (four digits on the front for American Express). The number is checked on the device only: it is never sent, saved or put in a share link.
+- The page says plainly what a number cannot tell: whether the card exists, works or has funds, which bank issued it (that needs a BIN database), or an American Express "Member since" year, which is printed on the card and is not part of the number.
+
+### Tests
+
+- Known answers for every network's prefixes, the Luhn check, a mistyped digit, American Express grouping and security code, an expired date and Troy's national industry digit. The browser smoke suite now takes the tool count from the catalogue.
+
 ## [1.8.3] — 2026-11-14
 
 Six tools that overlapped with another one now do something of their own.
@@ -566,6 +579,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.8.4]: https://github.com/abel0x/toolkit/compare/v1.8.3...v1.8.4
 [1.8.3]: https://github.com/abel0x/toolkit/compare/v1.8.2...v1.8.3
 [1.8.2]: https://github.com/abel0x/toolkit/compare/v1.8.1...v1.8.2
 [1.8.1]: https://github.com/abel0x/toolkit/compare/v1.8.0...v1.8.1
