@@ -2,6 +2,24 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.4] — 2026-11-14
+
+Open files straight into the tools, and copy or download every result.
+
+### Added
+
+- "Open file" on 33 text fields in 31 tools, and a file dropped onto the field works too: the JSON, YAML, CSV, XML, SQL, CSS/JS/HTML, Markdown, text diff and line tools, plus JSON to TypeScript and Markdown, XML to JSON, CSV Viewer, AES-GCM, PEM/JWK, Certificate Inspector, HTTP Header Analyzer and Sitemap Generator. Files are read as text in your browser and never leave it; files over 5 MB are refused.
+- Download on 22 results, with a fitting file name: `formatted.json`, `data.yaml`, `data.json`, `sorted.json`, `formatted.sql`, `formatted.xml`, `minified.html`/`.css`/`.js`, `types.ts`, `table.md`, `public-key.pem`, `private-key.pem` and the text tools' `.txt` files.
+- Copy on the 18 results (in 17 tools) that had none: JSON to TypeScript and Markdown, XML to JSON, AES-GCM, both RSA keys, Certificate Inspector, Sitemap, TOTP code, HTTP header report, cron runs, Unix symbolic mode, CSS specificity and clamp, Unicode, time zones, date duration and colour contrast.
+
+### Changed
+
+- The new buttons sit next to an existing Copy button in its style, or to the right of the field's label, without moving fields that stand side by side. Expansion tools leave space between their run button and the next field.
+
+### Tests
+
+- New `tests/tool-io-e2e.mjs` (in CI) drops and opens files into every field that takes them, including the 5 MB limit, and checks that every Copy and Download hands over the exact result under the configured name, in English and Turkish.
+
 ## [1.7.3] — 2026-11-14
 
 A lighter home page, clearer names for screen readers and voice control, and an up-to-date bcrypt.
@@ -408,6 +426,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.4]: https://github.com/abel0x/toolkit/compare/v1.7.3...v1.7.4
 [1.7.3]: https://github.com/abel0x/toolkit/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/abel0x/toolkit/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/abel0x/toolkit/compare/v1.7.0...v1.7.1

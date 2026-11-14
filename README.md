@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.7.3
+### Latest release — 1.7.4
+
+Open a file in 31 tools or drop it onto the field, and copy or download the result: 18 results that could not be copied now can, and 22 can be saved as files such as `formatted.json`, `data.yaml` or `minified.css`. Files are read in your browser and never leave it.
+
+### 1.7.3
 
 The home page loads less and does about a fifth less work on a phone, the QR generator no longer jumps as it loads, buttons carry their visible text in their accessible names, and the bcrypt tool uses bcryptjs 3.0.3 and warns when a password is longer than the 72 bytes bcrypt reads.
 
@@ -125,6 +129,7 @@ A two-part maintenance pass. 1.2.1 made the release pipeline correct: returning 
 - **Published license:** the Apache License 2.0 is available at [/license/](https://abel0x.github.io/toolkit/license/), from the navigation and for offline reading.
 - **Brand refresh:** the new Toolkit artwork is used in the navigation, browser favicon, PWA icon set, and this README.
 - **Related tools:** every tool page ends with four related tools and a link to the rest of its category.
+- **Files in, results out:** 33 text fields across the JSON, YAML, CSV, XML, SQL, CSS/JS/HTML, Markdown, diff and text tools open a file or take one dropped onto them (read in the browser, up to 5 MB), and their results can be copied or downloaded, for example as `formatted.json`, `data.yaml` or `minified.css`.
 - **Share links:** ten tools (Regex, Cron, JSON and text diff, cURL, CSP, JSON and SQL formatters, CSS specificity, JSON to TypeScript) have “Copy link”, which puts the current input into the link's `#share=` fragment. Browsers never send a fragment to a server, so the input travels only with the link; opening it fills the tool and runs it.
 - **Example starters:** 64 tools provide a random, local “Try a sample” starter that immediately demonstrates the tool and remains fully editable.
 - **Fixes and safeguards:** standards-based bcrypt, UTF-8-safe encoders, exact large-integer conversion, safe Markdown and QR rendering, pinned vendor licences, and a test that installs the real service worker and checks the site offline.
@@ -286,6 +291,9 @@ node tests/tool-pages-e2e.mjs
 
 # Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
 node tests/shortcuts-share-e2e.mjs
+
+# Drop and open files into every tool that takes them (with the 5 MB limit), and check that every Copy and Download button hands over the exact output.
+node tests/tool-io-e2e.mjs
 
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
 node tests/expansion-e2e.mjs
