@@ -46,7 +46,11 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 9 | Image metadata, compression, SVG, QR reader, favicon |
 
-### Latest release — 1.6.3
+### Latest release — 1.6.4
+
+On phones the QR Code Generator's preview now sits right under the content picker, beside its capacity line and above the scan check, so you can watch the code change as you type. Larger screens are unchanged.
+
+### 1.6.3
 
 The QR Code Generator now updates as you type and checks that every code really scans before you download it, with a note when colours, margin, size or a logo might stop a phone. It adds contact cards, calendar events and locations, WPA3 Wi-Fi, round dots and rounded corners, an optional logo, SVG and print-size PNG downloads, and file names that match the content. Email codes no longer turn spaces into "+".
 
@@ -253,7 +257,7 @@ node tests/tool-pages-e2e.mjs
 # Exercise expansion tools, cryptographic vectors, UTF-8 conversions, QR round trips, safe rendering, homepage layout, and typing-test practice flows in Firefox.
 node tests/expansion-e2e.mjs
 
-# Check the QR generator several independent ways: its capacity table and alignment patterns against the QR library, every content type's payload format, and PNG/SVG exports of every style, colour, logo and size, decoded by jsQR, ZBar and (when installed) ZXing-C++.
+# Check the QR generator several independent ways: its capacity table and alignment patterns against the QR library, every content type's payload format, and PNG/SVG exports of every style, colour, logo and size, decoded by jsQR, ZBar and (when installed) ZXing-C++, plus its phone and desktop layout.
 node tests/qr-generator-e2e.mjs
 
 # Install the real service worker under the GitHub Pages path, stop the server, and verify the cached site in Firefox.

@@ -2,6 +2,19 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.6.4] — 2026-11-14
+
+The QR Code Generator's live preview is now in view on phones.
+
+### Fixed
+
+- On phones the QR preview came after every setting, about 1,400 px down a 390 px wide screen, so the live preview and its scan check could not be seen while typing. On screens up to 768 px wide the preview now sits under the content picker, with the capacity line beside it and the scan check and notes under it, and the content fields follow. At 390 px the preview and the first field share the first screen. Larger screens keep the preview column beside the form.
+- Only parts you cannot tab to move up, and the download buttons stay after Generate, so the keyboard still walks the page from top to bottom.
+
+### Tests
+
+- `tests/qr-generator-e2e.mjs` checks the layout in English and Turkish at 390 px and 320 px, with an empty form, a readable code and a code with notes: the preview is in the first screen under the content picker, what stands beside it fits its height, nothing scrolls sideways, and the tab order never jumps back up the screen. At 1280 px it checks that the preview, check and downloads still form a column beside the form.
+
 ## [1.6.3] — 2026-11-14
 
 A much more capable QR Code Generator that checks its own output.
