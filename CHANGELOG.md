@@ -2,6 +2,24 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.7.1] — 2026-11-14
+
+Every tool has its own icon, "?" lists the keyboard shortcuts, and ten tools can be shared as a link.
+
+### Added
+
+- "Copy link" on ten tools whose input is worth passing on: Regex Tester, Cron Expression Assistant, JSON Diff, Text Diff, cURL Builder, CSP Generator, JSON Formatter, SQL Formatter, CSS Specificity Calculator and JSON to TypeScript. The link carries the current input in its `#share=` fragment, which browsers never send to a server; opening it fills the tool and runs it. Links that are broken, too long or meant for another tool change nothing, and the input is only ever put into the fields as text. Tools whose input is usually a secret (keys, tokens, passwords) have no share link.
+- "?" opens a list of the keyboard shortcuts the page answers to: Ctrl/Cmd + K, "/" on the home page, Ctrl/Cmd + Enter on tool pages, Esc and "?". A "Keyboard shortcuts" button in the footer opens it too. It never opens while you type in a field.
+
+### Changed
+
+- The 22 tools that shared one placeholder icon (AES-GCM, RSA, PEM/JWK, certificates, TOTP, CSP, cURL, HTTP headers, cron, Unix permissions, CSS specificity and clamp, JSON to TypeScript and Markdown, XML to JSON, CSV viewer, Unicode, time zones, date duration, image compressor, sitemap, colour contrast) each have their own, on the home page, in the tool header and in related-tool rows.
+
+### Tests
+
+- New `tests/shortcuts-share-e2e.mjs` (in CI) presses real keys in Firefox: "?" on the home, tool, licence, 404 and Turkish pages with focus and Esc checks, never while typing; shares each of the ten tools and reopens it from the link; refuses ten kinds of broken or hostile links and keeps markup as plain text; and checks that no request carries the shared input. It also checks that all 101 home cards have an icon.
+- `tests/site-audit.mjs` checks the share buttons against `_data/tools.json`, that the new icons are unique, and that every core script a page loads is available offline.
+
 ## [1.7.0] — 2026-11-14
 
 Every tool now leads to the next one.
@@ -354,6 +372,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.7.1]: https://github.com/abel0x/toolkit/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/abel0x/toolkit/compare/v1.6.7...v1.7.0
 [1.6.7]: https://github.com/abel0x/toolkit/compare/v1.6.6...v1.6.7
 [1.6.6]: https://github.com/abel0x/toolkit/compare/v1.6.5...v1.6.6
