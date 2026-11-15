@@ -21,7 +21,7 @@
 
 ## What it is
 
-Toolkit is a static collection of developer utilities for the everyday work that should not require uploading data to a third party: encoding, cryptography, data conversion, text work, web inspection, image handling, and more.
+Toolkit is a static collection of developer utilities for the everyday work that should not require uploading data to a third party: encoding, cryptography and JWTs, JSON and data conversion, text work, web and network inspection, CSS layout, images, PDFs, and more.
 
 - Tool input stays on your device. It is processed with browser APIs such as Web Crypto, FileReader, Canvas, and `Intl`.
 - After the first successful load the service worker has cached the site, so the tools keep working without a network connection.
@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 12 | Image conversion, metadata, compression, PDF merge and page editing, SVG, favicon |
 
-### Latest release — 1.9.0
+### Latest release — 1.9.1
+
+The **PDF Page Editor** can show real page previews on request (pdf.js, downloaded only when asked for), and the site's descriptions cover the current catalogue.
+
+### 1.9.0
 
 **Fifteen new tools:** IP Subnet Calculator, JSONPath Tester, JSON Schema Generator, JWT Signer, HTML to Markdown, CSV / JSON to SQL, TOML / JSON Converter, Dotenv Checker, Box Shadow and Border Radius generators, Flexbox Playground, CSS Grid Generator, Image Converter, PDF Merger and PDF Page Editor.
 
 ### 1.8.10
 
 New **Port Reference**: find the service behind about 130 common ports, and see what any port number means: its IANA range, whether Linux needs root for it, whether it is used for outgoing connections, and whether browsers block it.
-
-### 1.8.9
-
-The **Image Metadata Viewer** can sign a JPEG or PNG with a key made in your browser, and checks signatures when an image is opened: who signed it, when, and whether the picture changed since.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
@@ -113,7 +113,7 @@ Toolkit is hosted as static files on GitHub Pages. It has no application server,
 
 The site's [privacy page](https://abel0x.github.io/toolkit/privacy/) lists each item kept in the browser's storage; `tests/site-audit.mjs` fails if a script uses a storage key the page does not name. After a release, the service worker takes over open pages and they offer a Reload instead of reloading on their own.
 
-Some tools use pinned, self-hosted vendor scripts for QR-code, bcrypt and PDF support; they are part of the published offline cache and do not call a third-party service. Their upstream licence texts are retained beside the distributions in `assets/js/vendor/`. QR generation uses the MIT-licensed QR Code Generator with its UTF-8 adapter, QR reading uses Apache-2.0-licensed jsQR, bcrypt support retains its bundled upstream notices, and the PDF tools use MIT-licensed pdf-lib.
+Some tools use pinned, self-hosted vendor scripts for QR-code, bcrypt and PDF support; they are part of the published offline cache and do not call a third-party service. Their upstream licence texts are retained beside the distributions in `assets/js/vendor/`. QR generation uses the MIT-licensed QR Code Generator with its UTF-8 adapter, QR reading uses Apache-2.0-licensed jsQR, bcrypt support retains its bundled upstream notices, and the PDF tools use MIT-licensed pdf-lib, plus Apache-2.0-licensed pdf.js for page previews, which is downloaded only when asked for.
 
 ## Word lists
 

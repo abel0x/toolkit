@@ -2,6 +2,23 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.9.1] — 2026-11-15
+
+Page previews in the PDF Page Editor, and up-to-date descriptions.
+
+### Added
+
+- **Page previews in the PDF Page Editor**, on request: "Show page previews" draws every page with pdf.js 6.5.438 (Apache-2.0, self-hosted and pinned). pdf.js is downloaded only when previews are asked for, is not part of the install-time cache, and is kept by the service worker after its first use, so previews then work offline too. Previews turn with the pages.
+
+### Changed
+
+- The home page, its Turkish twin and the web app manifest describe the current catalogue (images, PDFs, CSS generators and more); the manifest's tool count is now kept in step by `build.py --tool-count`.
+- README: what the project covers, and the pdf.js note among the self-hosted libraries.
+
+### Tests
+
+- Known answers for the previews in Firefox and Chromium: pdf.js is not fetched before it is asked for, every page is drawn (checked by pixel), previews turn with the page and no warning is shown. The test servers serve `.mjs` files as JavaScript.
+
 ## [1.9.0] — 2026-11-15
 
 Fifteen new tools bring the catalogue to 119.
@@ -689,6 +706,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.9.1]: https://github.com/abel0x/toolkit/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/abel0x/toolkit/compare/v1.8.10...v1.9.0
 [1.8.10]: https://github.com/abel0x/toolkit/compare/v1.8.9...v1.8.10
 [1.8.9]: https://github.com/abel0x/toolkit/compare/v1.8.8...v1.8.9
