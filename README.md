@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 14 | Image conversion, metadata, compression, images to PDF and back, PDF merge and page editing, SVG, favicon |
 
-### Latest release — 1.11.0
+### Latest release — 1.11.1
+
+A "New in Toolkit" row on the home page lists the latest tools, Country Time Zones does about four times less work on load, and a monthly workflow audits the self-hosted libraries. Maintainer scripts now live in `_scripts/`, and the README has new screenshots.
+
+### 1.11.0
 
 New **Images to PDF** and **PDF to Images**, a meeting planner in Country Time Zones, a VLSM planner, upserts in CSV / JSON to SQL, page numbers and watermarks in the PDF Page Editor, and Tailwind output in the CSS generators.
 
 ### 1.10.0
 
 New abilities for the new tools: .env export to shell, Docker, Compose and Kubernetes; CIDR summarising; JWKS, kid and a decoder link in the JWT Signer; enums and ranges in the JSON Schema Generator; flexbox layouts and drawn grid areas.
-
-### 1.9.2
-
-Fixes and speed-ups for the new tools: PDF previews no longer mix up files, large photos work on iPhone and iPad, owner-password PDFs are explained, and big JSON, CSV and HTML inputs no longer slow down typing.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
@@ -107,13 +107,14 @@ Toolkit is hosted as static files on GitHub Pages. It has no application server,
 | --- | --- |
 | Hashes, HMAC, AES-GCM, RSA | Web Crypto API |
 | Files and image metadata | FileReader and browser file APIs |
-| Image resize/compression | Canvas API |
+| Image resize, compression and conversion | Canvas API |
+| PDF merging, editing and rendering | Self-hosted pdf-lib and pdf.js, Canvas API |
 | Time-zone rendering | `Intl` and browser locale data |
 | Offline availability | Service Worker and Cache Storage |
 
 The site's [privacy page](https://abel0x.github.io/toolkit/privacy/) lists each item kept in the browser's storage; `tests/site-audit.mjs` fails if a script uses a storage key the page does not name. After a release, the service worker takes over open pages and they offer a Reload instead of reloading on their own.
 
-Some tools use pinned, self-hosted vendor scripts for QR-code, bcrypt and PDF support; they are part of the published offline cache and do not call a third-party service. Their upstream licence texts are retained beside the distributions in `assets/js/vendor/`. QR generation uses the MIT-licensed QR Code Generator with its UTF-8 adapter, QR reading uses Apache-2.0-licensed jsQR, bcrypt support retains its bundled upstream notices, and the PDF tools use MIT-licensed pdf-lib, plus Apache-2.0-licensed pdf.js for page previews, which is downloaded only when asked for.
+Some tools use pinned, self-hosted vendor scripts for QR-code, bcrypt and PDF support; they are part of the published offline cache and do not call a third-party service. Their upstream licence texts are retained beside the distributions in `assets/js/vendor/`. QR generation uses the MIT-licensed QR Code Generator with its UTF-8 adapter, QR reading uses Apache-2.0-licensed jsQR, bcrypt support retains its bundled upstream notices, and the PDF tools use MIT-licensed pdf-lib, plus Apache-2.0-licensed pdf.js for page previews and PDF to Images, which is downloaded only when first needed.
 
 ## Word lists
 
@@ -156,7 +157,7 @@ Search engines read `robots.txt` only at the root of a host, so a project site u
 
 ## Quality checks
 
-The repository includes a small, dependency-free maintenance helper and static/browser checks. From the project root:
+The repository includes a small, dependency-free maintenance helper and static/browser checks. `_scripts/test_all.sh` runs every suite CI runs, in order, and prints a one-line verdict (logs go to `${TMPDIR:-/tmp}/toolkit-tests`). To run them one by one, from the project root:
 
 ```bash
 # Regenerate tool registries, expansion pages, navigation, tool counts, the
@@ -186,7 +187,7 @@ CHROMIUM_BINARY=/absolute/path/to/chrome node tests/typing-regressions.mjs
 # Guard audit fixes: Turkish İ search and folding, palette copy, Markdown parsing, Base64 image, checksum ordering, blob cleanup, CSP-safe copy buttons, and keyboard access to the QR Reader drop zone.
 node tests/audit-regressions.mjs
 
-# Check the output of 54 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, text diffs, JSON trees, regex replacement, Markdown as HTML, encodings, conversions, XML, SQL …).
+# Check the output of 75 tools against independently computed known answers (hashes and MD5, bcrypt under every prefix, JWT signatures Node signed with HS/RS/PS/ES/EdDSA keys, UUID v7, OKLCH, passphrases, a QR code shown to the camera, text diffs, JSON trees, regex replacement, Markdown as HTML, encodings, conversions, XML, SQL …).
 node tests/tool-vectors.mjs
 
 # Optional: smoke-test every page in WebKit (Safari's engine). Needs Playwright, which is test-only and never a site dependency; CI runs it in .github/workflows/webkit.yml.
@@ -212,7 +213,7 @@ node tests/axe-audit.mjs
 # Smoke-test all 121 tool pages and the licence and privacy pages in Firefox across desktop and mobile layouts, in English and Turkish, including aligned headers, breadcrumbs and related-tools rows, file and copy buttons that stay out of side-by-side layouts, the language menu, English pages free of Turkish dictionaries, accessible control names, example starters that each produce a result, and the Ctrl+Enter run shortcut.
 node tests/tool-pages-e2e.mjs
 
-# Press "?" with real keys on every kind of page, share ten tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
+# Press "?" with real keys on every kind of page, share twelve tools as links and reopen them, refuse broken or hostile links, and check that no shared input reaches the server.
 node tests/shortcuts-share-e2e.mjs
 
 # Drop and open files into every tool that takes them (with the 5 MB limit), and check that every Copy and Download button hands over the exact output.
@@ -245,11 +246,14 @@ toolkit/
 ├── _data/tools.json              # Single source of the tool catalogue
 ├── _data/lastmod.json            # Page hashes behind sitemap lastmod dates
 ├── _data/seo-tr.json             # Turkish titles and descriptions for tr/
+├── _data/vendor.json             # Pinned vendor library versions (monthly audit)
 ├── _scripts/translate.mjs        # Build helper that translates the tr/ pages
 ├── _scripts/serve.py             # Local preview of _site/ as GitHub Pages serves it
+├── _scripts/test_all.sh          # Every CI test suite in one run
+├── _scripts/*.py, *.sh, *.mjs    # Maintainer helpers (new tool, translations, release)
 ├── .github/social-preview.png    # Repository social preview (upload in Settings)
 ├── .githooks/pre-commit          # Optional generated-file check
-├── .github/workflows/            # Build, test and deploy; WebKit smoke test
+├── .github/workflows/            # Build, test and deploy; WebKit smoke test; vendor audit
 ├── assets/
 │   ├── css/
 │   │   ├── core.css              # Tokens, reset, base rules

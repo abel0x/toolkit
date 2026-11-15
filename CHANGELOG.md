@@ -2,6 +2,26 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.11.1] — 2026-11-15
+
+A "New in Toolkit" row on the home page, a faster Country Time Zones page, and maintenance work.
+
+### Added
+
+- **Home page:** a "New in Toolkit" row with the eight most recently added tools, generated from the release each tool first shipped in (`added` in `_data/tools.json`).
+- **Maintainer scripts** in `_scripts/`: `test_all.sh` runs every CI suite with one verdict; `new_tool.py`, `add_translations.py` and `set_description.py` add a tool, its Turkish strings and descriptions; `release_notes.py` and `release.sh` prepare and publish a release; `screenshot.mjs` captures pages in Firefox.
+- **Vendor audit:** a monthly workflow checks the pinned library versions in `_data/vendor.json` against the GitHub Advisory Database and reports newer releases; the site audit checks they match the vendor README.
+
+### Changed
+
+- **Country Time Zones:** about four times less script work on load (cached date formatters and country names, a faster search for the next clock change, and the same-offset list and meeting planner drawn when the browser is idle).
+- **README:** new screenshots of the current design, an updated privacy table, test descriptions and project layout; CONTRIBUTING documents the maintainer scripts and the `added` field.
+
+### Tests
+
+- The tool-vectors suite waits for the meeting planner before checking it.
+- The QR generator suite sets English again before its wide-screen check, so a Turkish preference left by the phone checks can no longer redirect that page.
+
 ## [1.11.0] — 2026-11-15
 
 Two new PDF tools bring the catalogue to 121, and eight of the recent tools grow.
@@ -768,6 +788,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.11.1]: https://github.com/abel0x/toolkit/compare/v1.11.0...v1.11.1
 [1.11.0]: https://github.com/abel0x/toolkit/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/abel0x/toolkit/compare/v1.9.2...v1.10.0
 [1.9.2]: https://github.com/abel0x/toolkit/compare/v1.9.1...v1.9.2
