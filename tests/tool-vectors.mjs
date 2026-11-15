@@ -1033,6 +1033,55 @@ await withFirefox(async (page) => {
       ['preview turns with the page', turned.width > turned.height, true],
       ['every sheet shows its preview', document.querySelectorAll('#pePages .pe-sheet--preview').length, 3]];`);
 
+  await check('pdf-page-editor', `
+    // Opening another PDF while previews are drawn: the old run stops and the new file gets its own previews.
+    const api = window.ToolkitPdfPageEditor;
+    const make = async (n, width, colour) => { const d = await PDFLib.PDFDocument.create(); for (let i = 0; i < n; i += 1) d.addPage([width, 842]).drawRectangle({ x: 0, y: 0, width, height: 842, color: colour }); return d.save(); };
+    const open = async (bytes, name) => { const dt = new DataTransfer(); dt.items.add(new File([bytes], name, { type: 'application/pdf' })); $('#peFile').files = dt.files; $('#peFile').dispatchEvent(new Event('change')); await wait(400); };
+    await open(await make(60, 595, PDFLib.rgb(1, 0, 0)), 'red.pdf');
+    click('#peThumbs'); await wait(600);
+    await open(await make(3, 420, PDFLib.rgb(0, 0, 1)), 'blue.pdf');
+    for (let i = 0; i < 100 && !(api.previews() === 3 && $('#peThumbs').hidden); i += 1) await wait(100);
+    await wait(800);
+    const colours = [...document.querySelectorAll('#pePages canvas.pe-thumb')].map((c) => { const d = c.getContext('2d').getImageData(c.width / 2, c.height / 2, 1, 1).data; return d[2] > 200 && d[0] < 80 ? 'blue' : d[0] > 200 ? 'red' : 'other'; });
+    // An encrypted PDF (an /Encrypt entry, as owner-password files have) gets the explanation.
+    const locked = await PDFLib.PDFDocument.create(); locked.addPage([200, 200]);
+    locked.context.trailerInfo.Encrypt = locked.context.obj({ Filter: 'Standard', V: 2, R: 3 });
+    const toasts = []; const original = window.showToast; window.showToast = (message) => toasts.push(message);
+    await open(await locked.save({ useObjectStreams: false }), 'locked.pdf');
+    window.showToast = original;
+    return [['only the new file is previewed', [api.previews(), colours], [3, ['blue', 'blue', 'blue']]],
+      ['still showing the new file', document.querySelectorAll('#pePages .pe-tile').length, 3],
+      ['owner-password explanation', toasts[0], { includes: 'Print it to a new PDF' }]];`);
+
+  await check('image-converter', `
+    // A browser that cannot draw more than one megapixel (as iPhone Safari cannot draw more than 16.7).
+    const api = window.ToolkitImageConverter;
+    api.limitCanvas(1000000);
+    const canvas = document.createElement('canvas'); canvas.width = 2000; canvas.height = 1000;
+    const ctx = canvas.getContext('2d'); ctx.fillStyle = '#00ff00'; ctx.fillRect(0, 0, 2000, 1000);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const dt = new DataTransfer(); dt.items.add(new File([blob], 'wide.png', { type: 'image/png' }));
+    $('#icFile').files = dt.files; $('#icFile').dispatchEvent(new Event('change')); await wait(400);
+    const state = api.state();
+    const fitted = await createImageBitmap(await api.render());
+    set('#icWidth', '1800'); await wait(20);
+    let refused = '';
+    try { await api.render(); } catch (error) { refused = error.message; }
+    api.limitCanvas(null);
+    return [['worked on at the largest size that fits', state.canvas, [1414, 707]], ['notice', text('#icNotice'), 'This browser cannot draw images this large, so the image is worked on at 1414 × 707 px.'],
+      ['output within the limit', [fitted.width, fitted.height], [1414, 707]], ['too large an output is refused', refused, 'This browser cannot draw an image that large. Try 1414 × 707 px or smaller.']];`);
+
+  await check('csv-to-sql', `
+    // Large input waits for a pause in typing; the parsed rows are reused for option changes.
+    const rows = ['id,name']; for (let i = 0; i < 30000; i += 1) rows.push(i + ',name ' + i);
+    set('#c2sInput', rows.join('\\n'));
+    const right = value('#c2sOutput');
+    await wait(400);
+    const later = value('#c2sOutput');
+    set('#c2sTable', 'people'); await wait(400);
+    return [['nothing done while typing', right, ''], ['done after the pause', later.startsWith('CREATE TABLE "my_table"'), true], ['table name applied', value('#c2sOutput').startsWith('CREATE TABLE "people"'), true]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

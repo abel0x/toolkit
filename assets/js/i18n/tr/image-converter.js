@@ -23,7 +23,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "AVIF (this browser cannot save it)": "AVIF (bu tarayıcı kaydedemiyor)",
     "This browser cannot open that image.": "Bu tarayıcı o görseli açamıyor.",
     "Output:": "Çıktı:",
-    "The output is too large; keep it under 50 megapixels.": "Çıktı çok büyük; 50 megapikselin altında tutun.",
     "This browser cannot save that format.": "Bu tarayıcı o biçimde kaydedemiyor.",
     "Drop": "Damla",
     "Choose an image": "Görsel seç",

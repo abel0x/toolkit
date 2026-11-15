@@ -140,13 +140,27 @@
     return { draft: draftEl.value, required: requiredEl.value, formats: formatsEl.checked, strict: strictEl.checked };
   }
 
+  // Large inputs wait for a pause in typing; small ones update at once.
+  const LARGE = 200000;
+  let pending = 0;
+  const later = (source, fn) => () => {
+    clearTimeout(pending);
+    if (source.value.length > LARGE) pending = setTimeout(fn, 200); else fn();
+  };
+
+  let parsed = { text: null, data: undefined, error: null };
+
   function render() {
     errorEl.hidden = true;
     const text = inputEl.value.trim();
     if (!text) { outputEl.value = ''; return; }
     let data;
     try {
-      data = JSON.parse(text);
+      if (parsed.text !== text) {
+        try { parsed = { text, data: JSON.parse(text), error: null }; } catch (error) { parsed = { text, data: undefined, error }; }
+      }
+      if (parsed.error) throw parsed.error;
+      data = parsed.data;
     } catch (error) {
       errorEl.textContent = `${t('The JSON is not valid:')} ${error.message}`;
       errorEl.hidden = false;
@@ -158,7 +172,7 @@
     outputEl.value = JSON.stringify(generate(samples, options()), null, 2);
   }
 
-  [inputEl].forEach((field) => field.addEventListener('input', render));
+  inputEl.addEventListener('input', later(inputEl, render));
   [draftEl, requiredEl, formatsEl, strictEl, samplesEl].forEach((field) => field.addEventListener('change', render));
   copyBtn.addEventListener('click', () => {
     if (outputEl.value) copyToClipboard(outputEl.value, 'Schema');

@@ -11,6 +11,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Editor": "Editör",
     ".mjs": ".mjs",
     ".pdf": ".pdf",
+    "This PDF is encrypted. Even when it opens without a password, an owner password locks it against changes, and this tool cannot remove it. Print it to a new PDF (Save as PDF) and open that copy.": "Bu PDF şifreli. Parola sormadan açılsa bile bir sahip parolası onu değişikliğe karşı kilitliyor ve bu araç bu kilidi kaldıramaz. Belgeyi yeni bir PDF’e yazdırın (PDF olarak kaydet) ve o kopyayı açın.",
     "Drawing page previews…": "Sayfa önizlemeleri çiziliyor…",
     "Previews could not be loaded. The first time, they need an internet connection.": "Önizlemeler yüklenemedi. İlk seferde internet bağlantısı gerekir.",
     "PDF Page Editor": "PDF Sayfa Düzenleyici",
@@ -20,7 +21,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Restore": "Geri al",
     "Split": "Böl",
     "Choose a PDF file.": "Bir PDF dosyası seçin.",
-    "This PDF is password-protected, so its pages cannot be edited here.": "Bu PDF parolalı, bu yüzden sayfaları burada düzenlenemez.",
     "This is not a PDF this tool can read.": "Bu, aracın okuyabildiği bir PDF değil.",
     "Deleted": "Silindi",
     "deleted": "silindi",
@@ -30,6 +30,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Pick pages first.": "Önce sayfa seçin.",
     "There are no pages to split.": "Bölünecek sayfa yok.",
     "Left": "Sol",
+    "Save as": "Kaydetme biçimi",
     "Drop": "Damla",
     "Note": "Not",
     "None": "Yok"

@@ -202,6 +202,14 @@
 
   const options = () => ({ bullet: bulletEl.value, em: emphasisEl.value, strong: emphasisEl.value.repeat(2) });
 
+  // Large inputs wait for a pause in typing; small ones update at once.
+  const LARGE = 200000;
+  let pending = 0;
+  const later = (source, fn) => () => {
+    clearTimeout(pending);
+    if (source.value.length > LARGE) pending = setTimeout(fn, 200); else fn();
+  };
+
   function render() {
     const html = inputEl.value;
     outputEl.value = html.trim() ? convert(html, options()) : '';
@@ -218,7 +226,7 @@
     inputEl.setRangeText(clean, inputEl.selectionStart, inputEl.selectionEnd, 'end');
     render();
   });
-  inputEl.addEventListener('input', render);
+  inputEl.addEventListener('input', later(inputEl, render));
   [bulletEl, emphasisEl].forEach((field) => field.addEventListener('change', render));
   copyBtn.addEventListener('click', () => {
     if (outputEl.value) copyToClipboard(outputEl.value, 'Markdown');

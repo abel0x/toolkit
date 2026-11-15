@@ -619,6 +619,10 @@
     if (match) return `${match[1]} PDF dosyası kaydedildi.`;
     match = key.match(/^(\d+) selected · (\d+) of (\d+) pages kept$/);
     if (match) return `${match[1]} seçili · ${match[3]} sayfadan ${match[2]} tanesi kalıyor`;
+    match = key.match(/^This browser cannot draw images this large, so the image is worked on at (\d+) × (\d+) px\.$/);
+    if (match) return `Bu tarayıcı bu kadar büyük görselleri çizemiyor; görsel ${match[1]} × ${match[2]} px boyutunda işleniyor.`;
+    match = key.match(/^This browser cannot draw an image that large\. Try (\d+) × (\d+) px or smaller\.$/);
+    if (match) return `Bu tarayıcı o kadar büyük bir görsel çizemiyor. ${match[1]} × ${match[2]} px ya da daha küçüğünü deneyin.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

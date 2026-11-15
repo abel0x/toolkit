@@ -437,6 +437,24 @@
     countEl.textContent = '';
   }
 
+  // Large inputs wait for a pause in typing; small ones update at once.
+  const LARGE = 200000;
+  let pending = 0;
+  const later = (source, fn) => () => {
+    clearTimeout(pending);
+    if (source.value.length > LARGE) pending = setTimeout(fn, 200); else fn();
+  };
+
+  // The parsed document is kept until the JSON text changes.
+  let parsed = { text: null, json: undefined, error: null };
+  function parseJson(text) {
+    if (parsed.text !== text) {
+      try { parsed = { text, json: JSON.parse(text), error: null }; } catch (error) { parsed = { text, json: undefined, error }; }
+    }
+    if (parsed.error) throw parsed.error;
+    return parsed.json;
+  }
+
   function render() {
     errorEl.hidden = true;
     const text = jsonEl.value.trim();
@@ -444,7 +462,7 @@
     if (!text || !query) { outputEl.value = ''; countEl.textContent = ''; return; }
     let json;
     try {
-      json = JSON.parse(text);
+      json = parseJson(text);
     } catch (error) {
       showError(`${t('The JSON is not valid:')} ${error.message}`);
       return;
@@ -466,7 +484,8 @@
     countEl.textContent = results.length === 1 ? t('1 match') : t(`${results.length} matches`);
   }
 
-  [jsonEl, queryEl].forEach((field) => field.addEventListener('input', render));
+  jsonEl.addEventListener('input', later(jsonEl, render));
+  queryEl.addEventListener('input', later(jsonEl, render));
   document.querySelectorAll('input[name="jpShow"]').forEach((radio) => radio.addEventListener('change', render));
   copyBtn.addEventListener('click', () => {
     if (outputEl.value) copyToClipboard(outputEl.value, 'Result');

@@ -17,7 +17,37 @@
 
   const t = (key) => (window.ToolkitI18n ? window.ToolkitI18n.t(key) : key);
   const PREVIEW_MAX = { width: 640, height: 420 };
-  const MAX_PIXELS = 50e6;
+  // Safari on iPhone and iPad will not draw canvases above this many pixels (it
+  // returns blank ones). Larger sizes are tried first and kept where they work.
+  const SAFE_AREA = 16777216;
+  let forcedLimit = null; // tests stand in for a browser with a canvas limit
+
+  function canvasWorks(width, height) {
+    if (forcedLimit !== null) return width * height <= forcedLimit;
+    try {
+      const probe = document.createElement('canvas');
+      probe.width = width;
+      probe.height = height;
+      const ctx = probe.getContext('2d');
+      if (!ctx) return false;
+      ctx.fillStyle = '#ff0000';
+      ctx.fillRect(width - 1, height - 1, 1, 1);
+      const works = ctx.getImageData(width - 1, height - 1, 1, 1).data[0] === 255;
+      probe.width = 0;
+      probe.height = 0;
+      return works;
+    } catch {
+      return false;
+    }
+  }
+
+  // The size to draw at: as asked, or scaled down to what this browser can draw.
+  function drawable(width, height) {
+    const safe = forcedLimit === null ? SAFE_AREA : forcedLimit;
+    if (width * height <= safe || canvasWorks(width, height)) return { width, height, reduced: false };
+    const factor = Math.sqrt(safe / (width * height));
+    return { width: Math.max(1, Math.floor(width * factor)), height: Math.max(1, Math.floor(height * factor)), reduced: true };
+  }
 
   let file = null;
   let image = null; // ImageBitmap or HTMLImageElement
@@ -108,15 +138,20 @@
   function buildOriented() {
     const { width, height } = orientedSize();
     const svgScale = field('icSvgRow').hidden ? 1 : Number(field('icSvgScale').value);
+    const target = drawable(Math.round(width * svgScale), Math.round(height * svgScale));
     const canvas = document.createElement('canvas');
-    canvas.width = Math.round(width * svgScale);
-    canvas.height = Math.round(height * svgScale);
+    canvas.width = target.width;
+    canvas.height = target.height;
+    const fit = target.width / (width * svgScale);
     const ctx = canvas.getContext('2d');
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((rotation * Math.PI) / 180);
     ctx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
-    const drawWidth = size.width * svgScale;
-    const drawHeight = size.height * svgScale;
+    const drawWidth = size.width * svgScale * fit;
+    const drawHeight = size.height * svgScale * fit;
+    field('icNotice').textContent = target.reduced
+      ? t(`This browser cannot draw images this large, so the image is worked on at ${target.width} × ${target.height} px.`)
+      : '';
     ctx.drawImage(image, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
     oriented = canvas;
   }
@@ -265,7 +300,8 @@
 
   async function render() {
     const { width, height } = outputSize();
-    if (width * height > MAX_PIXELS) throw new Error('The output is too large; keep it under 50 megapixels.');
+    const room = drawable(width, height);
+    if (room.reduced) throw new Error(`This browser cannot draw an image that large. Try ${room.width} × ${room.height} px or smaller.`);
     const type = field('icFormat').value;
     const out = document.createElement('canvas');
     out.width = width;
@@ -361,6 +397,10 @@
   window.addEventListener('resize', () => { if (image) drawPreview(); });
 
   // Exposed for the tests.
-  window.ToolkitImageConverter = Object.freeze({ render, state: () => ({ size, rotation, flipX, flipY, crop: { ...crop }, output: outputSize() }) });
+  window.ToolkitImageConverter = Object.freeze({
+    render,
+    state: () => ({ size, rotation, flipX, flipY, crop: { ...crop }, output: outputSize(), canvas: oriented ? [oriented.width, oriented.height] : null }),
+    limitCanvas: (pixels) => { forcedLimit = pixels; }
+  });
   detectFormats();
 }());

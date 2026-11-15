@@ -197,7 +197,7 @@
   },
   "tools/image-converter.html": {
     "date": "2026-11-15",
-    "sha256": "034350a660735785f5a65abbbb95ca05d3fc51b0c8396ce0489b157ce10617ab"
+    "sha256": "b9f5a9ae2b49850faafec3f64f0caa70fe61d50b8bc85a2a5c6802db275a2f09"
   },
   "tools/image-dimensions.html": {
     "date": "2026-11-15",
@@ -305,11 +305,11 @@
   },
   "tools/pdf-merger.html": {
     "date": "2026-11-15",
-    "sha256": "056200d79008b3a2483d5cd1626f27f5655680684064aacd8789d61396e49e9a"
+    "sha256": "1ee2e46cd0df5c23858affa4b6abdc55c41874abb83eb68e0e9dfaa50c8f2c26"
   },
   "tools/pdf-page-editor.html": {
     "date": "2026-11-15",
-    "sha256": "bb37beb5d23cc7501df4d24aa78cc77e6b5b1cf0727cc75f42072bf54da9431a"
+    "sha256": "68e84e890b537ce1f77ff3fbc2843062b6aa211e0e3b0c08053653e129c0ca85"
   },
   "tools/pem-jwk.html": {
     "date": "2026-11-15",
@@ -685,7 +685,7 @@
   },
   "tr/tools/image-converter.html": {
     "date": "2026-11-15",
-    "sha256": "e152fe70dd7c0efd9d7ab35d99f57f4fe6e0ba8087fa583568397539d440fd9f"
+    "sha256": "c102a486bc496810384175eba5690cfdf952f1692093577af482755770e4e47d"
   },
   "tr/tools/image-dimensions.html": {
     "date": "2026-11-15",
@@ -793,11 +793,11 @@
   },
   "tr/tools/pdf-merger.html": {
     "date": "2026-11-15",
-    "sha256": "8a231c2ba0bdb1e47f1e4c258269f4b4ecc898491639bf3ecd96484dfdff307c"
+    "sha256": "e989cdda14b2e38e364453aa0dd7ffa101c957dc40a43bca36c3653b5c78e541"
   },
   "tr/tools/pdf-page-editor.html": {
     "date": "2026-11-15",
-    "sha256": "90e590ab70d750b5a35822773d3ed27169f4ade6448edd8be5bae93197b7bf7e"
+    "sha256": "c06d825f612ccd8d0ecc307bc2bce5673a3e693bd6ffd3e73fb71468ea6cf5e9"
   },
   "tr/tools/pem-jwk.html": {
     "date": "2026-11-15",

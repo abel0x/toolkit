@@ -6,15 +6,16 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Remove": "Kaldır",
     ".pdf": ".pdf",
+    "the PDF is encrypted (even when it opens without a password, an owner password can lock it), so its pages cannot be copied. Print it to a new PDF (Save as PDF) and add that copy.": "PDF şifreli (parola sormadan açılsa bile bir sahip parolası onu kilitleyebilir), bu yüzden sayfaları kopyalanamaz. Belgeyi yeni bir PDF’e yazdırın (PDF olarak kaydet) ve o kopyayı ekleyin.",
     "PDF Merger": "PDF Birleştirici",
     "Pages to use": "Kullanılacak sayfalar",
     "Pages to use from": "Kullanılacak sayfalar:",
     "Move up": "Yukarı taşı",
     "Move down": "Aşağı taşı",
     "not a PDF file.": "PDF dosyası değil.",
-    "the file is password-protected, so its pages cannot be copied.": "dosya parolalı, bu yüzden sayfaları kopyalanamaz.",
     "this is not a PDF this tool can read.": "bu, aracın okuyabildiği bir PDF değil.",
     "No pages to merge.": "Birleştirilecek sayfa yok.",
+    "Save as": "Kaydetme biçimi",
     "Drop": "Damla"
   }))
 });

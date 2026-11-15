@@ -223,12 +223,31 @@
     };
   }
 
+  // Large inputs wait for a pause in typing; small ones update at once.
+  const LARGE = 200000;
+  let pending = 0;
+  const later = (source, fn) => () => {
+    clearTimeout(pending);
+    if (source.value.length > LARGE) pending = setTimeout(fn, 200); else fn();
+  };
+
+  // The rows read from the input are kept until the input or how it is read changes.
+  let read = { key: null, data: null, error: null };
+  function readCached(text, format, header) {
+    const key = `${format}|${header}|${text}`;
+    if (read.key !== key) {
+      try { read = { key, data: readInput(text, format, header), error: null }; } catch (error) { read = { key, data: null, error }; }
+    }
+    if (read.error) throw read.error;
+    return read.data;
+  }
+
   function render() {
     errorEl.hidden = true;
     statsEl.textContent = '';
     if (!inputEl.value.trim()) { outputEl.value = ''; return; }
     try {
-      const data = readInput(inputEl.value, field('c2sFormat').value, field('c2sHeader').checked);
+      const data = readCached(inputEl.value, field('c2sFormat').value, field('c2sHeader').checked);
       if (!data.rows.length) throw new InputError('There are no data rows, only a header.');
       outputEl.value = generate(data, options()).sql;
       statsEl.textContent = t(`${data.rows.length} rows, ${data.columns.length} columns`);
@@ -240,8 +259,8 @@
     }
   }
 
-  inputEl.addEventListener('input', render);
-  ['c2sTable'].forEach((id) => field(id).addEventListener('input', render));
+  inputEl.addEventListener('input', later(inputEl, render));
+  field('c2sTable').addEventListener('input', later(inputEl, render));
   ['c2sFormat', 'c2sDialect', 'c2sBatch', 'c2sCreate', 'c2sEmptyNull', 'c2sHeader', 'c2sTransaction'].forEach((id) => field(id).addEventListener('change', render));
   copyBtn.addEventListener('click', () => {
     if (outputEl.value) copyToClipboard(outputEl.value, 'SQL');

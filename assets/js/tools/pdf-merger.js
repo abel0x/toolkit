@@ -46,7 +46,7 @@
     try {
       return { bytes, doc: await PDFLib.PDFDocument.load(bytes) };
     } catch (error) {
-      if (/encrypt/i.test(error.message)) throw new Error(`${file.name}: ${t('the file is password-protected, so its pages cannot be copied.')}`);
+      if (/encrypt/i.test(error.message)) throw new Error(`${file.name}: ${t('the PDF is encrypted (even when it opens without a password, an owner password can lock it), so its pages cannot be copied. Print it to a new PDF (Save as PDF) and add that copy.')}`);
       throw new Error(`${file.name}: ${t('this is not a PDF this tool can read.')}`);
     }
   }

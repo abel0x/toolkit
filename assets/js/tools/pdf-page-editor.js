@@ -53,7 +53,10 @@
   let pdfjs = null;
   let previewsOn = false;
   const thumbs = new Map(); // original page index → canvas drawn by pdf.js
+  const sheets = new Map(); // original page index → its sheet on screen, to update one preview at a time
   let sourceBytes = null;
+  // Counts the files opened; a preview run for an older file stops and keeps nothing.
+  let generation = 0;
 
   let file = null;
   let doc = null;
@@ -64,13 +67,18 @@
   async function load(input) {
     if (!input) return;
     if (!/pdf$/i.test(input.type) && !/\.pdf$/i.test(input.name)) { showToast(t('Choose a PDF file.'), 'error'); return; }
+    let bytes;
+    let opened;
     try {
-      sourceBytes = new Uint8Array(await input.arrayBuffer());
-      doc = await PDFLib.PDFDocument.load(sourceBytes);
+      bytes = new Uint8Array(await input.arrayBuffer());
+      opened = await PDFLib.PDFDocument.load(bytes);
     } catch (error) {
-      showToast(/encrypt/i.test(error.message) ? t('This PDF is password-protected, so its pages cannot be edited here.') : t('This is not a PDF this tool can read.'), 'error');
+      showToast(/encrypt/i.test(error.message) ? t('This PDF is encrypted. Even when it opens without a password, an owner password locks it against changes, and this tool cannot remove it. Print it to a new PDF (Save as PDF) and open that copy.') : t('This is not a PDF this tool can read.'), 'error');
       return;
     }
+    generation += 1;
+    sourceBytes = bytes;
+    doc = opened;
     file = input;
     pages = doc.getPages().map((page, index) => ({ index, rotate: 0, deleted: false, size: [page.getWidth(), page.getHeight()], baseRotation: page.getRotation().angle }));
     selected.clear();
@@ -92,17 +100,26 @@
     return module;
   }
 
-  // Each page drawn once at preview size, with the page's own rotation.
+  // Each page drawn once at preview size, with the page's own rotation. Only the
+  // finished page's sheet is updated, so long files do not redraw the whole grid.
   async function drawPreviews() {
+    const run = generation;
+    const bytes = sourceBytes;
     const button = field('peThumbs');
+    const note = field('peThumbsNote');
+    previewsOn = true;
     button.disabled = true;
-    field('peThumbsNote').textContent = t('Drawing page previews…');
+    note.textContent = t('Drawing page previews…');
+    let task = null;
+    const stale = () => run !== generation;
     try {
       const lib = await loadPdfJs();
-      const task = lib.getDocument({ data: sourceBytes.slice(), isEvalSupported: false, verbosity: 0 });
+      if (stale()) return;
+      task = lib.getDocument({ data: bytes.slice(), isEvalSupported: false, verbosity: 0 });
       const pdf = await task.promise;
       const ratio = window.devicePixelRatio || 1;
       for (let number = 1; number <= pdf.numPages; number += 1) {
+        if (stale()) return;
         try {
           const page = await pdf.getPage(number);
           const base = page.getViewport({ scale: 1 });
@@ -111,18 +128,40 @@
           canvas.width = Math.round(viewport.width);
           canvas.height = Math.round(viewport.height);
           await page.render({ canvasContext: canvas.getContext('2d'), viewport, canvas }).promise;
+          if (stale()) return;
           thumbs.set(number - 1, canvas);
+          refreshSheet(number - 1);
         } catch { /* this page keeps its plain sheet */ }
-        if (number % 4 === 0 || number === pdf.numPages) render();
       }
-      previewsOn = true;
-      field('peThumbsNote').textContent = '';
+      note.textContent = '';
       button.hidden = true;
-      // Free the worker; nothing waits for it, and a failure here changes nothing on the page.
-      try { Promise.resolve(task.destroy()).catch(() => {}); } catch { /* already gone */ }
     } catch {
-      field('peThumbsNote').textContent = t('Previews could not be loaded. The first time, they need an internet connection.');
+      if (stale()) return;
+      previewsOn = false;
+      note.textContent = t('Previews could not be loaded. The first time, they need an internet connection.');
       button.disabled = false;
+    } finally {
+      // Free the worker; nothing waits for it, and a failure here changes nothing on the page.
+      if (task) try { Promise.resolve(task.destroy()).catch(() => {}); } catch { /* already gone */ }
+    }
+  }
+
+  function refreshSheet(index) {
+    const entry = sheets.get(index);
+    if (entry) fillSheet(entry.sheet, entry.page, entry.width, entry.height);
+  }
+
+  // A sheet shows the preview when there is one, else the page number on paper.
+  function fillSheet(sheet, page, width, height) {
+    const drawn = preview(page, width, height);
+    if (drawn) {
+      sheet.classList.add('pe-sheet--preview');
+      const number = document.createElement('span');
+      number.className = 'pe-number';
+      number.textContent = String(page.index + 1);
+      sheet.replaceChildren(drawn, number);
+    } else {
+      sheet.textContent = String(page.index + 1);
     }
   }
 
@@ -145,6 +184,7 @@
   }
 
   function render() {
+    sheets.clear();
     gridEl.replaceChildren(...pages.map((page, position) => {
       const tile = document.createElement('div');
       tile.className = `pe-tile${selected.has(position) ? ' pe-tile--selected' : ''}${page.deleted ? ' pe-tile--deleted' : ''}`;
@@ -160,16 +200,10 @@
       const factor = SHEET / Math.max(width, height);
       sheet.style.width = `${Math.round(width * factor)}px`;
       sheet.style.height = `${Math.round(height * factor)}px`;
-      const drawn = preview(page, Math.round(width * factor), Math.round(height * factor));
-      if (drawn) {
-        sheet.classList.add('pe-sheet--preview');
-        const number = document.createElement('span');
-        number.className = 'pe-number';
-        number.textContent = String(page.index + 1);
-        sheet.append(drawn, number);
-      } else {
-        sheet.textContent = String(page.index + 1);
-      }
+      const sheetWidth = Math.round(width * factor);
+      const sheetHeight = Math.round(height * factor);
+      fillSheet(sheet, page, sheetWidth, sheetHeight);
+      sheets.set(page.index, { sheet, page, width: sheetWidth, height: sheetHeight });
       const label = document.createElement('span');
       label.className = 'pe-label';
       label.textContent = page.deleted ? t('Deleted') : `${paperName(width, height)}${page.rotate ? ` · ${page.rotate}°` : ''}`;

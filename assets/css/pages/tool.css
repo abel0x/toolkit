@@ -1402,6 +1402,8 @@
 .gr-box { display: grid; min-height: 320px; padding: 12px; border: 1px dashed var(--border-strong, var(--border)); border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.02); overflow: auto; }
 .gr-item { display: flex; align-items: center; justify-content: center; min-height: 56px; min-width: 40px; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-surface); color: var(--text-primary); font: 600 0.9rem var(--font-mono); overflow-wrap: anywhere; }
 .ic-source { margin: 0 0 1rem; font-size: 0.85rem; color: var(--text-muted); overflow-wrap: anywhere; }
+.ic-notice { margin: -0.5rem 0 1rem; font-size: 0.85rem; color: var(--yellow); }
+.ic-notice:empty { display: none; }
 .ic-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
 .ic-preview { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
 .ic-stage { position: relative; max-width: 100%; overflow: hidden; touch-action: none; user-select: none; background: var(--bg-surface); border: 1px solid var(--border); }
