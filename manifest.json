@@ -1,7 +1,7 @@
 {
   "name": "Toolkit",
   "short_name": "Toolkit",
-  "description": "101 free developer utilities. No tracking. No backend. 100% client-side.",
+  "description": "119 free developer utilities that run in your browser: JSON, JWT, encryption, images, PDF and more. No tracking. No backend. Works offline.",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",

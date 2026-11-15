@@ -18,6 +18,8 @@
 
   class PageRangeError extends Error {}
 
+  const SHEET = 92; // the longer side of a page sheet, in CSS pixels
+
   function parseRanges(text, count) {
     const source = text.trim().toLowerCase();
     if (!source || source === 'all') return Array.from({ length: count }, (_, index) => index);
@@ -46,6 +48,13 @@
     return found ? found[0] : `${mm(width)} × ${mm(height)} mm`;
   }
 
+  // pdf.js is self-hosted and only downloaded when someone asks for previews.
+  const VENDOR = new URL('../vendor/', document.currentScript ? document.currentScript.src : window.location.href);
+  let pdfjs = null;
+  let previewsOn = false;
+  const thumbs = new Map(); // original page index → canvas drawn by pdf.js
+  let sourceBytes = null;
+
   let file = null;
   let doc = null;
   // One entry per page in its current place: { index, rotate, deleted, size: [w, h], baseRotation }
@@ -56,7 +65,8 @@
     if (!input) return;
     if (!/pdf$/i.test(input.type) && !/\.pdf$/i.test(input.name)) { showToast(t('Choose a PDF file.'), 'error'); return; }
     try {
-      doc = await PDFLib.PDFDocument.load(new Uint8Array(await input.arrayBuffer()));
+      sourceBytes = new Uint8Array(await input.arrayBuffer());
+      doc = await PDFLib.PDFDocument.load(sourceBytes);
     } catch (error) {
       showToast(/encrypt/i.test(error.message) ? t('This PDF is password-protected, so its pages cannot be edited here.') : t('This is not a PDF this tool can read.'), 'error');
       return;
@@ -67,7 +77,71 @@
     editorEl.hidden = false;
     field('peSource').textContent = `${input.name} · ${pages.length} ${t(pages.length === 1 ? 'page' : 'pages')} · ${formatBytes(input.size)}`;
     field('peResult').textContent = '';
+    thumbs.clear();
     render();
+    if (previewsOn) drawPreviews();
+  }
+
+  /* ── Page previews (pdf.js, on request) ─────────────────────── */
+
+  async function loadPdfJs() {
+    if (pdfjs) return pdfjs;
+    const module = await import(new URL('pdfjs.min.mjs', VENDOR).href);
+    module.GlobalWorkerOptions.workerSrc = new URL('pdfjs.worker.min.mjs', VENDOR).href;
+    pdfjs = module;
+    return module;
+  }
+
+  // Each page drawn once at preview size, with the page's own rotation.
+  async function drawPreviews() {
+    const button = field('peThumbs');
+    button.disabled = true;
+    field('peThumbsNote').textContent = t('Drawing page previews…');
+    try {
+      const lib = await loadPdfJs();
+      const task = lib.getDocument({ data: sourceBytes.slice(), isEvalSupported: false, verbosity: 0 });
+      const pdf = await task.promise;
+      const ratio = window.devicePixelRatio || 1;
+      for (let number = 1; number <= pdf.numPages; number += 1) {
+        try {
+          const page = await pdf.getPage(number);
+          const base = page.getViewport({ scale: 1 });
+          const viewport = page.getViewport({ scale: (SHEET / Math.max(base.width, base.height)) * ratio });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(viewport.width);
+          canvas.height = Math.round(viewport.height);
+          await page.render({ canvasContext: canvas.getContext('2d'), viewport, canvas }).promise;
+          thumbs.set(number - 1, canvas);
+        } catch { /* this page keeps its plain sheet */ }
+        if (number % 4 === 0 || number === pdf.numPages) render();
+      }
+      previewsOn = true;
+      field('peThumbsNote').textContent = '';
+      button.hidden = true;
+      // Free the worker; nothing waits for it, and a failure here changes nothing on the page.
+      try { Promise.resolve(task.destroy()).catch(() => {}); } catch { /* already gone */ }
+    } catch {
+      field('peThumbsNote').textContent = t('Previews could not be loaded. The first time, they need an internet connection.');
+      button.disabled = false;
+    }
+  }
+
+  // The preview turned by the extra rotation picked here.
+  function preview(page, width, height) {
+    const source = thumbs.get(page.index);
+    if (!source) return null;
+    const canvas = document.createElement('canvas');
+    const turn = page.rotate % 180 !== 0;
+    canvas.width = turn ? source.height : source.width;
+    canvas.height = turn ? source.width : source.height;
+    const ctx = canvas.getContext('2d');
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate((page.rotate * Math.PI) / 180);
+    ctx.drawImage(source, -source.width / 2, -source.height / 2);
+    canvas.className = 'pe-thumb';
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    return canvas;
   }
 
   function render() {
@@ -83,11 +157,19 @@
       const sheet = document.createElement('span');
       sheet.className = 'pe-sheet';
       // The sheet keeps the page's proportions (and shows a turn) without loading its content.
-      const box = 92;
-      const factor = box / Math.max(width, height);
+      const factor = SHEET / Math.max(width, height);
       sheet.style.width = `${Math.round(width * factor)}px`;
       sheet.style.height = `${Math.round(height * factor)}px`;
-      sheet.textContent = String(page.index + 1);
+      const drawn = preview(page, Math.round(width * factor), Math.round(height * factor));
+      if (drawn) {
+        sheet.classList.add('pe-sheet--preview');
+        const number = document.createElement('span');
+        number.className = 'pe-number';
+        number.textContent = String(page.index + 1);
+        sheet.append(drawn, number);
+      } else {
+        sheet.textContent = String(page.index + 1);
+      }
       const label = document.createElement('span');
       label.className = 'pe-label';
       label.textContent = page.deleted ? t('Deleted') : `${paperName(width, height)}${page.rotate ? ` · ${page.rotate}°` : ''}`;
@@ -247,6 +329,7 @@
       showToast(t(error.message), 'error');
     }
   });
+  field('peThumbs').addEventListener('click', () => { if (doc) drawPreviews(); });
   field('peSplitMode').addEventListener('change', () => {
     field('peEveryRow').hidden = field('peSplitMode').value !== 'every';
     field('peRangesRow').hidden = field('peSplitMode').value !== 'ranges';
@@ -260,5 +343,5 @@
   window.addEventListener('toolkit:languagechange', () => { if (doc) render(); });
 
   // Exposed for the tests.
-  window.ToolkitPdfPageEditor = Object.freeze({ parseRanges, paperName, actions, state: () => pages.map((page) => ({ ...page })) });
+  window.ToolkitPdfPageEditor = Object.freeze({ parseRanges, paperName, actions, state: () => pages.map((page) => ({ ...page })), previews: () => thumbs.size });
 }());

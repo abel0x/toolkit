@@ -1,12 +1,12 @@
 {
   "index.html": {
     "title": "Toolkit — {{count}} Ücretsiz Geliştirici Aracı",
-    "description": "Toolkit — {{count}} ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü, metin araçları, dönüştürücüler, web araçları ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
-    "ogDescription": "{{count}} ücretsiz geliştirici aracı: parola oluşturucu, hash, Base64, UUID, JSON araçları, JWT çözücü, regex test aracı, QR kod, renk dönüştürücü ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
+    "description": "Toolkit — {{count}} ücretsiz geliştirici aracı: JSON, JWT, regex, hash ve şifreleme, Base64, QR kod, görsel dönüştürme, PDF birleştirme ve bölme, CSS üreteçleri, alt ağ hesaplama ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
+    "ogDescription": "{{count}} ücretsiz geliştirici aracı: JSON, JWT, regex, şifreleme, QR kod, görsel dönüştürme, PDF birleştirme ve bölme, CSS üreteçleri ve dahası. Tamamen tarayıcınızda çalışır, izleme yok.",
     "source": {
       "title": "Toolkit — {{count}} Free Developer Tools in Your Browser",
-      "description": "Toolkit — {{count}} free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter, text tools, converters, web utilities and more. 100% client-side, zero tracking.",
-      "ogDescription": "{{count}} free developer utilities: password generator, hash, Base64, UUID, JSON tools, JWT decoder, regex tester, QR code, color converter and more. 100% client-side, zero tracking."
+      "description": "Toolkit — {{count}} free developer utilities: JSON, JWT, regex, hashes and encryption, Base64, QR codes, image conversion, PDF merging and splitting, CSS generators, subnets and more. 100% client-side, zero tracking.",
+      "ogDescription": "{{count}} free developer utilities: JSON, JWT, regex, encryption, QR codes, image conversion, PDF merging and splitting, CSS generators and more. 100% client-side, zero tracking."
     }
   },
   "license/index.html": {

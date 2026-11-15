@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-15",
-    "sha256": "2edf439b22d77e96a801a4d53f938467d8477fc59b96f4f12acc74a790b35afa"
+    "sha256": "0b4466ca5b4ec158eb7881726e7a75df5d026d2f00741707e1531ad496cb3679"
   },
   "license/index.html": {
     "date": "2026-11-15",
@@ -309,7 +309,7 @@
   },
   "tools/pdf-page-editor.html": {
     "date": "2026-11-15",
-    "sha256": "3ba0925986663b98c902804758b0884cf592a04e95659fa64ec20991426ea5ee"
+    "sha256": "bb37beb5d23cc7501df4d24aa78cc77e6b5b1cf0727cc75f42072bf54da9431a"
   },
   "tools/pem-jwk.html": {
     "date": "2026-11-15",
@@ -489,7 +489,7 @@
   },
   "tr/index.html": {
     "date": "2026-11-15",
-    "sha256": "30c77349dd610c3755a1879d02044438740a1ae739d048d21dcf90598cc877b6"
+    "sha256": "2b721c6fc2476720e43c6a443286d0a4f1daded95c2709c16aee65a2dd6f6d22"
   },
   "tr/license/index.html": {
     "date": "2026-11-15",
@@ -797,7 +797,7 @@
   },
   "tr/tools/pdf-page-editor.html": {
     "date": "2026-11-15",
-    "sha256": "e1493515f7896c08b3592f63fed3f0064cb36ea4438da6b0321ed95397638474"
+    "sha256": "90e590ab70d750b5a35822773d3ed27169f4ade6448edd8be5bae93197b7bf7e"
   },
   "tr/tools/pem-jwk.html": {
     "date": "2026-11-15",

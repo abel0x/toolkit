@@ -4,11 +4,15 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Preview": "Önizle",
     "Width": "Genişlik",
     "Height": "Yükseklik",
     "Mode": "Mod",
     "Editor": "Editör",
+    ".mjs": ".mjs",
     ".pdf": ".pdf",
+    "Drawing page previews…": "Sayfa önizlemeleri çiziliyor…",
+    "Previews could not be loaded. The first time, they need an internet connection.": "Önizlemeler yüklenemedi. İlk seferde internet bağlantısı gerekir.",
     "PDF Page Editor": "PDF Sayfa Düzenleyici",
     "Pick pages": "Sayfa seç",
     "Pick": "Seç",
@@ -27,6 +31,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "There are no pages to split.": "Bölünecek sayfa yok.",
     "Left": "Sol",
     "Drop": "Damla",
+    "Note": "Not",
     "None": "Yok"
   }))
 });

@@ -1009,6 +1009,30 @@ await withFirefox(async (page) => {
       ['ZIP download', [saved.find((item) => typeof item === 'string'), saved.find((item) => item instanceof Blob)?.type], ['report-split.zip', 'application/zip']],
       ['paper names', [api.paperName(595.28, 841.89), api.paperName(792, 612), api.paperName(300, 300)], ['A4', 'Letter', '106 × 106 mm']]];`);
 
+  await check('pdf-page-editor', `
+    // Page previews: pdf.js is downloaded only on request, then each page is drawn.
+    const api = window.ToolkitPdfPageEditor;
+    const doc = await PDFLib.PDFDocument.create();
+    for (const [width, height] of [[300, 400], [400, 300], [300, 400]]) {
+      const page = doc.addPage([width, height]);
+      page.drawRectangle({ x: 0, y: 0, width, height: height / 2, color: PDFLib.rgb(1, 0, 0) });
+    }
+    const files = new DataTransfer(); files.items.add(new File([await doc.save()], 'shapes.pdf', { type: 'application/pdf' }));
+    $('#peFile').files = files.files; $('#peFile').dispatchEvent(new Event('change')); await wait(400);
+    const fetchedBefore = performance.getEntriesByType('resource').some((entry) => entry.name.includes('pdfjs'));
+    click('#peThumbs');
+    for (let i = 0; i < 100 && !(api.previews() === 3 && $('#peThumbs').hidden); i += 1) await wait(100);
+    const canvases = [...document.querySelectorAll('#pePages canvas.pe-thumb')];
+    const bottom = canvases[0].getContext('2d').getImageData(Math.floor(canvases[0].width / 2), canvases[0].height - 3, 1, 1).data;
+    const top = canvases[0].getContext('2d').getImageData(Math.floor(canvases[0].width / 2), 3, 1, 1).data;
+    set('#peRange', '1'); click('#peSelectRange'); click('#peRotateRight'); await wait(20);
+    const turned = document.querySelector('#pePages canvas.pe-thumb');
+    return [['pdf.js not fetched before asking', fetchedBefore, false], ['three previews', [api.previews(), canvases.length], [3, 3]],
+      ['red lower half drawn', [bottom[0] > 200 && bottom[1] < 80, top[0] > 200 && top[1] > 200], [true, true]],
+      ['button gone, no warning', [$('#peThumbs').hidden, text('#peThumbsNote')], [true, '']],
+      ['preview turns with the page', turned.width > turned.height, true],
+      ['every sheet shows its preview', document.querySelectorAll('#pePages .pe-sheet--preview').length, 3]];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

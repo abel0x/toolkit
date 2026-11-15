@@ -403,6 +403,12 @@ assert.equal(
   '0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f',
   'The pinned pdf-lib 1.17.1 distribution has changed unexpectedly.'
 );
+assert(existsSync(join(root, 'assets/js/vendor/pdfjs.LICENSE.txt')), 'The pdf.js licence is missing.');
+for (const [file, digest] of [['pdfjs.min.mjs', '3a88402882cfa3e7e72c2c9b5149f52f0f88baf1c5b62aa11a41abdbc2072440'], ['pdfjs.worker.min.mjs', '1e64c8240e54735ec5913b37acd5134747799cb8c6bb3777c70adbc01232d2aa']]) {
+  assert.equal(createHash('sha256').update(readFileSync(join(root, 'assets/js/vendor', file))).digest('hex'), digest, `The pinned pdf.js 6.5.438 file ${file} has changed unexpectedly.`);
+}
+// pdf.js is fetched only when previews are asked for, so it stays out of the install-time precache.
+assert(!serviceWorker.includes('pdfjs.worker.min.mjs'), 'The 1.3 MB pdf.js worker must not be precached at install.');
 const bcryptHtml = readFileSync(join(toolsDirectory, 'bcrypt.html'), 'utf8');
 const bcryptVendorIndex = bcryptHtml.indexOf('../assets/js/vendor/bcryptjs.umd.js');
 const bcryptModuleIndex = bcryptHtml.indexOf('../assets/js/tools/bcrypt.js');

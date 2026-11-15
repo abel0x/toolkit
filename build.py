@@ -622,6 +622,13 @@ def run_tool_count():
         if revised != content:
             _write(path, revised)
             updated += 1
+    # The web app manifest carries the count too.
+    manifest_path = os.path.join(ROOT, 'manifest.json')
+    manifest = _read(manifest_path)
+    revised = re.sub(r'\b\d+ free developer utilities', f'{count} free developer utilities', manifest)
+    if revised != manifest:
+        _write(manifest_path, revised)
+        updated += 1
     print(f'  OK    {updated} published pages synchronized to {count} tools.')
 
 
