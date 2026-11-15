@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-tr.png" />
   <meta name="twitter:image:alt" content="Toolkit: günlük geliştirici araçları, sunucu olmadan." />
   <title>Görsel Dönüştürücü — Toolkit</title>
-  <link rel="stylesheet" href="../../assets/css/core.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../../assets/css/components.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=6e17f5f767ff" />
+  <link rel="stylesheet" href="../../assets/css/core.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../../assets/css/components.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../../assets/css/compatibility.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../../assets/css/pages/tool.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../../assets/css/inline-styles.css?v=4d2d626b8d1d" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Görsel Dönüştürücü", "url": "https://abel0x.github.io/toolkit/tr/tools/image-converter.html", "description": "Tarayıcınızda bir görseli PNG, JPEG, WebP ya da AVIF’e dönüştürün, SVG’yi istediğiniz boyutta PNG’ye çevirin. Sürükleyerek ya da sayılarla kırpın; kare, hikâye ve bağlantı önizlemesi oranları hazır. Döndürün, çevirin ve tam piksele boyutlandırın. Görsel hiç yüklenmez, sonuç EXIF verisi taşımaz.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "JavaScript etkin, güncel bir tarayıcı gerektirir.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "tr", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/tr/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/tr/"}, {"@type": "ListItem", "position": 2, "name": "Görsel Dönüştürücü", "item": "https://abel0x.github.io/toolkit/tr/tools/image-converter.html"}]}]}</script>
@@ -87,10 +87,10 @@
               <div class="ic-preview">
                 <div class="ic-stage" id="icStage">
                   <canvas id="icCanvas" role="img" aria-label="Görsel önizlemesi"></canvas>
-                  <div class="ic-crop" id="icCrop" aria-hidden="true">
-                    <span class="ic-handle ic-handle--nw" data-handle="nw"></span><span class="ic-handle ic-handle--ne" data-handle="ne"></span>
-                    <span class="ic-handle ic-handle--sw" data-handle="sw"></span><span class="ic-handle ic-handle--se" data-handle="se"></span>
-                  </div>
+                  <button type="button" class="ic-crop" id="icCrop" aria-label="Kırpma alanı: ok tuşları taşır, Shift ile ok tuşları boyutlandırır, Alt tek piksel adımlar">
+                    <span class="ic-handle ic-handle--nw" data-handle="nw" aria-hidden="true"></span><span class="ic-handle ic-handle--ne" data-handle="ne" aria-hidden="true"></span>
+                    <span class="ic-handle ic-handle--sw" data-handle="sw" aria-hidden="true"></span><span class="ic-handle ic-handle--se" data-handle="se" aria-hidden="true"></span>
+                  </button>
                 </div>
                 <div class="btn-row ic-turn">
                   <button type="button" class="btn btn--ghost btn--sm" id="icRotateLeft">↺ Sola döndür</button>
@@ -202,17 +202,17 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Toolkit. Verileriniz cihazınızdan ayrılmaz. <a class="footer-privacy" href="../privacy/index.html">Gizlilik</a></p>
-        <p class="footer-tech">119 araç · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p class="footer-tech">121 araç · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>
 
-  <script src="../../assets/js/core/utils.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/core/nav.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/i18n/tr/shared.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/i18n/tr/image-converter.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/core/i18n.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/core/command-palette.js?v=6e17f5f767ff" defer></script>
-  <script src="../../assets/js/tools/image-converter.js?v=6e17f5f767ff" defer></script>
+  <script src="../../assets/js/core/utils.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/core/nav.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/i18n/tr/shared.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/i18n/tr/image-converter.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/core/i18n.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/core/command-palette.js?v=4d2d626b8d1d" defer></script>
+  <script src="../../assets/js/tools/image-converter.js?v=4d2d626b8d1d" defer></script>
 </body>
 </html>

@@ -5,11 +5,16 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Unit": "Birim",
+    "Remove": "Kaldır",
     "From": "Başlangıç",
     "video": "video",
     "daily": "günlük",
+    "Meeting planner": "Toplantı planlayıcı",
+    "No hour of this day is within working hours everywhere.": "Bu günün hiçbir saati her yerde mesai saatine denk gelmiyor.",
+    "Working hours everywhere:": "Her yerde mesai saati:",
     "Center": "Ortala",
     "Line": "Satır",
+    "Kind": "Tür",
     "Port": "Port",
     "UTC offset": "UTC farkı",
     "Daylight saving": "Yaz saati",

@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/box-shadow-generator.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
-  <script src="../assets/js/core/language-redirect.js?v=6e17f5f767ff"></script>
+  <script src="../assets/js/core/language-redirect.js?v=4d2d626b8d1d"></script>
   <meta property="og:title" content="Box Shadow Generator — Toolkit" />
   <meta property="og:description" content="Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Box Shadow Generator — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=6e17f5f767ff" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=4d2d626b8d1d" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Box Shadow Generator", "url": "https://abel0x.github.io/toolkit/tools/box-shadow-generator.html", "description": "Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Box Shadow Generator", "item": "https://abel0x.github.io/toolkit/tools/box-shadow-generator.html"}]}]}</script>
@@ -86,6 +86,10 @@
           </div>
           <div class="cssgen-layout">
             <div class="cssgen-controls">
+              <div class="view-switch bs-mode" role="radiogroup" aria-label="Shadow on">
+                <label class="view-switch__option"><input type="radio" name="bsMode" value="box" checked /><span>Box</span></label>
+                <label class="view-switch__option"><input type="radio" name="bsMode" value="text" /><span>Text</span></label>
+              </div>
               <div class="cssgen-layers">
                 <div class="cssgen-layer-list" id="bsLayers" role="group" aria-label="Shadow layers"></div>
                 <button type="button" class="btn btn--ghost btn--sm" id="bsAdd">+ Add layer</button>
@@ -94,25 +98,30 @@
               <div class="control-row"><label for="bsX" class="control-label">Horizontal offset <span class="control-value" id="bsXVal"></span></label><input type="range" id="bsX" class="slider" min="-100" max="100" value="0" /></div>
               <div class="control-row"><label for="bsY" class="control-label">Vertical offset <span class="control-value" id="bsYVal"></span></label><input type="range" id="bsY" class="slider" min="-100" max="100" value="10" /></div>
               <div class="control-row"><label for="bsBlur" class="control-label">Blur <span class="control-value" id="bsBlurVal"></span></label><input type="range" id="bsBlur" class="slider" min="0" max="200" value="30" /></div>
-              <div class="control-row"><label for="bsSpread" class="control-label">Spread <span class="control-value" id="bsSpreadVal"></span></label><input type="range" id="bsSpread" class="slider" min="-100" max="100" value="-5" /></div>
+              <div class="control-row" id="bsSpreadRow"><label for="bsSpread" class="control-label">Spread <span class="control-value" id="bsSpreadVal"></span></label><input type="range" id="bsSpread" class="slider" min="-100" max="100" value="-5" /></div>
               <div class="cssgen-row">
                 <div class="control-row cssgen-grow"><label for="bsAlpha" class="control-label">Opacity <span class="control-value" id="bsAlphaVal"></span></label><input type="range" id="bsAlpha" class="slider" min="0" max="100" value="25" /></div>
                 <div class="control-row"><label for="bsColor" class="control-label">Colour</label><input type="color" id="bsColor" class="color-input" value="#000000" /></div>
               </div>
-              <label class="diff-option"><input type="checkbox" id="bsInset" /> Inset (inside the box)</label>
+              <label class="diff-option" id="bsInsetRow"><input type="checkbox" id="bsInset" /> Inset (inside the box)</label>
             </div>
             <div class="cssgen-preview-col">
               <div class="cssgen-stage" id="bsStage">
                 <div class="bs-preview" id="bsPreview" role="img" aria-label="Shadow preview"></div>
+                <p class="bs-text" id="bsText" hidden>Toolkit</p>
               </div>
               <div class="cssgen-row">
-                <div class="control-row cssgen-grow"><label for="bsRadius" class="control-label">Box corners <span class="control-value" id="bsRadiusVal"></span></label><input type="range" id="bsRadius" class="slider" min="0" max="80" value="12" /></div>
-                <div class="control-row"><label for="bsBox" class="control-label">Box</label><input type="color" id="bsBox" class="color-input" value="#ffffff" /></div>
+                <div class="control-row cssgen-grow" id="bsRadiusRow"><label for="bsRadius" class="control-label">Box corners <span class="control-value" id="bsRadiusVal"></span></label><input type="range" id="bsRadius" class="slider" min="0" max="80" value="12" /></div>
+                <div class="control-row"><label for="bsBox" class="control-label" id="bsBoxLabel">Box</label><input type="color" id="bsBox" class="color-input" value="#ffffff" /></div>
                 <div class="control-row"><label for="bsBg" class="control-label">Background</label><input type="color" id="bsBg" class="color-input" value="#e5e7eb" /></div>
               </div>
               <div class="cssgen-code-wrap">
+                <div class="view-switch cssgen-out" role="radiogroup" aria-label="Output">
+                  <label class="view-switch__option"><input type="radio" name="bsOut" value="css" checked /><span>CSS</span></label>
+                  <label class="view-switch__option"><input type="radio" name="bsOut" value="tailwind" /><span>Tailwind</span></label>
+                </div>
                 <pre class="cssgen-code" id="bsCode" aria-live="polite"></pre>
-                <button type="button" class="btn btn--secondary btn--sm" id="bsCopy">Copy CSS</button>
+                <button type="button" class="btn btn--secondary btn--sm" id="bsCopy">Copy</button>
               </div>
             </div>
           </div>
@@ -152,15 +161,15 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
-        <p class="footer-tech">119 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p class="footer-tech">121 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/nav.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/i18n.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/tools/box-shadow-generator.js?v=6e17f5f767ff" defer></script>
+  <script src="../assets/js/core/utils.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/nav.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/i18n.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/tools/box-shadow-generator.js?v=4d2d626b8d1d" defer></script>
 </body>
 </html>

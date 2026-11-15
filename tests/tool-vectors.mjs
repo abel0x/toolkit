@@ -971,7 +971,7 @@ await withFirefox(async (page) => {
     set('#pmList tr:nth-child(2) .pm-pages', '2-9'); await wait(20);
     const badRange = text('#pmSummary');
     const ranges = [api.parseRanges('', 4), api.parseRanges('2-3, 1', 4), api.parseRanges('3-', 5), api.parseRanges('-2', 5)];
-    return [['bad file left out', rows, [['1', 'a.pdf', '3'], ['2', 'b.pdf', '2']]], ['all pages in order', all, [101, 102, 103, 201, 202]],
+    return [['bad file left out', rows, [['⠿1', 'a.pdf', '3'], ['⠿2', 'b.pdf', '2']]], ['all pages in order', all, [101, 102, 103, 201, 202]],
       ['summary', summary, '5 pages from 2 files.'], ['moved up and a range used', reordered, [201, 202, 103, 101]],
       ['range outside the file', badRange, 'Pages 2-9 are outside 1–3.'], ['range forms', ranges, [[0, 1, 2, 3], [1, 2, 0], [2, 3, 4], [0, 1]]]];`);
 
@@ -1160,6 +1160,154 @@ await withFirefox(async (page) => {
     const md = (html) => window.ToolkitHtmlToMarkdown.convert(html, { bullet: '-', em: '*', strong: '**' });
     return [['sup and sub kept as HTML', md('<p>E = mc<sup>2</sup>, H<sub>2</sub>O and <mark>this</mark></p>'), 'E = mc<sup>2</sup>, H<sub>2</sub>O and <mark>this</mark>'],
       ['line break in a table cell', md('<table><tr><th>A</th></tr><tr><td>one<br>two</td></tr></table>'), '| A |\\n| --- |\\n| one<br>two |']];`);
+
+  await check('image-converter', `
+    // The crop box from the keyboard.
+    const canvas = document.createElement('canvas'); canvas.width = 400; canvas.height = 300; canvas.getContext('2d').fillRect(0, 0, 400, 300);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const dt = new DataTransfer(); dt.items.add(new File([blob], 'k.png', { type: 'image/png' }));
+    $('#icFile').files = dt.files; $('#icFile').dispatchEvent(new Event('change')); await wait(300);
+    set('#icRatio', '1:1', 'change'); await wait(20);
+    const key = (name, extra = {}) => $('#icCrop').dispatchEvent(new KeyboardEvent('keydown', { key: name, bubbles: true, cancelable: true, ...extra }));
+    const api = window.ToolkitImageConverter;
+    const start = api.state().crop;
+    key('ArrowLeft'); const moved = api.state().crop;
+    key('ArrowRight', { altKey: true }); const nudged = api.state().crop;
+    key('ArrowLeft', { shiftKey: true }); const resized = api.state().crop;
+    return [['start', start, { x: 50, y: 0, w: 300, h: 300 }], ['arrow moves 10 px', moved.x, 40], ['Alt moves 1 px', nudged.x, 41],
+      ['Shift resizes and keeps 1:1', [resized.w, resized.h], [290, 290]], ['size fields follow', value('#icWidth'), '290'], ['focusable button', $('#icCrop').tagName, 'BUTTON']];`);
+
+  await check('pdf-merger', `
+    const make = async (widths) => { const d = await PDFLib.PDFDocument.create(); widths.forEach((w) => d.addPage([w, 400])); return new Blob([await d.save()], { type: 'application/pdf' }); };
+    const dt = new DataTransfer(); dt.items.add(new File([await make([101])], 'a.pdf', { type: 'application/pdf' })); dt.items.add(new File([await make([202])], 'b.pdf', { type: 'application/pdf' })); dt.items.add(new File([await make([303])], 'c.pdf', { type: 'application/pdf' }));
+    $('#pmFiles').files = dt.files; $('#pmFiles').dispatchEvent(new Event('change')); await wait(500);
+    const transfer = new DataTransfer();
+    document.querySelectorAll('#pmList .pm-handle')[2].dispatchEvent(new DragEvent('dragstart', { dataTransfer: transfer, bubbles: true }));
+    document.querySelectorAll('#pmList tr')[0].dispatchEvent(new DragEvent('drop', { dataTransfer: transfer, bubbles: true, cancelable: true }));
+    await wait(20);
+    const order = [...document.querySelectorAll('#pmList tr')].map((row) => row.cells[1].textContent);
+    const widths = (await PDFLib.PDFDocument.load(await window.ToolkitPdfMerger.merge())).getPages().map((page) => Math.round(page.getWidth()));
+    return [['dragged to the top', order, ['c.pdf', 'a.pdf', 'b.pdf']], ['merged in the new order', widths, [303, 101, 202]]];`);
+
+  await check('box-shadow-generator', `
+    set('input[name="bsOut"][value="tailwind"]', true, 'change'); await wait(10);
+    const box = $('#bsCode').textContent;
+    set('input[name="bsMode"][value="text"]', true, 'change'); await wait(10);
+    const textTw = $('#bsCode').textContent;
+    const hidden = [$('#bsSpreadRow').hidden, $('#bsInsetRow').hidden, $('#bsText').hidden, $('#bsPreview').hidden];
+    set('input[name="bsOut"][value="css"]', true, 'change'); await wait(10);
+    return [['Tailwind box shadow', box, 'shadow-[0_10px_30px_-5px_rgba(0,0,0,0.25)]'], ['Tailwind text shadow', textTw, { includes: 'text-shadow-[0_10px_30px_rgba(0,0,0,0.25)]' }],
+      ['text mode hides box-only controls', hidden, [true, true, false, true]], ['text-shadow CSS', $('#bsCode').textContent, 'text-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);'],
+      ['applied to the text', getComputedStyle($('#bsText')).textShadow.includes('30px'), true]];`);
+
+  await check('border-radius-generator', `
+    set('input[name="brOut"][value="tailwind"]', true, 'change'); await wait(10);
+    const plain = $('#brCode').textContent;
+    set('#brEllipse', true, 'change'); set('#brLink', false, 'change'); set('#br-tl-v', '10'); await wait(10);
+    return [['Tailwind', plain, 'rounded-[24px]'], ['elliptical Tailwind keeps the slash', $('#brCode').textContent, 'rounded-[24px/10px_24px_24px]']];`);
+
+  await check('flexbox-playground', `
+    set('input[name="fxOut"][value="tailwind"]', true, 'change'); click('[data-fx-preset="sidebar"]'); await wait(10);
+    return [['Tailwind classes', $('#fxCode').textContent, '<div class="flex gap-3">\\n  <div class="shrink-0 basis-[30%]">1</div>\\n  <div class="grow">2</div>\\n</div>']];`);
+
+  await check('css-grid-generator', `
+    set('input[name="grOut"][value="tailwind"]', true, 'change'); click('[data-gr-preset="sidebar"]'); await wait(10);
+    const simple = $('#grCode').textContent.split('\\n')[0];
+    set('#grAreas', '"head head"\\n"nav main"'); set('#grColumnGap', '20'); await wait(10);
+    return [['columns as an arbitrary value', simple, '<div class="grid grid-cols-[240px_1fr] grid-rows-[auto] gap-3">'],
+      ['areas as an arbitrary property', $('#grCode').textContent.split('\\n')[0], "<div class=\\"grid grid-cols-[240px_1fr] grid-rows-[auto] [grid-template-areas:'head_head'_'nav_main'] gap-x-5 gap-y-3\\">"],
+      ['items name their area', $('#grCode').textContent, { includes: '<div class="[grid-area:nav]">nav</div>' }]];`);
+
+  await check('csv-to-sql', `
+    set('#c2sInput', 'id,name,active\\n1,Tea,true\\n2,Coffee,false'); set('#c2sDialect', 'sqlite', 'change'); await wait(20);
+    set('#c2sConflict', 'update', 'change'); await wait(20);
+    const noKey = text('#c2sError');
+    set('#c2sKey', 'id', 'change'); await wait(20);
+    const upsert = value('#c2sOutput');
+    const selects = document.querySelectorAll('#c2sTypes select');
+    const autoLabel = selects[2].options[0].textContent;
+    selects[0].value = 'text'; selects[0].dispatchEvent(new Event('change')); await wait(20);
+    set('#c2sDialect', 'sqlserver', 'change'); set('#c2sConflict', 'skip', 'change'); await wait(20);
+    return [['key needed for updates', noKey, 'Pick the key column that identifies existing rows.'],
+      ['SQLite upsert', upsert, { includes: 'ON CONFLICT ("id") DO UPDATE SET "name" = excluded."name", "active" = excluded."active";' }],
+      ['primary key in CREATE TABLE', upsert, { includes: 'PRIMARY KEY ("id")' }], ['Auto shows the inferred type', autoLabel, 'Auto (boolean)'],
+      ['type override quotes the ids', value('#c2sOutput'), { includes: "('1', 'Tea', 1)" }], ['SQL Server MERGE without update', value('#c2sOutput').includes('WHEN MATCHED'), false],
+      ['SQL Server MERGE inserts new rows', value('#c2sOutput'), { includes: 'WHEN NOT MATCHED THEN INSERT ([id], [name], [active]) VALUES (source.[id], source.[name], source.[active]);' }]];`);
+
+  await check('subnet-calculator', `
+    set('#snPlanBase', '192.168.10.0/24'); set('#snPlanNeeds', 'Office 100\\nLab: 50\\nWi-Fi guests 25\\nLink to branch 2'); await wait(20);
+    const rows = [...document.querySelectorAll('#snPlan tbody tr')].map((row) => [...row.cells].map((cell) => cell.textContent));
+    const note = text('#snPlanNote');
+    set('#snPlanBase', '10.0.0.0/26'); set('#snPlanNeeds', 'A 50\\nB 20'); await wait(20);
+    return [['planned largest first', rows.map((row) => [row[0], row[2]]), [['Office', '192.168.10.0/25'], ['Lab', '192.168.10.128/26'], ['Wi-Fi guests', '192.168.10.192/27'], ['Link to branch', '192.168.10.224/30']]],
+      ['room per subnet', rows.map((row) => row[5]), ['126', '62', '30', '2']], ['free space listed', note, '228 of 256 addresses used. Still free: 192.168.10.228/30, 192.168.10.232/29, 192.168.10.240/28'],
+      ['does not fit', text('#snPlanError'), 'B (20 hosts) does not fit: 10.0.0.0/26 has no room left for a /27.']];`);
+
+  await check('country-time-zones', `
+    const api = window.ToolkitCountryZones;
+    // 16 November 2026: Istanbul is UTC+3, London UTC+0, New York UTC-5.
+    const two = api.bestRuns(api.meetingHours(['Europe/Istanbul', 'Europe/London'], 2026, 11, 16));
+    const three = api.bestRuns(api.meetingHours(['Europe/Istanbul', 'Europe/London', 'America/New_York'], 2026, 11, 16));
+    const start = document.querySelectorAll('#ctzMeetZones .ctz-meet-chip').length;
+    set('#ctzMeetAdd', 'Asia/Tokyo', 'change'); click('#ctzMeetAddBtn'); await wait(20);
+    const rows = document.querySelectorAll('#ctzMeetGrid tr').length;
+    const cells = document.querySelectorAll('#ctzMeetGrid tr:first-child td').length;
+    return [['Istanbul and London share 12:00–17:00 Istanbul time', two, [{ start: 12, end: 16 }]], ['adding New York leaves no shared hour', three, []],
+      ['a zone added', document.querySelectorAll('#ctzMeetZones .ctz-meet-chip').length, start + 1], ['a row per zone, 24 hours', [rows, cells], [start + 1, 24]]];`);
+
+  await check('pdf-page-editor', `
+    // Page numbers and a watermark land upright, also on a page shown turned by 90 degrees.
+    const doc = await PDFLib.PDFDocument.create(); doc.addPage([400, 300]); doc.addPage([400, 300]).setRotation(PDFLib.degrees(90));
+    const dt = new DataTransfer(); dt.items.add(new File([await doc.save()], 'stamp.pdf', { type: 'application/pdf' }));
+    $('#peFile').files = dt.files; $('#peFile').dispatchEvent(new Event('change')); await wait(400);
+    set('#peNumbers', true, 'change'); set('#peNumberPos', 'bottom-right', 'change'); set('#peNumberFormat', 'of', 'change'); set('#peWatermark', 'TASLAK ğışİ');
+    const bytes = await window.ToolkitPdfPageEditor.actions.edited();
+    const lib = await import('../assets/js/vendor/pdfjs.min.mjs');
+    lib.GlobalWorkerOptions.workerSrc = '../assets/js/vendor/pdfjs.worker.min.mjs';
+    const loading = lib.getDocument({ data: bytes, isEvalSupported: false });
+    const pdf = await loading.promise;
+    const inspect = async (number) => {
+      const page = await pdf.getPage(number); const viewport = page.getViewport({ scale: 1 });
+      const canvas = document.createElement('canvas'); canvas.width = viewport.width; canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d'); await page.render({ canvasContext: ctx, viewport, canvas }).promise;
+      const dark = (x, y, w, h, limit = 200) => { const d = ctx.getImageData(x, y, w, h).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i] < limit) n += 1; return n; };
+      const W = canvas.width; const H = canvas.height;
+      return { size: [W, H], corner: dark(W - 70, H - 30, 64, 26) > 5, otherCorner: dark(0, H - 30, 64, 26) > 5, middle: dark(W / 2 - 40, H / 2 - 20, 80, 40, 245) > 20 };
+    };
+    const first = await inspect(1); const second = await inspect(2);
+    await loading.destroy();
+    return [['page 1: number bottom right, watermark in the middle', [first.size, first.corner, first.otherCorner, first.middle], [[400, 300], true, false, true]],
+      ['page 2 turned: still bottom right as shown', [second.size, second.corner, second.otherCorner, second.middle], [[300, 400], true, false, true]]];`);
+
+  await check('images-to-pdf', `
+    const image = async (w, h, colour) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); g.fillStyle = colour; g.fillRect(0, 0, w, h); return new Promise((resolve) => c.toBlob(resolve, 'image/jpeg', 0.9)); };
+    const dt = new DataTransfer(); dt.items.add(new File([await image(300, 200, '#f00')], 'wide.jpg', { type: 'image/jpeg' })); dt.items.add(new File([await image(200, 300, '#00f')], 'tall.jpg', { type: 'image/jpeg' }));
+    $('#ipFiles').files = dt.files; $('#ipFiles').dispatchEvent(new Event('change')); await wait(400);
+    const listed = [...document.querySelectorAll('#ipList tr')].map((row) => row.cells[2].firstChild.textContent);
+    const sizes = async () => (await PDFLib.PDFDocument.load(await window.ToolkitImagesToPdf.make())).getPages().map((page) => [Math.round(page.getWidth()), Math.round(page.getHeight())]);
+    const a4 = await sizes();
+    document.querySelector('#ipList tr .pm-actions button:nth-child(2)').click(); await wait(20);
+    set('#ipPaper', 'fit', 'change'); set('#ipMargin', 'none', 'change');
+    const fit = await sizes();
+    return [['both listed', listed, ['wide.jpg', 'tall.jpg']], ['A4 follows each image', a4, [[842, 595], [595, 842]]], ['moved down and pages at image size', fit, [[150, 225], [225, 150]]],
+      ['orientation hidden for image-sized pages', $('#ipOrientationRow').hidden, true], ['summary', text('#ipSummary'), '2 images, one page each.']];`);
+
+  await check('pdf-to-images', `
+    // This page does not load pdf-lib; the test brings it to make its PDF.
+    await new Promise((resolve) => { const script = document.createElement('script'); script.src = '../assets/js/vendor/pdf-lib.min.js'; script.onload = resolve; document.head.append(script); });
+    const doc = await PDFLib.PDFDocument.create();
+    for (const colour of [PDFLib.rgb(1, 0, 0), PDFLib.rgb(0, 1, 0), PDFLib.rgb(0, 0, 1)]) doc.addPage([595.28, 841.89]).drawRectangle({ x: 0, y: 0, width: 595.28, height: 841.89, color: colour });
+    const dt = new DataTransfer(); dt.items.add(new File([await doc.save()], 'report.pdf', { type: 'application/pdf' }));
+    $('#p2iFile').files = dt.files; $('#p2iFile').dispatchEvent(new Event('change'));
+    for (let i = 0; i < 100 && $('#p2iEditor').hidden; i += 1) await wait(100);
+    set('#p2iRange', '2-3'); set('#p2iFormat', 'image/jpeg', 'change'); set('#p2iDpi', '72', 'change');
+    await window.ToolkitPdfToImages.convert();
+    const images = window.ToolkitPdfToImages.images();
+    const colour = async (blob) => { const b = await createImageBitmap(blob); const c = document.createElement('canvas'); c.width = b.width; c.height = b.height; const g = c.getContext('2d'); g.drawImage(b, 0, 0); const d = g.getImageData(10, 10, 1, 1).data; return [b.width, b.height, d[1] > 200 && d[0] < 80 ? 'green' : d[2] > 200 && d[0] < 80 ? 'blue' : 'other']; };
+    return [['opened', text('#p2iSource').startsWith('report.pdf · 3 pages'), true], ['names', images.map((image) => image.name), ['report-2.jpg', 'report-3.jpg']],
+      ['JPEG at 72 DPI with the page colours', [await colour(images[0].blob), await colour(images[1].blob), images[0].blob.type], [[595, 841, 'green'], [595, 841, 'blue'], 'image/jpeg']],
+      ['ZIP offered for several pages', $('#p2iZip').hidden, false], ['thumbnails', document.querySelectorAll('#p2iPages .p2i-tile').length, 2],
+      ['a second file replaces the first', await (async () => { const d2 = await PDFLib.PDFDocument.create(); d2.addPage([200, 200]); const t2 = new DataTransfer(); t2.items.add(new File([await d2.save()], 'two.pdf', { type: 'application/pdf' })); $('#p2iFile').files = t2.files; $('#p2iFile').dispatchEvent(new Event('change')); for (let i = 0; i < 50 && !text('#p2iSource').startsWith('two.pdf'); i += 1) await wait(100); return [text('#p2iSource').startsWith('two.pdf · 1 page'), document.querySelectorAll('#p2iPages .p2i-tile').length]; })(), [true, 0]]];`);
 
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);

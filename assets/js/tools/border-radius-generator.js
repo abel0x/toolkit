@@ -44,6 +44,9 @@
     });
   }
 
+  // Tailwind arbitrary values: spaces become _ and commas need no space after them.
+  const arbitrary = (value) => value.replace(/,\s+/g, ',').replace(/\s+/g, '_');
+  const output = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
   function fillControls() {
     for (const corner of CORNERS) {
       field(`br-${corner}-h`).value = String(radii[corner].h);
@@ -75,7 +78,7 @@
     previewEl.style.height = `${field('brHeight').value}px`;
     field('brWidthVal').textContent = `${field('brWidth').value}px`;
     field('brHeightVal').textContent = `${field('brHeight').value}px`;
-    codeEl.textContent = `border-radius: ${value};`;
+    codeEl.textContent = output('brOut') === 'tailwind' ? `rounded-[${arbitrary(value).replace(/_\/_/, '/')}]` : `border-radius: ${value};`;
     fillSliders();
   }
 
@@ -143,6 +146,7 @@
   document.querySelectorAll('[data-br-preset]').forEach((button) => button.addEventListener('click', () => {
     apply(button.dataset.brPreset === 'blob' ? blob() : PRESETS[button.dataset.brPreset]);
   }));
+  document.querySelectorAll('input[name="brOut"]').forEach((radio) => radio.addEventListener('change', render));
   field('brCopy').addEventListener('click', () => copyToClipboard(codeEl.textContent, 'CSS'));
 
   // Exposed for the tests.

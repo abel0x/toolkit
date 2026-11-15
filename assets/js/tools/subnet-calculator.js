@@ -250,6 +250,95 @@
     return { blocks, entries, errors };
   }
 
+  /* ── VLSM planning ──────────────────────────────────────────── */
+
+  // "Office 120" lines → IPv4 subnets carved from the base network, largest first,
+  // each aligned to its own size and holding the hosts plus network and broadcast.
+  function planVlsm(baseText, needsText) {
+    const base = parseInput(baseText);
+    if (base.kind !== 'subnet' || base.family !== 4) throw new InputError('Plan inside an IPv4 network, such as 10.0.0.0/24.');
+    const net = subnet(4, base.value, base.prefix);
+    const needs = [];
+    needsText.split(/\r?\n/).forEach((raw, index) => {
+      const line = raw.trim();
+      if (!line) return;
+      const match = line.match(/^(.*?)[\s:,]*(\d+)$/);
+      if (!match || Number(match[2]) < 1) throw new InputError(`Line ${index + 1}: write a name and a number of hosts, such as “Office 120”.`);
+      needs.push({ name: match[1].trim() || `${t('Subnet')} ${needs.length + 1}`, hosts: Number(match[2]), order: needs.length });
+    });
+    if (!needs.length) return null;
+    const sorted = [...needs].sort((a, b) => b.hosts - a.hosts || a.order - b.order);
+    const plan = [];
+    const free = [];
+    let cursor = net.network;
+    for (const need of sorted) {
+      const bits = Math.max(2, Math.ceil(Math.log2(need.hosts + 2)));
+      const size = 1n << BigInt(bits);
+      const aligned = ((cursor + size - 1n) / size) * size;
+      if (aligned + size - 1n > net.last) {
+        throw new InputError(`${need.name} (${need.hosts} hosts) does not fit: ${format(4, net.network)}/${net.prefix} has no room left for a /${32 - bits}.`);
+      }
+      if (aligned > cursor) free.push([cursor, aligned - 1n]);
+      const part = subnet(4, aligned, 32 - bits);
+      plan.push({ ...need, prefix: 32 - bits, network: part.network, first: part.first, last: part.lastUsable, broadcast: part.last, capacity: part.usable });
+      cursor = aligned + size;
+    }
+    if (cursor <= net.last) free.push([cursor, net.last]);
+    const left = free.flatMap(([start, end]) => rangeToCidrs(4, start, end).map((block) => `${format(4, block.network)}/${block.prefix}`));
+    const used = plan.reduce((sum, item) => sum + (1n << BigInt(32 - item.prefix)), 0n);
+    return { base: net, plan, left, used };
+  }
+
+  function showPlan() {
+    const out = document.getElementById('snPlan');
+    const note = document.getElementById('snPlanNote');
+    const error = document.getElementById('snPlanError');
+    error.hidden = true;
+    out.replaceChildren();
+    note.textContent = '';
+    const baseText = document.getElementById('snPlanBase').value.trim();
+    const needsText = document.getElementById('snPlanNeeds').value;
+    if (!baseText || !needsText.trim()) return;
+    let result;
+    try {
+      result = planVlsm(baseText, needsText);
+    } catch (problem) {
+      if (!(problem instanceof InputError)) throw problem;
+      error.textContent = t(problem.message);
+      error.hidden = false;
+      return;
+    }
+    if (!result) return;
+    const head = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    headRow.append(...['Name', 'Hosts', 'Network', 'Usable host range', 'Broadcast', 'Room'].map((label) => {
+      const th = document.createElement('th');
+      th.scope = 'col';
+      th.textContent = t(label);
+      return th;
+    }));
+    head.append(headRow);
+    const body = document.createElement('tbody');
+    body.append(...result.plan.map((item) => {
+      const row = document.createElement('tr');
+      const cells = [item.name, String(item.hosts), `${format(4, item.network)}/${item.prefix}`, `${format(4, item.first)} – ${format(4, item.last)}`, format(4, item.broadcast), grouped(item.capacity)];
+      row.append(...cells.map((text, index) => {
+        const td = document.createElement('td');
+        td.textContent = text;
+        if (index > 0) td.className = 'font-mono';
+        td.dataset.i18nSkip = '';
+        return td;
+      }));
+      return row;
+    }));
+    const tableEl = document.createElement('table');
+    tableEl.className = 'ctz-table';
+    tableEl.append(head, body);
+    out.append(scroller(tableEl, 'Planned subnets'));
+    const total = result.base.size;
+    note.textContent = t(`${grouped(result.used)} of ${grouped(total)} addresses used.`) + (result.left.length ? ` ${t('Still free:')} ${result.left.join(', ')}` : '');
+  }
+
   /* ── Page ───────────────────────────────────────────────────── */
 
   const language = () => (window.ToolkitI18n && window.ToolkitI18n.getLanguage() === 'tr' ? 'tr-TR' : 'en-US');
@@ -450,6 +539,7 @@
 
   inputEl.addEventListener('input', render);
   document.getElementById('snList').addEventListener('input', showSummary);
+  ['snPlanBase', 'snPlanNeeds'].forEach((id) => document.getElementById(id).addEventListener('input', showPlan));
   document.getElementById('snSummaryCopy').addEventListener('click', () => {
     const out = document.getElementById('snSummaryOut');
     if (out.value) copyToClipboard(out.value, 'CIDR blocks');
@@ -460,6 +550,6 @@
   window.addEventListener('toolkit:languagechange', render);
 
   // Exposed for the tests.
-  window.ToolkitSubnet = Object.freeze({ parseInput, subnet, formatV6, expandV6, rangeToCidrs, addressType, reverseZone, summarise });
+  window.ToolkitSubnet = Object.freeze({ parseInput, subnet, formatV6, expandV6, rangeToCidrs, addressType, reverseZone, summarise, planVlsm });
   render();
 }());

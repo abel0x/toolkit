@@ -52,6 +52,37 @@
     return lines;
   }
 
+  // Tailwind arbitrary values: spaces become _ and commas need no space after them.
+  const arbitrary = (value) => value.replace(/,\s+/g, ',').replace(/\s+/g, '_');
+  const output = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
+  // Tailwind classes for the container and for each item that differs from the defaults.
+  const TW_CONTAINER = {
+    'flex-direction': { 'row-reverse': 'flex-row-reverse', column: 'flex-col', 'column-reverse': 'flex-col-reverse' },
+    'flex-wrap': { wrap: 'flex-wrap', 'wrap-reverse': 'flex-wrap-reverse' },
+    'justify-content': { center: 'justify-center', 'flex-end': 'justify-end', 'space-between': 'justify-between', 'space-around': 'justify-around', 'space-evenly': 'justify-evenly' },
+    'align-items': { 'flex-start': 'items-start', center: 'items-center', 'flex-end': 'items-end', baseline: 'items-baseline' },
+    'align-content': { 'flex-start': 'content-start', center: 'content-center', 'flex-end': 'content-end', 'space-between': 'content-between', 'space-around': 'content-around', 'space-evenly': 'content-evenly', stretch: 'content-stretch' }
+  };
+  const spacing = (pixels) => (pixels % 4 === 0 ? String(pixels / 4) : `[${pixels}px]`);
+  function tailwind() {
+    const container = ['flex'];
+    for (const [property, id] of CONTAINER) { const name = TW_CONTAINER[property][field(id).value]; if (name) container.push(name); }
+    const gap = Number(field('fxGap').value);
+    if (gap) container.push(`gap-${spacing(gap)}`);
+    const lines = [`<div class="${container.join(' ')}">`];
+    items.forEach((item, index) => {
+      const classes = [];
+      if (item.grow === 1) classes.push('grow'); else if (item.grow) classes.push(`grow-[${item.grow}]`);
+      if (item.shrink === 0) classes.push('shrink-0'); else if (item.shrink !== 1) classes.push(`shrink-[${item.shrink}]`);
+      if (item.basis !== 'auto') classes.push(`basis-[${arbitrary(item.basis)}]`);
+      if (item.alignSelf !== 'auto') classes.push(`self-${{ 'flex-start': 'start', 'flex-end': 'end' }[item.alignSelf] || item.alignSelf}`);
+      if (item.order) classes.push(`order-[${item.order}]`);
+      lines.push(`  <div${classes.length ? ` class="${classes.join(' ')}"` : ''}>${index + 1}</div>`);
+    });
+    lines.push('</div>');
+    return lines.join('\n');
+  }
+
   function render() {
     for (const [property, id] of CONTAINER) boxEl.style.setProperty(property, field(id).value);
     boxEl.style.gap = `${field('fxGap').value}px`;
@@ -79,7 +110,7 @@
       const lines = itemCss(item);
       if (lines.length) parts.push(`.item-${index + 1} {\n${lines.join('\n')}\n}`);
     });
-    codeEl.textContent = parts.join('\n\n');
+    codeEl.textContent = output('fxOut') === 'tailwind' ? tailwind() : parts.join('\n\n');
   }
 
   function fillItem() {
@@ -141,6 +172,7 @@
   }
   document.querySelectorAll('[data-fx-preset]').forEach((button) => button.addEventListener('click', () => applyPreset(button.dataset.fxPreset)));
 
+  document.querySelectorAll('input[name="fxOut"]').forEach((radio) => radio.addEventListener('change', render));
   field('fxCopy').addEventListener('click', () => copyToClipboard(codeEl.textContent, 'CSS'));
   window.addEventListener('toolkit:languagechange', () => { fillItem(); render(); });
 

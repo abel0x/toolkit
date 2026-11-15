@@ -13,6 +13,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Keywords": "Anahtar Kelimeler",
     "Minimum": "Asgari",
     "Maximum": "Maksimum",
+    "Column": "Sütun",
     "Items": "Öğeler",
     "Line": "Satır",
     "JSON Schema": "JSON Schema",

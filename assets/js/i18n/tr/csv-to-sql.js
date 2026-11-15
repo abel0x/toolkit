@@ -5,6 +5,13 @@
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
+    "Conflict": "Çakışma",
+    ".conf": ".conf",
+    "Column": "Sütun",
+    "Type of": "Türü:",
+    "Auto": "Otomatik",
+    "Pick the key column that identifies existing rows.": "Var olan satırları tanıyan anahtar sütunu seçin.",
+    "Pick": "Seç",
     "CSV or JSON": "CSV ya da JSON",
     "A quoted CSV field is not closed.": "Tırnaklı bir CSV alanı kapatılmamış.",
     "The JSON array is empty.": "JSON dizisi boş.",
@@ -13,6 +20,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "There are no data rows, only a header.": "Veri satırı yok, yalnızca başlık var.",
     "The JSON is not valid:": "JSON geçerli değil:",
     "PostgreSQL": "PostgreSQL",
-    "Kind": "Tür"
+    "Kind": "Tür",
+    "None": "Yok"
   }))
 });

@@ -36,6 +36,12 @@
   }
 
   const px = (value) => (value === 0 ? '0' : `${value}px`);
+  // Tailwind arbitrary values: spaces become _ and commas need no space after them.
+  const arbitrary = (value) => value.replace(/,\s+/g, ',').replace(/\s+/g, '_');
+  const output = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
+  const textMode = () => output('bsMode') === 'text';
+  // text-shadow has no spread and no inset.
+  const textShadow = (item) => `${px(item.x)} ${px(item.y)} ${px(item.blur)} ${rgba(item.color, item.alpha)}`;
   const shadow = (item) => `${item.inset ? 'inset ' : ''}${px(item.x)} ${px(item.y)} ${px(item.blur)} ${px(item.spread)} ${rgba(item.color, item.alpha)}`;
   const css = (list) => list.map(shadow).join(',\n            ');
 
@@ -71,12 +77,25 @@
   function render() {
     const item = layers[active];
     for (const [key, id, unit] of SLIDERS) field(`${id}Val`).textContent = `${item[key]}${unit}`;
+    const text = textMode();
+    field('bsSpreadRow').hidden = text;
+    field('bsInsetRow').hidden = text;
+    field('bsRadiusRow').hidden = text;
+    previewEl.hidden = text;
+    field('bsText').hidden = !text;
+    field('bsBoxLabel').textContent = t(text ? 'Text' : 'Box');
+    field('bsText').style.color = field('bsBox').value;
+    field('bsText').style.textShadow = layers.map(textShadow).join(', ');
     previewEl.style.boxShadow = layers.map(shadow).join(', ');
     previewEl.style.borderRadius = `${field('bsRadius').value}px`;
     previewEl.style.backgroundColor = field('bsBox').value;
     stageEl.style.backgroundColor = field('bsBg').value;
     field('bsRadiusVal').textContent = `${field('bsRadius').value}px`;
-    codeEl.textContent = `box-shadow: ${css(layers)};`;
+    const value = text ? layers.map(textShadow).join(',\n             ') : css(layers);
+    const property = text ? 'text-shadow' : 'box-shadow';
+    codeEl.textContent = output('bsOut') === 'tailwind'
+      ? `${text ? 'text-shadow' : 'shadow'}-[${arbitrary(value.replace(/rgba\((\d+), (\d+), (\d+), /g, 'rgba($1,$2,$3,'))}]${text ? '\n\n/* text-shadow utilities need Tailwind CSS 4.1 or later */' : ''}`
+      : `${property}: ${value};`;
     renderLayers();
     fillSliders();
   }
@@ -106,7 +125,8 @@
     fillControls();
     render();
   }));
-  field('bsCopy').addEventListener('click', () => copyToClipboard(codeEl.textContent, 'CSS'));
+  document.querySelectorAll('input[name="bsOut"], input[name="bsMode"]').forEach((radio) => radio.addEventListener('change', render));
+  field('bsCopy').addEventListener('click', () => copyToClipboard(codeEl.textContent.replace(/\n\n\/\*.*\*\/$/, ''), 'CSS'));
   window.addEventListener('toolkit:languagechange', renderLayers);
 
   // Exposed for the tests.

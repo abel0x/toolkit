@@ -215,7 +215,103 @@
   // The local times move on; refresh them each minute.
   setInterval(renderCountry, 60000);
 
+  /* ── Meeting planner ────────────────────────────────────────── */
+
+  const meetDateEl = document.getElementById('ctzMeetDate');
+  const meetAddEl = document.getElementById('ctzMeetAdd');
+  const meetZones = [];
+  const hourKind = (hour) => (hour >= 9 && hour < 17 ? 'work' : hour >= 7 && hour < 22 ? 'edge' : 'night');
+  const clock = (p) => `${String(p.hour).padStart(2, '0')}${p.minute ? `:${String(p.minute).padStart(2, '0')}` : ''}`;
+
+  // For each hour of the day in the first zone: every zone's local time and kind.
+  function meetingHours(zones, year, month, day) {
+    return Array.from({ length: 24 }, (_, hour) => {
+      const instant = instantFor(zones[0], year, month, day, hour, 0);
+      const local = zones.map((zone) => parts(zone, instant));
+      return { instant, local, allWork: local.every((p) => hourKind(p.hour + p.minute / 60) === 'work') };
+    });
+  }
+
+  // Runs of hours that suit everyone, written in the first zone.
+  function bestRuns(hours) {
+    const runs = [];
+    hours.forEach((hour, index) => {
+      if (!hour.allWork) return;
+      const last = runs[runs.length - 1];
+      if (last && last.end === index - 1) last.end = index; else runs.push({ start: index, end: index });
+    });
+    return runs;
+  }
+
+  function renderMeeting() {
+    const match = meetDateEl.value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const chips = document.getElementById('ctzMeetZones');
+    chips.replaceChildren(...meetZones.map((zone, index) => {
+      const chip = document.createElement('span');
+      chip.className = 'ctz-meet-chip';
+      chip.textContent = zone;
+      chip.dataset.i18nSkip = '';
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'icon-btn ctz-meet-remove';
+      remove.textContent = '✕';
+      remove.setAttribute('aria-label', `${t('Remove')} ${zone}`);
+      remove.disabled = meetZones.length < 2;
+      remove.addEventListener('click', () => { meetZones.splice(index, 1); renderMeeting(); });
+      chip.append(remove);
+      return chip;
+    }));
+    const grid = document.getElementById('ctzMeetGrid');
+    const best = document.getElementById('ctzMeetBest');
+    if (!match || !meetZones.length) { grid.replaceChildren(); best.textContent = ''; return; }
+    const hours = meetingHours(meetZones, ...match.slice(1).map(Number));
+    grid.replaceChildren(...meetZones.map((zone, zoneIndex) => {
+      const row = document.createElement('tr');
+      const name = document.createElement('th');
+      name.scope = 'row';
+      name.className = 'font-mono';
+      name.textContent = zone;
+      row.append(name, ...hours.map((hour) => {
+        const td = document.createElement('td');
+        const p = hour.local[zoneIndex];
+        td.className = `ctz-hour ctz-hour--${hourKind(p.hour + p.minute / 60)}${hour.allWork ? ' ctz-hour--shared' : ''}`;
+        td.textContent = clock(p);
+        return td;
+      }));
+      row.dataset.i18nSkip = '';
+      return row;
+    }));
+    const runs = bestRuns(hours);
+    if (!runs.length) { best.textContent = t('No hour of this day is within working hours everywhere.'); return; }
+    // Each run in every zone: start of its first hour to the end of its last.
+    const describe = (zoneIndex, run) => {
+      const end = new Date(hours[run.end].instant.getTime() + 3600000);
+      return `${clock(hours[run.start].local[zoneIndex])}–${clock(parts(meetZones[zoneIndex], end))}`;
+    };
+    best.textContent = `${t('Working hours everywhere:')} ${runs.map((run) => meetZones.map((zone, index) => `${zone} ${describe(index, run)}`).join(' · ')).join(' | ')}`;
+  }
+
+  function fillMeetZones() {
+    meetAddEl.replaceChildren(...[...fromEl.options].map((option) => new Option(option.value, option.value)));
+    meetAddEl.value = 'America/New_York';
+  }
+
+  // Start with this device's zone and two common partners.
+  fillMeetZones();
+  for (const zone of [ownZone && [...fromEl.options].some((option) => option.value === ownZone) ? ownZone : 'UTC', 'Europe/London', 'America/New_York']) {
+    if (!meetZones.includes(zone)) meetZones.push(zone);
+  }
+  const today = parts(meetZones[0], new Date());
+  meetDateEl.value = `${today.year}-${String(today.month).padStart(2, '0')}-${String(today.day).padStart(2, '0')}`;
+  meetDateEl.addEventListener('input', renderMeeting);
+  document.getElementById('ctzMeetAddBtn').addEventListener('click', () => {
+    if (!meetZones.includes(meetAddEl.value)) meetZones.push(meetAddEl.value);
+    renderMeeting();
+  });
+  window.addEventListener('toolkit:languagechange', renderMeeting);
+  renderMeeting();
+
   // Exposed for the tests.
-  window.ToolkitCountryZones = Object.freeze({ offsetMinutes, instantFor, nextChange, dst, formatOffset });
+  window.ToolkitCountryZones = Object.freeze({ offsetMinutes, instantFor, nextChange, dst, formatOffset, meetingHours, bestRuns, meetZones });
   renderCountry();
 }());

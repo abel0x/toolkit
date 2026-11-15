@@ -4,9 +4,12 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Media": "Medya",
     "Preview": "Önizle",
     "Width": "Genişlik",
     "Height": "Yükseklik",
+    "Numbers": "Sayılar",
+    "image/png": "resim/png",
     "Mode": "Mod",
     "Editor": "Editör",
     ".mjs": ".mjs",

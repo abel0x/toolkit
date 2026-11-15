@@ -8,6 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Converted to JSON!": "JSON’a dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter YAML.": "Lütfen YAML girin.",
+    "Where": "Konum",
     "Split": "Böl",
     "Line": "Satır",
     "Inside": "İçinde:",

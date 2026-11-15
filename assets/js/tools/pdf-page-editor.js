@@ -249,7 +249,89 @@
 
   const targets = () => [...selected].sort((a, b) => a - b);
 
-  // A new PDF from page entries, with their rotations added to the page's own.
+  /* ── Stamps: page numbers and a watermark ───────────────────── */
+
+  // Text becomes a PNG drawn by the browser, so every language and character
+  // works (PDF standard fonts cannot write ğ, ş, ı or İ). scale: pixels per point.
+  async function textImage(text, { size, weight = 600, colour = '#374151', angle = 0, scale = 3 }) {
+    const probe = document.createElement('canvas').getContext('2d');
+    const font = `${weight} ${size * scale}px system-ui, sans-serif`;
+    probe.font = font;
+    const width = Math.ceil(probe.measureText(text).width) + 4 * scale;
+    const height = Math.ceil(size * scale * 1.3);
+    const turn = (angle * Math.PI) / 180;
+    const boxWidth = Math.ceil(Math.abs(width * Math.cos(turn)) + Math.abs(height * Math.sin(turn)));
+    const boxHeight = Math.ceil(Math.abs(width * Math.sin(turn)) + Math.abs(height * Math.cos(turn)));
+    const canvas = document.createElement('canvas');
+    canvas.width = boxWidth;
+    canvas.height = boxHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.translate(boxWidth / 2, boxHeight / 2);
+    ctx.rotate(-turn);
+    ctx.font = font;
+    ctx.fillStyle = colour;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 0, 0);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    return { bytes: new Uint8Array(await blob.arrayBuffer()), width: boxWidth / scale, height: boxHeight / scale };
+  }
+
+  // Draws an image upright on the page as it is displayed, whatever the page's
+  // rotation; (x, y) is the image's lower left corner in displayed coordinates.
+  function placeUpright(page, image, x, y, width, height) {
+    const box = page.getMediaBox();
+    const angle = ((page.getRotation().angle % 360) + 360) % 360;
+    const W = box.width;
+    const H = box.height;
+    const at = { 0: [x, y], 90: [W - y, x], 180: [W - x, H - y], 270: [y, H - x] }[angle] || [x, y];
+    page.drawImage(image, { x: box.x + at[0], y: box.y + at[1], width, height, rotate: PDFLib.degrees(angle) });
+  }
+
+  function displayedSize(page) {
+    const box = page.getMediaBox();
+    return page.getRotation().angle % 180 === 0 ? [box.width, box.height] : [box.height, box.width];
+  }
+
+  function stampOptions() {
+    return {
+      numbers: field('peNumbers').checked, position: field('peNumberPos').value, format: field('peNumberFormat').value,
+      watermark: field('peWatermark').value.trim()
+    };
+  }
+
+  const numberText = (format, number, total) => (format === 'plain' ? String(number)
+    : format === 'of' ? `${number} / ${total}` : `${t('Page')} ${number} / ${total}`);
+
+  async function stamp(out, options) {
+    const pagesOut = out.getPages();
+    let mark = null;
+    if (options.watermark) {
+      const image = await textImage(options.watermark, { size: 48, weight: 800, colour: 'rgba(17, 24, 39, 0.16)', angle: 35, scale: 2 });
+      mark = { image: await out.embedPng(image.bytes), width: image.width, height: image.height };
+    }
+    for (let index = 0; index < pagesOut.length; index += 1) {
+      const page = pagesOut[index];
+      const [width, height] = displayedSize(page);
+      if (mark) {
+        const fit = Math.min((width * 0.8) / mark.width, (height * 0.8) / mark.height);
+        const w = mark.width * fit;
+        const h = mark.height * fit;
+        placeUpright(page, mark.image, (width - w) / 2, (height - h) / 2, w, h);
+      }
+      if (options.numbers) {
+        const label = await textImage(numberText(options.format, index + 1, pagesOut.length), { size: 10 });
+        const image = await out.embedPng(label.bytes);
+        const margin = 24;
+        const x = options.position === 'bottom-center' ? (width - label.width) / 2 : width - label.width - margin;
+        const y = options.position === 'top-right' ? height - label.height - margin * 0.75 : margin * 0.75;
+        placeUpright(page, image, x, y, label.width, label.height);
+      }
+    }
+  }
+
+  // A new PDF from page entries, with their rotations added to the page's own,
+  // and the chosen page numbers and watermark.
   async function build(list) {
     const out = await PDFLib.PDFDocument.create();
     const copied = await out.copyPages(doc, list.map((page) => page.index));
@@ -258,6 +340,8 @@
       if (entry.rotate) page.setRotation(PDFLib.degrees((entry.baseRotation + entry.rotate + 360) % 360));
       out.addPage(page);
     });
+    const options = stampOptions();
+    if (options.numbers || options.watermark) await stamp(out, options);
     const title = doc.getTitle();
     if (title) out.setTitle(title);
     out.setProducer('Toolkit PDF Page Editor (pdf-lib)');

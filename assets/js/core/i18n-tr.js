@@ -723,6 +723,18 @@
     if (match) return `${match[1]} dışarıda bırakıldı: Kubernetes anahtarları yalnızca harf, rakam, -, _ ve . içerebilir.`;
     match = key.match(/^(\d+) entries → (\d+) blocks$/);
     if (match) return `${match[1]} kayıt → ${match[2]} blok`;
+    match = key.match(/^(\d+) images, one page each\.$/);
+    if (match) return `${match[1]} görsel, her biri bir sayfa.`;
+    match = key.match(/^Drawing page (\d+) of (\d+)…$/);
+    if (match) return `${match[2]} sayfanın ${match[1]}. sayfası çiziliyor…`;
+    match = key.match(/^(\d+) images, (.+) in all\.$/);
+    if (match) return `${match[1]} görsel, toplam ${match[2]}.`;
+    match = key.match(/^Line (\d+): write a name and a number of hosts, such as “Office 120”\.$/);
+    if (match) return `${match[1]}. satır: “Ofis 120” gibi bir ad ve host sayısı yazın.`;
+    match = key.match(/^(.+) \((\d+) hosts\) does not fit: (.+) has no room left for a \/(\d+)\.$/);
+    if (match) return `${match[1]} (${match[2]} host) sığmıyor: ${match[3]} içinde bir /${match[4]} için yer kalmadı.`;
+    match = key.match(/^(.+) of (.+) addresses used\.$/);
+    if (match) return `${match[2]} adresten ${match[1]} tanesi kullanıldı.`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

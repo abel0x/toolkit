@@ -40,6 +40,7 @@
   }
 
   let entries = []; // { file, bytes, doc, pages }
+  let dragging = -1; // the row being dragged, or -1
 
   async function readPdf(file) {
     const bytes = new Uint8Array(await file.arrayBuffer());
@@ -82,8 +83,37 @@
     listEl.replaceChildren(...entries.map((entry, index) => {
       const row = document.createElement('tr');
       const number = document.createElement('td');
-      number.className = 'font-mono';
-      number.textContent = String(index + 1);
+      number.className = 'font-mono pm-number';
+      // The handle drags the row to a new place; the arrow buttons do the same from the keyboard.
+      const handle = document.createElement('span');
+      handle.className = 'pm-handle';
+      handle.draggable = true;
+      handle.textContent = '⠿';
+      handle.title = t('Drag to reorder');
+      handle.setAttribute('aria-hidden', 'true');
+      handle.addEventListener('dragstart', (event) => {
+        dragging = index;
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', String(index));
+        row.classList.add('pm-row--dragging');
+      });
+      handle.addEventListener('dragend', () => { dragging = -1; render(); });
+      number.append(handle, document.createTextNode(String(index + 1)));
+      row.addEventListener('dragover', (event) => {
+        if (dragging < 0) return;
+        event.preventDefault();
+        row.classList.add('pm-row--target');
+      });
+      row.addEventListener('dragleave', () => row.classList.remove('pm-row--target'));
+      row.addEventListener('drop', (event) => {
+        if (dragging < 0) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const [moved] = entries.splice(dragging, 1);
+        entries.splice(index, 0, moved);
+        dragging = -1;
+        render();
+      });
       const name = document.createElement('td');
       name.className = 'pm-name';
       name.textContent = entry.file.name;

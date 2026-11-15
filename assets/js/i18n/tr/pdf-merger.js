@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Remove": "Kaldır",
     ".pdf": ".pdf",
+    "Drag to reorder": "Sıralamak için sürükleyin",
     "the PDF is encrypted (even when it opens without a password, an owner password can lock it), so its pages cannot be copied. Print it to a new PDF (Save as PDF) and add that copy.": "PDF şifreli (parola sormadan açılsa bile bir sahip parolası onu kilitleyebilir), bu yüzden sayfaları kopyalanamaz. Belgeyi yeni bir PDF’e yazdırın (PDF olarak kaydet) ve o kopyayı ekleyin.",
     "PDF Merger": "PDF Birleştirici",
     "Pages to use": "Kullanılacak sayfalar",

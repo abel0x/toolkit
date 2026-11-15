@@ -60,6 +60,26 @@
     return parts.join('\n\n');
   }
 
+  // Tailwind arbitrary values: spaces become _ and commas need no space after them.
+  const arbitrary = (value) => value.replace(/,\s+/g, ',').replace(/\s+/g, '_');
+  const output = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
+  const ITEMS = { start: 'start', center: 'center', end: 'end' };
+  function tailwind(state) {
+    const classes = ['grid', `grid-cols-[${arbitrary(state.columns)}]`];
+    if (state.rows && state.rows !== 'none') classes.push(`grid-rows-[${arbitrary(state.rows)}]`);
+    if (state.areas) classes.push(`[grid-template-areas:${state.areas.rows.map((row) => `'${row.join('_')}'`).join('_')}]`);
+    const gap = (pixels) => (pixels % 4 === 0 ? String(pixels / 4) : `[${pixels}px]`);
+    if (state.columnGap === state.rowGap) { if (state.columnGap) classes.push(`gap-${gap(state.columnGap)}`); }
+    else classes.push(`gap-x-${gap(state.columnGap)}`, `gap-y-${gap(state.rowGap)}`);
+    if (ITEMS[state.justify]) classes.push(`justify-items-${ITEMS[state.justify]}`);
+    if (ITEMS[state.align]) classes.push(`items-${ITEMS[state.align]}`);
+    const lines = [`<div class="${classes.join(' ')}">`];
+    const labels = state.areas ? state.areas.names : Array.from({ length: state.count }, (_, index) => String(index + 1));
+    for (const label of labels) lines.push(state.areas ? `  <div class="[grid-area:${label}]">${label}</div>` : `  <div>${label}</div>`);
+    lines.push('</div>');
+    return lines.join('\n');
+  }
+
   function readState() {
     const columns = field('grColumns').value.trim() || 'none';
     const rows = field('grRows').value.trim() || 'none';
@@ -104,7 +124,7 @@
       return item;
     }));
     field('grCountRow').hidden = Boolean(state.areas);
-    codeEl.textContent = css(state);
+    codeEl.textContent = output('grOut') === 'tailwind' ? tailwind(state) : css(state);
     renderPainter(state);
   }
 
@@ -183,6 +203,7 @@
   }));
   ['grColumns', 'grRows', 'grAreas', 'grColumnGap', 'grRowGap', 'grCount'].forEach((id) => field(id).addEventListener('input', render));
   ['grJustify', 'grAlign'].forEach((id) => field(id).addEventListener('change', render));
+  document.querySelectorAll('input[name="grOut"]').forEach((radio) => radio.addEventListener('change', render));
   field('grCopy').addEventListener('click', () => { if (errorEl.hidden) copyToClipboard(codeEl.textContent, 'CSS'); });
 
   // Exposed for the tests.

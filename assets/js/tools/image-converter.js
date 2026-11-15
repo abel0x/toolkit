@@ -215,6 +215,28 @@
     for (const key of ['x', 'y', 'w', 'h']) field(`icCrop${key.toUpperCase()}`).value = String(crop[key]);
   }
 
+  // The keyboard: arrows move the box, Shift with arrows resizes it (keeping the
+  // ratio when one is set), Alt makes each step one pixel instead of ten.
+  cropEl.addEventListener('keydown', (event) => {
+    const steps = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
+    if (!steps || !image) return;
+    event.preventDefault();
+    const step = event.altKey ? 1 : 10;
+    const [dx, dy] = steps;
+    if (event.shiftKey) {
+      const r = ratio();
+      crop.w = Math.max(8, crop.w + dx * step + (r ? dy * step * r : 0));
+      crop.h = r ? crop.w / r : Math.max(8, crop.h + dy * step);
+    } else {
+      crop.x += dx * step;
+      crop.y += dy * step;
+    }
+    clampCrop();
+    placeCrop();
+    setOutputFromCrop();
+    renderInfo();
+  });
+
   // Dragging the box moves it; dragging a handle resizes it (keeping the ratio when one is set).
   let drag = null;
   cropEl.addEventListener('pointerdown', (event) => {

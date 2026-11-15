@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/country-time-zones.html" />
   <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/country-time-zones.html" />
   <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/country-time-zones.html" />
-  <script src="../assets/js/core/language-redirect.js?v=6e17f5f767ff"></script>
+  <script src="../assets/js/core/language-redirect.js?v=4d2d626b8d1d"></script>
   <meta property="og:title" content="Country Time Zones — Toolkit" />
   <meta property="og:description" content="Look up the time zones of every country and territory: local time now, UTC offset, abbreviation, daylight saving and the next clock change, which countries share the offset, and a converter between zones. Uses the IANA tz database, in your browser." />
   <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/country-time-zones.html" />
@@ -27,11 +27,11 @@
   <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
   <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
   <title>Country Time Zones — Toolkit</title>
-  <link rel="stylesheet" href="../assets/css/core.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/compatibility.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=6e17f5f767ff" />
-  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=6e17f5f767ff" />
+  <link rel="stylesheet" href="../assets/css/core.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=4d2d626b8d1d" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=4d2d626b8d1d" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Country Time Zones", "url": "https://abel0x.github.io/toolkit/tools/country-time-zones.html", "description": "Look up the time zones of every country and territory: local time now, UTC offset, abbreviation, daylight saving and the next clock change, which countries share the offset, and a converter between zones. Uses the IANA tz database, in your browser.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Country Time Zones", "item": "https://abel0x.github.io/toolkit/tools/country-time-zones.html"}]}]}</script>
@@ -109,6 +109,28 @@
               <tbody id="ctzConverted"></tbody>
             </table>
           </div>
+          <h2 class="ctz-heading">Meeting planner</h2>
+          <div class="ctz-convert ctz-meet-controls">
+            <div class="form-group">
+              <label class="form-label" for="ctzMeetDate">Day (in the first time zone)</label>
+              <input type="date" id="ctzMeetDate" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ctzMeetAdd">Add a time zone</label>
+              <div class="cssgen-row ctz-meet-add">
+                <select id="ctzMeetAdd" class="form-control form-select"></select>
+                <button type="button" class="btn btn--ghost btn--sm" id="ctzMeetAddBtn">Add</button>
+              </div>
+            </div>
+          </div>
+          <div class="ctz-meet-zones" id="ctzMeetZones" role="group" aria-label="Time zones in the meeting"></div>
+          <p class="ctz-same" id="ctzMeetBest" aria-live="polite"></p>
+          <div class="ctz-table-wrap" role="region" aria-label="Hours in each time zone" tabindex="0">
+            <table class="ctz-table ctz-meet">
+              <tbody id="ctzMeetGrid"></tbody>
+            </table>
+          </div>
+          <p class="ctz-meet-key"><span class="ctz-hour ctz-hour--work">09</span> Working hours (9–17) <span class="ctz-hour ctz-hour--edge">19</span> Early or late (7–9, 17–22) <span class="ctz-hour ctz-hour--night">02</span> Night</p>
           <p class="ctz-source">Time zone data: IANA tz database 2026f. Offsets and daylight saving dates come from this browser’s own time zone rules.</p>
         </div>
         <!-- RELATED:START -->
@@ -146,16 +168,16 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
-        <p class="footer-tech">119 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+        <p class="footer-tech">121 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
       </div>
     </div>
   </footer>
 
-  <script src="../assets/js/core/utils.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/nav.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/i18n.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/core/command-palette.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/data/country-time-zones.js?v=6e17f5f767ff" defer></script>
-  <script src="../assets/js/tools/country-time-zones.js?v=6e17f5f767ff" defer></script>
+  <script src="../assets/js/core/utils.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/nav.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/i18n.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/data/country-time-zones.js?v=4d2d626b8d1d" defer></script>
+  <script src="../assets/js/tools/country-time-zones.js?v=4d2d626b8d1d" defer></script>
 </body>
 </html>

@@ -976,5 +976,21 @@
       "title": "PDF Page Editor — Toolkit",
       "description": "Edit the pages of a PDF in your browser: rotate, delete and reorder pages, extract the ones you pick into a new PDF, or split the file into single pages, every N pages or ranges, downloaded as a ZIP. The file is never uploaded."
     }
+  },
+  "tools/images-to-pdf.html": {
+    "title": "Görsellerden PDF’e — Toolkit",
+    "description": "Tarayıcınızda JPG, PNG, WebP ve diğer görselleri PDF’e dönüştürün: A4, Letter ya da her görselin boyutunda sayfalara, kenar boşluklu ve fotoğraflar doğru yöne çevrilmiş olarak, her sayfaya bir görsel. Sürükleyerek sıralayın. Görseller hiç yüklenmez.",
+    "source": {
+      "title": "Images to PDF — Toolkit",
+      "description": "Convert JPG, PNG, WebP and other images to a PDF in your browser: one image per page on A4, Letter or a page the size of each image, with margins and photos turned the right way up. Reorder by dragging. The images are never uploaded."
+    }
+  },
+  "tools/pdf-to-images.html": {
+    "title": "PDF’ten Görsellere — Toolkit",
+    "description": "Tarayıcınızda PDF sayfalarını PNG ya da JPEG görsellere dönüştürün: 72, 150 ya da 300 DPI ve sayfaları seçin, tek tek ya da hepsini ZIP olarak indirin. Değişikliğe kilitli PDF’lerle de çalışır. Dosya hiç yüklenmez.",
+    "source": {
+      "title": "PDF to Images — Toolkit",
+      "description": "Convert PDF pages to PNG or JPEG images in your browser: choose 72, 150 or 300 DPI and which pages, download single pages or all of them as a ZIP. Works with PDFs locked against changes too. The file is never uploaded."
+    }
   }
 }
