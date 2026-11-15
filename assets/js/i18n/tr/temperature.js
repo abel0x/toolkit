@@ -10,7 +10,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Water Freezing": "Suyun Donma Noktası",
     "Room Temperature": "Oda Sıcaklığı",
     "Human Body": "İnsan Vücudu",
-    "Water Boiling": "Suyun Kaynama Noktası",
-    "Tab": "Sekme"
+    "Water Boiling": "Suyun Kaynama Noktası"
   }))
 });

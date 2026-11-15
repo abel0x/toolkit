@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Numbers": "Sayılar",
     "Line numbers added": "Satır numaraları eklendi",
-    "Line numbers removed": "Satır numaraları kaldırıldı"
+    "Line numbers removed": "Satır numaraları kaldırıldı",
+    "Line": "Satır"
   }))
 });

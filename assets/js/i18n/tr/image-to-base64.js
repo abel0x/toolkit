@@ -8,6 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Width": "Genişlik",
     "Height": "Yükseklik",
     "Reader": "Okuyucu",
-    "Please select an image file": "Lütfen bir görüntü dosyası seçin"
+    "Please select an image file": "Lütfen bir görüntü dosyası seçin",
+    "Drop": "Damla"
   }))
 });

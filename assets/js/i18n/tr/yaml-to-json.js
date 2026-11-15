@@ -8,6 +8,9 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Converted to JSON!": "JSON’a dönüştürüldü!",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Please enter YAML.": "Lütfen YAML girin.",
+    "Split": "Böl",
+    "Line": "Satır",
+    "Inside": "İçinde:",
     "Tabs cannot be used for indentation.": "Girintide sekme karakteri kullanılamaz.",
     "Invalid escape in a double-quoted string.": "Çift tırnaklı dizede geçersiz kaçış dizisi.",
     "A quoted string is not closed.": "Tırnaklı bir dize kapatılmamış.",
@@ -27,7 +30,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Anchors, aliases and tags on keys are not supported.": "Anahtarlarda çapa, takma ad ve etiket desteklenmiyor.",
     "<< must merge a mapping or a list of mappings.": "<< bir eşlemeyi ya da eşleme listesini birleştirmelidir.",
     "Unexpected content; check the indentation.": "Beklenmeyen içerik; girintiyi kontrol edin.",
-    "Tab": "Sekme",
     "Lines": "Satırlar",
     "Quote": "Alıntı"
   }))

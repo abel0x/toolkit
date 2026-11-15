@@ -11,6 +11,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Failed to read file.": "Dosya okunamadı.",
     "Select at least one algorithm.": "En az bir algoritma seçin.",
     "Checksum": "Sağlama toplamı",
+    "Drop": "Damla",
     "Progress": "İlerleme",
     "Core": "Temel"
   }))

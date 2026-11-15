@@ -58,7 +58,10 @@ await withFirefox(async (page) => {
   await page.viewport(1280, 900);
 
   // Each body runs in the page and returns [description, actual, expected] triples.
+  // VECTORS_ONLY=slug,slug runs just those tools while working on them.
+  const only = process.env.VECTORS_ONLY ? new Set(process.env.VECTORS_ONLY.split(',')) : null;
   async function check(slug, body) {
+    if (only && !only.has(slug)) return;
     toolsChecked.add(slug);
     await page.navigate(`/tools/${slug}.html`);
     const results = await page.evaluate(async (source) => {
@@ -623,6 +626,388 @@ await withFirefox(async (page) => {
       ['category filter', databases, true],
       ['bad ports from the Fetch standard', [api.blocked.size, api.blocked.has(10080), api.blocked.has(8080)], [83, true, false]],
       ['describe 1023 / 1024', [api.describe(1023).privileged, api.describe(1024).privileged, api.describe(32768).linuxEphemeral, api.describe(61000).linuxEphemeral], [true, false, true, false]]];`);
+
+  await check('subnet-calculator', `
+    const api = window.ToolkitSubnet;
+    set('#snInput', '192.168.1.10/24'); await wait(20);
+    const home = text('#snResult');
+    const split = [value('#snSplit'), text('#snSplitNote'), text('#snSubnets')];
+    set('#snCheck', '192.168.1.200'); const inside = text('#snCheckResult');
+    set('#snCheck', '192.168.2.1'); const outside = text('#snCheckResult');
+    set('#snInput', '10.1.2.3 255.255.240.0'); await wait(20);
+    const masked = text('#snResult');
+    set('#snInput', '172.16.5.4/31'); await wait(20);
+    const p2p = text('#snResult');
+    set('#snInput', '2001:db8:abcd:12::1/48'); await wait(20);
+    const v6 = [text('#snResult'), value('#snSplit'), text('#snSplitNote')];
+    set('#snInput', '10.0.0.5-10.0.0.20'); await wait(20);
+    const range = [text('#snResult'), $('#snSplitBox').hidden];
+    set('#snInput', '192.168.1.256/24'); await wait(20);
+    const bad = [$('#snError').hidden, text('#snError'), text('#snResult')];
+    const format = (input) => api.formatV6(api.parseInput(input).value);
+    return [['network', home, { includes: '192.168.1.0/24' }], ['netmask', home, { includes: '255.255.255.0' }],
+      ['wildcard', home, { includes: '0.0.0.255' }], ['broadcast', home, { includes: '192.168.1.255' }],
+      ['usable range', home, { includes: '192.168.1.1 – 192.168.1.254' }], ['usable hosts', home, { includes: '254' }],
+      ['private', home, { includes: 'Private (RFC 1918)' }], ['reverse zone', home, { includes: '1.168.192.in-addr.arpa' }],
+      ['split into /26 by default', split[0], '26'], ['four /26 networks', split[1], '4 networks.'], ['third /26', split[2], { includes: '192.168.1.128/26' }],
+      ['inside', inside, '✓ Inside 192.168.1.0/24'], ['outside', outside, '✕ Not inside 192.168.1.0/24'],
+      ['dotted mask', masked, { includes: '10.1.0.0/20' }], ['host bits note', masked, { includes: 'host bits were cleared' }],
+      ['/31 keeps both addresses', p2p, { includes: '172.16.5.4 – 172.16.5.5' }],
+      ['IPv6 network', v6[0], { includes: '2001:db8:abcd::/48' }], ['IPv6 documentation', v6[0], { includes: 'Documentation' }],
+      ['IPv6 full form', v6[0], { includes: '2001:0db8:abcd:0012:0000:0000:0000:0001' }], ['IPv6 split to /64', v6[1], '64'],
+      ['65,536 /64 networks, first 256 listed', v6[2], 'Showing the first 256 of 65,536.'],
+      ['range to CIDR', range[0], { includes: '16 addresses in 5 CIDR blocks.' }], ['range blocks', range[0], { includes: '10.0.0.8/29' }], ['no split for a range', range[1], true],
+      ['bad octet', bad.slice(0, 2), [false, 'Each IPv4 number must be between 0 and 255.']], ['no result on error', bad[2], ''],
+      ['RFC 5952 forms', ['2001:0db8:0000:0000:0000:ff00:0042:8329', '2001:db8:0:0:1:0:0:1', '::ffff:192.0.2.1', '0:0:0:0:0:0:0:1'].map(format),
+        ['2001:db8::ff00:42:8329', '2001:db8::1:0:0:1', '::ffff:192.0.2.1', '::1']],
+      ['CGNAT', api.addressType(4, api.parseInput('100.64.1.1').value, 32), 'Shared address space for carrier-grade NAT (RFC 6598)']];`);
+
+  await check('jsonpath-tester', `
+    const api = window.ToolkitJsonPath;
+    const prefilled = [JSON.parse(value('#jpOutput')), text('#jpCount')];
+    click('[data-jp-query="$..price"]'); await wait(20);
+    const prices = JSON.parse(value('#jpOutput'));
+    set('input[name="jpShow"][value="paths"]', true, 'change'); await wait(20);
+    const paths = value('#jpOutput').split('\\n');
+    set('input[name="jpShow"][value="values"]', true, 'change');
+    set('#jpQuery', "$.store.book[?@.price < 10 && @.category == 'fiction'].title"); await wait(20);
+    const filtered = JSON.parse(value('#jpOutput'));
+    set('#jpQuery', '$.store.book[?@.price <'); await wait(20);
+    const badQuery = [$('#jpError').hidden, text('#jpError'), value('#jpOutput')];
+    set('#jpJson', '{"a": 1,}'); set('#jpQuery', '$.a'); await wait(20);
+    const badJson = text('#jpError');
+    const doc = { a: [3, 5, 1, 2, 4, 6, { b: 'j' }, { b: 'k' }, { b: {} }, { b: 'kilo' }], o: { p: 1, q: 2, r: 3, s: 5, t: { u: 6 } }, e: 'f' };
+    const values = (query, data = doc) => api.evaluate(data, query).map((node) => node.value);
+    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+    return [['prefilled bookstore authors', prefilled, [['Nigel Rees', 'Evelyn Waugh', 'Herman Melville', 'J. R. R. Tolkien'], '4 matches']],
+      ['descendant prices', prices, [8.95, 12.99, 8.99, 22.99, 399]], ['normalized paths', [paths[0], paths[4]], ["$['store']['book'][0]['price']", "$['store']['bicycle']['price']"]],
+      ['filter with && and ==', filtered, ['Moby Dick']],
+      ['bad query', badQuery, [false, 'The query is not valid: Expected a value, a query or a function. (at character 24)', '']],
+      ['bad JSON', badJson, { includes: 'The JSON is not valid:' }],
+      ['RFC 9535 slices', [values('$[1:3]', letters), values('$[5:1:-2]', letters), values('$[::-1]', letters).join('')], [['b', 'c'], ['f', 'd'], 'gfedcba']],
+      ['RFC 9535 filters', [values('$.a[?@>3.5]'), values('$.a[?@<2 || @.b == "k"]'), values('$.o[?@>1 && @<4]'), values('$.a[?@.b == $.x]')],
+        [[5, 4, 6], [1, { b: 'k' }], [2, 3], [3, 5, 1, 2, 4, 6]]],
+      ['RFC 9535 functions', [values('$.a[?match(@.b, "[jk]")]'), values('$.a[?search(@.b, "[jk]")]').length, values('$[?count(@.*) == 1]', { a: { x: 1 }, b: { x: 1, y: 2 } })],
+        [[{ b: 'j' }, { b: 'k' }], 3, [{ x: 1 }]]],
+      ['descendant union', values('$.o..[?@<3, ?@<3]'), [1, 2, 1, 2]],
+      ['escaped path', api.evaluate({ "it's": 1 }, '$["it\\'s"]')[0].path, "$['it\\\\'s']"]];`);
+
+  await check('json-schema-generator', `
+    const api = window.ToolkitJsonSchemaGenerator;
+    set('#jsgInput', '{"id":42,"name":"Ada","email":"ada@example.com","joined":"2026-11-15T09:30:00Z","roles":["admin"],"manager":null,"score":9.5}'); await wait(20);
+    const one = JSON.parse(value('#jsgOutput'));
+    set('#jsgSamples', true, 'change');
+    set('#jsgInput', '[{"order":1001,"total":19,"items":[{"sku":"A1","qty":2}]},{"order":1002,"total":5.5,"coupon":"X","items":[{"sku":"B7","qty":1,"gift":true}],"note":null}]'); await wait(20);
+    const many = JSON.parse(value('#jsgOutput'));
+    set('#jsgDraft', '07', 'change'); set('#jsgRequired', 'none', 'change'); set('#jsgStrict', true, 'change'); await wait(20);
+    const options = JSON.parse(value('#jsgOutput'));
+    const nullable = api.generate([{ v: { a: 1 } }, { v: null }], { draft: '2020-12', required: 'seen', formats: true, strict: false });
+    return [['draft 2020-12', one.$schema, 'https://json-schema.org/draft/2020-12/schema'],
+      ['types', [one.properties.id.type, one.properties.score.type, one.properties.manager.type, one.properties.roles.items.type], ['integer', 'number', 'null', 'string']],
+      ['formats', [one.properties.email.format, one.properties.joined.format], ['email', 'date-time']], ['required in order', one.required, ['id', 'name', 'email', 'joined', 'roles', 'manager', 'score']],
+      ['samples merged: integer and number', [many.type, many.properties.total.type], ['object', 'number']], ['only shared keys required', many.required, ['order', 'total', 'items']],
+      ['array items merged', many.properties.items.items.required, ['sku', 'qty']], ['optional key kept', many.properties.items.items.properties.gift.type, 'boolean'],
+      ['draft-07, no required, closed', [options.$schema, 'required' in options, options.additionalProperties], ['http://json-schema.org/draft-07/schema#', false, false]],
+      ['nullable object', nullable.properties.v.type, ['object', 'null']]];`);
+
+  await check('jwt-signer', `
+    const api = window.ToolkitJwtSigner;
+    const jwtio = await api.sign('HS256', { alg: 'HS256', typ: 'JWT' }, { sub: '1234567890', name: 'John Doe', iat: 1516239022 }, { secret: 'your-256-bit-secret', encoding: 'text' });
+    click('#jwsSign'); await wait(100);
+    const noSecret = [$('#jwsError').hidden, text('#jwsError')];
+    set('#jwsSecret', 'a-string-secret-at-least-256-bits-long'); click('#jwsSign'); await wait(100);
+    const hs = value('#jwsToken');
+    const b64 = (part) => JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode('a-string-secret-at-least-256-bits-long'), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+    const [h1, p1, s1] = hs.split('.');
+    const sig1 = Uint8Array.from(atob(s1.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - s1.length % 4) % 4)), (c) => c.charCodeAt(0));
+    const hsValid = await crypto.subtle.verify('HMAC', key, sig1, new TextEncoder().encode(h1 + '.' + p1));
+    set('#jwsSecret', 'short'); click('#jwsSign'); await wait(100);
+    const shortNote = text('#jwsNote');
+    set('#jwsAlg', 'ES256', 'change');
+    const header = JSON.parse(value('#jwsHeader')).alg;
+    const boxes = [$('#jwsSecretBox').hidden, $('#jwsKeyBox').hidden];
+    click('#jwsGenerate'); await wait(300);
+    click('#jwsSign'); await wait(200);
+    const es = value('#jwsToken').split('.');
+    const spki = value('#jwsPublic').replace(/-----[^-]+-----|\\s/g, '');
+    const publicKey = await crypto.subtle.importKey('spki', Uint8Array.from(atob(spki), (c) => c.charCodeAt(0)), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+    const sig2 = Uint8Array.from(atob(es[2].replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - es[2].length % 4) % 4)), (c) => c.charCodeAt(0));
+    const esValid = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, publicKey, sig2, new TextEncoder().encode(es[0] + '.' + es[1]));
+    set('#jwsKey', value('#jwsPublic')); click('#jwsSign'); await wait(100);
+    const publicError = text('#jwsError');
+    const eddsa = await api.generateKeyPair('EdDSA');
+    const ed = await api.sign('EdDSA', { typ: 'JWT' }, { a: 1 }, { text: eddsa.privatePem });
+    return [['jwt.io HS256 example', jwtio.token.split('.')[2], 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'], ['short-secret warning', jwtio.warnings.length, 1],
+      ['no secret', noSecret, [false, 'Enter a secret.']], ['HS256 header', b64(h1), { alg: 'HS256', typ: 'JWT' }], ['HS256 payload', b64(p1).name, 'Ada Lovelace'], ['HS256 verifies', hsValid, true],
+      ['short secret note', shortNote, 'HS256 needs a secret of at least 32 bytes (RFC 7518); this one has 5.'],
+      ['alg follows the menu', header, 'ES256'], ['key box for ES256', boxes, [true, false]], ['ES256 header', b64(es[0]).alg, 'ES256'], ['ES256 verifies with the generated public key', esValid, true],
+      ['public key refused', publicError, 'This is a public key. Signing needs the private key.'], ['EdDSA signs', b64(ed.token.split('.')[0]).alg, 'EdDSA']];`);
+
+  await check('html-to-markdown', `
+    const md = (html, bullet = '-', em = '*') => window.ToolkitHtmlToMarkdown.convert(html, { bullet, em, strong: em + em });
+    set('#h2mInput', '<h2>Hi <em>there</em></h2><p>A <a href="https://example.com/a b" title="Ex">link</a> and <code>x</code>.</p>'); await wait(20);
+    const page = value('#h2mOutput');
+    set('#h2mBullet', '*', 'change'); set('#h2mInput', '<ul><li>one</li><li>two</li></ul>'); await wait(20);
+    const star = value('#h2mOutput');
+    return [['heading and inline', page, '## Hi *there*\\n\\nA [link](<https://example.com/a b> "Ex") and \`x\`.'], ['bullet option', star, '* one\\n* two'],
+      ['nested and ordered lists', md('<ol start="3"><li>three<ul><li>sub</li></ul></li><li>four</li></ol>'), '3. three\\n   - sub\\n4. four'],
+      ['task list', md('<ul><li><input type="checkbox" checked> done</li><li><input type="checkbox"> todo</li></ul>'), '- [x] done\\n- [ ] todo'],
+      ['code block with language', md('<pre><code class="language-js">const a = 1;\\nconsole.log(\`a\`);</code></pre>'), '\`\`\`js\\nconst a = 1;\\nconsole.log(\`a\`);\\n\`\`\`'],
+      ['fence longer than backticks inside', md('<pre>a \`\`\` b</pre>'), '\`\`\`\`\\na \`\`\` b\\n\`\`\`\`'],
+      ['table with alignment', md('<table><tr><th>A</th><th align="right">B|C</th></tr><tr><td>1</td><td>2</td></tr></table>'), '| A | B\\\\|C |\\n| --- | ---: |\\n| 1 | 2 |'],
+      ['quote', md('<blockquote><p>One</p><p>Two</p></blockquote>'), '> One\\n>\\n> Two'],
+      ['escapes', md('<p>2 * 3 = 6 and _x_ [y]</p><p># not a heading</p><p>1. not a list</p>'), '2 \\\\* 3 = 6 and \\\\_x\\\\_ \\\\[y\\\\]\\n\\n\\\\# not a heading\\n\\n1\\\\. not a list'],
+      ['emphasis spaces moved out', md('<p>a<strong> bold </strong>b</p>', '-', '_'), 'a __bold__ b'],
+      ['line break, image, strike, hr', md('<p>a<br>b</p><p><img src="i.png" alt="pic"> <del>old</del></p><hr>'), 'a\\\\\\nb\\n\\n![pic](i.png) ~~old~~\\n\\n---'],
+      ['scripts and javascript links dropped', md('<p>x<script>alert(1)</script><a href="javascript:alert(1)">y</a></p><style>p{}</style>'), 'xy']];`);
+
+  await check('csv-to-sql', `
+    const api = window.ToolkitCsvToSql;
+    set('#c2sTable', 'products'); set('#c2sInput', 'id,name,price,in_stock\\n1,"Tea, green",4.5,true\\n2,O\\'Brien,7,false\\n3,,3,'); await wait(20);
+    const pg = value('#c2sOutput');
+    const stats = text('#c2sStats');
+    set('#c2sDialect', 'sqlserver', 'change'); set('#c2sBatch', '1', 'change'); await wait(20);
+    const ms = value('#c2sOutput');
+    set('#c2sInput', 'a,b\\n"open'); await wait(20);
+    const bad = [$('#c2sError').hidden, text('#c2sError'), value('#c2sOutput')];
+    const json = api.generate(api.readInput('[{"id":1,"tags":["x"],"ok":true,"note":"C:\\\\\\\\tmp"},{"id":2,"extra":"é"}]', 'auto', true), { table: 'db.t', dialect: 'mysql', batch: 100, create: true, emptyIsNull: true, transaction: true }).sql;
+    const sqlite = api.generate(api.readInput('zip;n\\n007;1\\n34000;2', 'auto', true), { table: 't', dialect: 'sqlite', batch: Infinity, create: true, emptyIsNull: true }).sql;
+    return [['PostgreSQL CREATE TABLE', pg, { includes: 'CREATE TABLE "products" (\\n  "id" INTEGER,\\n  "name" TEXT,\\n  "price" NUMERIC,\\n  "in_stock" BOOLEAN\\n);' }],
+      ['PostgreSQL rows', pg, { includes: "(1, 'Tea, green', 4.5, TRUE),\\n  (2, 'O''Brien', 7, FALSE),\\n  (3, NULL, 3, NULL);" }], ['stats', stats, '3 rows, 4 columns'],
+      ['SQL Server one row per INSERT', ms.split('\\n').filter((line) => line.startsWith('INSERT')).length, 3], ['SQL Server names and BIT', ms, { includes: "INSERT INTO [products] ([id], [name], [price], [in_stock]) VALUES (1, 'Tea, green', 4.5, 1);" }],
+      ['unclosed quote', bad, [false, 'A quoted CSV field is not closed.', '']],
+      ['MySQL JSON, backslashes, transaction', [json.startsWith('START TRANSACTION;'), json.includes('\`db\`.\`t\`'), json.includes("'[\\"x\\"]'"), json.includes("'C:\\\\\\\\tmp'"), json.trim().endsWith('COMMIT;')], [true, true, true, true, true]],
+      ['leading zeros stay text, semicolon CSV', sqlite, { includes: '"zip" TEXT,\\n  "n" INTEGER' }], ['zip value quoted', sqlite, { includes: "('007', 1)" }]];`);
+
+  await check('toml-json-converter', `
+    const api = window.ToolkitToml;
+    set('#tjToml', 'title = "Toolkit"\\nbig = 9223372036854775807\\nwhen = 1979-05-27T07:32:00-08:00\\nday = 1979-05-27\\nratio = 0.5\\nflags = [true, false]\\n\\n[server]\\nport = 8_080\\n\\n[[fruit]]\\nname = "apple"\\n[fruit.physical]\\ncolor = "red"\\n\\n[[fruit]]\\nname = "banana"'); await wait(20);
+    const json = value('#tjJson');
+    const data = JSON.parse(json);
+    set('#tjToml', 'a = 1\\nb = 2\\na = 3'); await wait(20);
+    const duplicate = [$('#tjError').hidden, text('#tjError')];
+    set('#tjToml', '[x]\\ny = 1\\n[x]\\nz = 2'); await wait(20);
+    const tableTwice = text('#tjError');
+    set('#tjToml', 'n = 0123'); await wait(20);
+    const leading = text('#tjError');
+    set('#tjToml', 'title = "x"\\n[owner]\\nname = "Ada"');
+    set('input[name="tjDirection"][value="json"]', true, 'change'); await wait(20);
+    const carried = [value('#tjToml').startsWith('{'), $('#tjNullsOption').hidden, text('#tjLeftLabel'), text('#tjRightLabel')];
+    set('#tjToml', '{"name":"kettle","version":"0.3.1","deps":{"serde":{"version":"1","features":["derive"]}},"bin":[{"name":"a"},{"name":"b"}],"empty":null}'); await wait(20);
+    const nullError = text('#tjError');
+    set('#tjSkipNulls', true, 'change'); await wait(20);
+    const toml = value('#tjJson');
+    const roundTrip = JSON.parse(api.toJson(api.parse(toml)));
+    const q3 = '"'.repeat(3);
+    return [['strings and 64-bit integers', json, { includes: '"big": 9223372036854775807' }], ['offset date-time', data.when, '1979-05-27T07:32:00-08:00'],
+      ['local date', data.day, '1979-05-27'], ['underscores in integers', data.server.port, 8080], ['arrays of tables', data.fruit.map((item) => item.name), ['apple', 'banana']],
+      ['sub-table of the last array item', data.fruit[0].physical.color, 'red'], ['float stays a float', json, { includes: '"ratio": 0.5' }],
+      ['duplicate key', duplicate, [false, 'The key “a” is defined twice. (line 3, column 1)']], ['table defined twice', tableTwice, { includes: 'The table “x” is defined twice.' }],
+      ['leading zeros', leading, { includes: 'Leading zeros are not allowed in numbers.' }],
+      ['direction switch carries the result over', carried, [true, false, 'JSON', 'TOML']], ['null needs the option', nullError, 'TOML has no null (at empty).'],
+      ['JSON to TOML', toml, 'name = "kettle"\\nversion = "0.3.1"\\n\\n[deps.serde]\\nversion = "1"\\nfeatures = ["derive"]\\n\\n[[bin]]\\nname = "a"\\n\\n[[bin]]\\nname = "b"\\n'],
+      ['round trip', roundTrip, { name: 'kettle', version: '0.3.1', deps: { serde: { version: '1', features: ['derive'] } }, bin: [{ name: 'a' }, { name: 'b' }] }],
+      ['inline tables are closed', (() => { try { api.parse('a = { b = 1 }\\na.c = 2'); return 'accepted'; } catch (error) { return error.message; } })(), 'Cannot add keys to “a” here: it is already defined.'],
+      ['multi-line strings', api.parse('s = ' + q3 + '\\nline one \\\\\\n   still one\\nline two' + q3).s, 'line one still one\\nline two']];`);
+
+  await check('dotenv-checker', `
+    const api = window.ToolkitEnvChecker;
+    set('#envInput', 'DATABASE_URL=postgres://localhost/app\\nPORT = 3000\\nGREETING=Hello world\\nTHEME=#000\\nURL=http://\${HOST}:\${PORT}\\nPORT=4000\\nKEY="multi\\nline"\\nBROKEN'); await wait(20);
+    const summary = text('#envSummary');
+    const issues = [...document.querySelectorAll('#envIssues tr')].map((row) => row.textContent);
+    const hidden = text('#envVars');
+    set('#envShow', true, 'change'); await wait(20);
+    const shown = text('#envVars');
+    const json = JSON.parse(value('#envJson'));
+    set('#envExample', 'DATABASE_URL=\\nREDIS_URL=\\nPORT='); await wait(20);
+    const compared = [...document.querySelectorAll('#envIssues tr')].map((row) => row.textContent).filter((row) => row.startsWith('—'));
+    set('#envInput', 'A=1\\nB="two"'); set('#envExample', ''); await wait(20);
+    const clean = [text('#envSummary'), $('#envIssuesWrap').hidden];
+    return [['summary', summary, '7 variables: 1 error, 5 warnings.'],
+      ['spaces around =', issues.some((row) => row.startsWith('2') && row.includes('Spaces around “=”')), true],
+      ['unquoted spaces', issues.some((row) => row.startsWith('3') && row.includes('a shell would cut it')), true],
+      ['value read as a comment', issues.some((row) => row.startsWith('4') && row.includes('THEME="#000"')), true],
+      ['unset reference', issues.some((row) => row.includes('URL refers to HOST')), true], ['repeated key', issues.some((row) => row.startsWith('6') && row.includes('already set on line 2')), true],
+      ['not KEY=value', issues.some((row) => row.startsWith('9') && row.includes('not KEY=value')), true],
+      ['values hidden by default', hidden.includes('postgres'), false], ['values shown', shown.includes('postgres://localhost/app'), true],
+      ['multi-line double quotes', json.KEY, 'multi\\nline'], ['later value wins', json.PORT, '4000'],
+      ['compared with the example', compared, ['—✕ ErrorREDIS_URL is in the example file but not set here.', '—i NoteGREETING is set here but not in the example file.', '—i NoteTHEME is set here but not in the example file.', '—i NoteURL is set here but not in the example file.', '—i NoteKEY is set here but not in the example file.']],
+      ['clean file', clean, ['✓ 2 variables, no problems found.', true]],
+      ['export and single quotes', api.parse("export A='keep $HOME'").vars[0], { key: 'A', value: 'keep $HOME', line: 1, quote: "'" }]];`);
+
+  await check('box-shadow-generator', `
+    const start = text('#bsCode');
+    const applied = getComputedStyle($('#bsPreview')).boxShadow;
+    click('[data-bs-preset="layered"]'); await wait(20);
+    const layered = [(text('#bsCode').match(/rgba\\(/g) || []).length, document.querySelectorAll('#bsLayers button').length];
+    click('[data-bs-preset="hard"]'); set('#bsInset', true, 'change'); set('#bsColor', '#ff0000'); set('#bsAlpha', '50'); await wait(20);
+    const edited = text('#bsCode');
+    click('#bsAdd'); await wait(20);
+    const added = [document.querySelectorAll('#bsLayers button').length, $('#bsRemove').disabled];
+    click('#bsRemove'); await wait(20);
+    return [['default', start, 'box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.25);'], ['applied to the preview', applied.includes('30px'), true],
+      ['five smooth layers', layered, [5, 5]], ['inset, colour and opacity', edited, 'box-shadow: inset 6px 6px 0 0 rgba(255, 0, 0, 0.5);'],
+      ['add and remove a layer', [...added, document.querySelectorAll('#bsLayers button').length], [2, false, 1]]];`);
+
+  await check('border-radius-generator', `
+    const api = window.ToolkitBorderRadius;
+    const start = text('#brCode');
+    set('#brLink', false, 'change'); set('#br-tr-h', '40'); await wait(20);
+    const one = text('#brCode');
+    click('[data-br-preset="leaf"]'); await wait(20);
+    const leaf = [text('#brCode'), $('#brUnit').value];
+    click('[data-br-preset="blob"]'); await wait(20);
+    const blob = text('#brCode');
+    const applied = getComputedStyle($('#brPreview')).borderTopLeftRadius;
+    set('#brEllipse', false, 'change'); click('[data-br-preset="rounded"]'); set('#brUnit', '%', 'change'); await wait(20);
+    const percent = text('#brCode');
+    return [['default', start, 'border-radius: 24px;'], ['one corner', one, 'border-radius: 24px 40px 24px 24px;'],
+      ['three-value form', api.shorthand(['1px', '2px', '3px', '2px']), ['1px', '2px', '3px']], ['two-value form', api.shorthand(['1px', '2px', '1px', '2px']), ['1px', '2px']],
+      ['leaf', leaf, ['border-radius: 0 50%;', '%']], ['blob is elliptical in %', /^border-radius: (\\d+% ){3}\\d+% \\/ (\\d+% ){3}\\d+%;$/.test(blob), true],
+      ['blob applied', applied.includes('%'), true], ['px to % against the preview width', percent, 'border-radius: 7%;']];`);
+
+  await check('flexbox-playground', `
+    const start = $('#fxCode').textContent;
+    const items = document.querySelectorAll('#fxBox .fx-item').length;
+    set('#fxJustify', 'space-between', 'change'); set('#fxAlignItems', 'center', 'change'); set('#fxGap', '16'); await wait(20);
+    const container = $('#fxCode').textContent;
+    const applied = getComputedStyle($('#fxBox')).justifyContent;
+    click('#fxBox .fx-item:nth-child(2)'); await wait(20);
+    const panel = [$('#fxItemPanel').hidden, text('#fxItemTitle')];
+    set('#fxGrow', '2'); set('#fxSelf', 'flex-end', 'change'); set('#fxOrder', '-1'); await wait(20);
+    const item = $('#fxCode').textContent;
+    set('#fxCount', '3'); await wait(20);
+    const fewer = document.querySelectorAll('#fxBox .fx-item').length;
+    click('#fxItemReset'); await wait(20);
+    return [['default', start, '.container {\\n  display: flex;\\n  gap: 8px;\\n}'], ['five items', items, 5],
+      ['container properties', container, '.container {\\n  display: flex;\\n  justify-content: space-between;\\n  align-items: center;\\n  gap: 16px;\\n}'],
+      ['applied', applied, 'space-between'], ['item picked', panel, [false, 'Item 2']],
+      ['item properties', item, { includes: '.item-2 {\\n  flex: 2 1 auto;\\n  align-self: flex-end;\\n  order: -1;\\n}' }],
+      ['item count', fewer, 3], ['reset item', $('#fxCode').textContent.includes('.item-2'), false]];`);
+
+  await check('css-grid-generator', `
+    const api = window.ToolkitGrid;
+    const start = $('#grCode').textContent;
+    const columns = getComputedStyle($('#grBox')).gridTemplateColumns.split(' ').length;
+    click('[data-gr-preset="holy"]'); await wait(20);
+    const holy = [$('#grCode').textContent, [...document.querySelectorAll('#grBox .gr-item')].map((item) => item.textContent), $('#grCountRow').hidden];
+    const header = $('#grBox .gr-item').getBoundingClientRect().width > $('#grBox').getBoundingClientRect().width * 0.8;
+    set('#grAreas', '"a a"\\n"a b"'); await wait(20);
+    const notRect = [$('#grError').hidden, text('#grError')];
+    set('#grAreas', '"a b"\\n"c"'); await wait(20);
+    const ragged = text('#grError');
+    set('#grAreas', ''); set('#grColumns', 'repeat(3, potato)'); await wait(20);
+    const badTemplate = text('#grError');
+    set('#grColumns', 'repeat(auto-fill, minmax(120px, 1fr))'); set('#grColumnGap', '20'); set('#grRowGap', '8'); await wait(20);
+    return [['default', start, '.container {\\n  display: grid;\\n  grid-template-columns: repeat(3, 1fr);\\n  grid-template-rows: auto;\\n  gap: 12px;\\n}'], ['three columns applied', columns, 3],
+      ['areas in the CSS', holy[0], { includes: 'grid-template-areas:\\n    "header header header"\\n    "nav main aside"\\n    "footer footer footer";' }],
+      ['one item per area', holy[1], ['header', 'nav', 'main', 'aside', 'footer']], ['no item count with areas', holy[2], true], ['header spans the width', header, true],
+      ['area classes', holy[0], { includes: '.footer { grid-area: footer; }' }],
+      ['not a rectangle', notRect, [false, 'The area “a” is not a rectangle.']], ['ragged rows', ragged, 'Every row of areas needs the same number of cells.'],
+      ['invalid template', badTemplate, '“repeat(3, potato)” is not a valid column template.'],
+      ['different gaps', $('#grCode').textContent, { includes: 'gap: 8px 20px;' }], ['parse unquoted lines', api.parseAreas('a b\\nc c').names, ['a', 'b', 'c']]];`);
+
+  await check('image-converter', `
+    const api = window.ToolkitImageConverter;
+    // 200×100: left half red, right half blue.
+    const canvas = document.createElement('canvas'); canvas.width = 200; canvas.height = 100;
+    const ctx = canvas.getContext('2d'); ctx.fillStyle = '#ff0000'; ctx.fillRect(0, 0, 100, 100); ctx.fillStyle = '#0000ff'; ctx.fillRect(100, 0, 100, 100);
+    const png = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const load = async (blob, name) => { const files = new DataTransfer(); files.items.add(new File([blob], name, { type: blob.type })); $('#icFile').files = files.files; $('#icFile').dispatchEvent(new Event('change')); await wait(300); };
+    const pixel = async (blob, x, y) => { const bitmap = await createImageBitmap(blob); const c = document.createElement('canvas'); c.width = bitmap.width; c.height = bitmap.height; const g = c.getContext('2d'); g.drawImage(bitmap, 0, 0); const d = g.getImageData(x, y, 1, 1).data; return [bitmap.width, bitmap.height, d[0] > 200 ? 'red' : d[2] > 200 ? 'blue' : 'other']; };
+    await load(png, 'test.png');
+    const opened = [$('#icEditor').hidden, text('#icSource'), value('#icWidth'), value('#icHeight')];
+    set('#icRatio', '1:1', 'change'); await wait(20);
+    const square = api.state().crop;
+    set('#icWidth', '50'); await wait(20);
+    const locked = value('#icHeight');
+    const squareBlob = await api.render();
+    const squarePixels = [await pixel(squareBlob, 10, 25), await pixel(squareBlob, 40, 25)];
+    set('#icRatio', 'free', 'change'); click('#icFlipX'); await wait(50);
+    const flipped = await pixel(await api.render(), 10, 50);
+    click('#icRotateRight'); await wait(50);
+    const turned = [api.state().rotation, value('#icWidth'), value('#icHeight')];
+    const rotatedBlob = await api.render();
+    const rotatedPixel = await pixel(rotatedBlob, 50, 10);
+    set('#icFormat', 'image/jpeg', 'change'); await wait(20);
+    const jpegUi = [$('#icQualityRow').hidden, $('#icBgRow').hidden];
+    const jpeg = await api.render();
+    const saved = []; const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#icDownload'); await wait(300);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    const svg = new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="40" height="20"><rect width="40" height="20" fill="#00ff00"/></svg>'], { type: 'image/svg+xml' });
+    await load(svg, 'logo.svg');
+    const svgUi = [$('#icSvgRow').hidden, value('#icFormat')];
+    set('#icSvgScale', '4', 'change'); await wait(50);
+    const svgOut = await createImageBitmap(await api.render());
+    return [['editor opens', opened, [false, 'test.png · 200 × 100 px · ' + (png.size < 1024 ? png.size + ' B' : (png.size / 1024).toFixed(1) + ' KB'), '200', '100']],
+      ['1:1 crop centred', square, { x: 50, y: 0, w: 100, h: 100 }], ['height follows width', locked, '50'],
+      ['square output: red then blue', squarePixels, [[50, 50, 'red'], [50, 50, 'blue']]],
+      ['flip swaps the halves', flipped, [200, 100, 'blue']], ['rotate right', turned, [90, '100', '200']], ['rotated pixel', rotatedPixel, [100, 200, 'blue']],
+      ['JPEG shows quality and background', jpegUi, [false, false]], ['JPEG output', jpeg.type, 'image/jpeg'],
+      ['download name and type', [saved.find((item) => typeof item === 'string'), saved.find((item) => item instanceof Blob)?.type], ['test-100x200.jpg', 'image/jpeg']],
+      ['result line', text('#icResult'), { includes: 'Saved test-100x200.jpg' }],
+      ['SVG opens as PNG with a scale option', svgUi, [false, 'image/png']], ['SVG drawn at 4×', [svgOut.width, svgOut.height], [160, 80]]];`);
+
+  await check('pdf-merger', `
+    const api = window.ToolkitPdfMerger;
+    // Each page is as wide as its label, so the order can be read back.
+    const make = async (widths) => { const doc = await PDFLib.PDFDocument.create(); widths.forEach((width) => doc.addPage([width, 400])); return new Blob([await doc.save()], { type: 'application/pdf' }); };
+    const widths = async (bytes) => (await PDFLib.PDFDocument.load(bytes)).getPages().map((page) => Math.round(page.getWidth()));
+    const files = new DataTransfer();
+    files.items.add(new File([await make([101, 102, 103])], 'a.pdf', { type: 'application/pdf' }));
+    files.items.add(new File([await make([201, 202])], 'b.pdf', { type: 'application/pdf' }));
+    files.items.add(new File([new Blob(['not a pdf'])], 'notes.pdf', { type: 'application/pdf' }));
+    $('#pmFiles').files = files.files; $('#pmFiles').dispatchEvent(new Event('change')); await wait(600);
+    const rows = [...document.querySelectorAll('#pmList tr')].map((row) => [...row.cells].slice(0, 3).map((cell) => cell.textContent));
+    const all = await widths(await api.merge());
+    const summary = text('#pmSummary');
+    set('#pmList tr:nth-child(1) .pm-pages', '3, 1'); await wait(20);
+    document.querySelector('#pmList tr:nth-child(2) .pm-actions button').click(); await wait(20);
+    const reordered = await widths(await api.merge());
+    set('#pmList tr:nth-child(2) .pm-pages', '2-9'); await wait(20);
+    const badRange = text('#pmSummary');
+    const ranges = [api.parseRanges('', 4), api.parseRanges('2-3, 1', 4), api.parseRanges('3-', 5), api.parseRanges('-2', 5)];
+    return [['bad file left out', rows, [['1', 'a.pdf', '3'], ['2', 'b.pdf', '2']]], ['all pages in order', all, [101, 102, 103, 201, 202]],
+      ['summary', summary, '5 pages from 2 files.'], ['moved up and a range used', reordered, [201, 202, 103, 101]],
+      ['range outside the file', badRange, 'Pages 2-9 are outside 1–3.'], ['range forms', ranges, [[0, 1, 2, 3], [1, 2, 0], [2, 3, 4], [0, 1]]]];`);
+
+  await check('pdf-page-editor', `
+    const api = window.ToolkitPdfPageEditor;
+    const doc = await PDFLib.PDFDocument.create();
+    [101, 102, 103, 104, 105].forEach((width) => doc.addPage([width, 400]));
+    doc.getPage(4).setRotation(PDFLib.degrees(90));
+    const files = new DataTransfer(); files.items.add(new File([await doc.save()], 'report.pdf', { type: 'application/pdf' }));
+    $('#peFile').files = files.files; $('#peFile').dispatchEvent(new Event('change')); await wait(500);
+    const read = async (bytes) => (await PDFLib.PDFDocument.load(bytes)).getPages().map((page) => [Math.round(page.getWidth()), page.getRotation().angle]);
+    const opened = [$('#peEditor').hidden, text('#peSource').startsWith('report.pdf · 5 pages'), document.querySelectorAll('#pePages .pe-tile').length];
+    set('#peRange', '2, 4'); click('#peSelectRange'); await wait(20);
+    const picked = text('#peStatus');
+    click('#peRotateRight'); await wait(20);
+    const extracted = await read(await api.actions.extract());
+    click('#peSelectNone'); set('#peRange', '1'); click('#peSelectRange'); click('#peDelete'); await wait(20);
+    document.querySelectorAll('#pePages .pe-tile')[4].querySelector('.pe-move').click(); await wait(20);
+    const edited = await read(await api.actions.edited());
+    const status = text('#peStatus');
+    set('#peSplitMode', 'every', 'change'); set('#peSplitEvery', '2'); await wait(20);
+    const every = await api.actions.split();
+    set('#peSplitMode', 'ranges', 'change'); set('#peSplitRanges', '1-2, 4-'); await wait(20);
+    const ranges = await api.actions.split();
+    const saved = []; const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#peSplit'); await wait(400);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    return [['opens', opened, [false, true, 5]], ['pick by range', picked, '2 selected · 5 of 5 pages kept'],
+      ['extract picked pages, rotated', extracted, [[102, 90], [104, 90]]],
+      ['delete page 1, move 5 before 4, rotations kept', edited, [[102, 90], [103, 0], [105, 90], [104, 90]]], ['status after delete', status, '0 selected · 4 of 5 pages kept'],
+      ['every 2 pages', every.map((part) => part.name), ['report-2-3.pdf', 'report-5-4.pdf']],
+      ['by original page ranges, deleted pages left out', ranges.map((part) => part.name), ['report-2.pdf', 'report-4-5.pdf']],
+      ['ZIP download', [saved.find((item) => typeof item === 'string'), saved.find((item) => item instanceof Blob)?.type], ['report-split.zip', 'application/zip']],
+      ['paper names', [api.paperName(595.28, 841.89), api.paperName(792, 612), api.paperName(300, 300)], ['A4', 'Letter', '106 × 106 mm']]];`);
 
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);

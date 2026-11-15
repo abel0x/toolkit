@@ -8,6 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Parser": "Ayrıştırıcı",
     "Invalid": "Geçersiz",
     "Invalid URL": "Geçersiz URL",
+    "Top": "Üst",
     "Protocol": "Protokol",
     "Port": "Port",
     "Username": "Kullanıcı adı",

@@ -6,6 +6,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Height": "Yükseklik",
     "Cleared": "Temizlendi",
-    "Cleared all UUIDs": "Tüm UUID’ler temizlendi"
+    "Cleared all UUIDs": "Tüm UUID’ler temizlendi",
+    "Top": "Üst",
+    "Items": "Öğeler"
   }))
 });

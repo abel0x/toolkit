@@ -32,6 +32,39 @@
       { name: 'Pocket profile', values: { '#jsonInput': '{"name":"Mira","level":7,"snacks":["fig","tea"],"curious":true}' }, action: '#jsonBeautifyBtn' },
       { name: 'Space launch', values: { '#jsonInput': '{"mission":"Comet Tea","crew":3,"launch":"06:45","ready":true}' }, action: '#jsonBeautifyBtn' }
     ],
+    'subnet-calculator': [
+      { name: 'Home network', values: { '#snInput': '192.168.1.10/24', '#snCheck': '192.168.1.200' } },
+      { name: 'IPv6 site prefix', values: { '#snInput': '2001:db8:abcd:12::1/48' } },
+      { name: 'Address range to CIDR', values: { '#snInput': '10.0.0.5-10.0.0.20' } }
+    ],
+    'jsonpath-tester': [
+      { name: 'Cheap fiction', values: { '#jpJson': '{"store":{"book":[{"category":"reference","author":"Nigel Rees","title":"Sayings of the Century","price":8.95},{"category":"fiction","author":"Evelyn Waugh","title":"Sword of Honour","price":12.99},{"category":"fiction","author":"Herman Melville","title":"Moby Dick","isbn":"0-553-21311-3","price":8.99},{"category":"fiction","author":"J. R. R. Tolkien","title":"The Lord of the Rings","isbn":"0-395-19395-8","price":22.99}],"bicycle":{"color":"red","price":399}}}', '#jpQuery': "$.store.book[?@.price < 10 && @.category == 'fiction'].title" } },
+      { name: 'Active team members', values: { '#jpJson': '{"team":[{"name":"Ada","role":"admin","active":true},{"name":"Lin","role":"dev","active":false},{"name":"Mira","role":"dev","active":true}]}', '#jpQuery': '$.team[?@.active].name' } }
+    ],
+    'json-schema-generator': [
+      { name: 'User profile', values: { '#jsgInput': '{"id":42,"name":"Ada Lovelace","email":"ada@example.com","joined":"2026-11-15T09:30:00Z","roles":["admin","editor"],"manager":null}' } },
+      { name: 'Two orders', values: { '#jsgSamples': true, '#jsgInput': '[{"order":1001,"total":19.9,"items":[{"sku":"A1","qty":2}]},{"order":1002,"total":5,"coupon":"WELCOME","items":[{"sku":"B7","qty":1,"gift":true}]}]' } }
+    ],
+    'jwt-signer': [
+      { name: 'Test session token', values: { '#jwsAlg': 'HS256', '#jwsSecret': 'a-string-secret-at-least-256-bits-long', '#jwsPayload': '{\n  "sub": "user-42",\n  "name": "Ada Lovelace",\n  "role": "editor",\n  "iat": 1795000000,\n  "exp": 1795003600\n}' }, action: '#jwsSign' },
+      { name: 'Service-to-service token', values: { '#jwsAlg': 'HS512', '#jwsSecret': 'kettle-violet-moonlight-notebook-compass-tea-garden-river-stone-42', '#jwsPayload': '{\n  "iss": "billing",\n  "aud": "reports",\n  "scope": "read:invoices"\n}' }, action: '#jwsSign' }
+    ],
+    'html-to-markdown': [
+      { name: 'Blog post', values: { '#h2mInput': '<h1>Release notes</h1>\n<p>Version <strong>2.0</strong> is out. Read the <a href="https://example.com/docs">docs</a>.</p>\n<ul>\n  <li>Faster start</li>\n  <li>Dark mode<ul><li>Follows the system</li></ul></li>\n</ul>\n<pre><code class="language-bash">npm install toolkit</code></pre>' } },
+      { name: 'Price table', values: { '#h2mInput': '<table>\n  <tr><th>Plan</th><th align="right">Price</th></tr>\n  <tr><td>Free</td><td align="right">0</td></tr>\n  <tr><td>Team</td><td align="right">12</td></tr>\n</table>' } }
+    ],
+    'csv-to-sql': [
+      { name: 'Product list', values: { '#c2sTable': 'products', '#c2sInput': 'id,name,price,in_stock,added\n1,Green tea,4.5,true,2026-11-01\n2,"Coffee, dark roast",7.25,false,2026-11-08\n3,Cocoa,3,true,' } },
+      { name: 'Users as JSON', values: { '#c2sTable': 'users', '#c2sDialect': 'mysql', '#c2sInput': '[{"id":1,"email":"ada@example.com","admin":true,"tags":["math"]},{"id":2,"email":"lin@example.com","admin":false,"tags":[]}]' } }
+    ],
+    'toml-json-converter': [
+      { name: 'App config', values: { '#tjToml': '# Service settings\ntitle = "Toolkit API"\nreleased = 2026-11-15T09:30:00Z\n\n[server]\nhost = "0.0.0.0"\nport = 8080\ntimeouts = { read = 5, write = 10 }\n\n[[database.replicas]]\nhost = "db-1"\nweight = 0.7\n\n[[database.replicas]]\nhost = "db-2"\nweight = 0.3' } },
+      { name: 'Cargo manifest', values: { '#tjToml': '[package]\nname = "kettle"\nversion = "0.3.1"\nedition = "2021"\nauthors = ["Ada <ada@example.com>"]\n\n[dependencies]\nserde = { version = "1", features = ["derive"] }\ntokio = { version = "1.40", features = ["full"] }' } }
+    ],
+    'dotenv-checker': [
+      { name: 'Settings with mistakes', values: { '#envInput': '# Web app\nDATABASE_URL=postgres://app:secret@localhost:5432/app\nPORT = 3000\nGREETING=Hello world\nTHEME_COLOR=#0a0a0a\nREDIS_URL=redis://${REDIS_HOST}:6379\nPORT=4000\nexport API_KEY="sk-test-123"', '#envExample': '' } },
+      { name: 'Compare with the example', values: { '#envInput': 'DATABASE_URL=postgres://localhost/app\nSECRET_KEY="change-me"\nDEBUG=true', '#envExample': 'DATABASE_URL=\nSECRET_KEY=\nREDIS_URL=\nSENTRY_DSN=' } }
+    ],
     'credit-card-validator': [
       { name: 'Visa test card', values: { '#ccNumber': '4111 1111 1111 1111', '#ccExpiry': '12/30', '#ccCvc': '123' } },
       { name: 'Troy example', values: { '#ccNumber': '9792 0300 0000 1230' } },
@@ -289,7 +322,8 @@
 
   function setValue(target, value) {
     if (!target) return;
-    target.value = value;
+    if (target.type === 'checkbox') target.checked = Boolean(value);
+    else target.value = value;
     target.dispatchEvent(new Event('input', { bubbles: true }));
     target.dispatchEvent(new Event('change', { bubbles: true }));
   }

@@ -856,5 +856,125 @@
       "title": "Port Reference — Toolkit",
       "description": "Find the service behind a network port (SSH, PostgreSQL, Redis, Vite and about 130 more), and see what any port number means: its IANA range, whether Linux needs root to listen on it, whether systems use it for outgoing connections, and whether browsers block it. In your browser."
     }
+  },
+  "tools/subnet-calculator.html": {
+    "title": "IP Alt Ağ Hesaplayıcı — Toolkit",
+    "description": "CIDR ya da maskeden bir IPv4 veya IPv6 alt ağını hesaplayın: ağ ve yayın adresi, ağ maskesi ve joker maske, kullanılabilir host aralığı ve sayısı, adres türü ve ters DNS bölgesi. Ağı daha küçük ağlara bölün, bir adres aralığını CIDR bloklarına çevirin ve bir adresin içinde olup olmadığını denetleyin. Tarayıcınızda.",
+    "source": {
+      "title": "IP Subnet Calculator — Toolkit",
+      "description": "Calculate an IPv4 or IPv6 subnet from CIDR or a mask: network and broadcast address, netmask and wildcard, usable host range and count, address type and reverse DNS zone. Split a network into smaller ones, turn an address range into CIDR blocks, and check whether an address is inside. In your browser."
+    }
+  },
+  "tools/jsonpath-tester.html": {
+    "title": "JSONPath Test Aracı — Toolkit",
+    "description": "JSON üzerinde JSONPath sorgularını yazarken deneyin: üye adları, joker karakterler, indeksler, dilimler, her derinlikte arama ve karşılaştırmalı filtreler ile length(), count(), match(), search() ve value() işlevleri; RFC 9535 standardına göre. Eşleşen değerleri, normalleştirilmiş yolları ya da ikisini birden görün. Tarayıcınızda.",
+    "source": {
+      "title": "JSONPath Tester — Toolkit",
+      "description": "Test JSONPath queries on JSON as you type: member names, wildcards, indexes, slices, recursive descent and filters with comparisons and the length(), count(), match(), search() and value() functions, as standardised in RFC 9535. See matching values, normalized paths or both. In your browser."
+    }
+  },
+  "tools/json-schema-generator.html": {
+    "title": "JSON Schema Üretici — Toolkit",
+    "description": "Örnek JSON’dan bir JSON Schema (draft 2020-12 ya da draft-07) üretin: türler, iç içe nesneler, zorunlu özellikler, öğeleri birleştirilmiş diziler, boş olabilen değerler ve date-time, email, uri, uuid gibi biçimler. Birden çok örneği tek şemada birleştirin. Tarayıcınızda.",
+    "source": {
+      "title": "JSON Schema Generator — Toolkit",
+      "description": "Generate a JSON Schema (draft 2020-12 or draft-07) from sample JSON: types, nested objects, required properties, array items merged across elements, nullable values and formats such as date-time, email, uri and uuid. Combine several samples into one schema. In your browser."
+    }
+  },
+  "tools/jwt-signer.html": {
+    "title": "JWT İmzalayıcı — Toolkit",
+    "description": "Tarayıcınızda bir JSON Web Token oluşturup imzalayın: gizli anahtarla HS256/384/512, PEM ya da JWK biçiminde RSA veya EC özel anahtarla RS256, PS256 ve ES256 (ve 384, 512 sürümleri) ya da Ed25519 ile EdDSA. Tek tıkla iat ve exp ekleyin, test anahtar çifti oluşturun. Anahtarlar cihazınızdan çıkmaz.",
+    "source": {
+      "title": "JWT Signer — Toolkit",
+      "description": "Build and sign a JSON Web Token in your browser: HS256/384/512 with a secret, RS256, PS256 and ES256 (and their 384 and 512 variants) with an RSA or EC private key in PEM or JWK, or EdDSA with Ed25519. Add iat and exp in one click and generate a test key pair. Keys never leave your device."
+    }
+  },
+  "tools/html-to-markdown.html": {
+    "title": "HTML’den Markdown’a — Toolkit",
+    "description": "Tarayıcınızda HTML’yi Markdown’a dönüştürün: başlıklar, bağlantılar, görseller, iç içe ve görev listeleri, dili belirtilmiş kod blokları, alıntılar ve GitHub tabloları. Bir web sayfasından ya da belgeden biçimli metni yapıştırıp Markdown alın. Betikler hiç çalıştırılmaz, görseller yüklenmez.",
+    "source": {
+      "title": "HTML to Markdown — Toolkit",
+      "description": "Convert HTML to Markdown in your browser: headings, links, images, nested and task lists, code blocks with their language, quotes and GitHub tables. Paste formatted text from a web page or a document and get Markdown. Scripts are never run and images are not loaded."
+    }
+  },
+  "tools/csv-to-sql.html": {
+    "title": "CSV / JSON’dan SQL’e — Toolkit",
+    "description": "CSV ya da JSON’u PostgreSQL, MySQL, SQLite veya SQL Server için SQL INSERT ifadelerine dönüştürün: sütun türleri verilerden tahmin edilen bir CREATE TABLE, toplu ekleme, boş hücreler için NULL, isteğe bağlı işlem (transaction) ve her veritabanına uygun tırnaklama. Tarayıcınızda.",
+    "source": {
+      "title": "CSV / JSON to SQL — Toolkit",
+      "description": "Convert CSV or JSON to SQL INSERT statements for PostgreSQL, MySQL, SQLite or SQL Server, with a CREATE TABLE whose column types are guessed from the data, batched inserts, NULLs for empty cells, an optional transaction and correct quoting for each database. In your browser."
+    }
+  },
+  "tools/toml-json-converter.html": {
+    "title": "TOML / JSON Dönüştürücü — Toolkit",
+    "description": "Tarayıcınızda TOML’u JSON’a ve geri dönüştürün. TOML 1.0’ı izler ve uyumluluk testlerini geçer: tablolar, tablo dizileri, satır içi tablolar, noktalı anahtarlar, çok satırlı metinler, 64 bit tam sayılar ve tarihler. Hatalar satır ve sütunu gösterir. Cargo.toml, pyproject.toml ve ayar dosyaları için kullanışlı.",
+    "source": {
+      "title": "TOML / JSON Converter — Toolkit",
+      "description": "Convert TOML to JSON and back in your browser. Follows TOML 1.0 and passes its conformance tests: tables, arrays of tables, inline tables, dotted keys, multi-line strings, 64-bit integers and dates. Errors point to the line and column. Handy for Cargo.toml, pyproject.toml and config files."
+    }
+  },
+  "tools/dotenv-checker.html": {
+    "title": "Dotenv Denetleyici — Toolkit",
+    "description": "Tarayıcınızda bir .env dosyasını denetleyin: KEY=değer olmayan satırlar, kapatılmamış tırnaklar, tekrar eden anahtarlar, kabuğu ve Docker’ı bozan boşluklar, yorum gibi başlayan değerler ve tanımsız adlara ${VAR} başvuruları. Eksik anahtarları bulmak için .env.example ile karşılaştırın. Değerler cihazınızda kalır.",
+    "source": {
+      "title": "Dotenv Checker — Toolkit",
+      "description": "Check a .env file in your browser: lines that are not KEY=value, unclosed quotes, repeated keys, spaces that break shells and Docker, values that start a comment, and ${VAR} references to unset names. Compare it with .env.example to find missing keys. Values stay on your device."
+    }
+  },
+  "tools/box-shadow-generator.html": {
+    "title": "Kutu Gölgesi Üretici — Toolkit",
+    "description": "Tarayıcınızda CSS box-shadow oluşturun: birden çok katman, kaydırma, bulanıklık, yayılma, renk, opaklık ve iç gölge; yumuşak, katmanlı, sert ve parıltılı gölgeler için hazır ayarlar. Renk verip köşelerini yuvarlayabildiğiniz bir kutuda görün ve CSS’i kopyalayın.",
+    "source": {
+      "title": "Box Shadow Generator — Toolkit",
+      "description": "Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS."
+    }
+  },
+  "tools/border-radius-generator.html": {
+    "title": "Köşe Yuvarlama Üretici — Toolkit",
+    "description": "Tarayıcınızda CSS border-radius oluşturun: her köşe px ya da % olarak, ayrı yatay ve dikey yarıçaplı eliptik köşeler, hap, daire, yaprak ve damla şekilleri için hazır ayarlar ve rastgele organik şekiller. En kısa kısaltmayı kopyalar.",
+    "source": {
+      "title": "Border Radius Generator — Toolkit",
+      "description": "Create CSS border-radius in your browser: each corner in px or %, elliptical corners with separate horizontal and vertical radii, presets for pill, circle, leaf and drop shapes, and random organic blobs. Copies the shortest shorthand."
+    }
+  },
+  "tools/flexbox-playground.html": {
+    "title": "Flexbox Deneme Alanı — Toolkit",
+    "description": "Tarayıcınızda CSS flexbox yerleşimlerini öğrenin ve kurun: canlı bir kapsayıcıda flex-direction, flex-wrap, justify-content, align-items, align-content ve gap; her öğe için flex-grow, flex-shrink, flex-basis, align-self ve order. Yalnızca varsayılandan farklı CSS’i kopyalar.",
+    "source": {
+      "title": "Flexbox Playground — Toolkit",
+      "description": "Learn and build CSS flexbox layouts in your browser: flex-direction, flex-wrap, justify-content, align-items, align-content and gap on a live container, plus flex-grow, flex-shrink, flex-basis, align-self and order for each item. Copies only the CSS that differs from the defaults."
+    }
+  },
+  "tools/css-grid-generator.html": {
+    "title": "CSS Grid Üretici — Toolkit",
+    "description": "Tarayıcınızda CSS grid yerleşimleri kurun: fr, minmax(), repeat() ve auto-fill ile grid-template-columns ve satırlar, boşluklar, öğe hizalaması ve hatalara karşı denetlenen adlandırılmış grid-template-areas. Kenar çubuğu, duyarlı kartlar ya da üst ve alt bilgi gibi yerleşimlerden başlayıp CSS’i kopyalayın.",
+    "source": {
+      "title": "CSS Grid Generator — Toolkit",
+      "description": "Build CSS grid layouts in your browser: grid-template-columns and rows with fr, minmax(), repeat() and auto-fill, gaps, item alignment and named grid-template-areas checked for mistakes. Start from layouts like sidebar, responsive cards or header and footer, and copy the CSS."
+    }
+  },
+  "tools/image-converter.html": {
+    "title": "Görsel Dönüştürücü — Toolkit",
+    "description": "Tarayıcınızda bir görseli PNG, JPEG, WebP ya da AVIF’e dönüştürün, SVG’yi istediğiniz boyutta PNG’ye çevirin. Sürükleyerek ya da sayılarla kırpın; kare, hikâye ve bağlantı önizlemesi oranları hazır. Döndürün, çevirin ve tam piksele boyutlandırın. Görsel hiç yüklenmez, sonuç EXIF verisi taşımaz.",
+    "source": {
+      "title": "Image Converter — Toolkit",
+      "description": "Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data."
+    }
+  },
+  "tools/pdf-merger.html": {
+    "title": "PDF Birleştirici — Toolkit",
+    "description": "Tarayıcınızda PDF dosyalarını birleştirin: birkaç PDF ekleyin, sıraya koyun, her birinden tüm sayfaları ya da 1-3, 5, 8- gibi aralıkları alın ve tek PDF indirin. Dosyalar hiç yüklenmez.",
+    "source": {
+      "title": "PDF Merger — Toolkit",
+      "description": "Merge PDF files in your browser: add several PDFs, put them in order, take all pages or ranges like 1-3, 5, 8- from each, and download one PDF. The files are never uploaded."
+    }
+  },
+  "tools/pdf-page-editor.html": {
+    "title": "PDF Sayfa Düzenleyici — Toolkit",
+    "description": "Tarayıcınızda bir PDF’in sayfalarını düzenleyin: sayfaları döndürün, silin ve yeniden sıralayın, seçtiklerinizi yeni bir PDF’e ayıklayın ya da dosyayı tek sayfalara, her N sayfaya veya aralıklara bölüp ZIP olarak indirin. Dosya hiç yüklenmez.",
+    "source": {
+      "title": "PDF Page Editor — Toolkit",
+      "description": "Edit the pages of a PDF in your browser: rotate, delete and reorder pages, extract the ones you pick into a new PDF, or split the file into single pages, every N pages or ranges, downloaded as a ZIP. The file is never uploaded."
+    }
   }
 }

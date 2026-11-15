@@ -9,7 +9,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Enter a code point value.": "Bir kod noktası değeri girin.",
     "Enter some text first.": "Önce bir metin girin.",
     "Invalid code point value.": "Geçersiz kod noktası değeri.",
-    "Tab": "Sekme",
     "Reverse": "Tersine Çevir"
   }))
 });

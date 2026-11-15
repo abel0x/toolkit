@@ -16,6 +16,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Copy Signature": "İmzayı Kopyala",
     "not verified": "doğrulanmadı",
     "Length:": "Uzunluk:",
+    "Note": "Not",
+    "Public": "Genel",
     "Normal": "Normal",
     "No key in this JWKS has the kid \"{{kid}}\".": "Bu JWKS'de kid değeri \"{{kid}}\" olan anahtar yok.",
     "This JWKS has several keys and the token names no kid.": "Bu JWKS'de birden fazla anahtar var ve token bir kid belirtmiyor.",

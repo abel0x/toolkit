@@ -20,6 +20,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Password matches": "Parola eşleşiyor",
     "Password does not match": "Parola eşleşmiyor",
     "Verification failed: {{message}}": "Doğrulama başarısız oldu: {{message}}",
+    "Note": "Not",
     "Notes": "Notlar"
   }))
 });

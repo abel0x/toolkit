@@ -7,6 +7,9 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Servers": "Sunucu",
     "Next": "İleri",
     "Reference": "Referans",
+    "Note": "Not",
+    "Database": "Veritabanı",
+    "Reserved": "Ayrılmış",
     "Not used on the wire; asking the system for port 0 means “any free port”": "Ağda kullanılmaz; sistemden 0 numaralı portu istemek “boş herhangi bir port” demektir",
     "Sends back whatever it receives; old test service": "Aldığını geri gönderir; eski test servisi",
     "Throws away whatever it receives; old test service, also Wake-on-LAN": "Aldığını atar; eski test servisi, Wake-on-LAN için de kullanılır",
@@ -165,7 +168,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Browsers can open web addresses on this port.": "Tarayıcılar bu porttaki web adreslerini açabilir.",
     "No common service in this list uses it.": "Bu listedeki yaygın servislerden hiçbiri kullanmıyor.",
     "Ports go from 0 to 65535.": "Portlar 0 ile 65535 arasındadır.",
-    "Not used": "Kullanılmıyor",
-    "Tab": "Sekme"
+    "Not used": "Kullanılmıyor"
   }))
 });

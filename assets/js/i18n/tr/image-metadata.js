@@ -20,6 +20,10 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Latitude": "Enlem",
     "Longitude": "Boylam",
     "Location": "Konum",
+    "Soft": "Yumuşak",
+    "Drop": "Damla",
+    "Note": "Not",
+    "Syntax": "Söz dizimi",
     "No key loaded. A new key is saved as a file; keep it private, like a password.": "Anahtar yüklenmedi. Yeni anahtar dosya olarak kaydedilir; onu bir parola gibi gizli tutun.",
     "Signed and unchanged since.": "İmzalı ve o zamandan beri değişmemiş.",
     "Signer:": "İmzalayan:",
@@ -73,7 +77,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "The picture itself is copied unchanged; the colour profile is kept.": "Görüntünün kendisi değişmeden kopyalanır; renk profili korunur.",
     "The file could not be read.": "Dosya okunamadı.",
     "This file could not be cleaned.": "Bu dosya temizlenemedi.",
-    "Tab": "Sekme",
     "Camera": "Kamera"
   }))
 });

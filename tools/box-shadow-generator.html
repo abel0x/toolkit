@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS." />
+  <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
+  <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
+  <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/box-shadow-generator.html" />
+  <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
+  <script src="../assets/js/core/language-redirect.js?v=a22c76325b07"></script>
+  <meta property="og:title" content="Box Shadow Generator — Toolkit" />
+  <meta property="og:description" content="Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS." />
+  <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/box-shadow-generator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Toolkit" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="tr_TR" />
+  <meta property="og:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Box Shadow Generator — Toolkit" />
+  <meta name="twitter:description" content="Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS." />
+  <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <title>Box Shadow Generator — Toolkit</title>
+  <link rel="stylesheet" href="../assets/css/core.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=a22c76325b07" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Box Shadow Generator", "url": "https://abel0x.github.io/toolkit/tools/box-shadow-generator.html", "description": "Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Box Shadow Generator", "item": "https://abel0x.github.io/toolkit/tools/box-shadow-generator.html"}]}]}</script>
+</head>
+<body>
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- NAV:START -->
+<nav class="navbar" id="navbar" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+      <span class="brand-icon" aria-hidden="true">
+        <img src="../assets/images/logo.png" width="36" height="36" alt="" />
+      </span>
+      <span class="brand-name">Toolkit</span>
+    </a>
+    <div class="nav-actions">
+      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
+          <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- NAV:END -->
+
+  <main class="tool-page-main">
+    <div class="container">
+      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-generators">Generators</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Box Shadow Generator</span></nav>
+    </div>
+
+    <section class="section" id="box-shadow-generator" aria-labelledby="boxShadowGeneratorHeading">
+      <div class="container">
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 21h11a3 3 0 0 0 3-3V7"/></svg></span><h1 class="section-title" id="boxShadowGeneratorHeading">Box Shadow Generator</h1></div>
+            <p class="section-desc">Design a CSS box-shadow with layers, inset and colour, see it live and copy the CSS.</p>
+          </div>
+        </div>
+        <!-- TOOL-HEADER:END -->
+        <div class="card glass reveal" role="region" aria-label="Box Shadow Generator Tool">
+          <div class="cssgen-presets" role="group" aria-label="Presets">
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="soft">Soft</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="subtle">Subtle</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="layered">Smooth layers</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="hard">Hard</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="inset">Inset</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-bs-preset="glow">Glow</button>
+          </div>
+          <div class="cssgen-layout">
+            <div class="cssgen-controls">
+              <div class="cssgen-layers">
+                <div class="cssgen-layer-list" id="bsLayers" role="group" aria-label="Shadow layers"></div>
+                <button type="button" class="btn btn--ghost btn--sm" id="bsAdd">+ Add layer</button>
+                <button type="button" class="btn btn--ghost btn--sm" id="bsRemove">Remove layer</button>
+              </div>
+              <div class="control-row"><label for="bsX" class="control-label">Horizontal offset <span class="control-value" id="bsXVal"></span></label><input type="range" id="bsX" class="slider" min="-100" max="100" value="0" /></div>
+              <div class="control-row"><label for="bsY" class="control-label">Vertical offset <span class="control-value" id="bsYVal"></span></label><input type="range" id="bsY" class="slider" min="-100" max="100" value="10" /></div>
+              <div class="control-row"><label for="bsBlur" class="control-label">Blur <span class="control-value" id="bsBlurVal"></span></label><input type="range" id="bsBlur" class="slider" min="0" max="200" value="30" /></div>
+              <div class="control-row"><label for="bsSpread" class="control-label">Spread <span class="control-value" id="bsSpreadVal"></span></label><input type="range" id="bsSpread" class="slider" min="-100" max="100" value="-5" /></div>
+              <div class="cssgen-row">
+                <div class="control-row cssgen-grow"><label for="bsAlpha" class="control-label">Opacity <span class="control-value" id="bsAlphaVal"></span></label><input type="range" id="bsAlpha" class="slider" min="0" max="100" value="25" /></div>
+                <div class="control-row"><label for="bsColor" class="control-label">Colour</label><input type="color" id="bsColor" class="color-input" value="#000000" /></div>
+              </div>
+              <label class="diff-option"><input type="checkbox" id="bsInset" /> Inset (inside the box)</label>
+            </div>
+            <div class="cssgen-preview-col">
+              <div class="cssgen-stage" id="bsStage">
+                <div class="bs-preview" id="bsPreview" role="img" aria-label="Shadow preview"></div>
+              </div>
+              <div class="cssgen-row">
+                <div class="control-row cssgen-grow"><label for="bsRadius" class="control-label">Box corners <span class="control-value" id="bsRadiusVal"></span></label><input type="range" id="bsRadius" class="slider" min="0" max="80" value="12" /></div>
+                <div class="control-row"><label for="bsBox" class="control-label">Box</label><input type="color" id="bsBox" class="color-input" value="#ffffff" /></div>
+                <div class="control-row"><label for="bsBg" class="control-label">Background</label><input type="color" id="bsBg" class="color-input" value="#e5e7eb" /></div>
+              </div>
+              <div class="cssgen-code-wrap">
+                <pre class="cssgen-code" id="bsCode" aria-live="polite"></pre>
+                <button type="button" class="btn btn--secondary btn--sm" id="bsCopy">Copy CSS</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- RELATED:START -->
+        <nav class="related-tools" aria-label="Related tools">
+          <span class="related-tools__label">Related</span>
+          <a class="related-tools__link" href="border-radius-generator.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20v-7a9 9 0 0 1 9-9h7"/><path d="M15 20h5v-5"/></svg></span>Border Radius Generator</a>
+          <a class="related-tools__link" href="gradient.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 2 17 12 22 22 17 22 7 12 2"/></svg></span>Gradient Generator</a>
+          <a class="related-tools__link" href="color-converter.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>Color Converter</a>
+          <a class="related-tools__link" href="css-clamp.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5v14M20 5v14"/><path d="M8 12h8"/><path d="M10.5 9.5L8 12l2.5 2.5M13.5 9.5L16 12l-2.5 2.5"/></svg></span>CSS Clamp Calculator</a>
+          <a class="related-tools__more" href="../index.html#category-generators">All generators<span aria-hidden="true"> →</span></a>
+        </nav>
+        <!-- RELATED:END -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">Toolkit</span>
+          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>abel0x</span>
+          </a>
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <span>Buy me a coffee</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
+        <p class="footer-tech">119 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/core/utils.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/nav.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/i18n.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/tools/box-shadow-generator.js?v=a22c76325b07" defer></script>
+</body>
+</html>

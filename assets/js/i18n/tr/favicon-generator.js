@@ -8,6 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "image/png": "resim/png",
     ".ico": ".ico",
     ".webm": ".webm",
+    "Quality": "Kalite",
     "Fit": "Yerleşim",
     "Shape": "Şekil",
     "The image is smaller than 512 px; the large icons will look soft.": "Görsel 512 pikselden küçük; büyük simgeler bulanık görünebilir.",

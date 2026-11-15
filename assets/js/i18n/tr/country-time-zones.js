@@ -8,6 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "From": "Başlangıç",
     "video": "video",
     "daily": "günlük",
+    "Line": "Satır",
     "Port": "Port",
     "UTC offset": "UTC farkı",
     "Daylight saving": "Yaz saati",

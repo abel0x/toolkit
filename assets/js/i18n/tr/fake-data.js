@@ -10,6 +10,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Male": "Erkek",
     "Female": "Kadın",
     "male": "erkek",
+    "Soft": "Yumuşak",
     "Software": "Yazılım"
   }))
 });

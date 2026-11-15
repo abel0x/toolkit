@@ -325,6 +325,8 @@ for (const asset of [
   'assets/js/vendor/jsQR.LICENSE.txt',
   'assets/js/vendor/bcryptjs.umd.js',
   'assets/js/vendor/bcrypt.LICENSE.txt',
+  'assets/js/vendor/pdf-lib.min.js',
+  'assets/js/vendor/pdf-lib.LICENSE.txt',
   'words/manifest.json',
   'license/',
   'license/index.html',
@@ -394,6 +396,12 @@ assert.equal(
   createHash('sha256').update(bcryptVendor).digest('hex'),
   'ed01b52b436504d8bb7086d93fee4bd8edbb22d8ed88e1b456e0c604f30e79c4',
   'The pinned bcryptjs 3.0.3 UMD distribution has changed unexpectedly.'
+);
+assert(existsSync(join(root, 'assets/js/vendor/pdf-lib.LICENSE.txt')), 'The pdf-lib licence is missing.');
+assert.equal(
+  createHash('sha256').update(readFileSync(join(root, 'assets/js/vendor/pdf-lib.min.js'))).digest('hex'),
+  '0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f',
+  'The pinned pdf-lib 1.17.1 distribution has changed unexpectedly.'
 );
 const bcryptHtml = readFileSync(join(toolsDirectory, 'bcrypt.html'), 'utf8');
 const bcryptVendorIndex = bcryptHtml.indexOf('../assets/js/vendor/bcryptjs.umd.js');
@@ -554,7 +562,7 @@ for (const source of [
 }
 const exampleStarterSource = readFileSync(join(root, 'assets/js/core/example-starters.js'), 'utf8');
 const exampleNames = [...exampleStarterSource.matchAll(/name: '([^']+)'/g)].map((match) => match[1]);
-assert.equal(exampleNames.length, 132, 'Example starter definitions unexpectedly changed.');
+assert.equal(exampleNames.length, 149, 'Example starter definitions unexpectedly changed.');
 for (const source of exampleNames) {
   assert(i18nExpansion.includes(`'${source}'`), `Turkish i18n is missing the example name: ${source}`);
 }

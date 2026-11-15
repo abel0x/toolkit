@@ -8,6 +8,7 @@
   const strings = Object.freeze({
     "Language": "Dil",
     "Tools": "Araçlar",
+    "Home": "Ana sayfa",
     "All": "Tümü",
     "Text": "Metin",
     "Web": "Web",
@@ -80,6 +81,7 @@
     "Color": "Renk",
     "Background": "Arka plan",
     "Options": "Seçenekler",
+    "Settings": "Ayarlar",
     "No": "Hayır",
     "To": "Bitiş",
     "Name": "Ad",
@@ -153,10 +155,43 @@
     "base64": "base64",
     "base64url": "base64url",
     "custom": "özel",
+    "Pages": "Sayfalar",
+    "all": "tümü",
+    "page": "sayfa",
+    "pages": "sayfa",
+    "Page": "Sayfa",
+    "Free": "Serbest",
+    "Hard": "Sert",
+    "Box": "Kutu",
+    "Item": "Öğe",
+    "line": "satır",
+    "column": "sütun",
+    "Header": "Başlık",
+    "Payload": "Yük",
+    "Secret": "Gizli anahtar",
+    "Values": "Değerler",
+    "Address range": "Adres aralığı",
     "Service": "Servis",
     "Use": "Kullanım",
     "Key:": "Anahtar:",
     "digits": "hane",
+    "Home network": "Ev ağı",
+    "IPv6 site prefix": "IPv6 site ön eki",
+    "Address range to CIDR": "Adres aralığından CIDR bloklarına",
+    "Cheap fiction": "Ucuz romanlar",
+    "Active team members": "Etkin ekip üyeleri",
+    "User profile": "Kullanıcı profili",
+    "Two orders": "İki sipariş",
+    "Test session token": "Test oturum token’ı",
+    "Service-to-service token": "Servisler arası token",
+    "Blog post": "Blog yazısı",
+    "Price table": "Fiyat tablosu",
+    "Product list": "Ürün listesi",
+    "Users as JSON": "JSON olarak kullanıcılar",
+    "App config": "Uygulama ayarları",
+    "Cargo manifest": "Cargo bildirimi",
+    "Settings with mistakes": "Hatalı ayarlar",
+    "Compare with the example": "Örnekle karşılaştır",
     "Visa test card": "Visa test kartı",
     "Troy example": "Troy örneği",
     "American Express test card": "American Express test kartı",
@@ -164,6 +199,7 @@
     "Image": "Görsel",
     "Make": "Marka",
     "Tree": "Ağaç",
+    "Tab": "Sekme",
     "View": "Görünüm",
     "rem": "rem",
     "Browser": "Tarayıcı",
@@ -477,6 +513,112 @@
     if (match) return `${match[1]} temizlendi, ${match[2]} atlandı, ${match[3]} meta veri kaldırıldı.`;
     match = key.match(/^(\d+) ports$/);
     if (match) return `${match[1]} port`;
+    match = key.match(/^Showing the first (\d+) of (.+)\.$/);
+    if (match) return `${match[2]} ağın ilk ${match[1]} tanesi gösteriliyor.`;
+    match = key.match(/^(.+) networks\.$/);
+    if (match) return `${match[1]} ağ.`;
+    match = key.match(/^(.+) addresses: exactly one CIDR block\.$/);
+    if (match) return `${match[1]} adres: tam olarak bir CIDR bloğu.`;
+    match = key.match(/^(.+) addresses in (\d+) CIDR blocks\.$/);
+    if (match) return `${match[2]} CIDR bloğunda ${match[1]} adres.`;
+    match = key.match(/^Not a valid IPv6 address: (.+)$/);
+    if (match) return `Geçerli bir IPv6 adresi değil: ${match[1]}`;
+    match = key.match(/^Not a valid IP address: (.+)$/);
+    if (match) return `Geçerli bir IP adresi değil: ${match[1]}`;
+    match = key.match(/^Not a valid mask: (.+)$/);
+    if (match) return `Geçerli bir maske değil: ${match[1]}`;
+    match = key.match(/^The prefix must be between 0 and (\d+)\.$/);
+    if (match) return `Ön ek 0 ile ${match[1]} arasında olmalı.`;
+    match = key.match(/^Expected “(.+)”\.$/);
+    if (match) return `“${match[1]}” bekleniyordu.`;
+    match = key.match(/^(\w+)\(\) cannot be compared\.$/);
+    if (match) return `${match[1]}() karşılaştırılamaz.`;
+    match = key.match(/^(\w+)\(\) must be compared with something\.$/);
+    if (match) return `${match[1]}() bir şeyle karşılaştırılmalı.`;
+    match = key.match(/^Unknown function: (\w+)\(\)$/);
+    if (match) return `Bilinmeyen işlev: ${match[1]}()`;
+    match = key.match(/^(\w+)\(\) takes (\d+) argument\(s\)\.$/);
+    if (match) return `${match[1]}() ${match[2]} bağımsız değişken alır.`;
+    match = key.match(/^(\w+)\(\) needs a query as argument (\d+)\.$/);
+    if (match) return `${match[1]}() ${match[2]}. bağımsız değişken olarak bir sorgu ister.`;
+    match = key.match(/^(\w+)\(\) needs a single-value query as argument (\d+)\.$/);
+    if (match) return `${match[1]}() ${match[2]}. bağımsız değişken olarak tek değerli bir sorgu ister.`;
+    match = key.match(/^(\w+) needs a secret of at least (\d+) bytes \(RFC 7518\); this one has (\d+)\.$/);
+    if (match) return `${match[1]} en az ${match[2]} baytlık bir gizli anahtar ister (RFC 7518); bu anahtar ${match[3]} bayt.`;
+    match = key.match(/^The RSA key has (\d+) bits; use at least 2048\.$/);
+    if (match) return `RSA anahtarı ${match[1]} bit; en az 2048 bit kullanın.`;
+    match = key.match(/^The key does not fit (\w+): (.+)$/);
+    if (match) return `Anahtar ${match[1]} ile uyumlu değil: ${match[2]}`;
+    match = key.match(/^Unknown algorithm: (.+)$/);
+    if (match) return `Bilinmeyen algoritma: ${match[1]}`;
+    match = key.match(/^(Header|Payload) must be a JSON object\.$/);
+    if (match) return `${match[1] === 'Header' ? 'Başlık' : 'Yük'} bir JSON nesnesi olmalı.`;
+    match = key.match(/^(Başlık|Yük) must be a JSON object\.$/);
+    if (match) return `${match[1]} bir JSON nesnesi olmalı.`;
+    match = key.match(/^(\d+) lines$/);
+    if (match) return `${match[1]} satır`;
+    match = key.match(/^(\d+) rows, (\d+) columns$/);
+    if (match) return `${match[1]} satır, ${match[2]} sütun`;
+    match = key.match(/^Cannot add keys to “(.+)” here: it is already defined\.$/);
+    if (match) return `Buradan “${match[1]}” tablosuna anahtar eklenemez: zaten tanımlı.`;
+    match = key.match(/^The key “(.*)” is defined twice\.$/);
+    if (match) return `“${match[1]}” anahtarı iki kez tanımlanmış.`;
+    match = key.match(/^“(.+)” is an array, not a table\.$/);
+    if (match) return `“${match[1]}” bir tablo değil, dizi.`;
+    match = key.match(/^“(.+)” cannot be extended\.$/);
+    if (match) return `“${match[1]}” genişletilemez.`;
+    match = key.match(/^“(.+)” is already defined and is not an array of tables\.$/);
+    if (match) return `“${match[1]}” zaten tanımlı ve bir tablo dizisi değil.`;
+    match = key.match(/^The table “(.+)” is defined twice\.$/);
+    if (match) return `“${match[1]}” tablosu iki kez tanımlanmış.`;
+    match = key.match(/^TOML has no null \(at (.+)\)\.$/);
+    if (match) return `TOML’da null yoktur (${match[1] === 'the top' ? 'en üstte' : match[1]}).`;
+    match = key.match(/^“(.+)” is not a valid variable name\.$/);
+    if (match) return `“${match[1]}” geçerli bir değişken adı değil.`;
+    match = key.match(/^“(.+)” works with dotenv but not in a shell: use letters, digits and _ and do not start with a digit\.$/);
+    if (match) return `“${match[1]}” dotenv’de çalışır ama kabukta çalışmaz: harf, rakam ve _ kullanın, rakamla başlamayın.`;
+    match = key.match(/^“(.+)” is not in upper case, as environment variables usually are\.$/);
+    if (match) return `“${match[1]}” ortam değişkenlerinde olağan olduğu gibi büyük harfle yazılmamış.`;
+    match = key.match(/^Text after the closing quote is ignored: (.+)$/);
+    if (match) return `Kapanış tırnağından sonraki metin yok sayılır: ${match[1]}`;
+    match = key.match(/^A value that starts with “#” is read as a comment, so (.+) is empty\. Quote it: (.+)$/);
+    if (match) return `“#” ile başlayan değer yorum olarak okunur, bu yüzden ${match[1]} boş. Tırnak içine alın: ${match[2]}`;
+    match = key.match(/^(.+) was already set on line (\d+); most loaders use this later value\.$/);
+    if (match) return `${match[1]} ${match[2]}. satırda zaten tanımlanmıştı; çoğu yükleyici bu sonraki değeri kullanır.`;
+    match = key.match(/^(.+) refers to (.+), which is not set in this file\.$/);
+    if (match) return `${match[1]}, bu dosyada tanımlı olmayan ${match[2]} değişkenine başvuruyor.`;
+    match = key.match(/^(.+) is in the example file but not set here\.$/);
+    if (match) return `${match[1]} örnek dosyada var ama burada tanımlı değil.`;
+    match = key.match(/^(.+) is set here but not in the example file\.$/);
+    if (match) return `${match[1]} burada tanımlı ama örnek dosyada yok.`;
+    match = key.match(/^(\S+) is empty\.$/);
+    if (match) return `${match[1]} boş.`;
+    match = key.match(/^(\d+) variables?, no problems found\.$/);
+    if (match) return `${match[1]} değişken, sorun bulunmadı.`;
+    match = key.match(/^(\d+) variables?: (\d+) errors?, (\d+) warnings?\.$/);
+    if (match) return `${match[1]} değişken: ${match[2]} hata, ${match[3]} uyarı.`;
+    match = key.match(/^“(.+)” is not a valid area name\.$/);
+    if (match) return `“${match[1]}” geçerli bir alan adı değil.`;
+    match = key.match(/^The area “(.+)” is not a rectangle\.$/);
+    if (match) return `“${match[1]}” alanı dikdörtgen değil.`;
+    match = key.match(/^“(.+)” is not a valid column template\.$/);
+    if (match) return `“${match[1]}” geçerli bir sütun şablonu değil.`;
+    match = key.match(/^“(.+)” is not a valid row template\.$/);
+    if (match) return `“${match[1]}” geçerli bir satır şablonu değil.`;
+    match = key.match(/^Saved (.+): (.+) \((\d+)% of the original\)\.$/);
+    if (match) return `${match[1]} kaydedildi: ${match[2]} (orijinalin %${match[3]}’i).`;
+    match = key.match(/^“(.+)” is not a page or a range like 2-5\.$/);
+    if (match) return `“${match[1]}” bir sayfa ya da 2-5 gibi bir aralık değil.`;
+    match = key.match(/^Pages (.+) are outside 1–(\d+)\.$/);
+    if (match) return `${match[1]} sayfaları 1–${match[2]} aralığının dışında.`;
+    match = key.match(/^(\d+) pages from (\d+) files\.$/);
+    if (match) return `${match[2]} dosyadan ${match[1]} sayfa.`;
+    match = key.match(/^Saved (.+\.(?:pdf|zip)): (.+)\.$/);
+    if (match) return `${match[1]} kaydedildi: ${match[2]}.`;
+    match = key.match(/^Saved (\d+) PDF files\.$/);
+    if (match) return `${match[1]} PDF dosyası kaydedildi.`;
+    match = key.match(/^(\d+) selected · (\d+) of (\d+) pages kept$/);
+    if (match) return `${match[1]} seçili · ${match[3]} sayfadan ${match[2]} tanesi kalıyor`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

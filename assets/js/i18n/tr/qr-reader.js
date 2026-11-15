@@ -20,6 +20,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Mode": "Mod",
     "video": "video",
     "wifi": "Wi-Fi",
+    "Drop": "Damla",
+    "Both": "İkisi de",
     "this device": "bu cihaz",
     "Camera": "Kamera",
     "This browser cannot use the camera here (it needs a secure https page).": "Bu tarayıcı burada kamerayı kullanamıyor (güvenli bir https sayfası gerekir).",

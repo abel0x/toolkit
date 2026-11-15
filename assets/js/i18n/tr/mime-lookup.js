@@ -10,7 +10,6 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "image/webp": "resim/webp",
     "image/png": "resim/png",
     "Mode": "Mod",
-    "video": "video",
-    "Tab": "Sekme"
+    "video": "video"
   }))
 });

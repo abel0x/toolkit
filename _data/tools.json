@@ -111,6 +111,17 @@
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 9.5h19\"/><path d=\"M6 15h4\"/><path d=\"M15 15l1.5 1.5 3-3\"/></svg>"
     },
     {
+      "slug": "jwt-signer",
+      "name": "JWT Signer",
+      "cat": "security",
+      "desc": "Create and sign a JSON Web Token with HS256, RS256, PS256, ES256 or EdDSA, using a secret or a private key.",
+      "meta": "Build and sign a JSON Web Token in your browser: HS256/384/512 with a secret, RS256, PS256 and ES256 (and their 384 and 512 variants) with an RSA or EC private key in PEM or JWK, or EdDSA with Ed25519. Add iat and exp in one click and generate a test key pair. Keys never leave your device.",
+      "tags": ["jwt", "sign", "token", "jws", "hs256", "rs256", "es256", "eddsa", "encode"],
+      "related": ["jwt-decoder", "hmac", "rsa-keypair", "pem-jwk"],
+      "io": {"inputs": {"#jwsKey": ".pem,.key,.json,text/plain"}, "outputs": {"#jwsToken": {"save": "token.txt", "beside": "#jwsCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"4.5\" cy=\"18\" r=\"1.5\"/><circle cx=\"9.5\" cy=\"18\" r=\"1.5\"/><path d=\"M13.5 18h7\"/><path d=\"M15.5 3.5l4 4-7.5 7.5H8v-4z\"/></svg>"
+    },
+    {
       "slug": "base64",
       "name": "Base64 Encode / Decode",
       "cat": "encoding",
@@ -412,6 +423,82 @@
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M8 19v-4h8v4\"/><path d=\"M8.5 9v2M12 9v2M15.5 9v2\"/></svg>"
     },
     {
+      "slug": "subnet-calculator",
+      "name": "IP Subnet Calculator",
+      "cat": "devtools",
+      "desc": "Work out an IPv4 or IPv6 network: mask, range, broadcast and usable hosts, split it, or turn a range into CIDR blocks.",
+      "meta": "Calculate an IPv4 or IPv6 subnet from CIDR or a mask: network and broadcast address, netmask and wildcard, usable host range and count, address type and reverse DNS zone. Split a network into smaller ones, turn an address range into CIDR blocks, and check whether an address is inside. In your browser.",
+      "tags": ["subnet", "cidr", "ip", "ipv4", "ipv6", "netmask", "network", "calculator", "range"],
+      "related": ["port-reference", "url-parser", "number-base", "unix-permissions"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"5\" r=\"2.2\"/><circle cx=\"5\" cy=\"19\" r=\"2.2\"/><circle cx=\"12\" cy=\"19\" r=\"2.2\"/><circle cx=\"19\" cy=\"19\" r=\"2.2\"/><path d=\"M12 7.2v9.6M10.4 6.6l-4 10.6M13.6 6.6l4 10.6\"/></svg>"
+    },
+    {
+      "slug": "jsonpath-tester",
+      "name": "JSONPath Tester",
+      "cat": "devtools",
+      "desc": "Run JSONPath queries (RFC 9535) on your JSON and see the matching values and their paths as you type.",
+      "meta": "Test JSONPath queries on JSON as you type: member names, wildcards, indexes, slices, recursive descent and filters with comparisons and the length(), count(), match(), search() and value() functions, as standardised in RFC 9535. See matching values, normalized paths or both. In your browser.",
+      "tags": ["jsonpath", "json", "query", "rfc 9535", "filter", "path", "xpath", "select"],
+      "related": ["json-formatter", "json-schema-generator", "json-validator", "regex-tester"],
+      "io": {"inputs": {"#jpJson": ".json,application/json,text/plain"}, "outputs": {"#jpOutput": {"save": "jsonpath-result.json", "beside": "#jpCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M8 4H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1\"/><circle cx=\"14.5\" cy=\"10.5\" r=\"3.5\"/><path d=\"M17 13l4 4\"/></svg>"
+    },
+    {
+      "slug": "json-schema-generator",
+      "name": "JSON Schema Generator",
+      "cat": "devtools",
+      "desc": "Turn sample JSON into a JSON Schema: types, required properties, array items, nullable values and formats.",
+      "meta": "Generate a JSON Schema (draft 2020-12 or draft-07) from sample JSON: types, nested objects, required properties, array items merged across elements, nullable values and formats such as date-time, email, uri and uuid. Combine several samples into one schema. In your browser.",
+      "tags": ["json schema", "schema", "json", "generate", "infer", "draft 2020-12", "draft-07", "validation"],
+      "related": ["json-validator", "json-to-typescript", "jsonpath-tester", "json-formatter"],
+      "io": {"inputs": {"#jsgInput": ".json,application/json,text/plain"}, "outputs": {"#jsgOutput": {"save": "schema.json", "beside": "#jsgCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M8 4H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2h-1\"/><path d=\"M10 9h4M10 12h4M10 15h2.5\"/></svg>"
+    },
+    {
+      "slug": "html-to-markdown",
+      "name": "HTML to Markdown",
+      "cat": "devtools",
+      "desc": "Convert HTML, or formatted text pasted from a web page, into clean Markdown with tables, code blocks and lists.",
+      "meta": "Convert HTML to Markdown in your browser: headings, links, images, nested and task lists, code blocks with their language, quotes and GitHub tables. Paste formatted text from a web page or a document and get Markdown. Scripts are never run and images are not loaded.",
+      "tags": ["html", "markdown", "convert", "html to md", "commonmark", "gfm", "paste"],
+      "related": ["markdown", "html-minifier", "json-to-markdown", "html-codec"],
+      "io": {"inputs": {"#h2mInput": ".html,.htm,text/html,text/plain"}, "outputs": {"#h2mOutput": {"save": "converted.md", "beside": "#h2mCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M3 17V7l3.5 4.5L10 7v10\"/><path d=\"M17 7v10M13.5 13.5L17 17l3.5-3.5\"/></svg>"
+    },
+    {
+      "slug": "csv-to-sql",
+      "name": "CSV / JSON to SQL",
+      "cat": "devtools",
+      "desc": "Turn CSV or JSON rows into INSERT statements and a CREATE TABLE for PostgreSQL, MySQL, SQLite or SQL Server.",
+      "meta": "Convert CSV or JSON to SQL INSERT statements for PostgreSQL, MySQL, SQLite or SQL Server, with a CREATE TABLE whose column types are guessed from the data, batched inserts, NULLs for empty cells, an optional transaction and correct quoting for each database. In your browser.",
+      "tags": ["csv", "json", "sql", "insert", "create table", "postgresql", "mysql", "sqlite", "sql server", "import"],
+      "related": ["sql-formatter", "csv-to-json", "csv-viewer", "json-to-csv"],
+      "io": {"inputs": {"#c2sInput": ".csv,.tsv,.json,text/csv,application/json,text/plain"}, "outputs": {"#c2sOutput": {"save": "insert.sql", "beside": "#c2sCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><ellipse cx=\"14\" cy=\"6\" rx=\"6\" ry=\"2.5\"/><path d=\"M8 6v12c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V6\"/><path d=\"M8 12c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5\"/><path d=\"M2 12h4M4.5 10l2 2-2 2\"/></svg>"
+    },
+    {
+      "slug": "toml-json-converter",
+      "name": "TOML / JSON Converter",
+      "cat": "devtools",
+      "desc": "Convert TOML to JSON and JSON to TOML, following TOML 1.0, with clear errors for invalid files.",
+      "meta": "Convert TOML to JSON and back in your browser. Follows TOML 1.0 and passes its conformance tests: tables, arrays of tables, inline tables, dotted keys, multi-line strings, 64-bit integers and dates. Errors point to the line and column. Handy for Cargo.toml, pyproject.toml and config files.",
+      "tags": ["toml", "json", "convert", "config", "cargo", "pyproject", "yaml"],
+      "related": ["json-to-yaml", "yaml-to-json", "dotenv-checker", "json-formatter"],
+      "io": {"inputs": {"#tjToml": ".toml,.json,application/json,text/plain"}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M4 5h9M8.5 5v10\"/><path d=\"M15 9h1a2 2 0 0 1 2 2v1.5a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0-1.5 1.5V17a2 2 0 0 1-2 2h-1\"/></svg>"
+    },
+    {
+      "slug": "dotenv-checker",
+      "name": "Dotenv Checker",
+      "cat": "devtools",
+      "desc": "Check a .env file for mistakes, see how it is read, and compare it with .env.example to find missing keys.",
+      "meta": "Check a .env file in your browser: lines that are not KEY=value, unclosed quotes, repeated keys, spaces that break shells and Docker, values that start a comment, and ${VAR} references to unset names. Compare it with .env.example to find missing keys. Values stay on your device.",
+      "tags": ["env", "dotenv", ".env", "environment variables", "docker", "compose", "config", "secrets"],
+      "related": ["toml-json-converter", "json-formatter", "text-diff", "unix-permissions"],
+      "io": {"inputs": {"#envInput": ".env,text/plain", "#envExample": ".env,.example,text/plain"}, "outputs": {"#envJson": {"save": "env.json", "beside": "#envJsonCopy"}}},
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/><path d=\"M7.5 13h3M13.5 13h3M7.5 17h3M13.5 17h3M11.5 12v2M11.5 16v2\"/></svg>"
+    },
+    {
       "slug": "mime-lookup",
       "name": "MIME Type Lookup",
       "cat": "devtools",
@@ -574,6 +661,46 @@
       "tags": ["color", "palette", "design", "scheme", "harmony"],
       "related": ["gradient", "color-contrast", "color-converter", "random-color"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><circle cx=\"12\" cy=\"12\" r=\"6\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/></svg>"
+    },
+    {
+      "slug": "box-shadow-generator",
+      "name": "Box Shadow Generator",
+      "cat": "generators",
+      "desc": "Design a CSS box-shadow with layers, inset and colour, see it live and copy the CSS.",
+      "meta": "Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS.",
+      "tags": ["css", "box-shadow", "shadow", "generator", "elevation", "design"],
+      "related": ["border-radius-generator", "gradient", "color-converter", "css-clamp"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"14\" height=\"14\" rx=\"2\"/><path d=\"M7 21h11a3 3 0 0 0 3-3V7\"/></svg>"
+    },
+    {
+      "slug": "border-radius-generator",
+      "name": "Border Radius Generator",
+      "cat": "generators",
+      "desc": "Round each corner in px or %, make elliptical corners and organic blobs, and copy the CSS.",
+      "meta": "Create CSS border-radius in your browser: each corner in px or %, elliptical corners with separate horizontal and vertical radii, presets for pill, circle, leaf and drop shapes, and random organic blobs. Copies the shortest shorthand.",
+      "tags": ["css", "border-radius", "rounded corners", "blob", "shape", "generator"],
+      "related": ["box-shadow-generator", "gradient", "aspect-ratio", "css-clamp"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M4 20v-7a9 9 0 0 1 9-9h7\"/><path d=\"M15 20h5v-5\"/></svg>"
+    },
+    {
+      "slug": "flexbox-playground",
+      "name": "Flexbox Playground",
+      "cat": "generators",
+      "desc": "Try every flexbox property on a live container, change single items, and copy the CSS.",
+      "meta": "Learn and build CSS flexbox layouts in your browser: flex-direction, flex-wrap, justify-content, align-items, align-content and gap on a live container, plus flex-grow, flex-shrink, flex-basis, align-self and order for each item. Copies only the CSS that differs from the defaults.",
+      "tags": ["css", "flexbox", "flex", "layout", "justify-content", "align-items", "playground"],
+      "related": ["css-grid-generator", "css-clamp", "css-specificity", "box-shadow-generator"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"6\" width=\"5\" height=\"12\" rx=\"1\"/><rect x=\"10\" y=\"8.5\" width=\"5\" height=\"7\" rx=\"1\"/><rect x=\"17\" y=\"6\" width=\"4\" height=\"12\" rx=\"1\"/></svg>"
+    },
+    {
+      "slug": "css-grid-generator",
+      "name": "CSS Grid Generator",
+      "cat": "generators",
+      "desc": "Build a CSS grid with column and row templates, gaps and named areas, see it live and copy the CSS.",
+      "meta": "Build CSS grid layouts in your browser: grid-template-columns and rows with fr, minmax(), repeat() and auto-fill, gaps, item alignment and named grid-template-areas checked for mistakes. Start from layouts like sidebar, responsive cards or header and footer, and copy the CSS.",
+      "tags": ["css", "grid", "layout", "grid-template-areas", "generator", "responsive"],
+      "related": ["flexbox-playground", "css-clamp", "aspect-ratio", "css-specificity"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"18\" height=\"7\" rx=\"1\"/></svg>"
     },
     {
       "slug": "random-number",
@@ -853,6 +980,36 @@
       "tags": ["qr", "batch", "multiple", "bulk", "generate"],
       "related": ["qr-generator", "qr-reader", "deduplicate-lines", "url-builder"],
       "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M3 16V5a2 2 0 0 1 2-2h11\"/><rect x=\"7\" y=\"7\" width=\"14\" height=\"14\" rx=\"2\"/><path d=\"M10.5 10.5h2.5v2.5h-2.5zM15 15h2.5v2.5H15zM15 10.5h2.5M10.5 15.5v2\"/></svg>"
+    },
+    {
+      "slug": "pdf-merger",
+      "name": "PDF Merger",
+      "cat": "media",
+      "desc": "Join several PDF files into one, in the order you choose, with all pages or just the ranges you need.",
+      "meta": "Merge PDF files in your browser: add several PDFs, put them in order, take all pages or ranges like 1-3, 5, 8- from each, and download one PDF. The files are never uploaded.",
+      "tags": ["pdf", "merge", "combine", "join", "pages", "documents"],
+      "related": ["pdf-page-editor", "image-converter", "file-checksum", "image-compressor"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/><path d=\"M9 15h6M12 12v6\"/></svg>"
+    },
+    {
+      "slug": "pdf-page-editor",
+      "name": "PDF Page Editor",
+      "cat": "media",
+      "desc": "Rotate, delete and reorder the pages of a PDF, extract pages, or split it into several files.",
+      "meta": "Edit the pages of a PDF in your browser: rotate, delete and reorder pages, extract the ones you pick into a new PDF, or split the file into single pages, every N pages or ranges, downloaded as a ZIP. The file is never uploaded.",
+      "tags": ["pdf", "split", "rotate", "delete pages", "extract", "reorder", "pages"],
+      "related": ["pdf-merger", "image-converter", "file-checksum", "image-metadata"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/><path d=\"M8 13h8M8 17h5\"/><path d=\"M15 16l2 1.5-2 1.5\"/></svg>"
+    },
+    {
+      "slug": "image-converter",
+      "name": "Image Converter",
+      "cat": "media",
+      "desc": "Convert images between PNG, JPEG, WebP and AVIF, crop to any ratio, rotate, flip and resize to exact pixels.",
+      "meta": "Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data.",
+      "tags": ["image", "convert", "png", "jpeg", "webp", "avif", "svg to png", "crop", "resize", "rotate"],
+      "related": ["image-compressor", "image-metadata", "favicon-generator", "image-dimensions"],
+      "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M6 2v14a2 2 0 0 0 2 2h14\"/><path d=\"M18 22V8a2 2 0 0 0-2-2H2\"/></svg>"
     },
     {
       "slug": "aes-gcm",

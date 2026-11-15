@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data." />
+  <link rel="canonical" href="https://abel0x.github.io/toolkit/tools/image-converter.html" />
+  <link rel="alternate" hreflang="en" href="https://abel0x.github.io/toolkit/tools/image-converter.html" />
+  <link rel="alternate" hreflang="tr" href="https://abel0x.github.io/toolkit/tr/tools/image-converter.html" />
+  <link rel="alternate" hreflang="x-default" href="https://abel0x.github.io/toolkit/tools/image-converter.html" />
+  <script src="../assets/js/core/language-redirect.js?v=a22c76325b07"></script>
+  <meta property="og:title" content="Image Converter — Toolkit" />
+  <meta property="og:description" content="Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data." />
+  <meta property="og:url" content="https://abel0x.github.io/toolkit/tools/image-converter.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Toolkit" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="tr_TR" />
+  <meta property="og:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Image Converter — Toolkit" />
+  <meta name="twitter:description" content="Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data." />
+  <meta name="twitter:image" content="https://abel0x.github.io/toolkit/assets/images/og-en.png" />
+  <meta name="twitter:image:alt" content="Toolkit: everyday developer utilities, without the backend." />
+  <title>Image Converter — Toolkit</title>
+  <link rel="stylesheet" href="../assets/css/core.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/compatibility.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/pages/tool.css?v=a22c76325b07" />
+  <link rel="stylesheet" href="../assets/css/inline-styles.css?v=a22c76325b07" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/images/favicon-256.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Image Converter", "url": "https://abel0x.github.io/toolkit/tools/image-converter.html", "description": "Convert an image to PNG, JPEG, WebP or AVIF in your browser, and turn SVG into PNG at any size. Crop by dragging or by numbers, with ratios for squares, stories and link previews; rotate, flip and resize to exact pixels. The image is never uploaded and the result carries no EXIF data.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any", "browserRequirements": "Requires a modern browser with JavaScript enabled.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "isPartOf": {"@type": "WebSite", "name": "Toolkit", "url": "https://abel0x.github.io/toolkit/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Toolkit", "item": "https://abel0x.github.io/toolkit/"}, {"@type": "ListItem", "position": 2, "name": "Image Converter", "item": "https://abel0x.github.io/toolkit/tools/image-converter.html"}]}]}</script>
+</head>
+<body>
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- NAV:START -->
+<nav class="navbar" id="navbar" aria-label="Main navigation">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand" aria-label="Toolkit home">
+      <span class="brand-icon" aria-hidden="true">
+        <img src="../assets/images/logo.png" width="36" height="36" alt="" />
+      </span>
+      <span class="brand-name">Toolkit</span>
+    </a>
+    <div class="nav-actions">
+      <a href="../license/index.html" class="nav-license-link" aria-label="View project license" title="View project license">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3.75h8.25L18 7.5v12.75H6z" />
+          <path d="M14.25 3.75V7.5H18M9 12h6M9 15.5h6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- NAV:END -->
+
+  <main class="tool-page-main">
+    <div class="container">
+      <nav class="tool-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">← All Tools</a><span class="tool-breadcrumb-sep">/</span><a href="../index.html#category-media">Media</a><span class="tool-breadcrumb-sep">/</span><span aria-current="page">Image Converter</span></nav>
+    </div>
+
+    <section class="section" id="image-converter" aria-labelledby="imageConverterHeading">
+      <div class="container">
+        <!-- TOOL-HEADER:START -->
+        <div class="tool-header reveal">
+          <div class="tool-header__text">
+            <div class="tool-header__title"><span class="tool-header__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></span><h1 class="section-title" id="imageConverterHeading">Image Converter</h1></div>
+            <p class="section-desc">Convert images between PNG, JPEG, WebP and AVIF, crop to any ratio, rotate, flip and resize to exact pixels.</p>
+          </div>
+        </div>
+        <!-- TOOL-HEADER:END -->
+        <div class="card glass reveal" role="region" aria-label="Image Converter Tool">
+          <div id="icDrop" class="drop-zone ix-0e90cf" role="button" tabindex="0">
+            <p class="ix-667a97">Drop an image here or <strong>click to select</strong></p>
+            <input hidden type="file" id="icFile" accept="image/*,.svg" aria-label="Select image file" />
+          </div>
+          <div id="icEditor" hidden>
+            <p class="ic-source" id="icSource"></p>
+            <div class="ic-layout">
+              <div class="ic-preview">
+                <div class="ic-stage" id="icStage">
+                  <canvas id="icCanvas" role="img" aria-label="Image preview"></canvas>
+                  <div class="ic-crop" id="icCrop" aria-hidden="true">
+                    <span class="ic-handle ic-handle--nw" data-handle="nw"></span><span class="ic-handle ic-handle--ne" data-handle="ne"></span>
+                    <span class="ic-handle ic-handle--sw" data-handle="sw"></span><span class="ic-handle ic-handle--se" data-handle="se"></span>
+                  </div>
+                </div>
+                <div class="btn-row ic-turn">
+                  <button type="button" class="btn btn--ghost btn--sm" id="icRotateLeft">↺ Rotate left</button>
+                  <button type="button" class="btn btn--ghost btn--sm" id="icRotateRight">↻ Rotate right</button>
+                  <button type="button" class="btn btn--ghost btn--sm" id="icFlipX">⇋ Flip horizontally</button>
+                  <button type="button" class="btn btn--ghost btn--sm" id="icFlipY">⇵ Flip vertically</button>
+                </div>
+              </div>
+              <div class="ic-controls">
+                <h2 class="cssgen-heading">Crop</h2>
+                <div class="cssgen-row">
+                  <div class="form-group cssgen-grow">
+                    <label class="form-label" for="icRatio">Aspect ratio</label>
+                    <select id="icRatio" class="form-control form-select">
+                      <option value="free" selected>Free</option>
+                      <option value="original">Original</option>
+                      <option value="1:1">1:1 (square)</option>
+                      <option value="4:3">4:3</option>
+                      <option value="3:2">3:2</option>
+                      <option value="16:9">16:9</option>
+                      <option value="9:16">9:16 (story)</option>
+                      <option value="4:5">4:5 (portrait post)</option>
+                      <option value="1.91:1">1.91:1 (link preview)</option>
+                    </select>
+                  </div>
+                  <button type="button" class="btn btn--ghost btn--sm ic-reset" id="icResetCrop">Whole image</button>
+                </div>
+                <div class="ic-numbers">
+                  <div class="form-group"><label class="form-label" for="icCropX">Left</label><input type="number" id="icCropX" class="form-control font-mono" min="0" /></div>
+                  <div class="form-group"><label class="form-label" for="icCropY">Top</label><input type="number" id="icCropY" class="form-control font-mono" min="0" /></div>
+                  <div class="form-group"><label class="form-label" for="icCropW">Width</label><input type="number" id="icCropW" class="form-control font-mono" min="1" /></div>
+                  <div class="form-group"><label class="form-label" for="icCropH">Height</label><input type="number" id="icCropH" class="form-control font-mono" min="1" /></div>
+                </div>
+                <div class="form-group" id="icSvgRow" hidden>
+                  <label class="form-label" for="icSvgScale">Draw the SVG at</label>
+                  <select id="icSvgScale" class="form-control form-select">
+                    <option value="1" selected>1× its size</option>
+                    <option value="2">2×</option>
+                    <option value="4">4×</option>
+                    <option value="8">8×</option>
+                  </select>
+                </div>
+
+                <h2 class="cssgen-heading">Size</h2>
+                <div class="ic-numbers ic-size">
+                  <div class="form-group"><label class="form-label" for="icWidth">Width (px)</label><input type="number" id="icWidth" class="form-control font-mono" min="1" max="20000" /></div>
+                  <div class="form-group"><label class="form-label" for="icHeight">Height (px)</label><input type="number" id="icHeight" class="form-control font-mono" min="1" max="20000" /></div>
+                </div>
+                <label class="diff-option"><input type="checkbox" id="icLock" checked /> Keep proportions</label>
+                <div class="cssgen-presets ic-scales" role="group" aria-label="Scale">
+                  <button type="button" class="btn btn--ghost btn--sm" data-ic-scale="0.25">25%</button>
+                  <button type="button" class="btn btn--ghost btn--sm" data-ic-scale="0.5">50%</button>
+                  <button type="button" class="btn btn--ghost btn--sm" data-ic-scale="1">100%</button>
+                  <button type="button" class="btn btn--ghost btn--sm" data-ic-scale="2">200%</button>
+                </div>
+
+                <h2 class="cssgen-heading">File format</h2>
+                <div class="form-group">
+                  <label class="form-label" for="icFormat">Save as</label>
+                  <select id="icFormat" class="form-control form-select">
+                    <option value="image/png">PNG</option>
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/webp">WebP</option>
+                    <option value="image/avif">AVIF</option>
+                  </select>
+                </div>
+                <div class="control-row" id="icQualityRow"><label for="icQuality" class="control-label">Quality <span class="control-value" id="icQualityVal"></span></label><input type="range" id="icQuality" class="slider" min="10" max="100" value="90" /></div>
+                <div class="form-group ic-bg" id="icBgRow" hidden><label class="form-label" for="icBg">Background for transparent areas</label><input type="color" id="icBg" class="color-input" value="#ffffff" /></div>
+                <p class="ic-info" id="icInfo" aria-live="polite"></p>
+                <button type="button" class="btn btn--primary" id="icDownload">Download image</button>
+                <p class="ic-result" id="icResult" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+          <p class="ctz-source">The image is drawn on a canvas in this tab and never uploaded. Saved files carry no EXIF or location data. For many images at once, or a target file size, use the Image Compressor.</p>
+        </div>
+        <!-- RELATED:START -->
+        <nav class="related-tools" aria-label="Related tools">
+          <span class="related-tools__label">Related</span>
+          <a class="related-tools__link" href="image-compressor.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg></span>Image Compressor</a>
+          <a class="related-tools__link" href="image-metadata.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg></span>Image Metadata Viewer</a>
+          <a class="related-tools__link" href="favicon-generator.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M6 6.5h2.5"/><path d="M12 12.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z"/></svg></span>Favicon Generator</a>
+          <a class="related-tools__link" href="image-dimensions.html"><span class="related-tools__icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="7" width="13" height="13" rx="1.5"/><path d="M7 3.5h13M7 2.5v2M20 2.5v2"/><path d="M3.5 7v13M2.5 7h2M2.5 20h2"/></svg></span>Image Dimension Checker</a>
+          <a class="related-tools__more" href="../index.html#category-media">All media tools<span aria-hidden="true"> →</span></a>
+        </nav>
+        <!-- RELATED:END -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">Toolkit</span>
+          <p class="footer-tagline">Privacy-first developer utilities. Everything runs in your browser.</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://github.com/abel0x" target="_blank" rel="noopener" class="social-link" aria-label="GitHub profile of abel0x">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>abel0x</span>
+          </a>
+          <a href="https://buymeacoffee.com/abel0x" target="_blank" rel="noopener" class="social-link social-link--coffee" aria-label="Buy me a coffee">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <span>Buy me a coffee</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Toolkit. No data leaves your device. <a class="footer-privacy" href="../privacy/index.html">Privacy</a></p>
+        <p class="footer-tech">119 tools · HTML · CSS · Vanilla JS · Web Crypto API</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/core/utils.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/nav.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/i18n.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/core/command-palette.js?v=a22c76325b07" defer></script>
+  <script src="../assets/js/tools/image-converter.js?v=a22c76325b07" defer></script>
+</body>
+</html>

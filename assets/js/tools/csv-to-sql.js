@@ -1,0 +1,254 @@
+/* TOOLKIT — assets/js/tools/csv-to-sql.js
+   CSV or JSON rows to SQL INSERT statements for PostgreSQL, MySQL, SQLite
+   and SQL Server, with an optional CREATE TABLE whose column types are
+   inferred from the data. Quoting and escaping follow each dialect. */
+(function initCsvToSql() {
+  'use strict';
+
+  const field = (id) => document.getElementById(id);
+  const inputEl = field('c2sInput');
+  const outputEl = field('c2sOutput');
+  const errorEl = field('c2sError');
+  const statsEl = field('c2sStats');
+  const copyBtn = field('c2sCopy');
+  if (!inputEl || !outputEl) return;
+
+  const t = (key) => (window.ToolkitI18n ? window.ToolkitI18n.t(key) : key);
+
+  class InputError extends Error {}
+
+  /* ── Reading ────────────────────────────────────────────────── */
+
+  // The delimiter that appears most often outside quotes on the first line.
+  function detectDelimiter(text) {
+    const line = [];
+    let quoted = false;
+    for (const char of text) {
+      if (char === '"') quoted = !quoted;
+      else if (!quoted && (char === '\n' || char === '\r')) break;
+      if (!quoted) line.push(char);
+    }
+    const counts = [',', ';', '\t', '|'].map((delimiter) => [delimiter, line.filter((char) => char === delimiter).length]);
+    counts.sort((a, b) => b[1] - a[1]);
+    return counts[0][1] ? counts[0][0] : ',';
+  }
+
+  // RFC 4180: quoted fields may hold delimiters, quotes ("") and line breaks.
+  function parseCsv(text, delimiter) {
+    const rows = [];
+    let row = [];
+    let value = '';
+    let quoted = false;
+    let at = 0;
+    while (at < text.length) {
+      const char = text[at];
+      if (quoted) {
+        if (char === '"' && text[at + 1] === '"') { value += '"'; at += 2; continue; }
+        if (char === '"') { quoted = false; at += 1; continue; }
+        value += char;
+        at += 1;
+        continue;
+      }
+      if (char === '"' && value === '') { quoted = true; at += 1; continue; }
+      if (char === delimiter) { row.push(value); value = ''; at += 1; continue; }
+      if (char === '\r' || char === '\n') {
+        row.push(value);
+        rows.push(row);
+        row = [];
+        value = '';
+        at += char === '\r' && text[at + 1] === '\n' ? 2 : 1;
+        continue;
+      }
+      value += char;
+      at += 1;
+    }
+    if (quoted) throw new InputError('A quoted CSV field is not closed.');
+    if (value !== '' || row.length) { row.push(value); rows.push(row); }
+    return rows.filter((cells) => cells.length > 1 || cells[0] !== '');
+  }
+
+  function uniqueNames(names) {
+    const seen = new Map();
+    return names.map((name, index) => {
+      const base = name.trim() || `column_${index + 1}`;
+      const count = seen.get(base.toLowerCase()) || 0;
+      seen.set(base.toLowerCase(), count + 1);
+      return count ? `${base}_${count + 1}` : base;
+    });
+  }
+
+  // { columns: [...], rows: [[...]], source: 'csv' | 'json' }; CSV cells stay strings.
+  function readInput(text, format, header) {
+    const trimmed = text.trim();
+    const kind = format === 'auto' ? (/^[[{]/.test(trimmed) ? 'json' : 'csv') : format;
+    if (kind === 'json') {
+      let data;
+      try { data = JSON.parse(trimmed); } catch (error) { throw new InputError(`${t('The JSON is not valid:')} ${error.message}`); }
+      const list = Array.isArray(data) ? data : [data];
+      if (!list.length) throw new InputError('The JSON array is empty.');
+      if (!list.every((item) => item !== null && typeof item === 'object' && !Array.isArray(item))) {
+        throw new InputError('Use a JSON object or an array of objects: one object per row.');
+      }
+      const columns = [];
+      for (const item of list) for (const key of Object.keys(item)) if (!columns.includes(key)) columns.push(key);
+      return { source: 'json', columns, rows: list.map((item) => columns.map((key) => (key in item ? item[key] : undefined))) };
+    }
+    const rows = parseCsv(trimmed, detectDelimiter(trimmed));
+    if (!rows.length) throw new InputError('There are no rows.');
+    const width = Math.max(...rows.map((row) => row.length));
+    const columns = header ? uniqueNames(Array.from({ length: width }, (_, index) => rows[0][index] || '')) : Array.from({ length: width }, (_, index) => `column_${index + 1}`);
+    const body = (header ? rows.slice(1) : rows).map((row) => Array.from({ length: width }, (_, index) => row[index]));
+    return { source: 'csv', columns, rows: body };
+  }
+
+  /* ── Types ──────────────────────────────────────────────────── */
+
+  const INTEGER = /^-?(0|[1-9]\d*)$/;
+  const DECIMAL = /^-?(0|[1-9]\d*)(\.\d+)?([eE][-+]?\d+)?$/;
+  const DATE = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+  const DATETIME = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/;
+  const DATETIME_TZ = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?([Zz]|[+-]\d{2}:?\d{2})$/;
+
+  // A cell's value before typing: null for missing (and for empty when asked).
+  function normalise(value, source, emptyIsNull) {
+    if (value === undefined || value === null) return null;
+    if (source === 'csv' && value === '' && emptyIsNull) return null;
+    return value;
+  }
+
+  function kindOf(value, source) {
+    if (typeof value === 'boolean') return 'boolean';
+    if (typeof value === 'number') return Number.isInteger(value) ? (Math.abs(value) > 2147483647 ? 'bigint' : 'integer') : 'decimal';
+    if (typeof value === 'object') return 'json';
+    const text = String(value);
+    if (source === 'csv') {
+      if (/^(true|false)$/i.test(text)) return 'boolean';
+      if (INTEGER.test(text)) return Number.isSafeInteger(Number(text)) ? (Math.abs(Number(text)) > 2147483647 ? 'bigint' : 'integer') : 'text';
+      if (DECIMAL.test(text)) return 'decimal';
+    }
+    if (DATE.test(text)) return 'date';
+    if (DATETIME_TZ.test(text)) return 'timestamptz';
+    if (DATETIME.test(text)) return 'timestamp';
+    return 'text';
+  }
+
+  // The one kind that holds every value of a column.
+  function columnKind(values, source) {
+    const kinds = new Set(values.filter((value) => value !== null).map((value) => kindOf(value, source)));
+    if (!kinds.size) return 'text';
+    if (kinds.size === 1) return [...kinds][0];
+    if ([...kinds].every((kind) => ['integer', 'bigint', 'decimal'].includes(kind))) return kinds.has('decimal') ? 'decimal' : 'bigint';
+    if ([...kinds].every((kind) => ['timestamp', 'timestamptz'].includes(kind))) return 'timestamp';
+    if ([...kinds].every((kind) => ['date', 'timestamp'].includes(kind))) return 'timestamp';
+    return 'text';
+  }
+
+  const SQL_TYPES = {
+    postgresql: { integer: 'INTEGER', bigint: 'BIGINT', decimal: 'NUMERIC', boolean: 'BOOLEAN', date: 'DATE', timestamp: 'TIMESTAMP', timestamptz: 'TIMESTAMPTZ', json: 'JSONB', text: () => 'TEXT' },
+    mysql: { integer: 'INT', bigint: 'BIGINT', decimal: 'DOUBLE', boolean: 'BOOLEAN', date: 'DATE', timestamp: 'DATETIME', timestamptz: 'VARCHAR(40)', json: 'JSON', text: (length) => (length <= 255 ? 'VARCHAR(255)' : 'TEXT') },
+    sqlite: { integer: 'INTEGER', bigint: 'INTEGER', decimal: 'REAL', boolean: 'INTEGER', date: 'TEXT', timestamp: 'TEXT', timestamptz: 'TEXT', json: 'TEXT', text: () => 'TEXT' },
+    sqlserver: { integer: 'INT', bigint: 'BIGINT', decimal: 'FLOAT', boolean: 'BIT', date: 'DATE', timestamp: 'DATETIME2', timestamptz: 'DATETIMEOFFSET', json: 'NVARCHAR(MAX)', text: (length) => (length <= 4000 ? `NVARCHAR(${Math.max(1, Math.min(4000, 2 ** Math.ceil(Math.log2(Math.max(length, 16)))))})` : 'NVARCHAR(MAX)') }
+  };
+
+  /* ── Writing ────────────────────────────────────────────────── */
+
+  function quoteName(name, dialect) {
+    return name.split('.').map((part) => {
+      if (dialect === 'mysql') return `\`${part.replace(/`/g, '``')}\``;
+      if (dialect === 'sqlserver') return `[${part.replace(/]/g, ']]')}]`;
+      return `"${part.replace(/"/g, '""')}"`;
+    }).join('.');
+  }
+
+  function quoteText(text, dialect) {
+    let body = text.replace(/'/g, "''");
+    // MySQL reads backslashes as escapes in strings by default.
+    if (dialect === 'mysql') body = body.replace(/\\/g, '\\\\');
+    // SQL Server needs N'...' to keep characters outside the code page.
+    return dialect === 'sqlserver' && /[^\x00-\x7f]/.test(body) ? `N'${body}'` : `'${body}'`;
+  }
+
+  function literal(value, kind, dialect) {
+    if (value === null) return 'NULL';
+    if (kind === 'boolean') {
+      const truth = typeof value === 'boolean' ? value : /^true$/i.test(value);
+      return dialect === 'postgresql' || dialect === 'mysql' ? (truth ? 'TRUE' : 'FALSE') : (truth ? '1' : '0');
+    }
+    if (kind === 'integer' || kind === 'bigint' || kind === 'decimal') return String(value);
+    if (typeof value === 'object') return quoteText(JSON.stringify(value), dialect);
+    return quoteText(String(value), dialect);
+  }
+
+  const TRANSACTION = {
+    postgresql: ['BEGIN;', 'COMMIT;'], mysql: ['START TRANSACTION;', 'COMMIT;'], sqlite: ['BEGIN TRANSACTION;', 'COMMIT;'], sqlserver: ['BEGIN TRANSACTION;', 'COMMIT;']
+  };
+
+  // options: { table, dialect, batch, create, emptyIsNull, transaction }
+  function generate(data, options) {
+    const table = quoteName(options.table.trim() || 'my_table', options.dialect);
+    const rows = data.rows.map((row) => row.map((value) => normalise(value, data.source, options.emptyIsNull)));
+    const kinds = data.columns.map((_, index) => columnKind(rows.map((row) => row[index]), data.source));
+    const lines = [];
+    if (options.transaction) lines.push(TRANSACTION[options.dialect][0], '');
+    if (options.create) {
+      const types = SQL_TYPES[options.dialect];
+      const definitions = data.columns.map((name, index) => {
+        const kind = kinds[index];
+        const longest = Math.max(0, ...rows.map((row) => (row[index] === null ? 0 : String(typeof row[index] === 'object' ? JSON.stringify(row[index]) : row[index]).length)));
+        const type = kind === 'text' ? types.text(longest) : types[kind];
+        return `  ${quoteName(name, options.dialect)} ${type}`;
+      });
+      lines.push(`CREATE TABLE ${table} (\n${definitions.join(',\n')}\n);`, '');
+    }
+    const columns = data.columns.map((name) => quoteName(name, options.dialect)).join(', ');
+    // SQL Server accepts at most 1000 rows in one VALUES list.
+    const size = options.dialect === 'sqlserver' ? Math.min(options.batch, 1000) : options.batch;
+    for (let start = 0; start < rows.length; start += size) {
+      const chunk = rows.slice(start, start + size).map((row) => `(${row.map((value, index) => literal(value, kinds[index], options.dialect)).join(', ')})`);
+      lines.push(chunk.length === 1
+        ? `INSERT INTO ${table} (${columns}) VALUES ${chunk[0]};`
+        : `INSERT INTO ${table} (${columns}) VALUES\n  ${chunk.join(',\n  ')};`);
+    }
+    if (options.transaction) lines.push('', TRANSACTION[options.dialect][1]);
+    return { sql: lines.join('\n'), kinds };
+  }
+
+  /* ── Page ───────────────────────────────────────────────────── */
+
+  function options() {
+    const batch = field('c2sBatch').value;
+    return {
+      table: field('c2sTable').value, dialect: field('c2sDialect').value, batch: batch === 'all' ? Infinity : Number(batch),
+      create: field('c2sCreate').checked, emptyIsNull: field('c2sEmptyNull').checked, transaction: field('c2sTransaction').checked
+    };
+  }
+
+  function render() {
+    errorEl.hidden = true;
+    statsEl.textContent = '';
+    if (!inputEl.value.trim()) { outputEl.value = ''; return; }
+    try {
+      const data = readInput(inputEl.value, field('c2sFormat').value, field('c2sHeader').checked);
+      if (!data.rows.length) throw new InputError('There are no data rows, only a header.');
+      outputEl.value = generate(data, options()).sql;
+      statsEl.textContent = t(`${data.rows.length} rows, ${data.columns.length} columns`);
+    } catch (error) {
+      if (!(error instanceof InputError)) throw error;
+      outputEl.value = '';
+      errorEl.textContent = t(error.message);
+      errorEl.hidden = false;
+    }
+  }
+
+  inputEl.addEventListener('input', render);
+  ['c2sTable'].forEach((id) => field(id).addEventListener('input', render));
+  ['c2sFormat', 'c2sDialect', 'c2sBatch', 'c2sCreate', 'c2sEmptyNull', 'c2sHeader', 'c2sTransaction'].forEach((id) => field(id).addEventListener('change', render));
+  copyBtn.addEventListener('click', () => {
+    if (outputEl.value) copyToClipboard(outputEl.value, 'SQL');
+    else showToast(t('Nothing to copy.'), 'error');
+  });
+
+  // Exposed for the tests.
+  window.ToolkitCsvToSql = Object.freeze({ readInput, generate, parseCsv });
+  render();
+}());
