@@ -2,6 +2,32 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.9.0] — 2026-11-15
+
+Fifteen new tools bring the catalogue to 119.
+
+### Added
+
+- **IP Subnet Calculator**: IPv4 and IPv6 networks from CIDR or a mask (network, broadcast, wildcard, usable hosts, address type, reverse DNS zone), splitting into smaller networks, address ranges to CIDR blocks, and an "is this address inside?" check.
+- **JSONPath Tester**: JSONPath as standardised in RFC 9535, including filters and the length(), count(), match(), search() and value() functions; values, normalized paths or both.
+- **JSON Schema Generator**: draft 2020-12 or draft-07 schemas from one or several samples, with merged array items, nullable values, required keys and formats.
+- **JWT Signer**: HS256/384/512, RS*, PS*, ES* and EdDSA tokens from a secret or a PKCS #8 / JWK private key, iat and exp in one click, and test key pairs.
+- **HTML to Markdown**: CommonMark with GitHub tables, task lists and fenced code; formatted text pasted from a page or a document arrives as HTML.
+- **CSV / JSON to SQL**: INSERT statements and a CREATE TABLE with inferred types for PostgreSQL, MySQL, SQLite and SQL Server, with batching, NULLs and transactions.
+- **TOML / JSON Converter**: TOML 1.0 both ways, checked against the official toml-test suite (all valid and invalid TOML 1.0 cases a browser can see), 64-bit integers and dates kept.
+- **Dotenv Checker**: reads .env files as dotenv does and flags what breaks shells, Docker and Compose; compares with .env.example; values hidden by default.
+- **Box Shadow Generator**, **Border Radius Generator** (with organic blobs), **Flexbox Playground** and **CSS Grid Generator** (named areas checked for mistakes).
+- **Image Converter**: PNG, JPEG, WebP and (where the browser can encode it) AVIF; SVG to PNG at any size; cropping by dragging or by numbers with common ratios; rotate, flip and exact resizing.
+- **PDF Merger** and **PDF Page Editor**: merge PDFs with page ranges; rotate, delete, reorder, extract and split pages (single pages, every N pages or ranges, as a ZIP). They use a self-hosted, pinned copy of pdf-lib 1.17.1 (MIT).
+
+### Changed
+
+- Example starters can set checkboxes.
+
+### Tests
+
+- Known answers for every new tool, including RFC 9535 and RFC 5952 examples, signatures verified with Web Crypto and Node's crypto, pixel checks of converted images and page-by-page checks of generated PDFs; `VECTORS_ONLY` runs the known answers of chosen tools.
+
 ## [1.8.10] — 2026-11-15
 
 A new tool, Port Reference, brings the catalogue to 104 tools.
@@ -663,6 +689,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.9.0]: https://github.com/abel0x/toolkit/compare/v1.8.10...v1.9.0
 [1.8.10]: https://github.com/abel0x/toolkit/compare/v1.8.9...v1.8.10
 [1.8.9]: https://github.com/abel0x/toolkit/compare/v1.8.8...v1.8.9
 [1.8.8]: https://github.com/abel0x/toolkit/compare/v1.8.7...v1.8.8
