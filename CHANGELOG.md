@@ -2,6 +2,25 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.10.0] — 2026-11-15
+
+New abilities for six of the new tools, and share links for two older ones.
+
+### Added
+
+- **Dotenv Checker:** export the variables as JSON, shell `export` lines (single-quoted), a Docker `--env-file` (values with line breaks are left out with a note, as Docker cannot read them), a Docker Compose `environment` block (`$` written as `$$`) or a Kubernetes Secret, each downloaded under a fitting file name.
+- **IP Subnet Calculator:** summarise a list of networks, addresses and ranges into the fewest CIDR blocks; overlapping and touching ones merge, and bad lines are reported with their line number.
+- **JWT Signer:** an optional key ID (`kid`), a one-click `nbf`, the generated public key as a JWKS (with an RFC 7638 thumbprint as the default `kid`), and "Check it in the JWT Decoder", which opens the decoder with the token only.
+- **JSON Schema Generator:** optional enums for strings with a few repeated values (null is listed for nullable ones), optional minimum and maximum for numbers, and a link that opens the JSON Validator with the first sample and the schema.
+- **Flexbox Playground:** ready layouts: center, navigation bar, row of cards, sidebar and content, vertical stack.
+- **CSS Grid Generator:** draw named areas by clicking cells; rows can be added and removed, and the areas text follows.
+- **HTML to Markdown:** `<sup>`, `<sub>`, `<u>`, `<mark>` and `<ins>` are kept as inline HTML, and line breaks in table cells as `<br>`.
+- **JWT Decoder** and **JSON Validator** accept share links, so tools can hand a token or a schema over. Links carry their input in the fragment, which never reaches a server; the signer's link never carries a secret.
+
+### Tests
+
+- Known answers for every addition, including the RFC 7638 example thumbprint and a JWT Decoder opened from a share link.
+
 ## [1.9.2] — 2026-11-15
 
 Fixes and speed-ups for the new tools, after measuring them with large inputs.
@@ -725,6 +744,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.10.0]: https://github.com/abel0x/toolkit/compare/v1.9.2...v1.10.0
 [1.9.2]: https://github.com/abel0x/toolkit/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/abel0x/toolkit/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/abel0x/toolkit/compare/v1.8.10...v1.9.0

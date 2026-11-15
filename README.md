@@ -46,17 +46,17 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 12 | Image conversion, metadata, compression, PDF merge and page editing, SVG, favicon |
 
-### Latest release — 1.9.2
+### Latest release — 1.10.0
+
+New abilities for the new tools: .env export to shell, Docker, Compose and Kubernetes; CIDR summarising; JWKS, kid and a decoder link in the JWT Signer; enums and ranges in the JSON Schema Generator; flexbox layouts and drawn grid areas.
+
+### 1.9.2
 
 Fixes and speed-ups for the new tools: PDF previews no longer mix up files, large photos work on iPhone and iPad, owner-password PDFs are explained, and big JSON, CSV and HTML inputs no longer slow down typing.
 
 ### 1.9.1
 
 The **PDF Page Editor** can show real page previews on request (pdf.js, downloaded only when asked for), and the site's descriptions cover the current catalogue.
-
-### 1.9.0
-
-**Fifteen new tools:** IP Subnet Calculator, JSONPath Tester, JSON Schema Generator, JWT Signer, HTML to Markdown, CSV / JSON to SQL, TOML / JSON Converter, Dotenv Checker, Box Shadow and Border Radius generators, Flexbox Playground, CSS Grid Generator, Image Converter, PDF Merger and PDF Page Editor.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 
