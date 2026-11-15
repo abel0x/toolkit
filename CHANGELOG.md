@@ -2,6 +2,30 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.11.0] — 2026-11-15
+
+Two new PDF tools bring the catalogue to 121, and eight of the recent tools grow.
+
+### Added
+
+- **Images to PDF**: JPG, PNG, WebP and other images into one PDF, one per page, on A4, Letter or pages the size of each image, with margins; photos are drawn upright (EXIF orientation) and the order can be dragged.
+- **PDF to Images**: every page, or chosen pages, as PNG or JPEG at 72, 150 or 300 DPI, one by one or as a ZIP. It uses the self-hosted pdf.js, so PDFs locked by an owner password work here too.
+- **Country Time Zones:** a meeting planner. Pick time zones and a day to see every zone's hours side by side (working, early or late, night) and the hours that are working hours everywhere.
+- **IP Subnet Calculator:** a VLSM planner that carves subnets for given host counts out of an IPv4 network, largest first, and lists what is left.
+- **CSV / JSON to SQL:** updates or skips existing rows by a key column (`ON CONFLICT` for PostgreSQL and SQLite, `ON DUPLICATE KEY UPDATE` or `INSERT IGNORE` for MySQL, `MERGE` for SQL Server), a primary key in the CREATE TABLE, and a type per column that can be changed by hand.
+- **PDF Page Editor:** page numbers (three places, three styles) and a diagonal watermark on every saved page, upright whatever the page's rotation, in any language.
+- **Box Shadow, Border Radius, Flexbox and Grid:** Tailwind CSS output next to the CSS, and text-shadow in the Box Shadow Generator.
+- **Image Converter:** the crop area works from the keyboard (arrows move it, Shift resizes, Alt for single pixels).
+- **PDF Merger:** reorder files by dragging their handle.
+
+### Fixed
+
+- **PDF to Images** closes pdf.js through its loading task (found by the new tests; pdf.js 6 documents have no `destroy`).
+
+### Tests
+
+- Known answers for every addition, including meeting hours across Istanbul, London and New York, a VLSM plan, the four upsert syntaxes, and page numbers and a watermark checked by drawing the saved pages with pdf.js, also on a turned page; the PDF tools also in Chromium.
+
 ## [1.10.0] — 2026-11-15
 
 New abilities for six of the new tools, and share links for two older ones.
@@ -744,6 +768,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.11.0]: https://github.com/abel0x/toolkit/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/abel0x/toolkit/compare/v1.9.2...v1.10.0
 [1.9.2]: https://github.com/abel0x/toolkit/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/abel0x/toolkit/compare/v1.9.0...v1.9.1
