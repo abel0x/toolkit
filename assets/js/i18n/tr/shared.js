@@ -155,6 +155,8 @@
     "base64": "base64",
     "base64url": "base64url",
     "custom": "özel",
+    "Row": "Satır",
+    "empty": "boş",
     "Pages": "Sayfalar",
     "all": "tümü",
     "page": "sayfa",
@@ -623,6 +625,14 @@
     if (match) return `Bu tarayıcı bu kadar büyük görselleri çizemiyor; görsel ${match[1]} × ${match[2]} px boyutunda işleniyor.`;
     match = key.match(/^This browser cannot draw an image that large\. Try (\d+) × (\d+) px or smaller\.$/);
     if (match) return `Bu tarayıcı o kadar büyük bir görsel çizemiyor. ${match[1]} × ${match[2]} px ya da daha küçüğünü deneyin.`;
+    match = key.match(/^(.+) is left out: a shell variable name cannot have that form\.$/);
+    if (match) return `${match[1]} dışarıda bırakıldı: kabuk değişken adı bu biçimde olamaz.`;
+    match = key.match(/^(.+) is left out: --env-file cannot hold values with line breaks\.$/);
+    if (match) return `${match[1]} dışarıda bırakıldı: --env-file satır sonu içeren değerleri tutamaz.`;
+    match = key.match(/^(.+) is left out: Kubernetes keys use letters, digits, -, _ and \. only\.$/);
+    if (match) return `${match[1]} dışarıda bırakıldı: Kubernetes anahtarları yalnızca harf, rakam, -, _ ve . içerebilir.`;
+    match = key.match(/^(\d+) entries → (\d+) blocks$/);
+    if (match) return `${match[1]} kayıt → ${match[2]} blok`;
     match = key.match(/^(\d+) matches?$/);
     if (match) return `${match[1]} eşleşme`;
     match = key.match(/^Group (\d+)$/);

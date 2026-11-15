@@ -54,8 +54,9 @@
       return schema;
     }
     if (typeof value === 'boolean') return { type: 'boolean' };
-    if (typeof value === 'number') return { type: Number.isInteger(value) ? 'integer' : 'number' };
-    const schema = { type: 'string' };
+    // Seen numbers and strings are remembered (as _min/_max and _values) for the range and enum options.
+    if (typeof value === 'number') return { type: Number.isInteger(value) ? 'integer' : 'number', _min: value, _max: value };
+    const schema = { type: 'string', _values: [value], _count: 1 };
     if (options.formats) {
       const found = FORMATS.find(([, pattern]) => pattern.test(value));
       if (found) schema.format = found[0];
@@ -97,8 +98,16 @@
       if (!b.items) return a;
       return { type: 'array', items: merge(a.items, b.items, options) };
     }
-    if (kind(a) === 'number') return { type: a.type === 'number' || b.type === 'number' ? 'number' : 'integer' };
-    if (a.type === 'string') return a.format && a.format === b.format ? { type: 'string', format: a.format } : { type: 'string' };
+    if (kind(a) === 'number') {
+      return { type: a.type === 'number' || b.type === 'number' ? 'number' : 'integer', _min: Math.min(a._min, b._min), _max: Math.max(a._max, b._max) };
+    }
+    if (a.type === 'string') {
+      // Up to 50 different values are remembered; more cannot be an enum anyway.
+      const values = a._values && b._values ? [...new Set([...a._values, ...b._values])] : null;
+      const out = { type: 'string', _values: values && values.length <= 50 ? values : null, _count: a._count + b._count };
+      if (a.format && a.format === b.format) out.format = a.format;
+      return out;
+    }
     return a;
   }
 
@@ -109,16 +118,25 @@
   // a nullable object or array as type [kind, "null"], anything else anyOf.
   function polish(schema, options) {
     if (schema.anyOf) {
-      const list = schema.anyOf;
+      const list = schema.anyOf.map((item) => polish(item, options));
       if (list.every((item) => Object.keys(item).length === 1)) return { type: list.map(typeOf) };
       const others = list.filter((item) => item.type !== 'null');
-      if (others.length === 1) {
-        const only = polish(others[0], options);
-        return { ...only, type: [only.type, 'null'] };
+      if (others.length === 1 && list.length === 2) {
+        // enum applies whatever the type, so a nullable enum must list null too.
+        const only = others[0];
+        return { ...only, type: [only.type, 'null'], ...(only.enum ? { enum: [...only.enum, null] } : {}) };
       }
-      return { anyOf: list.map((item) => polish(item, options)) };
+      return { anyOf: list };
     }
-    const out = { ...schema };
+    const { _values: values, _count: count, _min: min, _max: max, ...out } = schema;
+    // An enum: a few different values that repeat, without a format such as email.
+    if (options.enums && schema.type === 'string' && values && !out.format && count >= 3 && values.length <= 10 && values.length < count) {
+      out.enum = values;
+    }
+    if (options.ranges && (schema.type === 'integer' || schema.type === 'number')) {
+      out.minimum = min;
+      out.maximum = max;
+    }
     if (schema.type === 'object') {
       out.properties = Object.fromEntries(Object.entries(schema.properties).map(([key, value]) => [key, polish(value, options)]));
       if (options.required === 'all') out.required = Object.keys(out.properties);
@@ -137,7 +155,8 @@
   /* ── Page ───────────────────────────────────────────────────── */
 
   function options() {
-    return { draft: draftEl.value, required: requiredEl.value, formats: formatsEl.checked, strict: strictEl.checked };
+    return { draft: draftEl.value, required: requiredEl.value, formats: formatsEl.checked, strict: strictEl.checked,
+      enums: document.getElementById('jsgEnums').checked, ranges: document.getElementById('jsgRanges').checked };
   }
 
   // Large inputs wait for a pause in typing; small ones update at once.
@@ -150,10 +169,28 @@
 
   let parsed = { text: null, data: undefined, error: null };
 
+  // The JSON Validator opens with the first sample and the schema in the link's
+  // fragment (never sent to a server); without the sample when the link would be too long.
+  const encode = (values) => {
+    let binary = '';
+    new TextEncoder().encode(JSON.stringify(values)).forEach((byte) => { binary += String.fromCharCode(byte); });
+    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  };
+  function linkToValidator(sample, schema) {
+    const link = document.getElementById('jsgValidate');
+    const note = document.getElementById('jsgValidateNote');
+    let fragment = `#share=1.${encode([sample, schema])}`;
+    if (fragment.length > 8000) fragment = `#share=1.${encode(['', schema])}`;
+    const fits = fragment.length <= 8000;
+    link.hidden = !fits;
+    note.textContent = fits ? '' : t('The schema is too large to open by link; copy it into the JSON Validator.');
+    if (fits) link.href = `json-validator.html${fragment}`;
+  }
+
   function render() {
     errorEl.hidden = true;
     const text = inputEl.value.trim();
-    if (!text) { outputEl.value = ''; return; }
+    if (!text) { outputEl.value = ''; document.getElementById('jsgValidate').hidden = true; return; }
     let data;
     try {
       if (parsed.text !== text) {
@@ -170,10 +207,11 @@
     // A top-level array can be a list of samples of one document type.
     const samples = samplesEl.checked && Array.isArray(data) && data.length ? data : [data];
     outputEl.value = JSON.stringify(generate(samples, options()), null, 2);
+    linkToValidator(JSON.stringify(samples[0], null, 2), outputEl.value);
   }
 
   inputEl.addEventListener('input', later(inputEl, render));
-  [draftEl, requiredEl, formatsEl, strictEl, samplesEl].forEach((field) => field.addEventListener('change', render));
+  [draftEl, requiredEl, formatsEl, strictEl, samplesEl, document.getElementById('jsgEnums'), document.getElementById('jsgRanges')].forEach((field) => field.addEventListener('change', render));
   copyBtn.addEventListener('click', () => {
     if (outputEl.value) copyToClipboard(outputEl.value, 'Schema');
     else showToast(t('Nothing to copy.'), 'error');

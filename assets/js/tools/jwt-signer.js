@@ -6,6 +6,7 @@
 (function initJwtSigner() {
   'use strict';
 
+  const field = (id) => document.getElementById(id);
   const algEl = document.getElementById('jwsAlg');
   const headerEl = document.getElementById('jwsHeader');
   const payloadEl = document.getElementById('jwsPayload');
@@ -116,6 +117,19 @@
     return { token: `${input}.${b64url(signature)}`, warnings };
   }
 
+  // RFC 7638: SHA-256 over the key's required members, in this order, as the default kid.
+  async function thumbprint(jwk) {
+    const members = { RSA: ['e', 'kty', 'n'], EC: ['crv', 'kty', 'x', 'y'], OKP: ['crv', 'kty', 'x'] }[jwk.kty];
+    const canonical = JSON.stringify(Object.fromEntries(members.map((name) => [name, jwk[name]])));
+    return b64url(await crypto.subtle.digest('SHA-256', utf8(canonical)));
+  }
+
+  // A JWKS with the public key, ready for a verifier.
+  async function jwks(publicJwk, alg, kid) {
+    const { key_ops: ops, ext, ...key } = publicJwk;
+    return { keys: [{ ...key, kid: kid || await thumbprint(key), use: 'sig', alg }] };
+  }
+
   async function generateKeyPair(alg) {
     const spec = ALGS[alg];
     let pair;
@@ -123,7 +137,8 @@
     else pair = await crypto.subtle.generateKey(importParams(spec), true, ['sign', 'verify']);
     return {
       privatePem: pem('PRIVATE KEY', await crypto.subtle.exportKey('pkcs8', pair.privateKey)),
-      publicPem: pem('PUBLIC KEY', await crypto.subtle.exportKey('spki', pair.publicKey))
+      publicPem: pem('PUBLIC KEY', await crypto.subtle.exportKey('spki', pair.publicKey)),
+      publicJwk: await crypto.subtle.exportKey('jwk', pair.publicKey)
     };
   }
 
@@ -151,12 +166,19 @@
     errorEl.hidden = true;
     noteEl.textContent = '';
     tokenEl.value = '';
+    field('jwsDecoderLink').hidden = true;
     try {
       const header = parseJson(headerEl.value, t('Header'));
+      const kid = field('jwsKid').value.trim();
+      if (kid) header.kid = kid;
       const payload = parseJson(payloadEl.value, t('Payload'));
       const key = ALGS[algEl.value].kind === 'hmac' ? { secret: secretEl.value, encoding: secretEncEl.value } : { text: keyEl.value };
       const result = await sign(algEl.value, header, payload, key);
       tokenEl.value = result.token;
+      // The decoder opens with the token in the link's fragment, which never reaches a server.
+      const link = field('jwsDecoderLink');
+      link.href = `jwt-decoder.html#share=1.${b64url(utf8(JSON.stringify([result.token])))}`;
+      link.hidden = false;
       noteEl.textContent = result.warnings.map(t).join(' ');
       showToast(t('Token signed.'), 'success');
     } catch (error) {
@@ -179,16 +201,24 @@
   signBtn.addEventListener('click', doSign);
   document.getElementById('jwsIat').addEventListener('click', () => addClaim('iat', 0));
   document.getElementById('jwsExp').addEventListener('click', () => addClaim('exp', 3600));
+  document.getElementById('jwsNbf').addEventListener('click', () => addClaim('nbf', 0));
   generateBtn.addEventListener('click', async () => {
     errorEl.hidden = true;
     try {
       const pair = await generateKeyPair(algEl.value);
       keyEl.value = pair.privatePem;
       publicEl.value = pair.publicPem;
+      lastPublic = { jwk: pair.publicJwk, alg: algEl.value };
       publicBoxEl.hidden = false;
     } catch (error) {
       showError(`${t('This browser cannot make that key:')} ${error.message}`);
     }
+  });
+  let lastPublic = null;
+  field('jwsCopyPem').addEventListener('click', () => copyToClipboard(publicEl.value, 'Public key'));
+  field('jwsCopyJwks').addEventListener('click', async () => {
+    if (!lastPublic) return;
+    copyToClipboard(JSON.stringify(await jwks(lastPublic.jwk, lastPublic.alg, field('jwsKid').value.trim()), null, 2), 'JWKS');
   });
   copyBtn.addEventListener('click', () => {
     if (tokenEl.value) copyToClipboard(tokenEl.value, 'Token');
@@ -196,6 +226,6 @@
   });
 
   // Exposed for the tests.
-  window.ToolkitJwtSigner = Object.freeze({ sign, generateKeyPair });
+  window.ToolkitJwtSigner = Object.freeze({ sign, generateKeyPair, jwks, thumbprint });
   syncAlg();
 }());

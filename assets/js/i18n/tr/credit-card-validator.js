@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Length": "Uzunluk",
     "Validator": "Doğrulayıcı",
+    "Center": "Ortala",
     "Note": "Not",
     "Network": "Ağ",
     "MM/YY": "AA/YY",

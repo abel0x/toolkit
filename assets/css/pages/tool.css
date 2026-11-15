@@ -1338,11 +1338,18 @@
 .jp-help td:first-child { white-space: nowrap; color: var(--text-primary); }
 .jsg-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .jsg-checks { margin: 0 0 1rem; }
+.jsg-validate { margin-top: 0.6rem; }
+#jsgValidateNote:empty { display: none; }
 /* Both column headers as tall as one holding icon buttons, so the boxes line up. */
 .jp-split .tool-col-header, .jsg-split .tool-col-header { min-height: 2.25rem; }
 @media (max-width: 640px) { .jsg-options { grid-template-columns: 1fr; } }
-.jws-alg { max-width: 22rem; }
+.jws-top { flex-wrap: wrap; align-items: flex-end; }
+.jws-alg { flex: 1 1 14rem; max-width: 22rem; }
+.jws-kid { flex: 1 1 14rem; max-width: 22rem; }
+.jws-public-actions { margin-top: 0.5rem; }
+#jwsDecoderLink { margin-top: 0.75rem; }
 .jws-split .tool-col-header { min-height: 2.25rem; }
+.jws-claims { margin-top: 0.5rem; flex-wrap: wrap; }
 .jws-secret { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-top: 1rem; }
 #jwsKeyBox { margin-top: 1rem; }
 .jws-token { margin-top: 1rem; }
@@ -1366,6 +1373,8 @@
 .env-issue--info td:nth-child(2) { color: var(--text-muted); white-space: nowrap; }
 .env-value { overflow-wrap: anywhere; white-space: pre-wrap; }
 .env-show { margin-bottom: 0.6rem; }
+.env-export { flex-wrap: wrap; align-items: flex-end; gap: 0 1rem; }
+.env-export-actions { margin-bottom: calc(1rem + 5px); }
 /* Shared by the CSS generators (box shadow, border radius, flexbox, grid). */
 .cssgen-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
 .cssgen-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 2rem; align-items: start; }
@@ -1399,6 +1408,13 @@
 .fx-item--selected { border-color: var(--text-primary); box-shadow: 0 0 0 2px var(--text-primary) inset; }
 @media (max-width: 480px) { .fx-grid { grid-template-columns: 1fr; } }
 .gr-areas { min-height: 0; }
+.gr-paint { margin-bottom: 1rem; }
+.gr-paint-bar { flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; margin-bottom: 0.6rem; }
+.gr-paint-bar .form-control { min-width: 8rem; }
+.gr-painter { display: grid; gap: 4px; }
+.gr-cell { min-height: 34px; padding: 0.2rem; border: 1px dashed var(--border); border-radius: var(--radius-sm); background: transparent; color: var(--text-muted); font: 600 0.75rem var(--font-mono); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gr-cell--named { border-style: solid; background: var(--bg-surface); color: var(--text-primary); }
+.gr-cell:hover { border-color: var(--text-muted); }
 .gr-box { display: grid; min-height: 320px; padding: 12px; border: 1px dashed var(--border-strong, var(--border)); border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.02); overflow: auto; }
 .gr-item { display: flex; align-items: center; justify-content: center; min-height: 56px; min-width: 40px; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-surface); color: var(--text-primary); font: 600 0.9rem var(--font-mono); overflow-wrap: anywhere; }
 .ic-source { margin: 0 0 1rem; font-size: 0.85rem; color: var(--text-muted); overflow-wrap: anywhere; }

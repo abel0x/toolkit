@@ -88,6 +88,11 @@
         return `![${escapeInline(node.getAttribute('alt') || '')}](${linkDestination(src)}${linkTitle(node.getAttribute('title'))})`;
       }
       case 'INPUT': return '';
+      // No Markdown for these; CommonMark keeps inline HTML as it is.
+      case 'SUP': case 'SUB': case 'U': case 'MARK': case 'INS': {
+        const inner = inline(node, options);
+        return inner.trim() ? `<${tag.toLowerCase()}>${inner}</${tag.toLowerCase()}>` : inner;
+      }
       default:
         if (BLOCKS.has(tag)) return ` ${blocks(node, options).join(' ')} `;
         return inline(node, options);
@@ -178,7 +183,8 @@
   function table(node, options) {
     const rows = [...node.querySelectorAll('tr')].filter((row) => row.closest('table') === node);
     if (!rows.length) return null;
-    const cell = (td) => tidy(inline(td, options)).replace(/\\\n/g, ' ').replace(/\|/g, '\\|');
+    // A table cell is one line: its line breaks stay as <br>.
+    const cell = (td) => tidy(inline(td, options)).replace(/\\\n/g, '<br>').replace(/\|/g, '\\|');
     const matrix = rows.map((row) => [...row.children].filter((child) => child.tagName === 'TD' || child.tagName === 'TH'));
     const width = Math.max(...matrix.map((row) => row.length));
     if (!width) return null;

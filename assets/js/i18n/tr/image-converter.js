@@ -16,6 +16,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "image/png": "resim/png",
     "Editor": "Editör",
     ".svg": ".svg",
+    "Export": "Dışa aktar",
     "Crop": "Kırp",
     "Left": "Sol",
     "Scale": "Ölçek",

@@ -214,7 +214,7 @@ for (const tool of catalogue) {
     assert(html.includes(prefix ? 'Bağlantıyı kopyala</button>' : 'Copy link</button>'), `${page} has an untranslated or missing "Copy link" label.`);
   }
 }
-assert.equal(catalogue.filter((tool) => tool.share).length, 10, 'Expected ten tools with a share link.');
+assert.equal(catalogue.filter((tool) => tool.share).length, 12, 'Expected twelve tools with a share link.');
 
 // tool-io.js (Open file, Copy, Download) loads exactly on the tools with "io",
 // carrying that entry, in English and Turkish.

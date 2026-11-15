@@ -7,7 +7,9 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Remove": "Kaldır",
     "Length": "Uzunluk",
     "From": "Başlangıç",
+    "Nothing to copy.": "Kopyalanacak bir şey yok.",
     "Split": "Böl",
+    "Line": "Satır",
     "Note": "Not",
     "Both": "İkisi de",
     "Subnet details": "Alt ağ ayrıntıları",
@@ -59,6 +61,8 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Enter an address such as 192.168.1.10/24.": "192.168.1.10/24 gibi bir adres girin.",
     "Write the IPv6 prefix as a number, such as /64.": "IPv6 ön ekini /64 gibi bir sayı olarak yazın.",
     "Network": "Ağ",
-    "Reverse": "Tersine Çevir"
+    "Lines": "Satırlar",
+    "Reverse": "Tersine Çevir",
+    "errors": "hata"
   }))
 });

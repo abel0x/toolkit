@@ -211,6 +211,45 @@
     return address.family === net.family && (address.value & net.mask) === net.network;
   }
 
+  /* ── Summarising ────────────────────────────────────────────── */
+
+  // Lines of networks, addresses and ranges → the fewest CIDR blocks that cover
+  // exactly the same addresses, IPv4 first. Overlapping and touching ones merge.
+  function summarise(text) {
+    const ranges = { 4: [], 6: [] };
+    const errors = [];
+    text.split(/\r?\n/).forEach((raw, index) => {
+      const line = raw.replace(/#.*/, '').trim();
+      if (!line) return;
+      try {
+        const parsed = parseInput(line);
+        if (parsed.kind === 'range') ranges[parsed.family].push([parsed.start, parsed.end]);
+        else {
+          const net = subnet(parsed.family, parsed.value, parsed.prefix);
+          ranges[parsed.family].push([net.network, net.last]);
+        }
+      } catch (error) {
+        if (!(error instanceof InputError)) throw error;
+        errors.push({ line: index + 1, message: error.message });
+      }
+    });
+    const blocks = [];
+    let entries = 0;
+    for (const family of [4, 6]) {
+      const list = ranges[family].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+      entries += list.length;
+      const merged = [];
+      for (const [start, end] of list) {
+        const last = merged[merged.length - 1];
+        if (last && start <= last[1] + 1n) { if (end > last[1]) last[1] = end; } else merged.push([start, end]);
+      }
+      for (const [start, end] of merged) {
+        for (const block of rangeToCidrs(family, start, end)) blocks.push(`${format(family, block.network)}/${block.prefix}`);
+      }
+    }
+    return { blocks, entries, errors };
+  }
+
   /* ── Page ───────────────────────────────────────────────────── */
 
   const language = () => (window.ToolkitI18n && window.ToolkitI18n.getLanguage() === 'tr' ? 'tr-TR' : 'en-US');
@@ -397,12 +436,30 @@
     showCheck();
   }
 
+  function showSummary() {
+    const list = document.getElementById('snList');
+    const out = document.getElementById('snSummaryOut');
+    const stats = document.getElementById('snSummaryStats');
+    const error = document.getElementById('snListError');
+    const result = summarise(list.value);
+    out.value = result.blocks.join('\n');
+    stats.textContent = result.entries ? t(`${result.entries} entries → ${result.blocks.length} blocks`) : '';
+    error.hidden = !result.errors.length;
+    error.textContent = result.errors.map((item) => `${t('Line')} ${item.line}: ${t(item.message)}`).join(' · ');
+  }
+
   inputEl.addEventListener('input', render);
+  document.getElementById('snList').addEventListener('input', showSummary);
+  document.getElementById('snSummaryCopy').addEventListener('click', () => {
+    const out = document.getElementById('snSummaryOut');
+    if (out.value) copyToClipboard(out.value, 'CIDR blocks');
+    else showToast(t('Nothing to copy.'), 'error');
+  });
   splitEl.addEventListener('change', showSplit);
   checkEl.addEventListener('input', showCheck);
   window.addEventListener('toolkit:languagechange', render);
 
   // Exposed for the tests.
-  window.ToolkitSubnet = Object.freeze({ parseInput, subnet, formatV6, expandV6, rangeToCidrs, addressType, reverseZone });
+  window.ToolkitSubnet = Object.freeze({ parseInput, subnet, formatV6, expandV6, rangeToCidrs, addressType, reverseZone, summarise });
   render();
 }());

@@ -118,6 +118,29 @@
     fillItem();
     render();
   });
+  // Common layouts: the container settings, the number of items and what some items do.
+  const PRESETS = {
+    center: { container: ['row', 'nowrap', 'center', 'center', 'normal'], gap: 8, count: 1, varied: false, items: {} },
+    navbar: { container: ['row', 'nowrap', 'flex-start', 'center', 'normal'], gap: 16, count: 4, varied: false, items: { 0: { grow: 1 } } },
+    cards: { container: ['row', 'wrap', 'flex-start', 'stretch', 'normal'], gap: 16, count: 7, varied: false, all: { grow: 1, basis: '120px' } },
+    sidebar: { container: ['row', 'nowrap', 'flex-start', 'stretch', 'normal'], gap: 12, count: 2, varied: false, items: { 0: { shrink: 0, basis: '30%' }, 1: { grow: 1 } } },
+    stack: { container: ['column', 'nowrap', 'flex-start', 'stretch', 'normal'], gap: 8, count: 4, varied: false, items: {} }
+  };
+  function applyPreset(name) {
+    const preset = PRESETS[name];
+    CONTAINER.forEach(([, id], index) => { field(id).value = preset.container[index]; });
+    field('fxGap').value = String(preset.gap);
+    field('fxCount').value = String(preset.count);
+    field('fxVaried').checked = preset.varied;
+    items = Array.from({ length: preset.count }, (_, index) => ({ ...ITEM_DEFAULTS, ...(preset.all || {}), ...((preset.items || {})[index] || {}) }));
+    selected = -1;
+    fillItem();
+    render();
+    // nav.js only redraws a slider's fill on input.
+    ['fxGap', 'fxCount'].forEach((id) => field(id).dispatchEvent(new Event('input')));
+  }
+  document.querySelectorAll('[data-fx-preset]').forEach((button) => button.addEventListener('click', () => applyPreset(button.dataset.fxPreset)));
+
   field('fxCopy').addEventListener('click', () => copyToClipboard(codeEl.textContent, 'CSS'));
   window.addEventListener('toolkit:languagechange', () => { fillItem(); render(); });
 

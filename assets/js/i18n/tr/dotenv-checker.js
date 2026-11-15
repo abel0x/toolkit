@@ -6,8 +6,13 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Checker": "Denetleyici",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
+    ".yaml": ".yaml",
     ".env": ".env",
+    "Export": "Dışa aktar",
+    "Dollar signs are written as $$ so that Compose keeps them.": "Dolar işaretleri, Compose korusun diye $$ olarak yazıldı.",
+    "Kubernetes stores stringData base64-encoded, not encrypted; keep the file private.": "Kubernetes stringData’yı şifrelemeden, yalnızca base64 ile saklar; dosyayı gizli tutun.",
     ".env file": ".env dosyası",
+    "Variables": "Değişkenler",
     "Warning": "Uyarı",
     "Note": "Not",
     "The file starts with a byte order mark; some loaders read it as part of the first key.": "Dosya bir bayt sırası işaretiyle (BOM) başlıyor; bazı yükleyiciler bunu ilk anahtarın parçası sayar.",

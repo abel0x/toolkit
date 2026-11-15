@@ -105,7 +105,67 @@
     }));
     field('grCountRow').hidden = Boolean(state.areas);
     codeEl.textContent = css(state);
+    renderPainter(state);
   }
+
+  /* ── Drawing areas ──────────────────────────────────────────── */
+
+  // Cells come from the areas when there are some, else from the grid's columns.
+  let painterRows = 3;
+  function paintMatrix(state) {
+    if (state.areas) return state.areas.rows.map((row) => [...row]);
+    const columns = Math.max(1, getComputedStyle(boxEl).gridTemplateColumns.split(' ').filter(Boolean).length);
+    return Array.from({ length: painterRows }, () => Array(columns).fill('.'));
+  }
+
+  function writeAreas(matrix) {
+    const used = matrix.some((row) => row.some((cell) => cell !== '.'));
+    field('grAreas').value = used ? matrix.map((row) => `"${row.join(' ')}"`).join('\n') : '';
+    render();
+  }
+
+  function renderPainter(state) {
+    const matrix = paintMatrix(state);
+    painterRows = matrix.length;
+    const painter = field('grPainter');
+    painter.style.gridTemplateColumns = `repeat(${matrix[0].length}, minmax(0, 1fr))`;
+    painter.replaceChildren(...matrix.flatMap((row, y) => row.map((cell, x) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `gr-cell${cell === '.' ? '' : ' gr-cell--named'}`;
+      button.textContent = cell === '.' ? '·' : cell;
+      button.setAttribute('aria-label', `${t('Row')} ${y + 1}, ${t('column')} ${x + 1}: ${cell === '.' ? t('empty') : cell}`);
+      button.dataset.i18nSkip = '';
+      button.addEventListener('click', () => {
+        const name = field('grPaintName').value.trim();
+        if (name && !/^[A-Za-z_-][A-Za-z0-9_-]*$/.test(name)) { showToast(t(`“${name}” is not a valid area name.`), 'error'); return; }
+        const next = paintMatrix(state);
+        next[y][x] = name || '.';
+        writeAreas(next);
+      });
+      return button;
+    })));
+  }
+
+  function painterState() {
+    try { return readState(); } catch { return null; }
+  }
+  field('grPaintAddRow').addEventListener('click', () => {
+    const state = painterState();
+    if (!state) return;
+    const matrix = paintMatrix(state);
+    matrix.push(Array(matrix[0].length).fill('.'));
+    if (state.areas) writeAreas(matrix); else { painterRows = matrix.length; renderPainter(state); }
+  });
+  field('grPaintRemoveRow').addEventListener('click', () => {
+    const state = painterState();
+    if (!state) return;
+    const matrix = paintMatrix(state);
+    if (matrix.length < 2) return;
+    matrix.pop();
+    if (state.areas) writeAreas(matrix); else { painterRows = matrix.length; renderPainter(state); }
+  });
+  field('grPaintClear').addEventListener('click', () => { field('grAreas').value = ''; painterRows = 3; render(); });
 
   const PRESETS = {
     three: { columns: 'repeat(3, 1fr)', rows: 'auto', areas: '' },

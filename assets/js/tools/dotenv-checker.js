@@ -6,6 +6,7 @@
 (function initEnvChecker() {
   'use strict';
 
+  const field = (id) => document.getElementById(id);
   const inputEl = document.getElementById('envInput');
   const exampleEl = document.getElementById('envExample');
   const issuesEl = document.getElementById('envIssues');
@@ -120,6 +121,60 @@
     };
   }
 
+  /* ── Export ─────────────────────────────────────────────────── */
+
+  const singleQuoted = (value) => `'${value.replace(/'/g, "'\\''")}'`;
+  // YAML double-quoted strings accept JSON's escapes.
+  const yamlString = (value) => JSON.stringify(value);
+
+  // Later values win, as when the file is loaded.
+  function finalValues(vars) {
+    const map = new Map();
+    for (const entry of vars) map.set(entry.key, entry.value);
+    return map;
+  }
+
+  // { text, notes: [message], name } for one export format.
+  function exportAs(vars, format) {
+    const map = finalValues(vars);
+    const notes = [];
+    const lines = [];
+    switch (format) {
+      case 'shell':
+        for (const [key, value] of map) {
+          if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(key)) { notes.push(`${key} is left out: a shell variable name cannot have that form.`); continue; }
+          lines.push(`export ${key}=${singleQuoted(value)}`);
+        }
+        return { text: lines.join('\n'), notes, name: 'env.sh' };
+      case 'docker':
+        // --env-file takes each line as it is: no quotes, no escapes, one line per value.
+        for (const [key, value] of map) {
+          if (/[\r\n]/.test(value)) { lines.push(`# ${key} is left out: --env-file cannot hold values with line breaks.`); notes.push(`${key} is left out: --env-file cannot hold values with line breaks.`); continue; }
+          lines.push(`${key}=${value}`);
+        }
+        return { text: lines.join('\n'), notes, name: 'docker.env' };
+      case 'compose':
+        // Compose reads $ as the start of a variable; $$ is a literal dollar.
+        lines.push('services:', '  app:', '    environment:');
+        for (const [key, value] of map) lines.push(`      ${key}: ${yamlString(value.replace(/\$/g, '$$$$'))}`);
+        if ([...map.values()].some((value) => value.includes('$'))) notes.push('Dollar signs are written as $$ so that Compose keeps them.');
+        return { text: lines.join('\n'), notes, name: 'compose.yaml' };
+      case 'k8s':
+        lines.push('apiVersion: v1', 'kind: Secret', 'metadata:', '  name: app-env', 'type: Opaque', 'stringData:');
+        for (const [key, value] of map) {
+          if (!/^[-._a-zA-Z0-9]+$/.test(key)) { notes.push(`${key} is left out: Kubernetes keys use letters, digits, -, _ and . only.`); continue; }
+          lines.push(`  ${key}: ${yamlString(value)}`);
+        }
+        notes.push('Kubernetes stores stringData base64-encoded, not encrypted; keep the file private.');
+        return { text: lines.join('\n'), notes, name: 'secret.yaml' };
+      default: {
+        const object = {};
+        for (const [key, value] of map) object[key] = value;
+        return { text: JSON.stringify(object, null, 2), notes, name: 'env.json' };
+      }
+    }
+  }
+
   /* ── Page ───────────────────────────────────────────────────── */
 
   const LEVEL = { error: '✕', warning: '!', info: 'i' };
@@ -182,20 +237,33 @@
       return row;
     }));
     varsWrap.hidden = !result.vars.length;
-    const object = {};
-    for (const entry of result.vars) object[entry.key] = entry.value;
-    jsonEl.value = JSON.stringify(object, null, 2);
+    const exported = exportAs(result.vars, field('envFormat').value);
+    jsonEl.value = exported.text;
+    field('envExportNote').textContent = exported.notes.map((note) => t(note)).join(' ');
   }
 
   [inputEl, exampleEl].forEach((field) => field.addEventListener('input', render));
   showEl.addEventListener('change', render);
+  field('envFormat').addEventListener('change', render);
+  field('envDownload').addEventListener('click', () => {
+    if (!jsonEl.value) { showToast(t('Nothing to download yet.'), 'error'); return; }
+    const { name } = exportAs([], field('envFormat').value);
+    const url = URL.createObjectURL(new Blob([`${jsonEl.value}\n`], { type: 'text/plain' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
   document.getElementById('envJsonCopy').addEventListener('click', () => {
-    if (jsonEl.value) copyToClipboard(jsonEl.value, 'JSON');
+    if (jsonEl.value) copyToClipboard(jsonEl.value, 'Variables');
     else showToast(t('Nothing to copy.'), 'error');
   });
   window.addEventListener('toolkit:languagechange', render);
 
   // Exposed for the tests.
-  window.ToolkitEnvChecker = Object.freeze({ parse, compare });
+  window.ToolkitEnvChecker = Object.freeze({ parse, compare, exportAs });
   render();
 }());

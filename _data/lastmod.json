@@ -97,7 +97,7 @@
   },
   "tools/css-grid-generator.html": {
     "date": "2026-11-15",
-    "sha256": "e014f701d9836e9e0d18c65f72fd9f437994982a29d126295cb1748d64cf1ddd"
+    "sha256": "571b28d0f099695b50d88503ffb38a229e818433cf697c1edef4ceabf3f6c441"
   },
   "tools/css-minifier.html": {
     "date": "2026-11-15",
@@ -133,7 +133,7 @@
   },
   "tools/dotenv-checker.html": {
     "date": "2026-11-15",
-    "sha256": "b9daca5f1eacb186ffbc9f0286433710866f48c39155d311f71d997ea06d44a0"
+    "sha256": "eb8d01b821b4b13bce2f40027a18c3f6899d50eee1c02582aa3635c209595133"
   },
   "tools/fake-data.html": {
     "date": "2026-11-15",
@@ -153,7 +153,7 @@
   },
   "tools/flexbox-playground.html": {
     "date": "2026-11-15",
-    "sha256": "159bea4e319f10f265a560604141de382831a51e23a1a94f00fb6431ba93e59c"
+    "sha256": "08af1daa8092dec3974cad06b5cfa4778516128a40bdf7fed83932698af2102d"
   },
   "tools/gradient.html": {
     "date": "2026-11-15",
@@ -229,7 +229,7 @@
   },
   "tools/json-schema-generator.html": {
     "date": "2026-11-15",
-    "sha256": "387cf118b672f6b65903553998ed78b5a8a3821a78d1003a51c9e221ecb1cc65"
+    "sha256": "68d657abcb9dadd3ec8af2be6cc7d6d35dc096b07f680d145d10c142840dcdf6"
   },
   "tools/json-sorter.html": {
     "date": "2026-11-15",
@@ -253,7 +253,7 @@
   },
   "tools/json-validator.html": {
     "date": "2026-11-15",
-    "sha256": "24a2e1c804b8208bad9a3617c1580e378f2a6b5fcd76ae31b618146bd3ff67d7"
+    "sha256": "94557f219d54016520ad911cfa07662894add3ad31549da0efa763c0c1396c73"
   },
   "tools/jsonpath-tester.html": {
     "date": "2026-11-15",
@@ -261,11 +261,11 @@
   },
   "tools/jwt-decoder.html": {
     "date": "2026-11-15",
-    "sha256": "c15ce572863f744970bf3fd55fdfc2ff2ea4f809bd7374e7ef94421ae6f3b75c"
+    "sha256": "247cc3998503a0dab62378f1bcd7a46b53127d1975a1a4a943e549cdc121d865"
   },
   "tools/jwt-signer.html": {
     "date": "2026-11-15",
-    "sha256": "f4d5f067218f266773fee6d14b650794cd44a5ca797fe9b456d7125c793a27d6"
+    "sha256": "ef23b44e716d23a731d96c5d30cc1da649f94a6b117f0bdccb18472e95c5d1c3"
   },
   "tools/line-numbers.html": {
     "date": "2026-11-15",
@@ -389,7 +389,7 @@
   },
   "tools/subnet-calculator.html": {
     "date": "2026-11-15",
-    "sha256": "596891b050475c84ce69006f4098f1e5ad887b61d0c80732347849fa6699706c"
+    "sha256": "ec0d5e6d062ae0f16cafe72db22e9fad49df278df5469561f58b52643ede21af"
   },
   "tools/svg-optimizer.html": {
     "date": "2026-11-15",
@@ -585,7 +585,7 @@
   },
   "tr/tools/css-grid-generator.html": {
     "date": "2026-11-15",
-    "sha256": "fa0252bb39b7185995fb56b2a6e9422e955bd10db5da5f36e589251341219eb8"
+    "sha256": "02fd5e56423910b946a5a70e9db5ee1b1fe8156063bce91383467dac20fe1789"
   },
   "tr/tools/css-minifier.html": {
     "date": "2026-11-15",
@@ -621,7 +621,7 @@
   },
   "tr/tools/dotenv-checker.html": {
     "date": "2026-11-15",
-    "sha256": "faa7f8e8bea935afcef0ae834db7546d2a657473fd6a98b001527e8d9a15ecc4"
+    "sha256": "2ac39d36894083d9a34abd41b18bb2a001e1a3cb721f1c20898585668e772e1b"
   },
   "tr/tools/fake-data.html": {
     "date": "2026-11-15",
@@ -641,7 +641,7 @@
   },
   "tr/tools/flexbox-playground.html": {
     "date": "2026-11-15",
-    "sha256": "c919bb713bf54abcf74894729fbf68adfa45cb78c0d4ee4a9dbbeab45dc701f6"
+    "sha256": "19b8b81cd2879a115a8b484729d926a94c2ceaaa5de95baf5d738b26c9f8d6e5"
   },
   "tr/tools/gradient.html": {
     "date": "2026-11-15",
@@ -717,7 +717,7 @@
   },
   "tr/tools/json-schema-generator.html": {
     "date": "2026-11-15",
-    "sha256": "e4f9fecef121745f0b7c4f6a141c98db28973a77e8d14d5917c67e2eb52f1776"
+    "sha256": "ed62e13c54bfa088380f2e4e67ec9c8c31cfa6b75b0600e2628c9218e3bd5b17"
   },
   "tr/tools/json-sorter.html": {
     "date": "2026-11-15",
@@ -741,7 +741,7 @@
   },
   "tr/tools/json-validator.html": {
     "date": "2026-11-15",
-    "sha256": "eb181b2ac506bbfcb626dd9a87bf20869d917c1895be532782269f677c65720a"
+    "sha256": "c6f2f59f2d8a3ccb1b7dc9b2fd5ceb235061c165d2b81818c600d4cc9683d02f"
   },
   "tr/tools/jsonpath-tester.html": {
     "date": "2026-11-15",
@@ -749,11 +749,11 @@
   },
   "tr/tools/jwt-decoder.html": {
     "date": "2026-11-15",
-    "sha256": "8a80d2fe37dd971a1ed4a611c75504dbb02fc5170e7d052adf24fcf150b206e4"
+    "sha256": "f551395474c2fdca8852b53dcccaff00146ff55570f67158509bb9b2f26c7f0a"
   },
   "tr/tools/jwt-signer.html": {
     "date": "2026-11-15",
-    "sha256": "148eee1669de05916e98e73e7ab59860277f937202d1c663b7dcd05cce28d626"
+    "sha256": "8b9005e6289809bfa671dc3f2986ce91da11d7b63884591a8ab7caa713095522"
   },
   "tr/tools/line-numbers.html": {
     "date": "2026-11-15",
@@ -877,7 +877,7 @@
   },
   "tr/tools/subnet-calculator.html": {
     "date": "2026-11-15",
-    "sha256": "0f20c87a3ec739f6d0f88958adfff209f56d39f21ad8295b701f4ee5f8d9c29a"
+    "sha256": "64fc5b90578562138875b30ae37e023ff4871b852002bd80e4453ad73bdf3d08"
   },
   "tr/tools/svg-optimizer.html": {
     "date": "2026-11-15",

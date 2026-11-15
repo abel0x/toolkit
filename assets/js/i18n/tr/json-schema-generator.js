@@ -4,8 +4,13 @@
 
 window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
+    "Validate": "Doğrula",
     "Generator": "Oluşturucu",
+    "Validator": "Doğrulayıcı",
     "Nothing to copy.": "Kopyalanacak bir şey yok.",
+    "JSON Validator": "JSON Doğrulayıcı",
+    "The schema is too large to open by link; copy it into the JSON Validator.": "Şema bağlantıyla açılamayacak kadar büyük; JSON Doğrulayıcı’ya kopyalayın.",
+    "Note": "Not",
     "The JSON is not valid:": "JSON geçerli değil:",
     "JSON Schema": "JSON Schema",
     "Kind": "Tür"

@@ -1082,6 +1082,85 @@ await withFirefox(async (page) => {
     set('#c2sTable', 'people'); await wait(400);
     return [['nothing done while typing', right, ''], ['done after the pause', later.startsWith('CREATE TABLE "my_table"'), true], ['table name applied', value('#c2sOutput').startsWith('CREATE TABLE "people"'), true]];`);
 
+  await check('dotenv-checker', `
+    set('#envInput', 'A=1\\nPRICE="costs $5"\\nKEY="line1\\nline2"\\nmy-var=x'); await wait(20);
+    const out = {};
+    for (const format of ['shell', 'docker', 'compose', 'k8s']) { set('#envFormat', format, 'change'); await wait(10); out[format] = [value('#envJson'), text('#envExportNote')]; }
+    const saved = []; const createObjectURL = URL.createObjectURL;
+    URL.createObjectURL = (blob) => { saved.push(blob); return createObjectURL.call(URL, blob); };
+    const anchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function () { saved.push(this.download); };
+    click('#envDownload'); await wait(50);
+    URL.createObjectURL = createObjectURL; HTMLAnchorElement.prototype.click = anchorClick;
+    return [['shell quoting', out.shell[0], "export A='1'\\nexport PRICE='costs $5'\\nexport KEY='line1\\nline2'"], ['shell skips bad names', out.shell[1], { includes: 'my-var is left out' }],
+      ['docker env-file', out.docker[0], 'A=1\\nPRICE=costs $5\\n# KEY is left out: --env-file cannot hold values with line breaks.\\nmy-var=x'],
+      ['compose escapes $', out.compose[0], 'services:\\n  app:\\n    environment:\\n      A: "1"\\n      PRICE: "costs $$5"\\n      KEY: "line1\\\\nline2"\\n      my-var: "x"'],
+      ['kubernetes secret', out.k8s[0], { includes: 'kind: Secret' }], ['kubernetes note', out.k8s[1], { includes: 'base64-encoded, not encrypted' }],
+      ['download name follows the format', saved.find((item) => typeof item === 'string'), 'secret.yaml']];`);
+
+  await check('subnet-calculator', `
+    set('#snList', '10.0.0.0/24\\n10.0.1.0/24\\n10.0.2.7\\n192.168.0.0/25\\n192.168.0.128/25\\n10.0.0.9 # inside\\n2001:db8::/49\\n2001:db8:0:8000::/49\\nnonsense'); await wait(20);
+    return [['fewest blocks', value('#snSummaryOut').split('\\n'), ['10.0.0.0/23', '10.0.2.7/32', '192.168.0.0/24', '2001:db8::/48']],
+      ['stats', text('#snSummaryStats'), '8 entries → 4 blocks'], ['bad line reported', [$('#snListError').hidden, text('#snListError')], [false, 'Line 9: Not a valid IP address: nonsense']]];`);
+
+  await check('jwt-signer', `
+    const api = window.ToolkitJwtSigner;
+    // RFC 7638 section 3.1: the thumbprint of its example RSA key.
+    const rfc = { kty: 'RSA', e: 'AQAB', n: '0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw' };
+    const thumb = await api.thumbprint(rfc);
+    set('#jwsKid', 'k-2026'); set('#jwsSecret', 'a-string-secret-at-least-256-bits-long'); click('#jwsNbf'); click('#jwsSign'); await wait(150);
+    const [h, p] = value('#jwsToken').split('.');
+    const b64 = (part) => JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
+    const link = $('#jwsDecoderLink');
+    const shared = JSON.parse(atob(link.getAttribute('href').split('#share=1.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+    set('#jwsKid', ''); set('#jwsAlg', 'ES256', 'change'); click('#jwsGenerate'); await wait(300);
+    const copied = []; const copy = window.copyToClipboard; window.copyToClipboard = (textValue) => copied.push(textValue);
+    click('#jwsCopyJwks'); await wait(100); window.copyToClipboard = copy;
+    const jwks = JSON.parse(copied[0]);
+    return [['RFC 7638 example thumbprint', thumb, 'NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'], ['kid in the header', b64(h).kid, 'k-2026'], ['nbf claim', typeof b64(p).nbf, 'number'],
+      ['decoder link carries only the token', [link.hidden, link.getAttribute('href').startsWith('jwt-decoder.html#share=1.'), shared], [false, true, [value('#jwsToken')]]],
+      ['JWKS from the generated key', [jwks.keys.length, jwks.keys[0].kty, jwks.keys[0].crv, jwks.keys[0].alg, jwks.keys[0].use, 'd' in jwks.keys[0], jwks.keys[0].kid.length], [1, 'EC', 'P-256', 'ES256', 'sig', false, 43]]];`);
+
+  await check('jwt-decoder', `
+    // A token handed over by the JWT Signer's link (the fragment only).
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    location.hash = '#share=1.' + btoa(JSON.stringify([token])).replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/, ''); await wait(300);
+    return [['token filled in', value('#jwtInput'), token], ['decoded', text('#jwtResults'), { includes: 'John Doe' }]];`);
+
+  await check('json-schema-generator', `
+    set('#jsgSamples', true, 'change'); set('#jsgEnums', true, 'change'); set('#jsgRanges', true, 'change');
+    set('#jsgInput', '[{"status":"open","n":3,"v":null},{"status":"closed","n":-2.5,"v":"x"},{"status":"open","n":10,"v":"y"},{"status":"open","n":4,"v":"x"}]'); await wait(20);
+    const schema = JSON.parse(value('#jsgOutput'));
+    const link = $('#jsgValidate');
+    const shared = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(link.getAttribute('href').split('#share=1.')[1].replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0))));
+    return [['enum', schema.properties.status.enum, ['open', 'closed']], ['range', [schema.properties.n.minimum, schema.properties.n.maximum], [-2.5, 10]],
+      ['nullable enum lists null', schema.properties.v.enum, ['x', 'y', null]],
+      ['validator link: first sample and schema', [link.hidden, JSON.parse(shared[0]), JSON.parse(shared[1]).properties.status.enum], [false, { status: 'open', n: 3, v: null }, ['open', 'closed']]]];`);
+
+  await check('flexbox-playground', `
+    click('[data-fx-preset="navbar"]'); await wait(20);
+    const navbar = $('#fxCode').textContent;
+    click('[data-fx-preset="cards"]'); await wait(20);
+    const cards = [$('#fxCode').textContent, document.querySelectorAll('#fxBox .fx-item').length, value('#fxWrap')];
+    return [['navbar', navbar, '.container {\\n  display: flex;\\n  align-items: center;\\n  gap: 16px;\\n}\\n\\n.item-1 {\\n  flex: 1 1 auto;\\n}'],
+      ['cards wrap with a basis', [cards[0].includes('flex-wrap: wrap;'), cards[0].includes('.item-7 {\\n  flex: 1 1 120px;\\n}'), cards[1], cards[2]], [true, true, 7, 'wrap']]];`);
+
+  await check('css-grid-generator', `
+    const cells = () => [...document.querySelectorAll('#grPainter .gr-cell')];
+    const start = cells().length;
+    set('#grPaintName', 'header'); cells()[0].click(); cells()[1].click(); cells()[2].click(); await wait(20);
+    set('#grPaintName', 'side'); cells()[3].click(); set('#grPaintName', 'main'); cells()[4].click(); cells()[5].click(); await wait(20);
+    const areas = value('#grAreas');
+    const placed = [...document.querySelectorAll('#grBox .gr-item')].map((item) => item.textContent);
+    set('#grPaintName', 'side'); cells()[8].click(); await wait(20);
+    const broken = text('#grError');
+    return [['3 × 3 cells from three columns', start, 9], ['areas written', areas, '"header header header"\\n"side main main"\\n". . ."'], ['items per area', placed, ['header', 'side', 'main']],
+      ['a split area is refused', broken, 'The area “side” is not a rectangle.']];`);
+
+  await check('html-to-markdown', `
+    const md = (html) => window.ToolkitHtmlToMarkdown.convert(html, { bullet: '-', em: '*', strong: '**' });
+    return [['sup and sub kept as HTML', md('<p>E = mc<sup>2</sup>, H<sub>2</sub>O and <mark>this</mark></p>'), 'E = mc<sup>2</sup>, H<sub>2</sub>O and <mark>this</mark>'],
+      ['line break in a table cell', md('<table><tr><th>A</th></tr><tr><td>one<br>two</td></tr></table>'), '| A |\\n| --- |\\n| one<br>two |']];`);
+
   await check('json-diff', `
     set('#jdiff-a', '{"a":1,"b":2,"c":{"d":1}}'); set('#jdiff-b', '{"a":1,"b":3,"c":{"d":1,"e":2}}'); click('#jdiff-btn'); await wait(50);
     const out = text('#jdiff-results');

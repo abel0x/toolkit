@@ -271,7 +271,7 @@ function snapshot(fields) {
 
 async function inspectShare(bidi, context, baseUrl, issues, catalogue) {
   const sharing = catalogue.filter((tool) => tool.share);
-  assert.equal(sharing.length, 10, 'Expected ten tools with a share link.');
+  assert.equal(sharing.length, 12, 'Expected twelve tools with a share link.');
   for (const tool of sharing) {
     const { fields } = tool.share;
     const page = `${baseUrl}/tools/${tool.slug}.html`;
