@@ -2,6 +2,25 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.9.2] — 2026-11-15
+
+Fixes and speed-ups for the new tools, after measuring them with large inputs.
+
+### Fixed
+
+- **PDF Page Editor:** opening another PDF while page previews were being drawn left the old file's previews in memory and never previewed the new one. A preview run now stops as soon as another file is opened. A file that fails to open no longer replaces the bytes of the one on screen.
+- **Image Converter:** Safari on iPhone and iPad cannot draw canvases above about 16.7 megapixels and returns blank ones. Larger images are now tried at full size and, where the browser cannot draw them, worked on at the largest size it can, with a note saying so; an output that is too large is refused with the largest size that would work.
+- **PDF Merger and PDF Page Editor:** encrypted PDFs that open without a password but carry an owner password (common for statements and official documents) now get an explanation and a way out: print them to a new PDF first.
+
+### Changed
+
+- **PDF Page Editor:** page previews update one sheet at a time instead of redrawing the whole grid; 500 pages now take about half as long.
+- **JSONPath Tester, JSON Schema Generator, CSV / JSON to SQL and HTML to Markdown:** the parsed input is kept while queries, table names and options change, and inputs over 200 KB are processed after a pause in typing. With a 3.8 MB document a keystroke in the JSONPath query now blocks the page for about 1 ms instead of 73 ms; typing a table name over 50,000 CSV rows no longer re-reads them.
+
+### Tests
+
+- Known answers for opening a second PDF during previews, an owner-password PDF, a browser with a canvas limit (simulated), and large CSV input that waits for a pause.
+
 ## [1.9.1] — 2026-11-15
 
 Page previews in the PDF Page Editor, and up-to-date descriptions.
@@ -706,6 +725,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.9.2]: https://github.com/abel0x/toolkit/compare/v1.9.1...v1.9.2
 [1.9.1]: https://github.com/abel0x/toolkit/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/abel0x/toolkit/compare/v1.8.10...v1.9.0
 [1.8.10]: https://github.com/abel0x/toolkit/compare/v1.8.9...v1.8.10
