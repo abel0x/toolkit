@@ -2,7 +2,7 @@
 
 ## Overview
 
-Toolkit is a static, client-side application. Hashing, encoding, password generation, file analysis, conversion, and image work are performed in the visitor's browser with native Web APIs such as Web Crypto, FileReader, Canvas, and `Intl`. Toolkit has no application backend, user accounts, database, or endpoint that receives tool input.
+Toolkit is a static, client-side application. Hashing, encoding, password generation, file analysis, conversion, image and PDF work are performed in the visitor's browser with native Web APIs such as Web Crypto, FileReader, Canvas, and `Intl`. Toolkit has no application backend, user accounts, database, or endpoint that receives tool input.
 
 This design reduces the attack surface but does not remove it. Cross-site scripting, unsafe output rendering, incorrect cryptographic use, cache issues, and unintended client-side persistence are still possible, and reports about them are treated as security issues.
 

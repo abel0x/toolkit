@@ -1,0 +1,53 @@
+name: Audit self-hosted libraries
+
+# The libraries in assets/js/vendor/ are pinned copies, so nothing updates
+# them by itself. Once a month (and on demand) their versions, listed in
+# _data/vendor.json, are checked against the GitHub Advisory Database through
+# npm audit, which also covers the code they bundle. A finding fails the run,
+# and GitHub tells the maintainer; newer releases are only reported.
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Check pinned versions for advisories
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Write a package.json of the pinned versions
+        run: |
+          mkdir -p "$RUNNER_TEMP/vendor"
+          node -e "
+            const pinned = require('./_data/vendor.json');
+            delete pinned._comment;
+            require('fs').writeFileSync(process.argv[1], JSON.stringify({ name: 'vendor-audit', private: true, dependencies: pinned }, null, 2));
+          " "$RUNNER_TEMP/vendor/package.json"
+          cd "$RUNNER_TEMP/vendor" && npm install --package-lock-only --ignore-scripts --no-fund
+
+      - name: Report newer releases
+        working-directory: ${{ runner.temp }}/vendor
+        run: |
+          node -e "
+            const pinned = require('./package.json').dependencies;
+            const { execSync } = require('child_process');
+            for (const [name, version] of Object.entries(pinned)) {
+              const latest = execSync('npm view ' + name + ' version').toString().trim();
+              console.log(latest === version ? name + ' ' + version + ' is the latest release.' : '::notice::' + name + ' ' + latest + ' is out (pinned: ' + version + ').');
+            }
+          "
+
+      - name: Check against the GitHub Advisory Database
+        working-directory: ${{ runner.temp }}/vendor
+        run: npm audit --audit-level=low

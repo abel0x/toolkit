@@ -43,17 +43,25 @@
     return `UTC${sign}${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
   }
 
+  // Building an Intl formatter costs far more than using one, so each is made once.
+  const cache = new Map();
+  const formatter = (key, make) => {
+    if (!cache.has(key)) cache.set(key, make());
+    return cache.get(key);
+  };
+
   function abbreviation(zone, date) {
-    const part = new Intl.DateTimeFormat('en-US', { timeZone: zone, timeZoneName: 'short' }).formatToParts(date)
-      .find((item) => item.type === 'timeZoneName');
+    const part = formatter(`abbr|${zone}`, () => new Intl.DateTimeFormat('en-US', { timeZone: zone, timeZoneName: 'short' }))
+      .formatToParts(date).find((item) => item.type === 'timeZoneName');
     return part ? part.value : '';
   }
 
   function localTime(zone, date, withDate) {
-    return new Intl.DateTimeFormat(language() === 'tr' ? 'tr-TR' : 'en-GB', {
+    const locale = language() === 'tr' ? 'tr-TR' : 'en-GB';
+    return formatter(`time|${locale}|${zone}|${withDate}`, () => new Intl.DateTimeFormat(locale, {
       timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
       ...(withDate ? { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' } : { weekday: 'short' })
-    }).format(date);
+    })).format(date);
   }
 
   // Daylight saving: the zone's January and July offsets differ, and now
@@ -66,15 +74,17 @@
     return offsetMinutes(zone, date) === Math.max(january, july) ? 'on' : 'off';
   }
 
-  // The next offset change within a year: daily steps, then a binary search
-  // down to the minute.
+  // The next offset change within a year: weekly steps (no zone keeps a change
+  // for less than a week; Morocco's Ramadan break lasts about a month), then a
+  // binary search down to the minute.
+  const WEEK = 7 * DAY;
   function nextChange(zone, date) {
     const start = offsetMinutes(zone, date);
     let low = date.getTime();
     let high = null;
-    for (let step = 1; step <= 400; step += 1) {
-      const at = date.getTime() + step * DAY;
-      if (offsetMinutes(zone, new Date(at)) !== start) { high = at; low = at - DAY; break; }
+    for (let step = 1; step <= 58; step += 1) {
+      const at = date.getTime() + step * WEEK;
+      if (offsetMinutes(zone, new Date(at)) !== start) { high = at; low = at - WEEK; break; }
     }
     if (high === null) return null;
     while (high - low > 60000) {
@@ -95,19 +105,24 @@
     return new Date(instant);
   }
 
+  const names = new Map(); // language|code → name
   function countryName(code) {
+    const key = `${language()}|${code}`;
+    if (names.has(key)) return names.get(key);
+    let name = DATA[code].n;
     try {
-      const names = new Intl.DisplayNames([language()], { type: 'region' });
-      const name = names.of(code);
-      if (name && name !== code) return name;
+      const display = formatter(`region|${language()}`, () => new Intl.DisplayNames([language()], { type: 'region' })).of(code);
+      if (display && display !== code) name = display;
     } catch { /* older browsers */ }
-    return DATA[code].n;
+    names.set(key, name);
+    return name;
   }
 
   const flag = (code) => String.fromCodePoint(...[...code].map((letter) => 0x1f1a5 + letter.charCodeAt(0)));
 
   function fillCountries(selected) {
-    const codes = Object.keys(DATA).sort((a, b) => countryName(a).localeCompare(countryName(b), language()));
+    const compare = collator().compare;
+    const codes = Object.keys(DATA).sort((a, b) => compare(countryName(a), countryName(b)));
     countryEl.replaceChildren(...codes.map((code) => {
       const option = document.createElement('option');
       option.value = code;
@@ -124,7 +139,41 @@
     return td;
   }
 
-  function renderCountry() {
+  const idle = (callback) => (window.requestIdleCallback || ((fn) => setTimeout(fn, 1)))(callback);
+  const collator = () => formatter(`collator|${language()}`, () => new Intl.Collator(language()));
+
+  // Other countries whose zones are now at one of these offsets.
+  function renderSame(code, offsets, now, shared = Object.keys(DATA).filter((other) => other !== code
+    && DATA[other].z.some(([zone]) => offsets.has(offsetMinutes(zone, now))))) {
+    const label = [...offsets].sort((a, b) => a - b).map(formatOffset).join(', ');
+    sameEl.textContent = shared.length
+      ? `${label}: ${shared.map(countryName).sort(collator().compare).join(', ')}`
+      : `${label}: ${t('no other country right now.')}`;
+    sameEl.dataset.i18nSkip = '';
+  }
+
+  // Checking every zone in the world first builds a formatter for each, so it
+  // runs in small idle slices that never hold the page up; a newer run wins.
+  let sameRun = 0;
+  function sameLater(code, offsets, now) {
+    const run = ++sameRun;
+    const countries = Object.keys(DATA).filter((other) => other !== code);
+    const shared = [];
+    let index = 0;
+    const slice = () => {
+      if (run !== sameRun) return;
+      for (const end = Math.min(index + 40, countries.length); index < end; index += 1) {
+        const other = countries[index];
+        if (DATA[other].z.some(([zone]) => offsets.has(offsetMinutes(zone, now)))) shared.push(other);
+      }
+      if (index < countries.length) idle(slice); else renderSame(code, offsets, now, shared);
+    };
+    idle(slice);
+  }
+
+  // later: on page load and the minute refresh, the list of countries with the
+  // same offset (a check of every zone in the world) waits until the browser is idle.
+  function renderCountry(later = false) {
     const code = countryEl.value;
     const country = DATA[code];
     if (!country) return;
@@ -162,14 +211,7 @@
       ? t(`${countryName(code)} uses one time zone.`)
       : t(`${countryName(code)} uses ${count} time zones.`);
 
-    // Other countries whose zones are now at one of these offsets.
-    const shared = Object.keys(DATA).filter((other) => other !== code
-      && DATA[other].z.some(([zone]) => offsets.has(offsetMinutes(zone, now))));
-    const label = [...offsets].sort((a, b) => a - b).map(formatOffset).join(', ');
-    sameEl.textContent = shared.length
-      ? `${label}: ${shared.map(countryName).sort((a, b) => a.localeCompare(b, language())).join(', ')}`
-      : `${label}: ${t('no other country right now.')}`;
-    sameEl.dataset.i18nSkip = '';
+    if (later) sameLater(code, offsets, now); else { sameRun += 1; renderSame(code, offsets, now); }
     renderConversion();
   }
 
@@ -208,12 +250,12 @@
   const now = parts(fromEl.value, new Date());
   whenEl.value = `${now.year}-${String(now.month).padStart(2, '0')}-${String(now.day).padStart(2, '0')}T${String(now.hour).padStart(2, '0')}:${String(now.minute).padStart(2, '0')}`;
 
-  countryEl.addEventListener('change', renderCountry);
+  countryEl.addEventListener('change', () => renderCountry());
   [whenEl, fromEl].forEach((field) => field.addEventListener('input', renderConversion));
   fromEl.addEventListener('change', renderConversion);
   window.addEventListener('toolkit:languagechange', () => { fillCountries(countryEl.value); renderCountry(); });
   // The local times move on; refresh them each minute.
-  setInterval(renderCountry, 60000);
+  setInterval(() => renderCountry(true), 60000);
 
   /* ── Meeting planner ────────────────────────────────────────── */
 
@@ -292,7 +334,7 @@
   }
 
   function fillMeetZones() {
-    meetAddEl.replaceChildren(...[...fromEl.options].map((option) => new Option(option.value, option.value)));
+    meetAddEl.replaceChildren(...fromEl.cloneNode(true).children);
     meetAddEl.value = 'America/New_York';
   }
 
@@ -309,9 +351,10 @@
     renderMeeting();
   });
   window.addEventListener('toolkit:languagechange', renderMeeting);
-  renderMeeting();
+  // The planner sits low on the page; it is drawn once the browser is idle.
+  (window.requestIdleCallback || ((callback) => setTimeout(callback, 1)))(() => renderMeeting());
 
   // Exposed for the tests.
   window.ToolkitCountryZones = Object.freeze({ offsetMinutes, instantFor, nextChange, dst, formatOffset, meetingHours, bestRuns, meetZones });
-  renderCountry();
+  renderCountry(true);
 }());

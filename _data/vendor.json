@@ -1,0 +1,8 @@
+{
+  "_comment": "npm packages behind the files in assets/js/vendor/, at the versions pinned there. The monthly vendor audit checks them against the GitHub Advisory Database; update a version here whenever its file is replaced.",
+  "bcryptjs": "3.0.3",
+  "jsqr": "1.4.0",
+  "qrcode-generator": "2.0.4",
+  "pdf-lib": "1.17.1",
+  "pdfjs-dist": "6.5.438"
+}

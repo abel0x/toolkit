@@ -209,3 +209,19 @@
   .hub-grid { grid-template-columns: 1fr; }
   .hub-filter-track { gap: 1.2rem; }
 }
+
+/* ── New tools ─────────────────────────────────────────────── */
+.new-tools { padding: 0 0 1.75rem; }
+.new-tools__title { margin: 0 0 0.75rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.new-tools__list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.new-tools__link { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.8rem 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text-secondary); font-size: 0.86rem; text-decoration: none; transition: border-color var(--transition), color var(--transition); }
+.new-tools__link:hover, .new-tools__link:focus-visible { border-color: var(--text-muted); color: var(--text-primary); }
+.new-tools__icon { display: inline-flex; flex-shrink: 0; color: var(--text-muted); }
+.new-tools__icon svg { width: 15px; height: 15px; }
+
+@media (max-width: 640px) {
+  /* One scrolling line on phones, so the catalogue starts higher up. */
+  .new-tools__list { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.4rem; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.175) transparent; }
+  .new-tools__list > li { flex-shrink: 0; }
+  .new-tools__link { white-space: nowrap; }
+}

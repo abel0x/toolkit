@@ -542,9 +542,9 @@ await withFirefox(async (page) => {
     }
   }
   // Wide screens keep the preview column beside the controls.
+  // The loop above leaves Turkish stored, which would redirect the English page.
   await page.viewport(1280, 1000);
-  await page.navigate('/tools/qr-generator.html');
-  await wait(150);
+  await open('/tools/qr-generator.html');
   await scenario(page, states[1][1]);
   const wide = await layout();
   assert(wide.canvas.left >= wide.mode.right && wide.canvas.top <= wide.mode.top && wide.check.top >= wide.canvas.bottom

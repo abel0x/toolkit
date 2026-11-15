@@ -107,7 +107,7 @@ def _io_problems(io):
             problems.append(f'io output {selector} sits beside something that is not an #id')
     return problems
 _ID_SELECTOR = re.compile(r'#[A-Za-z][\w-]*')
-_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'meta', 'tags', 'related', 'share', 'io', 'icon', 'shell', 'exampleStarter'}
+_TOOL_KEYS = {'slug', 'name', 'cat', 'desc', 'meta', 'tags', 'related', 'share', 'io', 'icon', 'shell', 'exampleStarter', 'added'}
 _REGISTRY = None
 
 
@@ -148,6 +148,8 @@ def _registry():
             errors.append(f'{label}: shell must be "expansion" when present')
         if not entry.get('icon'):
             errors.append(f'{label}: missing icon')
+        if 'added' in entry and not re.fullmatch(r'\d+\.\d+\.\d+', str(entry['added'])):
+            errors.append(f'{label}: added must be the release that brought the tool, such as "1.11.0"')
         share = entry.get('share')
         if share is not None:
             fields = share.get('fields') if isinstance(share, dict) else None
@@ -476,9 +478,29 @@ def run_home_cards():
         block = ('          <!-- HUB-CARDS:START -->\n' + ''.join(_home_card(tool) for tool in missing)
                  + '          <!-- HUB-CARDS:END -->\n')
         html = html.replace(_HOME_NO_RESULTS, block + _HOME_NO_RESULTS, 1)
+    html = _with_new_tools(html, tools)
     if html != original:
         _write(path, html)
     print(f'  OK    {written} written and {len(missing)} generated home page cards.')
+
+
+# The home page names the newest tools (by the release in their "added" field)
+# between the NEW-TOOLS markers, so new pages are one link away from the start.
+_NEW_TOOLS_BLOCK = re.compile(r'(<!-- NEW-TOOLS:START -->\n).*?([ \t]*<!-- NEW-TOOLS:END -->)', re.DOTALL)
+_NEW_TOOLS_SHOWN = 8
+
+
+def _with_new_tools(html, tools):
+    if not _NEW_TOOLS_BLOCK.search(html):
+        raise SystemExit('index.html lost its NEW-TOOLS markers.')
+    release = lambda tool: tuple(int(part) for part in tool['added'].split('.'))
+    # Newest release first; within a release, catalogue order (sorted() is stable).
+    newest = sorted((tool for tool in tools if tool.get('added')), key=release, reverse=True)[:_NEW_TOOLS_SHOWN]
+    escape = html_lib.escape
+    items = ''.join(f'            <li><a class="new-tools__link" href="tools/{tool["slug"]}.html">'
+                    f'<span class="new-tools__icon" aria-hidden="true">{tool["icon"]}</span>{escape(tool["name"], quote=False)}</a></li>\n'
+                    for tool in newest)
+    return _NEW_TOOLS_BLOCK.sub(lambda match: match.group(1) + items + match.group(2), html, count=1)
 
 
 def _sitemap_pages():

@@ -404,6 +404,12 @@ assert.equal(
   'The pinned pdf-lib 1.17.1 distribution has changed unexpectedly.'
 );
 assert(existsSync(join(root, 'assets/js/vendor/pdfjs.LICENSE.txt')), 'The pdf.js licence is missing.');
+// The monthly vendor audit checks the versions in _data/vendor.json; they must be the documented ones.
+const vendorReadme = readFileSync(join(root, 'assets/js/vendor/README.md'), 'utf8');
+for (const [name, version] of Object.entries(JSON.parse(readFileSync(join(root, '_data/vendor.json'), 'utf8')))) {
+  if (name.startsWith('_')) continue;
+  assert(vendorReadme.includes(version), `assets/js/vendor/README.md does not mention ${name} ${version}, the version _data/vendor.json audits.`);
+}
 for (const [file, digest] of [['pdfjs.min.mjs', '3a88402882cfa3e7e72c2c9b5149f52f0f88baf1c5b62aa11a41abdbc2072440'], ['pdfjs.worker.min.mjs', '1e64c8240e54735ec5913b37acd5134747799cb8c6bb3777c70adbc01232d2aa']]) {
   assert.equal(createHash('sha256').update(readFileSync(join(root, 'assets/js/vendor', file))).digest('hex'), digest, `The pinned pdf.js 6.5.438 file ${file} has changed unexpectedly.`);
 }
@@ -616,6 +622,14 @@ for (const tool of catalogue) {
   assert(card, `${tool.slug}: home card is missing.`);
   assert.deepEqual([unescape(card[1]), unescape(card[2])], [tool.name, tool.desc], `${tool.slug}: home card must show the catalogue name and desc.`);
 }
+
+// The home page names the newest tools (the "added" field) in its NEW-TOOLS row.
+const newRow = homeHtml.match(/<!-- NEW-TOOLS:START -->([\s\S]*?)<!-- NEW-TOOLS:END -->/);
+assert(newRow, 'The home page lost its new tools row.');
+const newLinks = [...newRow[1].matchAll(/href="tools\/([a-z0-9-]+)\.html"/g)].map((match) => match[1]);
+const dated = catalogue.filter((tool) => tool.added);
+assert.equal(newLinks.length, Math.min(8, dated.length), 'The new tools row should name the eight newest tools.');
+for (const slug of newLinks) assert(dated.some((tool) => tool.slug === slug), `The new tools row links ${slug}, which has no "added" release.`);
 
 assert(existsSync(licensePage), 'Published license page is missing.');
 

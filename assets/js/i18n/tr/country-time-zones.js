@@ -8,7 +8,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
     "Remove": "Kaldır",
     "From": "Başlangıç",
     "video": "video",
-    "daily": "günlük",
+    "weekly": "haftalık",
     "Meeting planner": "Toplantı planlayıcı",
     "No hour of this day is within working hours everywhere.": "Bu günün hiçbir saati her yerde mesai saatine denk gelmiyor.",
     "Working hours everywhere:": "Her yerde mesai saati:",

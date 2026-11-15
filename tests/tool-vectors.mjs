@@ -1248,6 +1248,8 @@ await withFirefox(async (page) => {
     // 16 November 2026: Istanbul is UTC+3, London UTC+0, New York UTC-5.
     const two = api.bestRuns(api.meetingHours(['Europe/Istanbul', 'Europe/London'], 2026, 11, 16));
     const three = api.bestRuns(api.meetingHours(['Europe/Istanbul', 'Europe/London', 'America/New_York'], 2026, 11, 16));
+    // The planner is drawn when the page is idle; wait for it.
+    for (let i = 0; i < 100 && !document.querySelector('#ctzMeetZones .ctz-meet-chip'); i += 1) await wait(20);
     const start = document.querySelectorAll('#ctzMeetZones .ctz-meet-chip').length;
     set('#ctzMeetAdd', 'Asia/Tokyo', 'change'); click('#ctzMeetAddBtn'); await wait(20);
     const rows = document.querySelectorAll('#ctzMeetGrid tr').length;

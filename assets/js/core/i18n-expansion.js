@@ -1047,6 +1047,7 @@
       "Modified Text": "Değiştirilmiş Metin",
       "Text Diff Checker Tool": "Metin Farkı Denetleyici Aracı",
       "Diff result": "Fark sonucu",
+      "New in Toolkit": "Toolkit’te yeni",
       "Image format": "Görsel biçimi",
       "Images to PDF": "Görsellerden PDF’e",
       "Turn JPG, PNG and other images into one PDF, one image per page, in the order you choose.": "JPG, PNG ve diğer görselleri seçtiğiniz sırayla, her sayfaya bir görsel gelecek şekilde tek PDF’e dönüştürün.",
