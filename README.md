@@ -39,24 +39,26 @@ The [live site](https://abel0x.github.io/toolkit/) is the complete, searchable c
 | --- | ---: | --- |
 | Security | 16 | Passwords, SHA/HMAC, AES-GCM, RSA, JWT signing, TOTP, certificates, card numbers |
 | Encoding | 9 | Base64, Base32, URL, HTML, Hex, Binary |
-| Dev Tools | 36 | JSON, JSONPath, JSON Schema, CSV to SQL, TOML, .env, regex, cron, HTTP, ports, subnets |
-| Text Tools | 11 | Word count, typing speed, diff, Unicode, slug, find and replace |
-| Generators | 13 | UUID, QR, gradients, box shadows, border radius, flexbox, grid, fake data |
-| Converters | 11 | Timestamp, time zones by country, date duration, units, bytes |
+| Dev Tools | 13 | Regex, Markdown, text diff, minifiers, .env, cron, HTTP status, ports, subnets, chmod |
+| Data | 19 | JSON format/validate/diff, JSONPath, JSON Schema, YAML, CSV, XML, TOML, CSV to SQL, SQL format |
+| CSS & Color | 12 | Box shadows, border radius, flexbox, grid, gradients, palettes, contrast, clamp, units |
+| Text Tools | 11 | Word count, typing speed, sorting, Unicode, slug, find and replace |
+| Generators | 7 | UUID, QR, lorem ipsum, random numbers, names and colours, fake data |
+| Converters | 9 | Timestamp, time zones by country, date duration, bytes, number bases |
 | Web Utilities | 11 | URL, meta tags, CSP, cURL, HTTP headers, sitemap |
 | Media | 14 | Image conversion, metadata, compression, images to PDF and back, PDF merge and page editing, SVG, favicon |
 
-### Latest release — 1.11.1
+### Latest release — 1.11.2
+
+New **Data** and **CSS & Color** categories split up Dev Tools, which held 36 tools; the category tabs now come from the catalogue and always stay in view.
+
+### 1.11.1
 
 A "New in Toolkit" row on the home page lists the latest tools, Country Time Zones does about four times less work on load, and a monthly workflow audits the self-hosted libraries. Maintainer scripts now live in `_scripts/`, and the README has new screenshots.
 
 ### 1.11.0
 
 New **Images to PDF** and **PDF to Images**, a meeting planner in Country Time Zones, a VLSM planner, upserts in CSV / JSON to SQL, page numbers and watermarks in the PDF Page Editor, and Tailwind output in the CSS generators.
-
-### 1.10.0
-
-New abilities for the new tools: .env export to shell, Docker, Compose and Kubernetes; CIDR summarising; JWKS, kid and a decoder link in the JWT Signer; enums and ranges in the JSON Schema Generator; flexbox layouts and drawn grid areas.
 
 Earlier releases are described in the [changelog](CHANGELOG.md).
 

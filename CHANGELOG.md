@@ -2,6 +2,20 @@
 
 All notable changes to Toolkit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and releases follow [Semantic Versioning](https://semver.org/).
 
+## [1.11.2] — 2026-11-15
+
+Two new categories split up the crowded Dev Tools tab, ready for the next tools.
+
+### Changed
+
+- **Categories:** Dev Tools held 36 of the 121 tools. JSON, CSV, YAML, XML, TOML and SQL tools now have their own **Data** tab (19 tools), and the CSS and colour tools, from Box Shadow to Color Contrast and the CSS Unit Converter, a **CSS & Color** tab (12). Dev Tools keeps 13, Generators 7 and Converters 9. Tool addresses do not change; breadcrumbs, “All … tools” links and Turkish names follow the new categories.
+- **Home page:** the category tabs are generated from the catalogue's category table, and every card takes its category from it. On wider screens all tabs stay in view, wrapping onto a second line when they do not fit, instead of scrolling out of sight; on phones, a category opened from a link scrolls its tab into view.
+- **`_scripts/new_tool.py`** requires the `added` release, so every new tool appears in the “New in Toolkit” row, and takes the breadcrumb label from the category table.
+
+### Tests
+
+- The home page test checks that no category tab is cut off at 1024 px, that both languages fit on one line at full width, and that there is one tab per category.
+
 ## [1.11.1] — 2026-11-15
 
 A "New in Toolkit" row on the home page, a faster Country Time Zones page, and maintenance work.
@@ -788,6 +802,7 @@ Completes the maintenance pass begun in 1.2.1: 1.2.1 fixed what the build and de
 - A Service Worker for offline support, self-hosted fonts, locally vendored QR libraries, canonical and social metadata, responsive layouts, live search, category filters, a mega menu, and a PWA manifest.
 - The stdlib-only `build.py` helper, a shared navigation partial, and browser smoke-test coverage.
 
+[1.11.2]: https://github.com/abel0x/toolkit/compare/v1.11.1...v1.11.2
 [1.11.1]: https://github.com/abel0x/toolkit/compare/v1.11.0...v1.11.1
 [1.11.0]: https://github.com/abel0x/toolkit/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/abel0x/toolkit/compare/v1.9.2...v1.10.0
