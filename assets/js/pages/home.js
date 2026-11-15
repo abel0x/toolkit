@@ -106,7 +106,13 @@
   function selectCategoryFromHash() {
     const match = location.hash.match(/^#category-([a-z]+)$/);
     const button = match && [...filterBtns].find((btn) => btn.dataset.filter === match[1]);
-    if (button) button.click();
+    if (!button) return;
+    button.click();
+    // On phones the tabs scroll sideways: bring the chosen one into view.
+    const row = button.closest('.hub-filter');
+    if (row && row.scrollWidth > row.clientWidth) {
+      row.scrollLeft += button.getBoundingClientRect().left - row.getBoundingClientRect().left - 16;
+    }
   }
 
   window.addEventListener('hashchange', selectCategoryFromHash);

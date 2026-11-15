@@ -164,7 +164,7 @@ for (const tool of catalogue) {
   assert(tool.icon, `_data/tools.json gives ${tool.slug} no icon.`);
   assert(header.includes(tool.icon), `tools/${tool.slug}.html shows a different icon than _data/tools.json.`);
   assert.equal(header.match(/<h1\b/g)?.length, 1, `tools/${tool.slug}.html needs exactly one <h1> in its header.`);
-  assert(html.includes(`<a href="../index.html#category-${tool.cat}">${categories[tool.cat]}</a>`),
+  assert(html.includes(`<a href="../index.html#category-${tool.cat}">${categories[tool.cat].replace(/&/g, '&amp;')}</a>`),
     `tools/${tool.slug}.html does not link its category in the breadcrumb.`);
   assert(!/class="(?:section-tag|example-starter)\b/.test(html), `tools/${tool.slug}.html still has the old header parts.`);
   // Every tool uses the same 900px column, so the header never moves between tools.

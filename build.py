@@ -434,6 +434,10 @@ _HOME_CARD_TEXT = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-ca
                              r'[^<]*(</h3></div>\s*<p class="hub-card-desc">)[^<]*(</p>)', re.DOTALL)
 _HOME_CARDS_BLOCK = re.compile(r'[ \t]*<!-- HUB-CARDS:START -->.*?<!-- HUB-CARDS:END -->\n', re.DOTALL)
 _HOME_NO_RESULTS = '          <!-- No-results message -->\n'
+_HOME_CARD_CAT = re.compile(r'(<a href="tools/([a-z0-9-]+)\.html" class="hub-card" data-cat=")[a-z]+(")')
+# The category tabs follow the catalogue's category table; a few use a shorter name.
+_HOME_FILTERS = re.compile(r'(<div class="hub-filter-track">\n).*?(\n[ \t]*</div>)', re.DOTALL)
+_FILTER_LABELS = {'text': 'Text', 'web': 'Web'}
 
 
 def _home_card(tool):
@@ -467,6 +471,16 @@ def run_home_cards():
         return (match.group(1) + html_lib.escape(tool["name"], quote=False) + match.group(3)
                 + html_lib.escape(tool["desc"], quote=False) + match.group(4))
     html = _HOME_CARD_TEXT.sub(card_text, html)
+    # Hand-written cards take their category from the catalogue too.
+    html = _HOME_CARD_CAT.sub(lambda match: match.group(1) + by_slug[match.group(2)]['cat'] + match.group(3), html)
+    categories = json.loads(_read(os.path.join(ROOT, '_data', 'tools.json')))['categories']
+    indent = ' ' * 12
+    buttons = [f'{indent}<button class="hub-filter-btn active" data-filter="all" aria-pressed="true">All</button>']
+    buttons += [f'{indent}<button class="hub-filter-btn" data-filter="{key}" aria-pressed="false">'
+                f'{html_lib.escape(_FILTER_LABELS.get(key, label), quote=False)}</button>' for key, label in categories.items()]
+    html, found = _HOME_FILTERS.subn(lambda match: match.group(1) + '\n'.join(buttons) + match.group(2), html, count=1)
+    if not found:
+        raise SystemExit('index.html lost its category tabs (.hub-filter-track).')
     present = set(re.findall(r'<a href="tools/([a-z0-9-]+)\.html" class="hub-card"', html))
     # The same order home.js used: page tools, then expansion tools.
     ordered = ([tool for tool in tools if tool.get('shell') != 'expansion']
@@ -1421,6 +1435,7 @@ _RELATED_ICON = re.compile(r'width="20" height="20"')
 # "All … →" names each home-page category the way a sentence would.
 _CATEGORY_LINK_TEXT = {
     'security': 'All security tools', 'encoding': 'All encoding tools', 'devtools': 'All dev tools',
+    'data': 'All data tools', 'css': 'All CSS and color tools',
     'text': 'All text tools', 'generators': 'All generators', 'converters': 'All converters',
     'web': 'All web utilities', 'media': 'All media tools',
 }

@@ -3,6 +3,8 @@
     "security": "Security",
     "encoding": "Encoding",
     "devtools": "Dev Tools",
+    "data": "Data",
+    "css": "CSS & Color",
     "text": "Text Tools",
     "generators": "Generators",
     "converters": "Converters",
@@ -217,7 +219,7 @@
     {
       "slug": "json-formatter",
       "name": "JSON Formatter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Validate, beautify and minify JSON, choose the indent and browse it as a collapsible tree.",
       "meta": "Validate, beautify and minify JSON with clear error messages, a choice of indent and a collapsible tree view. 100% client-side.",
       "tags": ["json", "format", "beautify", "minify", "validate"],
@@ -229,7 +231,7 @@
     {
       "slug": "json-minifier",
       "name": "JSON Minifier",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Minify JSON to its smallest valid form — also JSON with comments, such as tsconfig.json.",
       "meta": "Minify JSON to its smallest valid form, including JSON with comments and trailing commas (JSONC), with optional ASCII escaping and the bytes saved.",
       "tags": ["json", "minify", "compress", "uglify", "optimize"],
@@ -240,7 +242,7 @@
     {
       "slug": "json-validator",
       "name": "JSON Validator",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Validate JSON syntax with line numbers, and check it against a JSON Schema.",
       "meta": "Validate JSON syntax with clear, line-numbered errors and check data against a JSON Schema (draft 2020-12 and 07) — locally in your browser.",
       "tags": ["json", "validate", "check", "lint", "syntax"],
@@ -252,7 +254,7 @@
     {
       "slug": "json-to-yaml",
       "name": "JSON to YAML Converter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert JSON objects to YAML format — clean, human-readable output.",
       "meta": "Convert JSON objects and arrays to clean, human-readable YAML format.",
       "tags": ["json", "yaml", "convert", "transform"],
@@ -263,7 +265,7 @@
     {
       "slug": "yaml-to-json",
       "name": "YAML to JSON Converter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert YAML to JSON — mappings, lists, multi-line text, anchors and merges.",
       "meta": "Convert YAML to JSON: nested mappings, lists, multi-line text, anchors, merges and several documents. 100% client-side.",
       "tags": ["yaml", "json", "convert", "parse"],
@@ -274,7 +276,7 @@
     {
       "slug": "json-to-csv",
       "name": "JSON to CSV Converter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert a JSON array of objects to a CSV table with column auto-detection.",
       "meta": "Convert a JSON array of objects to CSV. Column headers are auto-detected.",
       "tags": ["json", "csv", "convert", "table", "export"],
@@ -285,7 +287,7 @@
     {
       "slug": "csv-to-json",
       "name": "CSV to JSON Converter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert CSV to a JSON array of objects; comma, semicolon or tab delimiters are detected.",
       "meta": "Parse CSV with comma, semicolon, tab or pipe delimiters and convert it to a JSON array of objects, using the header row as keys.",
       "tags": ["csv", "json", "parse", "convert", "table"],
@@ -296,7 +298,7 @@
     {
       "slug": "json-diff",
       "name": "JSON Diff Tool",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Compare two JSON objects and highlight differences, additions and deletions.",
       "meta": "Compare two JSON objects and see exactly what changed.",
       "tags": ["json", "diff", "compare", "difference", "delta"],
@@ -308,7 +310,7 @@
     {
       "slug": "json-sorter",
       "name": "JSON Key Sorter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Sort JSON object keys alphabetically at every level, A→Z or Z→A.",
       "meta": "Sort JSON object keys alphabetically at every level for consistent, readable output.",
       "tags": ["json", "sort", "order", "alphabetical", "keys"],
@@ -354,7 +356,7 @@
     {
       "slug": "sql-formatter",
       "name": "SQL Formatter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Format SQL queries clause by clause, keeping strings and comments exactly as written.",
       "meta": "Format and beautify SQL queries: keywords upper-cased, one clause per line, indented subqueries, with strings and comments kept exactly.",
       "tags": ["sql", "format", "query", "database", "beautify"],
@@ -366,7 +368,7 @@
     {
       "slug": "xml-formatter",
       "name": "XML Formatter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Indent and format XML documents for better readability.",
       "meta": "Indent and pretty-print XML documents for easier reading.",
       "tags": ["xml", "format", "beautify", "indent", "markup"],
@@ -387,7 +389,7 @@
     {
       "slug": "css-minifier",
       "name": "CSS Minifier",
-      "cat": "devtools",
+      "cat": "css",
       "desc": "Minify CSS by removing comments and unneeded whitespace.",
       "meta": "Remove whitespace and comments from CSS to reduce file size.",
       "tags": ["css", "minify", "compress", "optimize", "stylesheet"],
@@ -441,7 +443,7 @@
     {
       "slug": "jsonpath-tester",
       "name": "JSONPath Tester",
-      "cat": "devtools",
+      "cat": "data",
       "added": "1.9.0",
       "desc": "Run JSONPath queries (RFC 9535) on your JSON and see the matching values and their paths as you type.",
       "meta": "Test JSONPath queries on JSON as you type: member names, wildcards, indexes, slices, recursive descent and filters with comparisons and the length(), count(), match(), search() and value() functions, as standardised in RFC 9535. See matching values, normalized paths or both. In your browser.",
@@ -453,7 +455,7 @@
     {
       "slug": "json-schema-generator",
       "name": "JSON Schema Generator",
-      "cat": "devtools",
+      "cat": "data",
       "added": "1.9.0",
       "desc": "Turn sample JSON into a JSON Schema: types, required properties, array items, nullable values and formats.",
       "meta": "Generate a JSON Schema (draft 2020-12 or draft-07) from sample JSON: types, nested objects, required properties, array items merged across elements, nullable values and formats such as date-time, email, uri and uuid. Combine several samples into one schema. In your browser.",
@@ -477,7 +479,7 @@
     {
       "slug": "csv-to-sql",
       "name": "CSV / JSON to SQL",
-      "cat": "devtools",
+      "cat": "data",
       "added": "1.9.0",
       "desc": "Turn CSV or JSON rows into INSERT statements and a CREATE TABLE for PostgreSQL, MySQL, SQLite or SQL Server.",
       "meta": "Convert CSV or JSON to SQL INSERT statements for PostgreSQL, MySQL, SQLite or SQL Server, with a CREATE TABLE whose column types are guessed from the data, batched inserts, NULLs for empty cells, an optional transaction and correct quoting for each database. In your browser.",
@@ -489,7 +491,7 @@
     {
       "slug": "toml-json-converter",
       "name": "TOML / JSON Converter",
-      "cat": "devtools",
+      "cat": "data",
       "added": "1.9.0",
       "desc": "Convert TOML to JSON and JSON to TOML, following TOML 1.0, with clear errors for invalid files.",
       "meta": "Convert TOML to JSON and back in your browser. Follows TOML 1.0 and passes its conformance tests: tables, arrays of tables, inline tables, dotted keys, multi-line strings, 64-bit integers and dates. Errors point to the line and column. Handy for Cargo.toml, pyproject.toml and config files.",
@@ -657,7 +659,7 @@
     {
       "slug": "gradient",
       "name": "Gradient Generator",
-      "cat": "generators",
+      "cat": "css",
       "desc": "Build beautiful CSS linear gradients with live preview and one-click copy.",
       "meta": "Build beautiful CSS linear gradients with live preview and one-click CSS copy. 100% client-side.",
       "tags": ["gradient", "css", "color", "background", "design"],
@@ -667,7 +669,7 @@
     {
       "slug": "color-palette",
       "name": "Color Palette Generator",
-      "cat": "generators",
+      "cat": "css",
       "desc": "Generate harmonious color palettes — complementary, triadic, analogous and more.",
       "meta": "Generate harmonious color palettes — complementary, triadic, analogous, tetradic.",
       "tags": ["color", "palette", "design", "scheme", "harmony"],
@@ -677,7 +679,7 @@
     {
       "slug": "box-shadow-generator",
       "name": "Box Shadow Generator",
-      "cat": "generators",
+      "cat": "css",
       "added": "1.9.0",
       "desc": "Design a CSS box-shadow with layers, inset and colour, see it live and copy the CSS.",
       "meta": "Create CSS box-shadow in your browser: several layers, offset, blur, spread, colour, opacity and inset, with presets for soft, layered, hard and glowing shadows. See it on a box you can colour and round, and copy the CSS.",
@@ -688,7 +690,7 @@
     {
       "slug": "border-radius-generator",
       "name": "Border Radius Generator",
-      "cat": "generators",
+      "cat": "css",
       "added": "1.9.0",
       "desc": "Round each corner in px or %, make elliptical corners and organic blobs, and copy the CSS.",
       "meta": "Create CSS border-radius in your browser: each corner in px or %, elliptical corners with separate horizontal and vertical radii, presets for pill, circle, leaf and drop shapes, and random organic blobs. Copies the shortest shorthand.",
@@ -699,7 +701,7 @@
     {
       "slug": "flexbox-playground",
       "name": "Flexbox Playground",
-      "cat": "generators",
+      "cat": "css",
       "added": "1.9.0",
       "desc": "Try every flexbox property on a live container, change single items, and copy the CSS.",
       "meta": "Learn and build CSS flexbox layouts in your browser: flex-direction, flex-wrap, justify-content, align-items, align-content and gap on a live container, plus flex-grow, flex-shrink, flex-basis, align-self and order for each item. Copies only the CSS that differs from the defaults.",
@@ -710,7 +712,7 @@
     {
       "slug": "css-grid-generator",
       "name": "CSS Grid Generator",
-      "cat": "generators",
+      "cat": "css",
       "added": "1.9.0",
       "desc": "Build a CSS grid with column and row templates, gaps and named areas, see it live and copy the CSS.",
       "meta": "Build CSS grid layouts in your browser: grid-template-columns and rows with fr, minmax(), repeat() and auto-fill, gaps, item alignment and named grid-template-areas checked for mistakes. Start from layouts like sidebar, responsive cards or header and footer, and copy the CSS.",
@@ -771,7 +773,7 @@
     {
       "slug": "color-converter",
       "name": "Color Converter",
-      "cat": "converters",
+      "cat": "css",
       "desc": "Convert any CSS colour between HEX, RGB, HSL, OKLCH and HWB, with alpha, a live swatch and a picker.",
       "meta": "Convert a CSS colour (hex, rgb(), hsl() or a name, with alpha) between HEX, RGB, HSL, OKLCH and HWB with a live preview swatch and picker. 100% client-side.",
       "tags": ["color", "hex", "rgb", "hsl", "convert"],
@@ -781,7 +783,7 @@
     {
       "slug": "unit-converter",
       "name": "CSS Unit Converter",
-      "cat": "converters",
+      "cat": "css",
       "desc": "Convert between CSS units — px, rem, em, pt, cm, mm, in, vw and vh.",
       "meta": "Convert between CSS units: px, rem, em, vw, vh, pt, pc, cm, mm, in.",
       "tags": ["px", "rem", "em", "css unit", "convert"],
@@ -1173,7 +1175,7 @@
     {
       "slug": "css-specificity",
       "name": "CSS Specificity Calculator",
-      "cat": "devtools",
+      "cat": "css",
       "desc": "Calculate CSS selector specificity with an inspectable A-B-C score.",
       "tags": ["css", "specificity", "selector", "frontend"],
       "related": ["css-minifier", "css-clamp", "color-contrast", "html-minifier"],
@@ -1186,7 +1188,7 @@
     {
       "slug": "css-clamp",
       "name": "CSS Clamp Calculator",
-      "cat": "devtools",
+      "cat": "css",
       "desc": "Generate a responsive CSS clamp() expression from size and viewport ranges.",
       "tags": ["css", "clamp", "responsive", "fluid typography"],
       "related": ["css-specificity", "unit-converter", "css-minifier", "aspect-ratio"],
@@ -1198,7 +1200,7 @@
     {
       "slug": "json-to-typescript",
       "name": "JSON to TypeScript",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Infer TypeScript interfaces from JSON without uploading data.",
       "tags": ["json", "typescript", "interface", "generate"],
       "related": ["json-formatter", "json-validator", "json-to-yaml", "xml-to-json"],
@@ -1211,7 +1213,7 @@
     {
       "slug": "json-to-markdown",
       "name": "JSON to Markdown Table",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert a JSON array of objects into a Markdown table.",
       "tags": ["json", "markdown", "table", "convert"],
       "related": ["markdown", "json-to-csv", "csv-viewer", "json-formatter"],
@@ -1223,7 +1225,7 @@
     {
       "slug": "xml-to-json",
       "name": "XML to JSON Converter",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Convert XML documents to a clear JSON representation in the browser.",
       "tags": ["xml", "json", "convert", "parser"],
       "related": ["xml-formatter", "json-formatter", "yaml-to-json", "json-to-yaml"],
@@ -1235,7 +1237,7 @@
     {
       "slug": "csv-viewer",
       "name": "CSV Viewer",
-      "cat": "devtools",
+      "cat": "data",
       "desc": "Preview CSV data as a searchable local table.",
       "tags": ["csv", "table", "viewer", "data"],
       "related": ["csv-to-json", "json-to-csv", "json-to-markdown", "fake-data"],
@@ -1305,7 +1307,7 @@
     {
       "slug": "color-contrast",
       "name": "Color Contrast Checker",
-      "cat": "devtools",
+      "cat": "css",
       "desc": "Check WCAG contrast ratios for foreground and background colors.",
       "tags": ["color", "contrast", "wcag", "accessibility"],
       "related": ["color-converter", "color-palette", "gradient", "css-specificity"],

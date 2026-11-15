@@ -6,6 +6,7 @@ window.TOOLKIT_I18N_EXTRA = Object.freeze({
   tr: Object.freeze(Object.assign({}, window.TOOLKIT_I18N_EXTRA && window.TOOLKIT_I18N_EXTRA.tr, {
     "Encoding": "Kodlama",
     "Dev Tools": "Geliştirici Araçları",
+    "CSS & Color": "CSS ve Renk",
     "Text Tools": "Metin Araçları",
     "Generators": "Oluşturucular",
     "Converters": "Dönüştürücüler",

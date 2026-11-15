@@ -648,7 +648,10 @@ async function assertConventionalCoreTools(bidi, context, baseUrl) {
 }
 
 async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
-  await bidi.call('browsingContext.setViewport', { context, viewport: { width: 1024, height: 900 }, devicePixelRatio: 1 });
+  // One tab per catalogue category plus "All". On desktop every tab stays in view:
+  // a row that does not fit wraps onto a second line instead of scrolling sideways,
+  // and at the full content width both languages fit on one line.
+  const categoryCount = Object.keys(JSON.parse(await readFile(join(root, '_data/tools.json'), 'utf8')).categories).length;
   const measure = `(async () => {
     for (let attempt = 0; attempt < 50 && !window.ToolkitI18n; attempt += 1) {
       await new Promise((resolve) => setTimeout(resolve, 20));
@@ -656,40 +659,34 @@ async function assertHomeCategoryFilterLayout(bidi, context, baseUrl) {
     const filter = document.querySelector('.hub-filter');
     const track = document.querySelector('.hub-filter-track');
     const buttons = [...document.querySelectorAll('.hub-filter-btn')];
-    const layout = () => {
-      const rows = new Set(buttons.map((button) => Math.round(button.offsetTop)));
-      const filterRect = filter.getBoundingClientRect();
-      const trackRect = track.getBoundingClientRect();
-      return {
-        singleRow: rows.size === 1,
-        // Tabs start at the left edge of the content column, under the search box.
-        aligned: Math.abs(trackRect.left - filterRect.left) <= 1
-      };
-    };
+    const filterRect = filter.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
     return {
-      noPageOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
       language: document.documentElement.lang,
-      layout: layout(),
-      hasAllCategories: buttons.length === 9
+      noPageOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+      rows: new Set(buttons.map((button) => Math.round(button.offsetTop))).size,
+      // Every tab inside the content column, none scrolled out of sight.
+      allVisible: filter.scrollWidth <= filter.clientWidth
+        && buttons.every((button) => button.getBoundingClientRect().right <= filterRect.right + 1),
+      // Tabs start at the left edge of the content column, under the search box.
+      aligned: Math.abs(trackRect.left - filterRect.left) <= 1,
+      tabs: buttons.length
     };
   })()`;
-  await navigateRaw(bidi, context, `${baseUrl}/`);
-  const englishPage = await evaluate(bidi, context, measure);
-  await navigateRaw(bidi, context, `${baseUrl}/tr/index.html`);
-  const turkishPage = await evaluate(bidi, context, measure);
-  const desktop = {
-    noPageOverflow: englishPage.noPageOverflow && turkishPage.noPageOverflow,
-    english: englishPage.layout,
-    turkish: turkishPage.layout,
-    hasAllCategories: englishPage.hasAllCategories && turkishPage.hasAllCategories
-  };
-  assert.deepEqual([englishPage.language, turkishPage.language], ['en', 'tr'], 'Homepage: wrong page language.');
-  assert.equal(desktop.noPageOverflow, true, 'Homepage: Turkish category filters cause page-level horizontal overflow.');
-  assert.equal(desktop.english.singleRow, true, 'Homepage: English category filters wrap onto multiple rows.');
-  assert.equal(desktop.english.aligned, true, 'Homepage: English category tabs are not left-aligned.');
-  assert.equal(desktop.turkish.singleRow, true, 'Homepage: Turkish category filters wrap onto multiple rows.');
-  assert.equal(desktop.turkish.aligned, true, 'Homepage: Turkish category tabs are not left-aligned.');
-  assert.equal(desktop.hasAllCategories, true, 'Homepage: a category filter is missing.');
+  for (const [width, maxRows] of [[1024, 2], [1280, 1]]) {
+    await bidi.call('browsingContext.setViewport', { context, viewport: { width, height: 900 }, devicePixelRatio: 1 });
+    for (const [path, language] of [['/', 'en'], ['/tr/index.html', 'tr']]) {
+      await navigateRaw(bidi, context, `${baseUrl}${path}`);
+      const page = await evaluate(bidi, context, measure);
+      const at = `Homepage ${language} at ${width}px`;
+      assert.equal(page.language, language, `${at}: wrong page language.`);
+      assert.equal(page.noPageOverflow, true, `${at}: the category tabs make the page scroll sideways.`);
+      assert.equal(page.allVisible, true, `${at}: a category tab is cut off or out of sight.`);
+      assert(page.rows <= maxRows, `${at}: the category tabs take ${page.rows} rows (at most ${maxRows}).`);
+      assert.equal(page.aligned, true, `${at}: the category tabs are not left-aligned.`);
+      assert.equal(page.tabs, categoryCount + 1, `${at}: ${page.tabs} category tabs, expected ${categoryCount + 1}.`);
+    }
+  }
 
   await bidi.call('browsingContext.setViewport', { context, viewport: { width: 390, height: 844 }, devicePixelRatio: 1 });
   const mobile = await evaluate(bidi, context, `(() => {

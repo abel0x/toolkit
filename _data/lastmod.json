@@ -1,7 +1,7 @@
 {
   "index.html": {
     "date": "2026-11-15",
-    "sha256": "5d9c32de84d39915c0f53069119e7c8be5de1c5b397738a211e60633ed25411a"
+    "sha256": "e2709633a2898cfaee7dc5f1139e03f30e3bcacb7fe1559f1692efee52eb96db"
   },
   "license/index.html": {
     "date": "2026-11-15",
@@ -45,11 +45,11 @@
   },
   "tools/border-radius-generator.html": {
     "date": "2026-11-15",
-    "sha256": "c960a47cc4b80a094849b75a6f37b81ece890736bc4f763a6bf5c20e8250a329"
+    "sha256": "07195c36feca44923457e688e617c1191f955f61a3114192c10943bfe4ae861c"
   },
   "tools/box-shadow-generator.html": {
     "date": "2026-11-15",
-    "sha256": "53c2262e8c2f608b7fb4fe8316333173bb06f806f5a8f0fdd3001718bf5a5160"
+    "sha256": "578543bcdd44cd25c843dd22b7b098458e7410a46613b5de56a1f5f64b96eee5"
   },
   "tools/bytes.html": {
     "date": "2026-11-15",
@@ -65,15 +65,15 @@
   },
   "tools/color-contrast.html": {
     "date": "2026-11-15",
-    "sha256": "ee43bf5a9e7d52ff45cade2080314d6920ca3b2cd71ea19a6b1def4bf4798052"
+    "sha256": "8036bf87a2971678b15289ac911e7eca1109392480c4eb90fe6854d4e9ddab28"
   },
   "tools/color-converter.html": {
     "date": "2026-11-15",
-    "sha256": "679dbd3f7239fb7a7cdc507f87f32bd2c5df20ffdeeb6a2be280a53efe9e9104"
+    "sha256": "8d8a217a9b547ec99d3652ba0bc4b70482fc2552ccc79019da2e055180c8e9d9"
   },
   "tools/color-palette.html": {
     "date": "2026-11-15",
-    "sha256": "e0c034623cd3cccfd386e7d42d578070b29ca3b8e0803dfd0150e436e4d443a3"
+    "sha256": "c97f3a1ed11bd9c903c29a41a0f30e0deb08c064df0b5b56555de57412f7c1c1"
   },
   "tools/country-time-zones.html": {
     "date": "2026-11-15",
@@ -93,31 +93,31 @@
   },
   "tools/css-clamp.html": {
     "date": "2026-11-15",
-    "sha256": "73523a7957ce2def7b83370413f85a96ced78600847248d10a483688c4a1a960"
+    "sha256": "b945d4ea8798f0c74d5d746462638ab331bf8ac53cdbbd4aee9249bf44cf1ce6"
   },
   "tools/css-grid-generator.html": {
     "date": "2026-11-15",
-    "sha256": "5236c8fef883d36c5c079d937cf9335bc386230392c0051a3652d0315c2ea5d5"
+    "sha256": "22c3b346573231e65e9ce63c87d4c316f34ffb6412065727a7b90a673657bc1b"
   },
   "tools/css-minifier.html": {
     "date": "2026-11-15",
-    "sha256": "b2802ad6f886a87424685107ab320a53821629651a5206b01164ba3ec0777d7c"
+    "sha256": "f6463d785eb912d82c43dc6be24889d534b6b1bc50aa87bbc98bf057bd9ddc28"
   },
   "tools/css-specificity.html": {
     "date": "2026-11-15",
-    "sha256": "2da436e822e3dead747b1902e80393a0a37156f1c75a299579fe2324f4526015"
+    "sha256": "bf399b881432322a3287ee497a45e4804e26d29d463e8c4cf8a8c064c91c6f9c"
   },
   "tools/csv-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "15c9132f1c063bedde82b85bb304be3eb45fb1311a6651247980d7d7278704bd"
+    "sha256": "14d3e330a2c6f72e39dadec3bf5ac7c0fbd7993c3ac1e74c582acdd6f5535c56"
   },
   "tools/csv-to-sql.html": {
     "date": "2026-11-15",
-    "sha256": "da5a837452a9ffca8348e5744a73ef22d2ab549d92dde78b9b2d33d836289a7f"
+    "sha256": "1e21cdb4730cb71f7f84834777dad61b1ecd38bf9d49f53fc8efe169bccd815b"
   },
   "tools/csv-viewer.html": {
     "date": "2026-11-15",
-    "sha256": "325ea13fc2fdb894f3b5f736fa6de8071090c868cdc11601173b024470f58537"
+    "sha256": "a122abbdf3a3fa982fc2ad1b2c855c2a61a7d09bf4d1587fb38f33d2fa007a3c"
   },
   "tools/curl-builder.html": {
     "date": "2026-11-15",
@@ -153,11 +153,11 @@
   },
   "tools/flexbox-playground.html": {
     "date": "2026-11-15",
-    "sha256": "410f09b3d5eda99195e4e0af946a9b6c6a56a3ba15877a2ade090424dee6b984"
+    "sha256": "cb3ed1fc793fc0dd4d36bb5ff9e6950dc05ab1cf27cf61992b4825040517943c"
   },
   "tools/gradient.html": {
     "date": "2026-11-15",
-    "sha256": "5fa5f73c4849f5ab1c10d8ba9571b9670a7ea7aad32506d8a918b744aa55fcfe"
+    "sha256": "5533469b37cfc8c4c5ac8544f27c6e7624bff0d88376eda6590fd42b0afba715"
   },
   "tools/hash.html": {
     "date": "2026-11-15",
@@ -221,47 +221,47 @@
   },
   "tools/json-diff.html": {
     "date": "2026-11-15",
-    "sha256": "fcebe52b1fe948e9812c923bad6aa2ac124b2fd471764aab6107fc2a66e0f0ce"
+    "sha256": "981d713384c4c4ed0c48fe4beb197f3dc26ee9cb4a43717e20b38bcccd137462"
   },
   "tools/json-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "c0a9be62a317b006b30e4c36bcce268a9f0563ffa0cc88111937b64f73add7c4"
+    "sha256": "d79934e429b90ebf5b09b6b4a5e8194440a8aea63592599244d98ba1e9eff0b5"
   },
   "tools/json-minifier.html": {
     "date": "2026-11-15",
-    "sha256": "21ebe81a7af518bd74b36c857e52cba77524f2a80f06a514fc866d81e774b071"
+    "sha256": "33a5effd7b158d88c19a9344a5e479d056816f76691579c8b21478e51dfc0ce3"
   },
   "tools/json-schema-generator.html": {
     "date": "2026-11-15",
-    "sha256": "be9f86224ca7ebfaf35bceab92d9b52aed00c4bfdc869dfe784f111cdc4647ce"
+    "sha256": "43209a95f77cb6d9dd1b9c530fbbd4e74061d60a5a2689ab154d1a9a470de437"
   },
   "tools/json-sorter.html": {
     "date": "2026-11-15",
-    "sha256": "e8cdae4fe51517a27b92d753afcca3449722fbb4e58248b493976619b3cfccf9"
+    "sha256": "52ec91ba9f0f4579536fefdb7b0e95bf5c052872c1c3e56af7173efa9dc45248"
   },
   "tools/json-to-csv.html": {
     "date": "2026-11-15",
-    "sha256": "b52aa0d2ab4a24a0262ab9596e98376530c4ddeae053a641bfd588b639aa5a3a"
+    "sha256": "92d19b8e864311ee81249f80aa1d7c2bb194af09db693c8737c0ff89a89cde9e"
   },
   "tools/json-to-markdown.html": {
     "date": "2026-11-15",
-    "sha256": "2437cbc3f991417a2c85975900199da21d23eb61482da7a4b09b951a913c4394"
+    "sha256": "c1fb1f7d3bf3d84eab0d507eb1c0dc6083446d0d5fbadaf92c016a63ca37db62"
   },
   "tools/json-to-typescript.html": {
     "date": "2026-11-15",
-    "sha256": "0ff41a49a3a8df9b998a4609b09b2595221964decb80fd431b020ce41f59265f"
+    "sha256": "4f39279ddebebb071a68fa5c16dc16a1aa9b0fab3d5c0d9d7964d3d56ffd309d"
   },
   "tools/json-to-yaml.html": {
     "date": "2026-11-15",
-    "sha256": "862be7ec9b93fee8fa2c33d9a2d5ba209dc1a37e9df81f20272ec6e403c3b5be"
+    "sha256": "8cc3c005fee41d05330c39bfc0b45393734de4575d993030fe550f6ad49a4cfa"
   },
   "tools/json-validator.html": {
     "date": "2026-11-15",
-    "sha256": "05de301c2984b36e9d847b36365e6ff69eef4208ef0cd1981dcdd569bd22ef15"
+    "sha256": "bf4cf8593b4741196e371adbed434c749d61252c9c4b160799370d1f43802f43"
   },
   "tools/jsonpath-tester.html": {
     "date": "2026-11-15",
-    "sha256": "36aecb59a87134530f9484a72edbcf900af207a9f76e3b00abbb98ad74c6abd9"
+    "sha256": "d8daabf4075b21e8dee947322e8c0294bbeb875a3a4fd3267d8841c3a43df5bc"
   },
   "tools/jwt-decoder.html": {
     "date": "2026-11-15",
@@ -393,7 +393,7 @@
   },
   "tools/sql-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "6a8ea35cdead4f0e343f016303668c7ce644a0a00ca070b6774ba2716cc73fb5"
+    "sha256": "c1cb8e36ce619a6f608fd02c4497123fdbf601fa01db11f12e66aebc367eeb5c"
   },
   "tools/subnet-calculator.html": {
     "date": "2026-11-15",
@@ -433,7 +433,7 @@
   },
   "tools/toml-json-converter.html": {
     "date": "2026-11-15",
-    "sha256": "a206e01c6d74d5077322cd8dc57e42fd9e017d5731b434ddfd1bb907c0110271"
+    "sha256": "dea7fa430a0f02ba3c71f5971956707ba317ac9883e038662e4d617e990104a0"
   },
   "tools/totp.html": {
     "date": "2026-11-15",
@@ -449,7 +449,7 @@
   },
   "tools/unit-converter.html": {
     "date": "2026-11-15",
-    "sha256": "9792fe55cfe5c6c54a7656f42a71ea1977571e35700cdad8fb788c7112e9d04e"
+    "sha256": "f2aa814a07cc3831d9ce9227265a2e88f5f63a35944199929103de3586f1fe0c"
   },
   "tools/unix-permissions.html": {
     "date": "2026-11-15",
@@ -485,19 +485,19 @@
   },
   "tools/xml-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "c4612aafa8c1a5acb667e0dcd2e4a2a59ba42bbcd263b9865187ea927bf24f20"
+    "sha256": "9fbc006def067a9da14674e94c1f56c680ea2524b4e8ae2e75d4ab667969c729"
   },
   "tools/xml-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "42c16ce02e1434a53afcc2db931c6ff4aa4bcdb5e34834463ee4366741b07fc0"
+    "sha256": "a002248b01005924fafcd1e37be8ee592ade78d7eef303236dc92a768ece6a65"
   },
   "tools/yaml-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "22af747447655460f730273c90b1d8b2ded9f2f1ab31af2fce68bb9622353008"
+    "sha256": "cc7b88063c0838a8fa76d92ed6a89cc23771283db4115cf6ad5be90231e23c7c"
   },
   "tr/index.html": {
     "date": "2026-11-15",
-    "sha256": "d44be7574831c2c70532322eae30edba3df80b6c313ab605d79d66fc04f0d6ba"
+    "sha256": "5639395d2604bc401d4e7a43c8d27bc362d19cd95beafff2b8466507931ee3fc"
   },
   "tr/license/index.html": {
     "date": "2026-11-15",
@@ -541,11 +541,11 @@
   },
   "tr/tools/border-radius-generator.html": {
     "date": "2026-11-15",
-    "sha256": "5dad1bc22f70c6032bcbef09eff212e655b0f53a11b15bf85845a8e05805bfb4"
+    "sha256": "c3d68cf95a02ec4f560a60e38f67ed9afca1d5c1e6723277ae24dde97d51d3eb"
   },
   "tr/tools/box-shadow-generator.html": {
     "date": "2026-11-15",
-    "sha256": "93648df5f50029987af377c8db4f4ca67748011ef315a58cac1edb0b8a58eb42"
+    "sha256": "e1b9f2220ea6a7fc41719ed9a30a4aa10e9fd5a5b92822089304d55714085a44"
   },
   "tr/tools/bytes.html": {
     "date": "2026-11-15",
@@ -561,15 +561,15 @@
   },
   "tr/tools/color-contrast.html": {
     "date": "2026-11-15",
-    "sha256": "9ae6bd17cc0cd9d7a3452a193f25dec8b4120c35b33cafcd8f6f7d434c8b14a5"
+    "sha256": "d5370a6f2771afb56b599b6cfd9419f6925789d1b5a5435fda4ae78f41a19148"
   },
   "tr/tools/color-converter.html": {
     "date": "2026-11-15",
-    "sha256": "50f644cf4948208d9fce02267e6879115b68ce4612fa1d801e06b47a9532fdbf"
+    "sha256": "704a219723894c757bedfdcd24ec683eb516e62d84de7d01b8d2c89e6f4ccbc2"
   },
   "tr/tools/color-palette.html": {
     "date": "2026-11-15",
-    "sha256": "1c5bdf6c7630b4aa9c3a5fb618335c7d4b2bcd405bf4e59176ca38043ba422db"
+    "sha256": "3cc78d0f05869db8df6d8ab82c3517cb0c8eb44a371da15b71272833101f90ca"
   },
   "tr/tools/country-time-zones.html": {
     "date": "2026-11-15",
@@ -589,31 +589,31 @@
   },
   "tr/tools/css-clamp.html": {
     "date": "2026-11-15",
-    "sha256": "d4d571c37f2855e9311387c1b8ba134fb80c79286191837ca620afd4c72406c4"
+    "sha256": "50bab29a81716f869f1168fe9b0346df4a7f814fa45d18ec090676517b317c30"
   },
   "tr/tools/css-grid-generator.html": {
     "date": "2026-11-15",
-    "sha256": "f9cf8718b3868047da58dc4657ddce4d0df76cceec4db5b5b18f9ee067b4f0f2"
+    "sha256": "0bbc6a44ba40f363a678a869b1a8a81ad2b4a88ea3b94d30a0c914150542d649"
   },
   "tr/tools/css-minifier.html": {
     "date": "2026-11-15",
-    "sha256": "c8e32fe37396c08499c1d11bbbfc9350cfc7a5fd13d9c79a0efb232511cbb813"
+    "sha256": "8ce824499c87a514f43864018ca92006446a26e8fa3773f6c3edac9b40654121"
   },
   "tr/tools/css-specificity.html": {
     "date": "2026-11-15",
-    "sha256": "859b0e81f862d9306b752421945bdbaeb8bc5b8a5e498681696449f07c4e82bf"
+    "sha256": "6a4fecfee178cf8c67d150c44a935b410690e3ec295503244595c38dafe1d454"
   },
   "tr/tools/csv-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "27fed19836aef0a9684a8f0488238dd185cb7ea9f18dbe68f3f9ab5af9a9e9f5"
+    "sha256": "609a13ffed3da50eaef6595162db823808ad3b59e691ad92e775841ca4c4fd2c"
   },
   "tr/tools/csv-to-sql.html": {
     "date": "2026-11-15",
-    "sha256": "442152feef8568ade007152f3630c86de11cac96e793c0ca1593ad3cdc39a0c0"
+    "sha256": "881681f0d8035ee738167cb58ffb8362bd8a36ee4ec7fa368c029430cc84fd74"
   },
   "tr/tools/csv-viewer.html": {
     "date": "2026-11-15",
-    "sha256": "60ef5050f9f5c384af3767430c539be484b73909e67cd1c3611bfa79e486b3e1"
+    "sha256": "a9a8c3aa5bfee38fde7832b48fce52c3dcffcd229797a9539108305b691f99cd"
   },
   "tr/tools/curl-builder.html": {
     "date": "2026-11-15",
@@ -649,11 +649,11 @@
   },
   "tr/tools/flexbox-playground.html": {
     "date": "2026-11-15",
-    "sha256": "3fd171b44c234b873724ab3ee4f29c78133a71112c55dc7bd4a1ba1be56847bf"
+    "sha256": "b4f90ebcce72c79c5e44ac6839d2b0e4518dcda48c2a71648391d8b856b884ed"
   },
   "tr/tools/gradient.html": {
     "date": "2026-11-15",
-    "sha256": "5affc6b246fa2914f362beb1a0db61a057d2500ec47e9730baf23b4e9919e314"
+    "sha256": "e1455a43e4d95634dae19465338ecacd5df699f3030737529f7a33dfa11d1156"
   },
   "tr/tools/hash.html": {
     "date": "2026-11-15",
@@ -717,47 +717,47 @@
   },
   "tr/tools/json-diff.html": {
     "date": "2026-11-15",
-    "sha256": "120d70e7ee6570b2a23b2c59f565d0671aec7a10f94d94f1a159ab2a37da81ea"
+    "sha256": "23b288f3bf4d6d6edfe02cf47dec8c21eb618d680154a0a30e0b6cef11aedf44"
   },
   "tr/tools/json-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "8f28d99b928eba7dfee28016148a5c3299fcc8735c59942cf0ccef2b03f3d150"
+    "sha256": "db0711006fbd3d8014362a929749ba7238c9b6f08975cabb601c1193f37c1d3a"
   },
   "tr/tools/json-minifier.html": {
     "date": "2026-11-15",
-    "sha256": "aa1b466d5a591e98ed12e4b3471e44de1a8a0a01b70ac5d138a10b9a0bd0649d"
+    "sha256": "3ec1ddfdf2cf304a03c315b621368eda01cdaa6112d50e7980218aef9018dc17"
   },
   "tr/tools/json-schema-generator.html": {
     "date": "2026-11-15",
-    "sha256": "608464de52951b05c00a3c550c296a18be06ffb32970bceed293e4546483fdd0"
+    "sha256": "a323e3d789f52e19e591d6b1f499ae5c2f3c7f48e28e44f449475bca0cb7f616"
   },
   "tr/tools/json-sorter.html": {
     "date": "2026-11-15",
-    "sha256": "94be367707663725e60661b1999d0e4124171ad7de590a6d12ed5c7f61f3d69f"
+    "sha256": "0c4b8a1a27531cfea3c3650d59b7cec5c430acb566831e053d72d6cd2d2ad750"
   },
   "tr/tools/json-to-csv.html": {
     "date": "2026-11-15",
-    "sha256": "4cc7b58318135b36d958ac7bfbe127b1632375182a41aac3dde4a97934de4edc"
+    "sha256": "97a4640c27a8b3630c68b34b4a9ce99b666b705b0803273ef7d4fd035214a215"
   },
   "tr/tools/json-to-markdown.html": {
     "date": "2026-11-15",
-    "sha256": "77f3f8600dc2acd4ea5d43af29491e8556d5e1197ee6b62b1ddc15ca3a846077"
+    "sha256": "a70f24232dda1042e468ecaebcc00d276773dcb51fb7c701e57f01da10fec474"
   },
   "tr/tools/json-to-typescript.html": {
     "date": "2026-11-15",
-    "sha256": "6153e4f98681293b8991781dac6b80e1c3baaf7a1eca5456683184efaa6181da"
+    "sha256": "18b62ea986f1e3b623ff8021512a969b4c3775b3ad94afc70b73e5da399dfa51"
   },
   "tr/tools/json-to-yaml.html": {
     "date": "2026-11-15",
-    "sha256": "88c77d5821756c807bab189fbcb061dbd3b044ba1d4570d32c3f5254c3b78388"
+    "sha256": "7e3fa305a0903eb1272e27c21e4ada4775752d418b2ef6eb3cf9ce0373f4c688"
   },
   "tr/tools/json-validator.html": {
     "date": "2026-11-15",
-    "sha256": "594ecad2138269fe9482ade760171eedbcab4ef27406a6a607af93218b7e7521"
+    "sha256": "67a8d522fd3b2ae6ed85274b599f2408f3c4cb88184b2b5db53d1063f54e1f7c"
   },
   "tr/tools/jsonpath-tester.html": {
     "date": "2026-11-15",
-    "sha256": "f0046eb22457b0c366c47224945ff269a4d79b27ef2274aeebe4fa014cf70f5a"
+    "sha256": "345e28b0a2d8b095b466ffd5f8da7f098f1ce7ab530c8f023f62145998bd43fe"
   },
   "tr/tools/jwt-decoder.html": {
     "date": "2026-11-15",
@@ -889,7 +889,7 @@
   },
   "tr/tools/sql-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "3190736473265b91971bbc26a8862ed088a4a87a798b879741def6737396fd65"
+    "sha256": "aa74b7deca0318b4ffb066aef5213e972f4f7a2adc710a315765fca467c62d96"
   },
   "tr/tools/subnet-calculator.html": {
     "date": "2026-11-15",
@@ -929,7 +929,7 @@
   },
   "tr/tools/toml-json-converter.html": {
     "date": "2026-11-15",
-    "sha256": "a778ac9bf29dc970e55a3bd7153cf276156a4dc24cb46d026b168d86ac98770e"
+    "sha256": "8061e34211b44cf6e357a21fc7686c757508778f32f33f1dfd360a5683b4ec9a"
   },
   "tr/tools/totp.html": {
     "date": "2026-11-15",
@@ -945,7 +945,7 @@
   },
   "tr/tools/unit-converter.html": {
     "date": "2026-11-15",
-    "sha256": "3756aef3465828856d8cc047475f13035e418b106ffd2778a8e2e5b5c1bf24f1"
+    "sha256": "de3cd64551e24d364b2d7bc37978d62646a6262604fe34dbf8fb8eb7cc7b20a8"
   },
   "tr/tools/unix-permissions.html": {
     "date": "2026-11-15",
@@ -981,14 +981,14 @@
   },
   "tr/tools/xml-formatter.html": {
     "date": "2026-11-15",
-    "sha256": "d76df7e1276782829111e7cc3c1b652a2102bbb73e02e7c3ddf682f41aa94555"
+    "sha256": "b462471d50070cbd2b9430f18de7dc1c3085c52a22e504d216037febecf253d7"
   },
   "tr/tools/xml-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "8f8f278eeefa834e2d8cc01f76e903155e66fcc25a156e497c5a19eefc48fd2d"
+    "sha256": "ae8494e28913b957c9001d085239dce81f1aa1a8e841c4f04591956c7c247266"
   },
   "tr/tools/yaml-to-json.html": {
     "date": "2026-11-15",
-    "sha256": "79497c2c45d8d545a903fa34bfe015ba008107dbcb0e58168834eaa37cea1a87"
+    "sha256": "222d26230f2d57278eb9f07eef3c5892ec9f7accbef46622bc398a1587ffb3bb"
   }
 }

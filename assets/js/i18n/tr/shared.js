@@ -58,6 +58,7 @@
     "open": "aç",
     "close": "kapat",
     "Security": "Güvenlik",
+    "Data": "Veri",
     "Input": "Girdi",
     "Output": "Çıktı",
     "Result": "Sonuç",

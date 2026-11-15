@@ -7,7 +7,8 @@ name, description and search metadata.
 spec.json:
     {
       "entry":   { ...the _data/tools.json entry: slug, name, cat, desc, meta,
-                   tags, related, icon, and optionally io and share... },
+                   tags, related, icon, added (the release, e.g. "1.12.0"),
+                   and optionally io and share... },
       "before":  "slug of the conventional tool to insert before",
       "body":    "body.html (the tool's card markup, relative to spec.json)",
       "scripts": ["vendor/pdf-lib.min.js"],   (optional, loaded before the tool's script)
@@ -19,6 +20,7 @@ tools.json, so "before" must name a conventional tool. Afterwards write
 assets/js/tools/<slug>.js and its CSS, add the page's strings with
 add_translations.py, and run python3 build.py --all.
 """
+import html
 import json
 import os
 import re
@@ -62,12 +64,11 @@ def insert_entry(entry, before):
 
 
 def category_label(cat):
-    """The breadcrumb label another tool of the same category uses."""
-    for name in sorted(os.listdir(os.path.join(ROOT, 'tools'))):
-        match = re.search(rf'index\.html#category-{re.escape(cat)}">([^<]+)</a>', read(os.path.join(ROOT, 'tools', name)))
-        if match:
-            return match.group(1)
-    raise SystemExit(f'No published tool in category "{cat}" to take the breadcrumb label from.')
+    """The breadcrumb label: the category's name in the catalogue's table."""
+    categories = json.loads(read(os.path.join(ROOT, '_data', 'tools.json')))['categories']
+    if cat not in categories:
+        raise SystemExit(f'"{cat}" is not a category in _data/tools.json ({", ".join(categories)}).')
+    return html.escape(categories[cat], quote=False)
 
 
 def heading_id(slug):
@@ -116,6 +117,9 @@ def main():
     spec_path = os.path.abspath(sys.argv[1])
     spec = json.loads(read(spec_path))
     entry = spec['entry']
+    # The home page's "New in Toolkit" row lists tools by the release that added them.
+    if not re.fullmatch(r'\d+\.\d+\.\d+', str(entry.get('added', ''))):
+        raise SystemExit('The entry needs "added": the release that will ship it, such as "1.12.0".')
     body = read(os.path.join(os.path.dirname(spec_path), spec['body']))
     insert_entry(entry, spec['before'])
     write_page(entry, body, spec.get('scripts', []))

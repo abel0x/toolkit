@@ -129,6 +129,14 @@
 
 .hub-filter-btn.active .hub-filter-count { color: var(--text-secondary); }
 
+/* Wider screens show every tab: they wrap to a second line rather than scroll
+   out of sight, since a mouse cannot easily scroll a row sideways. */
+@media (min-width: 641px) {
+  .hub-filter { overflow-x: visible; }
+  .hub-filter-track { flex-wrap: wrap; gap: 0 0.9rem; width: auto; }
+  .hub-filter-btn { font-size: 0.86rem; }
+}
+
 /* Tool card grid */
 .hub-grid {
   display: grid;
